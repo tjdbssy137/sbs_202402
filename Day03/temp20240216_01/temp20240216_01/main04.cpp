@@ -6,7 +6,7 @@ void main() {
     // 곱하기 빼기 더하기 나누기 + 나머짓값
 
     int num1 = 10;
-    int num2 = 5;
+    int num2 = 4;
     int resultSum = num1 + num2;
     int resultSubtract = num1 - num2;
     int resultMultiply = num1 * num2;
@@ -17,7 +17,7 @@ void main() {
     printf("resultSubtract = %d\n", resultSubtract);
     printf("resultMultiply = %d\n", resultMultiply);
     printf("resultDivide = %d\n", resultDivide);
-    printf("resultRemain = %d\n", resultRemain);
+    printf("num1 %% num2 = %d\n", resultRemain);
 
     // 변수명 규칙 (무조건 암기) (거의 비슷)
     // 영어로 시작
