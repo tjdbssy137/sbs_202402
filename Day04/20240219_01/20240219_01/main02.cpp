@@ -27,16 +27,17 @@ void main() {
 
 	printf("num1[%d] > num2[%d] : %d\n", num1, num2, num1 > num2);
 	printf("num1[%d] < num2[%d] : %d\n", num1, num2, num1 < num2);
-
+	
+	// 비교연산자 (결과는 항상 0과 1로 나온다)
 	// A > B : A가 B보다 크다
 	// A < B : A가 B보다 작다
 	// A >= B : A가 B보다 크거나 같다
 	// A <= B : A가 B보다 작거나 같다
 	// A != B : A가 B과 같지 않다
 	// A == B : A가 B과 같다
-
 	// A && B : A와 B => A와 B 둘 다 참일 때만 참을 반환
 	// A || B : A 또는 B => A와 B 중에 하나만 참이어도 참을 반환
+
 
 	// if문 => 만약 ~~라면
 	// else if문 => 그렇지 않고 ~~면
