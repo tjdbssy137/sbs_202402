@@ -72,7 +72,7 @@ void BattleMonster()
 	{
 		_attckRandom = rand() % _attack + _upgradeAttck;
 		cout << "몬스터를 " << _attckRandom << "만큼 가격했습니다.." << endl;
-		_monsterHp -= rand() % _attack + _upgradeAttck;
+		_monsterHp -= _attckRandom;
 		if (_monsterHp < 0) {
 			cout << "몬스터를 처치했습니다." << endl;
 			cout << "보상 : 10HP 치유, 공격력 1 증가... 당신의 HP : " << _hp + 10 << endl;
