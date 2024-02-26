@@ -1,0 +1,3 @@
+﻿  main01.cpp
+C:\Users\NewITest\Documents\GitHub\sbs_202402\sbs_202402\Day06\20250226_01\20250226_01\main01.cpp(5,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+  20250226_01.vcxproj -> C:\Users\NewITest\Documents\GitHub\sbs_202402\sbs_202402\Day06\20250226_01\x64\Debug\20250226_01.exe
