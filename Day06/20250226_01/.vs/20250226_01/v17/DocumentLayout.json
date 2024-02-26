@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{036FDCA8-2287-4C4A-A7B7-80601A2C7923}|20250226_01\\20250226_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\20250226_01\\main06.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{036FDCA8-2287-4C4A-A7B7-80601A2C7923}|20250226_01\\20250226_01.vcxproj|solutionrelative:20250226_01\\main06.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{036FDCA8-2287-4C4A-A7B7-80601A2C7923}|20250226_01\\20250226_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\20250226_01\\main05.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{036FDCA8-2287-4C4A-A7B7-80601A2C7923}|20250226_01\\20250226_01.vcxproj|solutionrelative:20250226_01\\main05.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{036FDCA8-2287-4C4A-A7B7-80601A2C7923}|20250226_01\\20250226_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\20250226_01\\main07.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{036FDCA8-2287-4C4A-A7B7-80601A2C7923}|20250226_01\\20250226_01.vcxproj|solutionrelative:20250226_01\\main07.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{036FDCA8-2287-4C4A-A7B7-80601A2C7923}|20250226_01\\20250226_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\20250226_01\\main04.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{036FDCA8-2287-4C4A-A7B7-80601A2C7923}|20250226_01\\20250226_01.vcxproj|solutionrelative:20250226_01\\main04.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -26,24 +38,63 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "main07.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\20250226_01\\main07.cpp",
+              "RelativeDocumentMoniker": "20250226_01\\main07.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\20250226_01\\main07.cpp",
+              "RelativeToolTip": "20250226_01\\main07.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-02-26T12:32:38.413Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "main05.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\20250226_01\\main05.cpp",
+              "RelativeDocumentMoniker": "20250226_01\\main05.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\20250226_01\\main05.cpp",
+              "RelativeToolTip": "20250226_01\\main05.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-02-26T12:23:46.993Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "main06.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\20250226_01\\main06.cpp",
+              "RelativeDocumentMoniker": "20250226_01\\main06.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\20250226_01\\main06.cpp",
+              "RelativeToolTip": "20250226_01\\main06.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-02-26T12:03:58.239Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "main04.cpp",
               "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\20250226_01\\main04.cpp",
               "RelativeDocumentMoniker": "20250226_01\\main04.cpp",
               "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\20250226_01\\main04.cpp",
               "RelativeToolTip": "20250226_01\\main04.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAABAAAA",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAYwBIAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-02-26T11:35:49.171Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "main03.cpp",
               "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\20250226_01\\main03.cpp",
               "RelativeDocumentMoniker": "20250226_01\\main03.cpp",
@@ -51,12 +102,11 @@
               "RelativeToolTip": "20250226_01\\main03.cpp",
               "ViewState": "AQIAAEUAAAAAAAAAAAAAAFQAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-02-26T11:06:38.544Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-26T11:06:38.544Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "main02.cpp",
               "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\20250226_01\\main02.cpp",
               "RelativeDocumentMoniker": "20250226_01\\main02.cpp",
@@ -64,12 +114,11 @@
               "RelativeToolTip": "20250226_01\\main02.cpp",
               "ViewState": "AQIAAAYAAAAAAAAAAAAYwCEAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-02-26T10:30:50.015Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-26T10:30:50.015Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "main01.cpp",
               "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\Day06\\20250226_01\\20250226_01\\main01.cpp",
               "RelativeDocumentMoniker": "20250226_01\\main01.cpp",
@@ -77,8 +126,7 @@
               "RelativeToolTip": "20250226_01\\main01.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-02-26T10:26:52.332Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-26T10:26:52.332Z"
             }
           ]
         }
