@@ -15,16 +15,16 @@
       "RelativeMoniker": "D:0:0:{C35F36EC-8DD4-417C-AB15-E76988C13A80}|20240221_01\\20240221_01.vcxproj|solutionrelative:20240221_01\\ass03.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{C35F36EC-8DD4-417C-AB15-E76988C13A80}|20240221_01\\20240221_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240221_01\\20240221_01\\ass06.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C35F36EC-8DD4-417C-AB15-E76988C13A80}|20240221_01\\20240221_01.vcxproj|solutionrelative:20240221_01\\ass06.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C35F36EC-8DD4-417C-AB15-E76988C13A80}|20240221_01\\20240221_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240221_01\\20240221_01\\ass02.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{C35F36EC-8DD4-417C-AB15-E76988C13A80}|20240221_01\\20240221_01.vcxproj|solutionrelative:20240221_01\\ass02.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C35F36EC-8DD4-417C-AB15-E76988C13A80}|20240221_01\\20240221_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240221_01\\20240221_01\\ass01.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{C35F36EC-8DD4-417C-AB15-E76988C13A80}|20240221_01\\20240221_01.vcxproj|solutionrelative:20240221_01\\ass01.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C35F36EC-8DD4-417C-AB15-E76988C13A80}|20240221_01\\20240221_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240221_01\\20240221_01\\ass06.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{C35F36EC-8DD4-417C-AB15-E76988C13A80}|20240221_01\\20240221_01.vcxproj|solutionrelative:20240221_01\\ass06.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,13 +38,13 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "ass06.cpp",
               "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240221_01\\20240221_01\\ass06.cpp",
               "RelativeDocumentMoniker": "20240221_01\\ass06.cpp",
               "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240221_01\\20240221_01\\ass06.cpp",
               "RelativeToolTip": "20240221_01\\ass06.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAbAAAA",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAYwB0AAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-02-26T10:14:34.821Z",
               "EditorCaption": ""
@@ -57,7 +57,7 @@
               "RelativeDocumentMoniker": "20240221_01\\ass5.cpp",
               "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240221_01\\20240221_01\\ass5.cpp",
               "RelativeToolTip": "20240221_01\\ass5.cpp",
-              "ViewState": "AQIAACQAAAAAAAAAAAAAACsAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-02-26T10:14:34.827Z",
               "EditorCaption": ""
@@ -70,7 +70,7 @@
               "RelativeDocumentMoniker": "20240221_01\\ass04.cpp",
               "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240221_01\\20240221_01\\ass04.cpp",
               "RelativeToolTip": "20240221_01\\ass04.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAABAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-02-26T10:14:34.829Z",
               "EditorCaption": ""
@@ -83,36 +83,35 @@
               "RelativeDocumentMoniker": "20240221_01\\ass03.cpp",
               "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240221_01\\20240221_01\\ass03.cpp",
               "RelativeToolTip": "20240221_01\\ass03.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAABAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-02-26T10:14:34.831Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ass02.cpp",
               "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240221_01\\20240221_01\\ass02.cpp",
               "RelativeDocumentMoniker": "20240221_01\\ass02.cpp",
               "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240221_01\\20240221_01\\ass02.cpp",
               "RelativeToolTip": "20240221_01\\ass02.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAeAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-02-26T10:14:34.832Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "ass01.cpp",
               "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240221_01\\20240221_01\\ass01.cpp",
               "RelativeDocumentMoniker": "20240221_01\\ass01.cpp",
               "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240221_01\\20240221_01\\ass01.cpp",
               "RelativeToolTip": "20240221_01\\ass01.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAADAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-02-26T10:14:34.834Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-26T10:14:34.834Z"
             }
           ]
         }

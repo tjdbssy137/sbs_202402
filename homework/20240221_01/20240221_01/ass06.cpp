@@ -20,34 +20,89 @@ int _attckRandom = 0;
 int monster = 0;
 int player = 0;
 
+int _Heal = 10;
+
+
+enum Hand
+{
+	_scissors, // 0
+	_rock, // 1
+	_paper // 2
+};
+
 int judge() {
 	monster = rand() % 3;
 	while (1)
 	{
 		cout << "가위(0)바위(1)보(2)를 입력하세요 >> ";
 		cin >> player;
-		if (player >= 0 && player < 3) break;
+		if (0 <= player && player < 3) break;
 	}
-
-	if (player > monster || (player == 0 && monster == 2))
+	int _answer;
+	if (player == _rock)
 	{
-		cout << "공격권을 가져왔습니다." << endl;
-		return 0;
+		if (monster == _rock)
+		{
+			_answer = 2;
+		}
+		else if (monster == _scissors)
+		{
+			_answer = 0;
+		}
+		else
+		{
+			_answer = 1;
+		}
 	}
-	else if ((player == 2 && monster == 0) || (player < monster))
+	else if (player == _scissors)
 	{
-		cout << "공격권을 빼았겼습니다." << endl;
-		return 1;
+		if (monster == _rock)
+		{
+			_answer = 1;
+		}
+		else if (monster == _scissors)
+		{
+			_answer = 2;
+		}
+		else
+		{
+			_answer = 0;
+		}
 	}
-	else if (player == monster)
+	else
 	{
-		cout << "다시 가위바위보를 해야합니다." << endl;
-		return 2;
+		if (monster == _rock)
+		{
+			_answer = 0;
+		}
+		else if (monster == _scissors)
+		{
+			_answer = 1;
+		}
+		else
+		{
+			_answer = 2;
+		}
+	}
+	switch (_answer)
+	{
+		case 0:
+			cout << "공격권을 가져왔습니다." << endl;
+			return 0;
+			break;
+		case 1:
+			cout << "공격권을 빼았겼습니다." << endl;
+			return 1;
+			break;
+		default:
+			cout << "다시 가위바위보를 해야합니다." << endl;
+			return 2;
+			break;
 	}
 }
 
 void GameEnd(int hp) {
-	if (hp > 0)
+	if (0 < hp)
 	{
 		printf(" _____________________________________\n");
 		printf("|                                     |\n");
@@ -67,7 +122,7 @@ void BattleBossMonster() {
 	_bossMonsterHp = 50;
 	cout << "|| system || 보스 몬스터와 마주쳤습니다." << endl;
 
-	while (_hp > 0 && _bossMonsterHp > 0)
+	while (0 < _hp && 0 < _bossMonsterHp)
 	{
 		switch (judge()) 
 		{
@@ -78,8 +133,8 @@ void BattleBossMonster() {
 				if (_bossMonsterHp <= 0)
 				{
 					cout << "보스 몬스터를 처치했습니다." << endl;
-					cout << "보상 : 20HP 치유, 공격력 5 증가... 당신의 HP : ";
-					_hp + 20 > 100 ? _hp = 100 : _hp += 20;
+					cout << "보상 : "<< _Heal*2 <<"HP 치유, 공격력 5 증가... 당신의 HP : ";
+					100 < _hp + _Heal * 2 ? _hp = 100 : _hp += _Heal * 2;
 					cout << _hp << endl;
 					_upgradeAttck += 5;
 				}
@@ -103,7 +158,7 @@ void BattleMonster()
 	_monsterHp = rand() % 5 + 6;
 	cout << "|| system || 몬스터와 마주쳤습니다." << endl;
 	
-	while (_hp > 0 && _monsterHp > 0)
+	while (0 < _hp &&  0 < _monsterHp)
 	{
 		switch(judge())
 		{
@@ -114,8 +169,8 @@ void BattleMonster()
 			if (_monsterHp <= 0) 
 			{
 				cout << "몬스터를 처치했습니다." << endl;
-				cout << "보상 : 10HP 치유, 공격력 2 증가... 당신의 HP : ";
-				_hp + 10 > 100 ? _hp = 100 : _hp += 10;
+				cout << "보상 : "<< _Heal <<"HP 치유, 공격력 2 증가... 당신의 HP : ";
+				100 < _hp + _Heal ? _hp = 100 : _hp += _Heal;
 				cout << _hp << endl;
 				_upgradeAttck += 2;
 			}
@@ -155,9 +210,18 @@ void MovePlayer()
 	default:
 		break;
 	}
-	if (_x == 1 && _y == 1) BattleBossMonster();
-	else if (_x == 2 && _y == 1) _goal = 1;
-	else BattleMonster();
+	if (_x == 1 && _y == 1)
+	{
+		BattleBossMonster();
+	}
+	else if (_x == 2 && _y == 1)
+	{
+		_goal = 1;
+	}
+	else
+	{
+		BattleMonster();
+	}
 	moveCount++;
 }
 void PrintGameStartScene()

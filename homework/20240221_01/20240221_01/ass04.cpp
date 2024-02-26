@@ -2,18 +2,57 @@
 #include <time.h>
 using namespace std;
 
+enum Hand
+{
+	_scissors, // 0
+	_rock, // 1
+	_paper // 2
+};
 void judge(int c, int m) {
-	if (m > c || (m == 0 && c == 2))
+	if (c == _rock)
 	{
-		cout << "승리했습니다." << endl;
+		if (m == _rock)
+		{
+			cout << "비겼습니다." << endl;
+		}
+		else if (m == _scissors)
+		{
+			cout << "패배했습니다." << endl;
+		}
+		else
+		{
+			cout << "승리했습니다." << endl;
+		}
 	}
-	else if ((m == 2 && c == 0) || (m < c))
+	else if (c == _scissors)
 	{
-		cout << "패배했습니다." << endl;
+		if (m == _rock)
+		{
+			cout << "승리했습니다." << endl;
+		}
+		else if (m == _scissors)
+		{
+			cout << "비겼습니다." << endl;
+		}
+		else
+		{
+			cout << "패배했습니다." << endl;
+		}
 	}
-	else if (m == c)
+	else if (c == _paper)
 	{
-		cout << "비겼습니다." << endl;
+		if (m == _rock)
+		{
+			cout << "패배했습니다." << endl;
+		}
+		else if (m == _scissors)
+		{
+			cout << "승리했습니다." << endl;
+		}
+		else
+		{
+			cout << "비겼습니다." << endl;
+		}
 	}
 }
 void main() {

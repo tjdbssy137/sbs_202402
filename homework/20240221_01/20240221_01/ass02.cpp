@@ -10,7 +10,7 @@ void main() {
 	while (1) {
 		cout << "숫자를 입력해보세요 : ";
 		cin >> _input;
-		if (_input > _random) cout << "down" << endl;
+		if (_random < _input) cout << "down" << endl;
 		else if (_input < _random)  cout << "up" << endl;
 		else 
 		{
