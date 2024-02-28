@@ -1,4 +1,4 @@
-﻿  ass01.cpp
-D:\GitHub\sbs_202402\homework\20240226_01\20240226_01\ass01.cpp(9,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
-D:\GitHub\sbs_202402\homework\20240226_01\20240226_01\ass01.cpp(16,12): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  20240226_01.vcxproj -> D:\GitHub\sbs_202402\homework\20240226_01\x64\Debug\20240226_01.exe
+﻿  ass02.cpp
+C:\Users\NewITest\Documents\GitHub\sbs_202402\sbs_202402\homework\20240226_01\20240226_01\ass02.cpp(23,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+C:\Users\NewITest\Documents\GitHub\sbs_202402\sbs_202402\homework\20240226_01\20240226_01\ass02.cpp(24,12): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  20240226_01.vcxproj -> C:\Users\NewITest\Documents\GitHub\sbs_202402\sbs_202402\homework\20240226_01\x64\Debug\20240226_01.exe

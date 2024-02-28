@@ -1,28 +1,44 @@
 #include <iostream>
 using namespace std;
-
-int _com[2] = {}, _my[2] = {};
+#define HAND_MAX 2
+int _com[HAND_MAX] = {}, _my[HAND_MAX] = {};
 
 string hand[3] = {"가위", "바위", "보"};
 
 enum HAND {
-	_scissors = 1,
-	_rock,
-	_paper
+	SCISSORS, //enum은 대문자로, 시작은 가급적 0
+	ROCK,
+	PAPER,
+
+	HAND_END
 };
 
-void Conclusion(int com, int my)
-{
-	cout << "컴퓨터는 " << hand[com - 1] << "를 냈습니다." << endl;
-	cout << "당신은 " << hand[my - 1] << "를 냈습니다." << endl;
+//함수 이름은 동사로
+void PrintConclusion(int com, int my);
+void ChooseFinal(int LC, int RC, int LMH, int RMH);
+void ChooseComputerHands();
+void ChooseMyHands();
 
-	if (my == _scissors)
+void main()
+{
+	srand(time(NULL));
+	ChooseComputerHands();
+	ChooseMyHands();
+	ChooseFinal(_com[0], _com[1], _my[0], _my[1]);
+}
+
+void PrintConclusion(int com, int my)
+{
+	cout << "컴퓨터는 " << hand[com] << "를 냈습니다." << endl;
+	cout << "당신은 " << hand[my] << "를 냈습니다." << endl;
+
+	if (my == SCISSORS)
 	{
-		if (com == _scissors)
+		if (com == SCISSORS)
 		{
 			cout << "비겼습니다.";
 		}
-		else if (com == _rock)
+		else if (com == ROCK)
 		{
 			cout << "당신의 패배입니다.";
 		}
@@ -31,13 +47,13 @@ void Conclusion(int com, int my)
 			cout << "당신의 승리입니다.";
 		}
 	}
-	else if (my == _rock)
+	else if (my == ROCK)
 	{
-		if (com == _scissors)
+		if (com == SCISSORS)
 		{
 			cout << "당신의 승리입니다.";
 		}
-		else if (com == _rock)
+		else if (com == ROCK)
 		{
 			cout << "비겼습니다.";
 		}
@@ -48,11 +64,11 @@ void Conclusion(int com, int my)
 	}
 	else
 	{
-		if (com == _scissors)
+		if (com == SCISSORS)
 		{
 			cout << "당신의 패배입니다.";
 		}
-		else if (com == _rock)
+		else if (com == ROCK)
 		{
 			cout << "당신의 승리입니다.";
 		}
@@ -63,35 +79,28 @@ void Conclusion(int com, int my)
 	}
 }
 
-void Choose(int LC, int RC, int LMH, int RMH)
+void ChooseFinal(int LC, int RC, int LMH, int RMH)
 {
-	cout << "컴퓨터는 " << hand[LC - 1] << "와 " << hand[RC - 1] << "를 냈습니다." << endl;
-	cout << "당신은 " << hand[LMH - 1] << "와 " << hand[RMH - 1] << "를 냈습니다." << endl;
+	cout << "컴퓨터는 " << hand[LC] << "와 " << hand[RC] << "를 냈습니다." << endl;
+	cout << "당신은 " << hand[LMH] << "와 " << hand[RMH] << "를 냈습니다." << endl;
 
 	int MyHand = 0;
-	cout << "낼 손 (왼손 1, 오른손 2) >>> ";
+	cout << "낼 손 (왼손 0, 오른손 1) >>> ";
 	cin >> MyHand;
-	Conclusion(_com[rand() % 2], _my[MyHand - 1]);
+	PrintConclusion(_com[rand() % HAND_MAX], _my[MyHand]);
 }
 
-void Computer()
+void ChooseComputerHands()
 {
-	_com[0] = rand() % 3 + 1;
-	_com[1] = rand() % 3 + 1;
+	_com[0] = rand() % HAND_END;
+	_com[1] = rand() % HAND_END;
 }
 
-void MyHand()
+void ChooseMyHands()
 {
-	cout << "가위(1) 바위(2) 보(3)" << endl;
+	cout << "가위(0) 바위(1) 보(2)" << endl;
 	cout << "왼손에 낼 손 >>> ";
 	cin >> _my[0];
 	cout << "오른손에 낼 손 >>> ";
 	cin >> _my[1];
-}
-void main()
-{
-	srand(time(NULL));
-	Computer();
-	MyHand();
-	Choose(_com[0], _com[1], _my[0], _my[1]);
 }

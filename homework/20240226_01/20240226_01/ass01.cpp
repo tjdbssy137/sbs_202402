@@ -27,6 +27,6 @@ void main()
 	cout << "로또 당첨 번호는.. ";
 	for (int i = 0; i < 7; i++)
 	{
-		cout << arr[rand() % 45] << " ";
+		cout << arr[i] << " ";
 	}
 }
