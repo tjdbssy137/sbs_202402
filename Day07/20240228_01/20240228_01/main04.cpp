@@ -22,8 +22,8 @@ void main()
 {
 	//함수
 	// 함수의 형태
-	// 반환자료형 함수명(매개변수(들)){}
-	// void		 PrintHand(int Hand){}
+	// 반환자료형 함수명(매개변수(들)){};
+	// void		 PrintHand(int Hand){};
 	//함수명으로 이름을 짓고, 매개변수로 함수의 옵션을 줄 수 있다.
 	
 	// 반환값 return Value

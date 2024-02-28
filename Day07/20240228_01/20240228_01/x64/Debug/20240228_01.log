@@ -1,3 +1,5 @@
-﻿  main04.cpp
-C:\Users\NewITest\Documents\GitHub\sbs_202402\sbs_202402\Day07\20240228_01\20240228_01\main04.cpp(22,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+﻿  main06.cpp
+C:\Users\NewITest\Documents\GitHub\sbs_202402\sbs_202402\Day07\20240228_01\20240228_01\main06.cpp(7,16): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\Users\NewITest\Documents\GitHub\sbs_202402\sbs_202402\Day07\20240228_01\20240228_01\main06.cpp(7,19): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\Users\NewITest\Documents\GitHub\sbs_202402\sbs_202402\Day07\20240228_01\20240228_01\main06.cpp(11,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
   20240228_01.vcxproj -> C:\Users\NewITest\Documents\GitHub\sbs_202402\sbs_202402\Day07\20240228_01\x64\Debug\20240228_01.exe
