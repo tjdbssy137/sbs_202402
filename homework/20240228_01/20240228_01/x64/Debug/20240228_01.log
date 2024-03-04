@@ -1,5 +1,5 @@
-﻿  Character.cpp
-D:\GitHub\sbs_202402\homework\20240228_01\20240228_01\Character.cpp(10,16): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-D:\GitHub\sbs_202402\homework\20240228_01\20240228_01\Character.cpp(10,19): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-D:\GitHub\sbs_202402\homework\20240228_01\20240228_01\Character.cpp(22,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+﻿  character02.cpp
+D:\GitHub\sbs_202402\homework\20240228_01\20240228_01\character02.cpp(8,16): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
+D:\GitHub\sbs_202402\homework\20240228_01\20240228_01\character02.cpp(8,19): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
+D:\GitHub\sbs_202402\homework\20240228_01\20240228_01\character02.cpp(38,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
   20240228_01.vcxproj -> D:\GitHub\sbs_202402\homework\20240228_01\x64\Debug\20240228_01.exe
