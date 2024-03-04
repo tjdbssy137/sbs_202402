@@ -24,7 +24,11 @@ int _usedNumber[BINGO_LENGTH] = { 0, };
 
 // 세 줄이 빙고가 되면 해당 유저 승리
 
-void RandomBingo(int arr[][BINGO_SIZE]);
+// +
+// 함수 이름 더 직관적으로 짓기
+// 한 줄 빙고 일 때마다 알림.(가능하다면)
+
+void RandomBingo(int arr[][BINGO_SIZE]); //size값을 따로 보내줘야함. 2차원이기 때문에 행렬 둘 다.
 void InputMyNumber();
 void InputComNumber();
 void RemoveNumber(int arr[][BINGO_SIZE]);
@@ -51,13 +55,13 @@ void main()
 		MyBingoCount = Bingo(_myBingo);
 		ComBingoCount = Bingo(_comBingo);
 		
-		if (MyBingoCount == 3)
+		if (MyBingoCount == BINGO)
 		{
 			cout << "나의 승리" << endl;
 			PrintBingo(_myBingo);
 			break;
 		}
-		else if (ComBingoCount == 3)
+		else if (ComBingoCount == BINGO)
 		{
 			cout << "컴퓨터의 승리" << endl;
 			PrintBingo(_comBingo);
@@ -70,13 +74,13 @@ void main()
 		MyBingoCount = Bingo(_myBingo);
 		ComBingoCount = Bingo(_comBingo);
 
-		if (MyBingoCount == 3)
+		if (MyBingoCount == BINGO)
 		{
 			cout << "나의 승리" << endl;
 			PrintBingo(_myBingo);
 			break;
 		}
-		else if (ComBingoCount == 3)
+		else if (ComBingoCount == BINGO)
 		{
 			cout << "컴퓨터의 승리" << endl;
 			PrintBingo(_comBingo);
@@ -94,8 +98,8 @@ void RandomBingo(int arr[][BINGO_SIZE])
 
 	for (int i = 0; i < 100; i++)
 	{
-		int firstIndex = rand() % 25;
-		int secondIndex = rand() % 25;
+		int firstIndex = rand() % BINGO_LENGTH;
+		int secondIndex = rand() % BINGO_LENGTH;
 
 		int temp = saveNumber[firstIndex];
 		saveNumber[firstIndex] = saveNumber[secondIndex];
@@ -125,7 +129,7 @@ void InputComNumber()
 	cout << "컴퓨터의 선택 : ";
 	while (1)
 	{
-		_input = rand() % 25 + 1;
+		_input = rand() % BINGO_LENGTH + 1;
 		if (_usedNumber[_input - 1] == NULL)
 		{
 			_usedNumber[_input - 1] = _input;
@@ -165,7 +169,7 @@ int Bingo(int arr[][BINGO_SIZE])
 			{
 				elementCount = 0;
 			}
-			if (elementCount == 5)
+			if (elementCount == BINGO_SIZE)
 			{
 				lineCount++;
 				elementCount = 0;
@@ -185,13 +189,28 @@ int Bingo(int arr[][BINGO_SIZE])
 			{
 				elementCount = 0;
 			}
-			if (elementCount == 5)
+			if (elementCount == BINGO_SIZE)
 			{
 				lineCount++;
 				elementCount = 0;
 			}
 		}
 	}
+	
+	/*
+	가로 빙고
+	00 11 22 33 44
+	04 13 22 31 40
+	*/	
+	if (arr[0][0] == 0 && arr[1][1] == 0 && arr[2][2] == 0 && arr[3][3] == 0 && arr[4][4] == 0)
+	{
+		lineCount++;
+	}
+	if (arr[0][4] == 0 && arr[1][3] == 0 && arr[2][2] == 0 && arr[3][1] == 0 && arr[4][0] == 0)
+	{
+		lineCount++;
+	}
+
 	if (BINGO == lineCount)
 	{
 		return 3;
@@ -203,7 +222,15 @@ void PrintBingo(int arr[][BINGO_SIZE])
 	{
 		for (int j = 0; j < BINGO_SIZE; j++)
 		{
-			cout << arr[i][j] << " ";
+			if (arr[i][j] == 0)
+			{
+				printf("%2c ", 'X');
+			}
+			else
+			{
+				printf("%2d ", arr[i][j]);
+			}
+			//cout << arr[i][j] << " ";
 		}
 		cout << endl;
 	}
