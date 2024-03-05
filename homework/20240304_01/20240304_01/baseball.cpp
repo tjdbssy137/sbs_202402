@@ -79,7 +79,7 @@ void ComputerNumber()
 			i++;
 		}
 	}
-	cout << _comNumber[0] << _comNumber[1] << _comNumber[2] << _comNumber[3] << endl;
+	//cout << _comNumber[0] << _comNumber[1] << _comNumber[2] << _comNumber[3] << endl;
 }
 
 void InputGuessNumber()
