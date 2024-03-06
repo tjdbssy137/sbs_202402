@@ -3,9 +3,11 @@
 #include <Windows.h>
 #include <conio.h>
 using namespace std;
+//콘솔을 사용하는 방식을 완전히 잘 못 생각하고 있었어요.. 다시 짤 거니까 피드백은 다다음에 부탁드립니다.
 
-vector<int> _inputNumber;
-vector<int> _arrayNumber;
+int _inputNumber[10] = {};
+vector<int> _inputPlayerNumber;
+vector<int> _usedNumber;
 vector<int> _comNumber;
 int _point[2] = {}; //[0] = ball, [1] = strike
 int _chance = 9;
@@ -13,8 +15,10 @@ int _setColor = 0;
 
 void ComputerNumber();
 void Result();
-void ResetArrayNumber();
+void PrintNumber();
 void InputKeboard();
+void ResetArray();
+void PrintChooseNumber();
 
 void gotoxy(int x, int y)
 {
@@ -36,11 +40,13 @@ void main()
 	{
 		while (1)
 		{
+			PrintNumber();
 			InputKeboard();
-			if (_inputNumber.size() == 4) break;
+			system("cls");
+			if (_inputPlayerNumber.size() == 4) break;
 		}
+		PrintChooseNumber();
 		Result();
-		ResetArrayNumber();
 		_chance--;
 		cout << "남은 기회는 .. " << _chance << endl;
 	}
@@ -86,7 +92,7 @@ void Result()
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			if (_arrayNumber.at(i) == _comNumber.at(j))
+			if (_inputPlayerNumber.at(i) == _comNumber.at(j))
 			{
 				if (i == j)
 				{
@@ -109,20 +115,17 @@ void Result()
 		cout << "ball : " << _point[0] << "\t strike : " << _point[1] << endl;
 		_point[0] = 0;
 		_point[1] = 0;
+		ResetArray();
+		for (int i = 0; i < 10; i++)
+		{
+			_inputNumber[i] = 0;
+		}
 	}
 }
-
-void ResetArrayNumber()
-{
-	while (_arrayNumber.size())
-	{
-		_arrayNumber.pop_back();
-	}
-}
-
 
 void PrintNumber()
 {
+	setcolor(15, 0);
 	cout << "□□□■   ■■■■   ■■■■   ■□■□   ■■■■   ■■■■   ■■■■   ■■■■   ■■■■   □■■□ " << endl;
 	cout << "□□□■   □□□■   □□□■   ■□■□   ■□□□   ■□□□   ■□□■   ■□□■   ■□□■   ■□□■ " << endl;
 	cout << "□□□■   □□□■   □□□■   ■□■□   ■□□□   ■□□□   ■□□■   ■□□■   ■□□■   ■□□■ " << endl;
@@ -130,120 +133,166 @@ void PrintNumber()
 	cout << "□□□■   ■□□□   □□□■   □□■□   □□□■   ■□□■   □□□■   ■□□■   □□□■   ■□□■ " << endl;
 	cout << "□□□■   ■□□□   □□□■   □□■□   ■□□■   ■□□■   □□□■   ■□□■   □□□■   ■□□■ " << endl;
 	cout << "□□□■   ■■■■   ■■■■   □□■□   ■■■■   ■■■■   □□□■   ■■■■   ■■■■   □■■□ " << endl;
-	cout << endl;
-
-	SetPrintColor();
-}
-
-void SetPrintColor()
-{
-	system("cls");
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			if (_inputNumber.at(i) == j)
-			{
-				setcolor(10, 0); cout << "■■■■   ";
-			}
-			else
-			{
-				setcolor(0, 0); cout << "■■■■   ";
-			}
-		}
-	}
-	cout << endl;
 }
 void InputKeboard()
 {
-	PrintNumber();
 	int x = 0;
-	while (true)
+	char input = 0;
+	while (1)
 	{
-		char input = 0;
 		if (_kbhit())
 		{
 			input = _getch();
-
 			gotoxy(x, 10); printf(" ");
+			setcolor(15, 0);
 			switch (input)
 			{
 			case '0':
-				x = 19;
-				if (input == 13)
+				x = 64;
+				_usedNumber.push_back(0);
+				if (_inputNumber[0] == 1)
 				{
-					_inputNumber.push_back(0);
+					setcolor(10, 0);  gotoxy(x, 10); printf("♠");
+				}
+				else
+				{
+					setcolor(15, 0);  gotoxy(x, 10); printf("♠");
 				}
 				break;
 			case '1':
 				x = 1;
-				if (input == 13)
+				_usedNumber.push_back(1);
+				if (_inputNumber[1] == 1)
 				{
-					_inputNumber.push_back(1);
+					setcolor(10, 0);  gotoxy(x, 10); printf("♠");
+				}
+				else
+				{
+					setcolor(15, 0);  gotoxy(x, 10); printf("♠");
 				}
 				break;
 			case '2':
-				x = 3;
-				if (input == 13)
+				x = 8;
+				_usedNumber.push_back(2);
+				if (_inputNumber[2] == 1)
 				{
-					_inputNumber.push_back(2);
+					setcolor(10, 0);  gotoxy(x, 10); printf("♠");
+				}
+				else
+				{
+					setcolor(15, 0);  gotoxy(x, 10); printf("♠");
 				}
 				break;
 			case '3':
-				x = 5;
-				if (input == 13)
+				x = 15;
+				_usedNumber.push_back(3);
+				if (_inputNumber[3] == 1)
 				{
-					_inputNumber.push_back(3);
+					setcolor(10, 0);  gotoxy(x, 10); printf("♠");
+				}
+				else
+				{
+					setcolor(15, 0);  gotoxy(x, 10); printf("♠");
 				}
 				break;
 			case '4':
-				x = 7;
-				if (input == 13)
+				x = 22;
+				_usedNumber.push_back(4);
+				if (_inputNumber[4] == 1)
 				{
-					_inputNumber.push_back(4);
+					setcolor(10, 0);  gotoxy(x, 10); printf("♠");
+				}
+				else
+				{
+					setcolor(15, 0);  gotoxy(x, 10); printf("♠");
 				}
 				break;
 			case '5':
-				x = 9;
-				if (input == 13)
+				x = 29;
+				_usedNumber.push_back(5);
+				if (_inputNumber[5] == 1)
 				{
-					_inputNumber.push_back(5);
+					setcolor(10, 0);  gotoxy(x, 10); printf("♠");
+				}
+				else
+				{
+					setcolor(15, 0);  gotoxy(x, 10); printf("♠");
 				}
 				break;
 			case '6':
-				x = 11;
-				if (input == 13)
+				x = 36;
+				_usedNumber.push_back(6);
+				if (_inputNumber[6] == 1)
 				{
-					_setColor = 10;
-					_inputNumber.push_back(6);
+					setcolor(10, 0);  gotoxy(x, 10); printf("♠");
+				}
+				else
+				{
+					setcolor(15, 0);  gotoxy(x, 10); printf("♠");
 				}
 				break;
 			case '7':
-				x = 13;
-				if (input == 13)
+				x = 43;
+				_usedNumber.push_back(7);
+				if (_inputNumber[7] == 1)
 				{
-					_inputNumber.push_back(7);
+					setcolor(10, 0);  gotoxy(x, 10); printf("♠");
+				}
+				else
+				{
+					setcolor(15, 0);  gotoxy(x, 10); printf("♠");
 				}
 				break;
 			case '8':
-				x = 15;
-				if (input == 13)
+				x = 50;
+				_usedNumber.push_back(8);
+				if (_inputNumber[8] == 1)
 				{
-					_inputNumber.push_back(8);
+					setcolor(10, 0);  gotoxy(x, 10); printf("♠");
+				}
+				else
+				{
+					setcolor(15, 0);  gotoxy(x, 10); printf("♠");
 				}
 				break;
 			case '9':
-				x = 17;
-				if (input == 13)
+				x = 57;
+				_usedNumber.push_back(9);
+				if (_inputNumber[9] == 1)
 				{
-					_inputNumber.push_back(9);
+					setcolor(10, 0);  gotoxy(x, 10); printf("♠");
+				}
+				else
+				{
+					setcolor(15, 0);  gotoxy(x, 10); printf("♠");
 				}
 				break;
 			default:
 				break;
 			}
-			gotoxy(x, 10); printf("♠");
+			if (input == 'a')
+			{
+				int a = _usedNumber.back();
+				_inputPlayerNumber.push_back(a);
+				_inputNumber[a] = 1;
+				break;
+			}
 		}
-		
 	}
+}
+void ResetArray()
+{
+	while (_inputPlayerNumber.size())
+	{
+		_inputPlayerNumber.pop_back();
+	}
+}
+void PrintChooseNumber()
+{
+	cout << "내가 선택한 숫자는 ";
+	for (int i = 0; i < 4; i++)
+	{
+		cout << _inputPlayerNumber.at(i);
+	}
+	cout << endl;
 }

@@ -1,6 +1,6 @@
 ﻿  getoxy_baseball.cpp
-D:\GitHub\sbs_202402\homework\20240304_01\20240304_01\getoxy_baseball.cpp(21,16): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-D:\GitHub\sbs_202402\homework\20240304_01\20240304_01\getoxy_baseball.cpp(21,19): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-D:\GitHub\sbs_202402\homework\20240304_01\20240304_01\getoxy_baseball.cpp(32,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
-D:\GitHub\sbs_202402\homework\20240304_01\20240304_01\getoxy_baseball.cpp(33,12): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\GitHub\sbs_202402\homework\20240304_01\20240304_01\getoxy_baseball.cpp(135,2): error C3861: 'SetPrintColor': 식별자를 찾을 수 없습니다.
+D:\GitHub\sbs_202402\homework\20240304_01\20240304_01\getoxy_baseball.cpp(24,16): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
+D:\GitHub\sbs_202402\homework\20240304_01\20240304_01\getoxy_baseball.cpp(24,19): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
+D:\GitHub\sbs_202402\homework\20240304_01\20240304_01\getoxy_baseball.cpp(35,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+D:\GitHub\sbs_202402\homework\20240304_01\20240304_01\getoxy_baseball.cpp(36,12): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  20240304_01.vcxproj -> D:\GitHub\sbs_202402\homework\20240304_01\x64\Debug\20240304_01.exe
