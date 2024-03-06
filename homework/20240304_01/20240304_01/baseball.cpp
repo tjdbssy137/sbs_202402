@@ -42,7 +42,8 @@ void main()
 		InputGuessNumber();
 		Separator();
 		Result();
-		ResetArrayNumber();
+		//ResetArrayNumber();
+		_arrayNumber.clear();
 		_chance--;
 		cout << "남은 기회는 .. " << _chance << endl;
 	}
@@ -56,17 +57,17 @@ void ComputerNumber()
 {
 	vector<int> _usedNumber;
 
-	_comNumber.push_back(rand() % 8 + 1);
+	_comNumber.push_back(rand() % 9 + 1);
 	_usedNumber.push_back(_comNumber.front());
 
 	int i = 0;
 	while (i < 4)
 	{
-		int number = rand() % 9;
+		int number = rand() % 10;
 		int flag = 0;
 		for (int i = 0; i < _usedNumber.size(); i++)
 		{
-			if (_usedNumber.at(i) == number)
+			if (_usedNumber[i] == number)
 			{
 				flag = 1;
 				break;
@@ -113,7 +114,7 @@ void Result()
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			if (_arrayNumber.at(i) == _comNumber.at(j))
+			if (_arrayNumber[i] == _comNumber[i])
 			{
 				if (i == j)
 				{
@@ -144,5 +145,6 @@ void ResetArrayNumber()
 	while (_arrayNumber.size())
 	{
 		_arrayNumber.pop_back();
+		// -> _arrayNumber.clear();
 	}
 }

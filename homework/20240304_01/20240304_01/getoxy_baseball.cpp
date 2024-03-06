@@ -9,9 +9,16 @@ int _inputNumber[10] = {};
 vector<int> _inputPlayerNumber;
 vector<int> _usedNumber;
 vector<int> _comNumber;
+
+vector<int> _reverse;
+vector<int> _previouslyNumber;
+vector<int> _PreviouslyBallStrike;
+
 int _point[2] = {}; //[0] = ball, [1] = strike
 int _chance = 9;
 int _setColor = 0;
+
+int _y = 10;
 
 void ComputerNumber();
 void Result();
@@ -19,6 +26,7 @@ void PrintNumber();
 void InputKeboard();
 void ResetArray();
 void PrintChooseNumber();
+void PreviouslyNumber();
 
 void gotoxy(int x, int y)
 {
@@ -113,6 +121,9 @@ void Result()
 	else
 	{
 		cout << "ball : " << _point[0] << "\t strike : " << _point[1] << endl;
+		_PreviouslyBallStrike.push_back(_point[0]);
+		_PreviouslyBallStrike.push_back(_point[1]);
+
 		_point[0] = 0;
 		_point[1] = 0;
 		ResetArray();
@@ -125,6 +136,7 @@ void Result()
 
 void PrintNumber()
 {
+	PreviouslyNumber();
 	setcolor(15, 0);
 	cout << "¡à¡à¡à¡á   ¡á¡á¡á¡á   ¡á¡á¡á¡á   ¡á¡à¡á¡à   ¡á¡á¡á¡á   ¡á¡á¡á¡á   ¡á¡á¡á¡á   ¡á¡á¡á¡á   ¡á¡á¡á¡á   ¡à¡á¡á¡à " << endl;
 	cout << "¡à¡à¡à¡á   ¡à¡à¡à¡á   ¡à¡à¡à¡á   ¡á¡à¡á¡à   ¡á¡à¡à¡à   ¡á¡à¡à¡à   ¡á¡à¡à¡á   ¡á¡à¡à¡á   ¡á¡à¡à¡á   ¡á¡à¡à¡á " << endl;
@@ -143,7 +155,7 @@ void InputKeboard()
 		if (_kbhit())
 		{
 			input = _getch();
-			gotoxy(x, 10); printf(" ");
+			gotoxy(x, _y); printf(" ");
 			setcolor(15, 0);
 			switch (input)
 			{
@@ -152,11 +164,11 @@ void InputKeboard()
 				_usedNumber.push_back(0);
 				if (_inputNumber[0] == 1)
 				{
-					setcolor(10, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(10, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				else
 				{
-					setcolor(15, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(15, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				break;
 			case '1':
@@ -164,11 +176,11 @@ void InputKeboard()
 				_usedNumber.push_back(1);
 				if (_inputNumber[1] == 1)
 				{
-					setcolor(10, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(10, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				else
 				{
-					setcolor(15, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(15, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				break;
 			case '2':
@@ -176,11 +188,11 @@ void InputKeboard()
 				_usedNumber.push_back(2);
 				if (_inputNumber[2] == 1)
 				{
-					setcolor(10, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(10, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				else
 				{
-					setcolor(15, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(15, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				break;
 			case '3':
@@ -188,11 +200,11 @@ void InputKeboard()
 				_usedNumber.push_back(3);
 				if (_inputNumber[3] == 1)
 				{
-					setcolor(10, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(10, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				else
 				{
-					setcolor(15, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(15, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				break;
 			case '4':
@@ -200,11 +212,11 @@ void InputKeboard()
 				_usedNumber.push_back(4);
 				if (_inputNumber[4] == 1)
 				{
-					setcolor(10, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(10, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				else
 				{
-					setcolor(15, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(15, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				break;
 			case '5':
@@ -212,11 +224,11 @@ void InputKeboard()
 				_usedNumber.push_back(5);
 				if (_inputNumber[5] == 1)
 				{
-					setcolor(10, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(10, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				else
 				{
-					setcolor(15, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(15, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				break;
 			case '6':
@@ -224,11 +236,11 @@ void InputKeboard()
 				_usedNumber.push_back(6);
 				if (_inputNumber[6] == 1)
 				{
-					setcolor(10, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(10, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				else
 				{
-					setcolor(15, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(15, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				break;
 			case '7':
@@ -236,11 +248,11 @@ void InputKeboard()
 				_usedNumber.push_back(7);
 				if (_inputNumber[7] == 1)
 				{
-					setcolor(10, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(10, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				else
 				{
-					setcolor(15, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(15, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				break;
 			case '8':
@@ -248,11 +260,11 @@ void InputKeboard()
 				_usedNumber.push_back(8);
 				if (_inputNumber[8] == 1)
 				{
-					setcolor(10, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(10, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				else
 				{
-					setcolor(15, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(15, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				break;
 			case '9':
@@ -260,11 +272,11 @@ void InputKeboard()
 				_usedNumber.push_back(9);
 				if (_inputNumber[9] == 1)
 				{
-					setcolor(10, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(10, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				else
 				{
-					setcolor(15, 0);  gotoxy(x, 10); printf("¢¼");
+					setcolor(15, 0);  gotoxy(x, _y); printf("¢¼");
 				}
 				break;
 			default:
@@ -282,9 +294,18 @@ void InputKeboard()
 }
 void ResetArray()
 {
+
 	while (_inputPlayerNumber.size())
 	{
+		int temp = _inputPlayerNumber[_inputPlayerNumber.size() - 1];
+		_reverse.push_back(temp);
 		_inputPlayerNumber.pop_back();
+	}
+	while (_reverse.size())//¿¡·¯³²
+	{
+		int temp = _reverse[_reverse.size() - 1];
+		_previouslyNumber.push_back(temp);
+		_reverse.pop_back();
 	}
 }
 void PrintChooseNumber()
@@ -295,4 +316,20 @@ void PrintChooseNumber()
 		cout << _inputPlayerNumber.at(i);
 	}
 	cout << endl;
+}
+void PreviouslyNumber()
+{
+	int j = 0;
+	for (int i = 0; i < _previouslyNumber.size(); i++)
+	{
+		cout << _previouslyNumber.at(i);
+		if (i % 4 == 3)
+		{
+			cout << "\t";
+			cout << "ball : " << _PreviouslyBallStrike.at(j++);
+			cout << "\tstrike :" << _PreviouslyBallStrike.at(j++);
+			cout << endl;
+			_y++;
+		}
+	}
 }

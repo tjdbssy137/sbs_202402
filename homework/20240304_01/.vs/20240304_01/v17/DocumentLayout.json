@@ -1,0 +1,74 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240304_01\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2D44BDDA-4BB0-4041-AFFB-4F28BC0C3FC6}|20240304_01\\20240304_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240304_01\\20240304_01\\baseball.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2D44BDDA-4BB0-4041-AFFB-4F28BC0C3FC6}|20240304_01\\20240304_01.vcxproj|solutionrelative:20240304_01\\baseball.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D44BDDA-4BB0-4041-AFFB-4F28BC0C3FC6}|20240304_01\\20240304_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240304_01\\20240304_01\\getoxy_baseball.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2D44BDDA-4BB0-4041-AFFB-4F28BC0C3FC6}|20240304_01\\20240304_01.vcxproj|solutionrelative:20240304_01\\getoxy_baseball.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D44BDDA-4BB0-4041-AFFB-4F28BC0C3FC6}|20240304_01\\20240304_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240304_01\\20240304_01\\test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2D44BDDA-4BB0-4041-AFFB-4F28BC0C3FC6}|20240304_01\\20240304_01.vcxproj|solutionrelative:20240304_01\\test.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "test.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240304_01\\20240304_01\\test.cpp",
+              "RelativeDocumentMoniker": "20240304_01\\test.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240304_01\\20240304_01\\test.cpp",
+              "RelativeToolTip": "20240304_01\\test.cpp",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAACAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-06T09:59:31.108Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "getoxy_baseball.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240304_01\\20240304_01\\getoxy_baseball.cpp",
+              "RelativeDocumentMoniker": "20240304_01\\getoxy_baseball.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240304_01\\20240304_01\\getoxy_baseball.cpp",
+              "RelativeToolTip": "20240304_01\\getoxy_baseball.cpp",
+              "ViewState": "AQIAAIAAAAAAAAAAAAA4wC8BAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-06T09:59:31.281Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "baseball.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240304_01\\20240304_01\\baseball.cpp",
+              "RelativeDocumentMoniker": "20240304_01\\baseball.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240304_01\\20240304_01\\baseball.cpp",
+              "RelativeToolTip": "20240304_01\\baseball.cpp",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAAACwAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-06T09:59:31.523Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
