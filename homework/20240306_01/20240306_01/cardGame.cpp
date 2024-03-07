@@ -1,0 +1,223 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+// 숙제
+// 섞은 카드를 5장 뽑는데.(카드는 한 번만 섞음)
+// 네 개는 오픈
+// 한 장은 XX로 표현
+
+//전광판
+// ♤3 ◆4 ♥2 ♧A XX 
+// 플레이어 현재 금액 : 1000원
+
+// 배팅 유무 선택(금액 포함)
+// 배팅시 - 하이, 로우, 세븐 중에서 선택
+// 하이를 고를 시
+// XX의 값이 7이상이면 포인트 획득 (건 돈의 2배)
+// 로우를 고를 시
+// XX의 값이 7이하면 포인트 획득 (건 돈의 2배)
+// 세븐을 고를시
+// XX의 값이 7이면 포인트 획득 (건 돈의 10배)
+
+// 한 판을 하면 전광판이 한 장씩 밀림.
+// ♤3 ◆4 ♥2 ♧A XX -> ◆4 ♥2 ♧A ◆7 XX (새로운 XX가 생성되고 맨 첫장이 사라짐, 중복 불가)  
+// 52장을 다 쓰거나, 플레이어의 금액이 0원이 되면 게임 종료.
+struct Card {
+	int Index;
+	void cPrint();
+	void cSwap(Card& another);
+};
+
+struct Player {
+	int Bet = 0;
+	int Money = 1000;
+};
+
+enum RESULT{
+	_High,
+	_Low,
+	_Seven,
+
+	_ResultEnd
+};
+
+// 변수
+Card _card[52] = {};
+Player _player = {};
+vector<int> _displayBoard;
+int _order = 0;
+int _battingMoney = 0;
+
+
+// 함수
+void PrintCards();
+void ExpectCard();
+void CalculateMoney();
+
+void main()
+{
+	srand(time(NULL));
+	for (int i = 0; i < 52; i++)
+	{
+		_card[i].Index = i;
+	}
+
+	for (int i = 0; i < 1000; i++)
+	{
+		int src = rand() % 52;
+		int dst = rand() % 52;
+
+		_card[src].cSwap(_card[dst]);
+	}
+
+	while ((_displayBoard.size() < 52) || (0 < _player.Money))
+	{
+		PrintCards();
+		ExpectCard();
+		CalculateMoney();
+	}
+
+	for (int i = 0; i < 52; i++)
+	{
+		_card[i].cPrint();
+		cout << endl;
+	}
+}
+
+void Card::cPrint()
+{
+	switch (Index / 13)
+	{
+	case 0:
+		cout << "♤";
+		break;
+	case 1:
+		cout << "◆";
+		break;
+	case 2:
+		cout << "♥";
+		break;
+	case 3:
+		cout << "♧";
+		break;
+	}
+	switch (Index % 13 + 1)
+	{
+	case 1:
+		cout << "A";
+		break;
+	case 11:
+		cout << "J";
+		break;
+	case 12:
+		cout << "Q";
+		break;
+	case 13:
+		cout << "K";
+		break;
+	default:
+		printf("%d", Index % 13 + 1);
+		break;
+	}
+	cout << " ";
+}
+void Card::cSwap(Card& another)
+{
+	int temp = this->Index;
+	this->Index = another.Index;
+	another.Index = temp;
+}
+void PrintCards()
+{
+	int temp = _order;
+	for (_order; _displayBoard.size() <= 4; _order++)
+	{
+		if (_order == 52)
+		{
+			break;
+		}
+		if (_displayBoard.size() < 4)
+		{
+			_card[_order].cPrint();
+		}
+		else
+		{
+			cout << "XX" << endl;
+			break;
+		}
+	}
+	cout << endl;
+}
+void ExpectCard()
+{
+	cout << "하이(0) / 로우(1) / 세븐(2)" << endl;
+	cout << "**하이는 2배, 로우는 2배, 세븐은 10배입니다.**" << endl;
+	cin >> _player.Bet;
+	cout << "배팅하실 금액을 입력해주세요." << endl;
+	cout << "현재 보유 금액 : " << _player.Money << "원" << endl;
+	cin >> _battingMoney;
+}
+void CalculateMoney()
+{
+	if (_card[_order].Index < 7)
+	{
+		if (_High == _player.Bet)
+		{
+			_player.Money += (_battingMoney * 2);
+			cout << "축하합니다. " << _battingMoney * 2 << "원을 얻으셨습니다!" << endl;
+		}
+		else
+		{
+			_player.Money -= (_battingMoney * 2);
+			if (_player.Money < 0)
+			{
+				cout << _battingMoney * 2 << "원을 잃으셨습니다! 현재 금액은 " << _player.Money << "로 파산하셨습니다." << endl;
+			}
+			else
+			{
+				cout << _battingMoney * 2 << "원을 잃으셨습니다!" << endl;
+			}
+		}
+	}
+	else if (7 < _card[_order].Index)
+	{
+		if (_Low == _player.Bet)
+		{
+			_player.Money += (_battingMoney * 2);
+			cout << "축하합니다. " << _battingMoney * 2 << "원을 얻으셨습니다!" << endl;
+		}
+		else
+		{
+			_player.Money -= (_battingMoney * 2); 
+			if (_player.Money < 0)
+			{
+				cout << _battingMoney * 2 << "원을 잃으셨습니다! 현재 금액은 " << _player.Money << "로 파산하셨습니다." << endl;
+			}
+			else
+			{
+				cout << _battingMoney * 2 << "원을 잃으셨습니다!" << endl;
+			}
+		}
+	}
+	else
+	{
+		if (_Seven == _player.Bet)
+		{
+			_player.Money += (_battingMoney * 10);
+			cout << "축하합니다. " << _battingMoney * 10 << "원을 얻으셨습니다!" << endl;
+		}
+		else
+		{
+			_player.Money -= (_battingMoney * 10);
+			if (_player.Money < 0)
+			{
+				cout << _battingMoney * 10 << "원을 잃으셨습니다! 현재 금액은 " << _player.Money << "로 파산하셨습니다." << endl;
+			}
+			else
+			{
+				cout << _battingMoney * 10 << "원을 잃으셨습니다!" << endl;
+			}
+		}
+	}
+	_displayBoard.erase(_displayBoard.begin());
+}

@@ -15,7 +15,6 @@ void main()
 	// 카드 게임
 	// ♣A ~ ♠K를 활용해서 여러가지 카드 게임 만들기
 	// 카드는 총 52장.
-
 	srand(time(NULL));
 	for (int i = 0; i < 52; i++)
 	{
