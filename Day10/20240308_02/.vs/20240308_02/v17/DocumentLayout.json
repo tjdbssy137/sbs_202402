@@ -1,0 +1,122 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C0F1E327-F0B9-4685-97AC-3A4A23E0B243}|20240308_02\\20240308_02.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\MainGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C0F1E327-F0B9-4685-97AC-3A4A23E0B243}|20240308_02\\20240308_02.vcxproj|solutionrelative:20240308_02\\MainGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0F1E327-F0B9-4685-97AC-3A4A23E0B243}|20240308_02\\20240308_02.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\MainGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C0F1E327-F0B9-4685-97AC-3A4A23E0B243}|20240308_02\\20240308_02.vcxproj|solutionrelative:20240308_02\\MainGame.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0F1E327-F0B9-4685-97AC-3A4A23E0B243}|20240308_02\\20240308_02.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\main06.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C0F1E327-F0B9-4685-97AC-3A4A23E0B243}|20240308_02\\20240308_02.vcxproj|solutionrelative:20240308_02\\main06.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0F1E327-F0B9-4685-97AC-3A4A23E0B243}|20240308_02\\20240308_02.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\main05.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C0F1E327-F0B9-4685-97AC-3A4A23E0B243}|20240308_02\\20240308_02.vcxproj|solutionrelative:20240308_02\\main05.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0F1E327-F0B9-4685-97AC-3A4A23E0B243}|20240308_02\\20240308_02.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\main04.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C0F1E327-F0B9-4685-97AC-3A4A23E0B243}|20240308_02\\20240308_02.vcxproj|solutionrelative:20240308_02\\main04.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0F1E327-F0B9-4685-97AC-3A4A23E0B243}|20240308_02\\20240308_02.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\main03.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C0F1E327-F0B9-4685-97AC-3A4A23E0B243}|20240308_02\\20240308_02.vcxproj|solutionrelative:20240308_02\\main03.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainGame.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\MainGame.cpp",
+              "RelativeDocumentMoniker": "20240308_02\\MainGame.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\MainGame.cpp",
+              "RelativeToolTip": "20240308_02\\MainGame.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-08T12:30:26.225Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainGame.h",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\MainGame.h",
+              "RelativeDocumentMoniker": "20240308_02\\MainGame.h",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\MainGame.h",
+              "RelativeToolTip": "20240308_02\\MainGame.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-03-08T12:29:23.572Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "main06.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\main06.cpp",
+              "RelativeDocumentMoniker": "20240308_02\\main06.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\main06.cpp",
+              "RelativeToolTip": "20240308_02\\main06.cpp",
+              "ViewState": "AQIAADMAAAAAAAAAAAAAAD8AAAA7AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-08T11:49:13.852Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "main05.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\main05.cpp",
+              "RelativeDocumentMoniker": "20240308_02\\main05.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\main05.cpp",
+              "RelativeToolTip": "20240308_02\\main05.cpp",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABYAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-08T11:45:04.052Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "main04.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\main04.cpp",
+              "RelativeDocumentMoniker": "20240308_02\\main04.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\main04.cpp",
+              "RelativeToolTip": "20240308_02\\main04.cpp",
+              "ViewState": "AQIAAAwAAAAAAAAAAAA9wCEAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-08T11:31:32.825Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "main03.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\main03.cpp",
+              "RelativeDocumentMoniker": "20240308_02\\main03.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day10\\20240308_02\\20240308_02\\main03.cpp",
+              "RelativeToolTip": "20240308_02\\main03.cpp",
+              "ViewState": "AQIAAB0AAAAAAAAAAAA9wCwAAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-08T11:19:09.114Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

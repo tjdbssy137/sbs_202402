@@ -34,17 +34,15 @@ struct Player {
 };
 
 enum RESULT{
-	_High,
-	_Low,
-	_Seven,
-
-	_ResultEnd
+	RESULT_High,
+	RESULT_Low,
+	RESULT_Seven
 };
 
 // 변수
 Card _card[52] = {};
 Player _player = {};
-vector<int> _displayBoard;
+vector<int> _displayBoard;// => vector<Card&> _displayBoard;로 해서 의미 없는 push&back없앨 수 있음
 int _order = 0;
 int _battingMoney = 0;
 int _cardEnd = 0;
@@ -70,12 +68,9 @@ void main()
 		_card[src].cSwap(_card[dst]);
 	}
 
-	while (1)
+	while (false == ((_cardEnd == 1) || (_player.Money <= 0)))
 	{
-		if ((_cardEnd == 1) || (_player.Money <= 0))
-		{
-			break;
-		}
+		
 		PrintCards();
 		ExpectCard();
 		CalculateMoney();
@@ -164,7 +159,7 @@ void CalculateMoney()
 {
 	if (7 < _card[_order].Index % 13 + 1)
 	{
-		if (_High == _player.Bet)
+		if (RESULT_High == _player.Bet)
 		{
 			_player.Money += (_battingMoney * 2);
 			cout << "축하합니다. " << _battingMoney * 2 << "원을 얻으셨습니다!" << endl;
@@ -184,7 +179,7 @@ void CalculateMoney()
 	}
 	else if (_card[_order].Index % 13 + 1 < 7)
 	{
-		if (_Low == _player.Bet)
+		if (RESULT_Low == _player.Bet)
 		{
 			_player.Money += (_battingMoney * 2);
 			cout << "축하합니다. " << _battingMoney * 2 << "원을 얻으셨습니다!" << endl;
@@ -204,7 +199,7 @@ void CalculateMoney()
 	}
 	else if (_card[_order].Index % 13 + 1 == 7)
 	{
-		if (_Seven == _player.Bet)
+		if (RESULT_Seven == _player.Bet)
 		{
 			_player.Money += (_battingMoney * 10);
 			cout << "축하합니다. " << _battingMoney * 10 << "원을 얻으셨습니다!" << endl;
