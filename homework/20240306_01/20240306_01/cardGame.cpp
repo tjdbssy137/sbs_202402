@@ -44,7 +44,7 @@ Card _card[52] = {};
 Player _player = {};
 vector<int> _displayBoard;// => vector<Card&> _displayBoard;로 해서 의미 없는 push&back없앨 수 있음
 int _order = 0;
-int _battingMoney = 0;
+int _bettingMoney = 0;
 int _cardEnd = 0;
 
 // 함수
@@ -153,7 +153,7 @@ void ExpectCard()
 	cin >> _player.Bet;
 	cout << "배팅하실 금액을 입력해주세요." << endl;
 	cout << "현재 보유 금액 : " << _player.Money << "원" << endl;
-	cin >> _battingMoney;
+	cin >> _bettingMoney;
 }
 void CalculateMoney()
 {
@@ -161,19 +161,19 @@ void CalculateMoney()
 	{
 		if (RESULT_High == _player.Bet)
 		{
-			_player.Money += (_battingMoney * 2);
-			cout << "축하합니다. " << _battingMoney * 2 << "원을 얻으셨습니다!" << endl;
+			_player.Money += (_bettingMoney * 2);
+			cout << "축하합니다. " << _bettingMoney * 2 << "원을 얻으셨습니다!" << endl;
 		}
 		else
 		{
-			_player.Money -= (_battingMoney * 2);
+			_player.Money -= (_bettingMoney * 2);
 			if (_player.Money < 0)
 			{
-				cout << _battingMoney * 2 << "원을 잃으셨습니다! 현재 금액은 " << _player.Money << "로 파산하셨습니다." << endl;
+				cout << _bettingMoney * 2 << "원을 잃으셨습니다! 현재 금액은 " << _player.Money << "로 파산하셨습니다." << endl;
 			}
 			else
 			{
-				cout << _battingMoney * 2 << "원을 잃으셨습니다!" << endl;
+				cout << _bettingMoney * 2 << "원을 잃으셨습니다!" << endl;
 			}
 		}
 	}
@@ -181,19 +181,19 @@ void CalculateMoney()
 	{
 		if (RESULT_Low == _player.Bet)
 		{
-			_player.Money += (_battingMoney * 2);
-			cout << "축하합니다. " << _battingMoney * 2 << "원을 얻으셨습니다!" << endl;
+			_player.Money += (_bettingMoney * 2);
+			cout << "축하합니다. " << _bettingMoney * 2 << "원을 얻으셨습니다!" << endl;
 		}
 		else
 		{
-			_player.Money -= (_battingMoney * 2); 
+			_player.Money -= (_bettingMoney * 2); 
 			if (_player.Money < 0)
 			{
-				cout << _battingMoney * 2 << "원을 잃으셨습니다! 현재 금액은 " << _player.Money << "로 파산하셨습니다." << endl;
+				cout << _bettingMoney * 2 << "원을 잃으셨습니다! 현재 금액은 " << _player.Money << "로 파산하셨습니다." << endl;
 			}
 			else
 			{
-				cout << _battingMoney * 2 << "원을 잃으셨습니다!" << endl;
+				cout << _bettingMoney * 2 << "원을 잃으셨습니다!" << endl;
 			}
 		}
 	}
@@ -201,19 +201,19 @@ void CalculateMoney()
 	{
 		if (RESULT_Seven == _player.Bet)
 		{
-			_player.Money += (_battingMoney * 10);
-			cout << "축하합니다. " << _battingMoney * 10 << "원을 얻으셨습니다!" << endl;
+			_player.Money += (_bettingMoney * 10);
+			cout << "축하합니다. " << _bettingMoney * 10 << "원을 얻으셨습니다!" << endl;
 		}
 		else
 		{
-			_player.Money -= (_battingMoney * 10);
+			_player.Money -= (_bettingMoney * 10);
 			if (_player.Money < 0)
 			{
-				cout << _battingMoney * 10 << "원을 잃으셨습니다! 현재 금액은 " << _player.Money << "로 파산하셨습니다." << endl;
+				cout << _bettingMoney * 10 << "원을 잃으셨습니다! 현재 금액은 " << _player.Money << "로 파산하셨습니다." << endl;
 			}
 			else
 			{
-				cout << _battingMoney * 10 << "원을 잃으셨습니다!" << endl;
+				cout << _bettingMoney * 10 << "원을 잃으셨습니다!" << endl;
 			}
 		}
 	}
