@@ -47,7 +47,7 @@ Player _player = {};
 vector<int> _displayBoard;
 int _order = 0;
 int _battingMoney = 0;
-
+int _cardEnd = 0;
 
 // 함수
 void PrintCards();
@@ -70,18 +70,17 @@ void main()
 		_card[src].cSwap(_card[dst]);
 	}
 
-	while ((_displayBoard.size() < 52) || (0 < _player.Money))
+	while (1)
 	{
+		if ((_cardEnd == 1) || (_player.Money <= 0))
+		{
+			break;
+		}
 		PrintCards();
 		ExpectCard();
 		CalculateMoney();
 	}
-
-	for (int i = 0; i < 52; i++)
-	{
-		_card[i].cPrint();
-		cout << endl;
-	}
+	cout << "게임 종료";
 }
 
 void Card::cPrint()
@@ -104,19 +103,19 @@ void Card::cPrint()
 	switch (Index % 13 + 1)
 	{
 	case 1:
-		cout << "A";
+		cout << " A ";
 		break;
 	case 11:
-		cout << "J";
+		cout << " J ";
 		break;
 	case 12:
-		cout << "Q";
+		cout << " Q ";
 		break;
 	case 13:
-		cout << "K";
+		cout << " K ";
 		break;
 	default:
-		printf("%d", Index % 13 + 1);
+		printf(" %d  ", Index % 13 + 1);
 		break;
 	}
 	cout << " ";
@@ -129,24 +128,28 @@ void Card::cSwap(Card& another)
 }
 void PrintCards()
 {
-	int temp = _order;
+	cout << "===============================" << endl;
 	for (_order; _displayBoard.size() <= 4; _order++)
 	{
 		if (_order == 52)
 		{
+			_cardEnd = 1;
+			cout << "카드를 전부 사용하였습니다. 게임이 종료 됩니다." << endl;
 			break;
 		}
 		if (_displayBoard.size() < 4)
 		{
 			_card[_order].cPrint();
+			_displayBoard.push_back(0);
 		}
 		else
 		{
 			cout << "XX" << endl;
+			_displayBoard.push_back(0);
 			break;
 		}
 	}
-	cout << endl;
+	cout << "===============================" << endl;
 }
 void ExpectCard()
 {
@@ -159,7 +162,7 @@ void ExpectCard()
 }
 void CalculateMoney()
 {
-	if (_card[_order].Index < 7)
+	if (7 < _card[_order].Index % 13 + 1)
 	{
 		if (_High == _player.Bet)
 		{
@@ -179,7 +182,7 @@ void CalculateMoney()
 			}
 		}
 	}
-	else if (7 < _card[_order].Index)
+	else if (_card[_order].Index % 13 + 1 < 7)
 	{
 		if (_Low == _player.Bet)
 		{
@@ -199,7 +202,7 @@ void CalculateMoney()
 			}
 		}
 	}
-	else
+	else if (_card[_order].Index % 13 + 1 == 7)
 	{
 		if (_Seven == _player.Bet)
 		{
@@ -219,5 +222,7 @@ void CalculateMoney()
 			}
 		}
 	}
-	_displayBoard.erase(_displayBoard.begin());
+	// 정리
+	_displayBoard.clear();
+	_order -= 3;
 }
