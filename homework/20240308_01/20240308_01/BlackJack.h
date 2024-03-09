@@ -18,9 +18,11 @@ private:
 public:
 	BlackJack();
 	~BlackJack();
+	void CardSetting();
 	void BettingMoney();
 	void ReceivePlayerCard();
 	void ReceiveComputerCard();
 	void Result();
+	void Organize();
 };
 

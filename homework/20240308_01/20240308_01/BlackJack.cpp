@@ -1,8 +1,5 @@
 #include "BlackJack.h"
-#include "Card.h"
 #include <iostream>
-#include <vector>
-using namespace std;
 
 // 1) 블랙잭
 // 
@@ -21,14 +18,31 @@ using namespace std;
 // 11. 플레이어가 파산하지 않았으면, 카드를 섞지 않고 그 다음 카드부터 계속 반복
 // 12. 카드를 모두 사용하였으면, 그 다음판부터는 카드를 새로 셔플
 int _money = 1000;
-int _bettingMoney = 0;
-int _order = 0;
-Card _card[CARD_MAX] = {};
-vector<int> _playerCard;
-vector<int> _computerCard;
-int _playerCardSum = 0;
-int _computerCardSum = 0;
+
 BlackJack::BlackJack()
+{
+	srand(time(NULL));
+	CardSetting();
+	while (false == (_money <= 0))
+	{
+		cout << "==============================" << endl;
+		Organize();
+		if (_order + 1 == CARD_MAX)
+		{
+			cout << "카드를 모두 소진하여, 다시 섞겠습니다." << endl;
+			_order = 0;
+			CardSetting();
+		}
+		BettingMoney();
+		ReceivePlayerCard();
+		if (_playerCardSum <= CARD_SUM)
+		{
+			ReceiveComputerCard();
+			Result();
+		}
+	}
+}
+void BlackJack::CardSetting()
 {
 	for (int i = 0; i < CARD_MAX; i++)
 	{
@@ -41,31 +55,6 @@ BlackJack::BlackJack()
 
 		_card[src].Swap(_card[dst]);
 	}
-
-	while (false == (_money <= 0))
-	{
-		if (_order + 1 == CARD_MAX)
-		{
-			cout << "카드를 모두 소진하여, 다시 섞겠습니다." << endl;
-			_order = 0;
-			for (int i = 0; i < CARD_MAX; i++)
-			{
-				_card[i].Index = i;
-			}
-			for (int i = 0; i < 1000; i++)
-			{
-				int src = rand() % CARD_MAX;
-				int dst = rand() % CARD_MAX;
-
-				_card[src].Swap(_card[dst]);
-			}
-		}
-		//처음에 카드 두장씩 뽑기
-		BettingMoney();
-		ReceivePlayerCard();
-		ReceiveComputerCard();
-		Result();
-	}
 }
 void BlackJack::BettingMoney()
 {
@@ -75,21 +64,52 @@ void BlackJack::BettingMoney()
 }
 void BlackJack::ReceivePlayerCard()
 {
+	cout << "<Player의 차례입니다>" << endl;
+	cout << "카드 두 장을 받습니다." << endl;
+	int _size = _order;
+	for (_order; _order < _size + 2; _order++)
+	{
+		_playerCard.push_back(_card[_order].Index);
+		if (_card[_order].Index % 13 + 1 == 1)
+		{
+			int _choose = 0;
+			_card[_order].Print();
+			cout << "카드를 받았습니다. \n1을 더하고 싶을 경우엔 '0', 11을 더하고 싶을 경우엔 '1'을 선택해주세요." << endl;
+			cin >> _choose;
+			if (_choose == 0)
+			{
+				_playerCardSum += 1;
+			}
+			else if (_choose == 1)
+			{
+				_playerCardSum += 11;
+			}
+		}
+		else if ((11 <= _card[_order].Index % 13 + 1) && (_card[_order].Index % 13 + 1 <= 13))
+		{
+			_playerCardSum += 10;
+		}
+		else
+		{
+			_playerCardSum += _card[_order].Index % 13 + 1;
+		}
+	}
 	int _input = 0;
 	for (_order; _order < CARD_MAX; _order++)
 	{
-		cout << "\n당신의 카드 합은 " << _playerCardSum  << "입니다." << endl;
-		cout << "카드를 계속 받으려면 '0' 아닐 경우 '1'을 선택해주세요." << endl;
+		cout << "\nPlayer의 카드 합은 " << _playerCardSum  << "입니다." << endl;
+		cout << "추가 카드를 계속 받으려면 '0' 아닐 경우 '1'을 선택해주세요." << endl;
 		cin >> _input;
 		if (_input == 0)
 		{
-			cout << "당신이 뽑은 카드는 ";
+			cout << "Player가 뽑은 카드는 ";
 			_card[_order].Print();
 			_playerCard.push_back(_card[_order].Index);
 			if (_card[_order].Index % 13 + 1 == 1)
 			{
 				int _choose = 0;
-				cout << "\n1을 더하고 싶을 경우엔 '0', 11을 더하고 싶을 경우엔 '1'을 선택해주세요." << endl;
+				_card[_order].Print();
+				cout << "카드를 받았습니다. \n1을 더하고 싶을 경우엔 '0', 11을 더하고 싶을 경우엔 '1'을 선택해주세요." << endl;
 				cin >> _choose;
 				if (_choose == 0)
 				{
@@ -108,8 +128,16 @@ void BlackJack::ReceivePlayerCard()
 			{
 				_playerCardSum += _card[_order].Index % 13 + 1;
 			}
+
+
+			if (CARD_SUM < _playerCardSum)
+			{
+				cout << "\nPlayer의 카드 합은 " << _playerCardSum << "입니다." << endl;
+				Result();
+				break;
+			}
 		}
-		else
+		else if(_input == 1)
 		{
 			break;
 		}
@@ -117,35 +145,58 @@ void BlackJack::ReceivePlayerCard()
 }
 void BlackJack::ReceiveComputerCard()
 {
-	while (_computerCardSum <= CARD_SUM)
+	cout << "\n\n<Com의 차례입니다>" << endl;
+	int _size = _order; 
+	for (_order; _order < _size + 2; _order++)
 	{
-		for (_order; _order < CARD_MAX; _order++)
+		_computerCard.push_back(_card[_order].Index);
+		if (_card[_order].Index % 13 + 1 == 1)
 		{
-			_computerCard.push_back(_card[_order].Index);
-			if (_card[_order].Index % 13 + 1 == 1)
+			_computerCardSum += 11;
+		}
+		else if ((11 <= _card[_order].Index % 13 + 1) && (_card[_order].Index % 13 + 1 <= 13))
+		{
+			_computerCardSum += 10;
+		}
+		else
+		{
+			_computerCardSum += _card[_order].Index % 13 + 1;
+		}
+	}
+	
+	for (_order; _order < CARD_MAX; _order++)
+	{
+		_computerCard.push_back(_card[_order].Index);
+		if (_card[_order].Index % 13 + 1 == 1)
+		{
+			if (_computerCardSum + 11 <= CARD_SUM)
 			{
-				if (_computerCardSum + 11 <= CARD_SUM)
-				{
-					_computerCardSum += 11;
-				}
-				else
-				{
-					_computerCardSum += 1;
-				}
-			}
-			else if ((11 <= _card[_order].Index % 13 + 1) && (_card[_order].Index % 13 + 1 <= 13))
-			{
-				_computerCardSum += 10;
+				_computerCardSum += 11;
 			}
 			else
 			{
-				_computerCardSum += _card[_order].Index % 13 + 1;
+				_computerCardSum += 1;
 			}
+		}
+		else if ((11 <= _card[_order].Index % 13 + 1) && (_card[_order].Index % 13 + 1 <= 13))
+		{
+			_computerCardSum += 10;
+		}
+		else
+		{
+			_computerCardSum += _card[_order].Index % 13 + 1;
+		}
+
+		if (CARD_SUM <= _computerCardSum)
+		{
+			cout << "\nCom의 카드 합은 " << _computerCardSum << "입니다." << endl;
+			break;
 		}
 	}
 }
 void BlackJack::Result()
 {
+	cout << endl;
 	int _result = 0;
 	if (_playerCardSum <= CARD_SUM && _computerCardSum <= CARD_SUM)
 	{
@@ -175,8 +226,11 @@ void BlackJack::Result()
 		_money += _bettingMoney * 2;
 		break;
 	}
+	cout << endl;
+}
 
-	//정리
+void BlackJack::Organize()
+{
 	_playerCard.clear();
 	_computerCard.clear();
 	_playerCardSum = 0;

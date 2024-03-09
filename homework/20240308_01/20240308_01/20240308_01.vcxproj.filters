@@ -13,24 +13,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\BlackJack">
+      <UniqueIdentifier>{361c4e99-f393-427e-9003-d5fa6ec404c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="mainBJ.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="BlackJack.cpp">
+      <Filter>소스 파일\BlackJack</Filter>
     </ClCompile>
     <ClCompile Include="Card.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\BlackJack</Filter>
     </ClCompile>
-    <ClCompile Include="BlackJack.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="mainBJ.cpp">
+      <Filter>소스 파일\BlackJack</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Card.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
     <ClInclude Include="BlackJack.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>소스 파일\BlackJack</Filter>
+    </ClInclude>
+    <ClInclude Include="Card.h">
+      <Filter>소스 파일\BlackJack</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
