@@ -16,6 +16,9 @@
     <Filter Include="소스 파일\BlackJack">
       <UniqueIdentifier>{361c4e99-f393-427e-9003-d5fa6ec404c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Hangman">
+      <UniqueIdentifier>{404f3f6f-f480-4cd8-834e-69beeaf82ef0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BlackJack.cpp">
@@ -27,6 +30,12 @@
     <ClCompile Include="mainBJ.cpp">
       <Filter>소스 파일\BlackJack</Filter>
     </ClCompile>
+    <ClCompile Include="mainHM.cpp">
+      <Filter>소스 파일\Hangman</Filter>
+    </ClCompile>
+    <ClCompile Include="HangMan.cpp">
+      <Filter>소스 파일\Hangman</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlackJack.h">
@@ -34,6 +43,9 @@
     </ClInclude>
     <ClInclude Include="Card.h">
       <Filter>소스 파일\BlackJack</Filter>
+    </ClInclude>
+    <ClInclude Include="HangMan.h">
+      <Filter>소스 파일\Hangman</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

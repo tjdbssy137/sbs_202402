@@ -1,5 +1,6 @@
 #pragma once
 #include "Card.h"
+#include <iostream>
 #include <vector>
 using namespace std;
 #define CARD_MAX 52

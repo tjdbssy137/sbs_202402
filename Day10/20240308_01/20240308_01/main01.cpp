@@ -37,7 +37,7 @@ void main()
 	// 8. 플레이어가 0원이 되면 게임 종료
 	// 9. 매판 20장을 새롭게 섞는다.
 	
-	// 3) 헥맨
+	// 3) 행맨
 	//
 	// 1. 컴퓨터가 랜덤한 단어 중에 하나를 선택
 	// - 이때 단어는 position, surprise, umbrella, triangle, tomorrow, reaction 중에 하나를 뽑는다

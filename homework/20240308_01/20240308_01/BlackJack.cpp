@@ -1,5 +1,4 @@
 #include "BlackJack.h"
-#include <iostream>
 
 // 1) ∫Ì∑¢¿Ë
 // 
