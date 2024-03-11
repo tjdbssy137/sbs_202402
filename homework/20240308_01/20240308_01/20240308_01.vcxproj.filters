@@ -19,6 +19,9 @@
     <Filter Include="소스 파일\Hangman">
       <UniqueIdentifier>{404f3f6f-f480-4cd8-834e-69beeaf82ef0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\CardGame">
+      <UniqueIdentifier>{0ddd59ec-b754-459f-a726-eb1f7e4181f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BlackJack.cpp">
@@ -36,6 +39,15 @@
     <ClCompile Include="HangMan.cpp">
       <Filter>소스 파일\Hangman</Filter>
     </ClCompile>
+    <ClCompile Include="mainCG.cpp">
+      <Filter>소스 파일\CardGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CardGame.cpp">
+      <Filter>소스 파일\CardGame</Filter>
+    </ClCompile>
+    <ClCompile Include="LASutda.cpp">
+      <Filter>소스 파일\CardGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlackJack.h">
@@ -46,6 +58,12 @@
     </ClInclude>
     <ClInclude Include="HangMan.h">
       <Filter>소스 파일\Hangman</Filter>
+    </ClInclude>
+    <ClInclude Include="CardGame.h">
+      <Filter>소스 파일\CardGame</Filter>
+    </ClInclude>
+    <ClInclude Include="LASutda.h">
+      <Filter>소스 파일\CardGame</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
