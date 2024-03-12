@@ -1,6 +1,5 @@
 #include "LASutda.h"
 #include <iostream>
-#include <vector>
 using namespace std;
 
 void LASutda::Print()
@@ -30,5 +29,4 @@ void LASutda::Swap(LASutda& another)
 	int temp = this->Index;
 	this->Index = another.Index;
 	another.Index = temp;
-
 }

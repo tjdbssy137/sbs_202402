@@ -13,7 +13,8 @@
 
 CardGame::CardGame()
 {
-	while (0 <= _money)
+	srand(time(NULL));
+	while (0 < _money)
 	{
 		CardSetting();
 		ReceiveCard();
@@ -28,6 +29,7 @@ void CardGame::CardSetting()
 	{
 		_card[i].Index = i;
 	}
+	
 	for (int i = 0; i < 1000; i++)
 	{
 		int src = rand() % CARD_MAX;
@@ -36,22 +38,27 @@ void CardGame::CardSetting()
 		_card[src].Swap(_card[dst]);
 	}
 }
+
 void CardGame::ReceiveCard()
-{
-	_playerCard.push_back(_card[_order++].Index);
-	_computerCard.push_back(_card[_order++].Index);
+{//값이 틀리게 들어감.->srand(time(NULL));을 안 써서 였음.
+	_playerCard.push_back(_card[_order].Index);
+	_order++;
+	_computerCard.push_back(_card[_order].Index);
+	_order++;
 }
+
 void CardGame::Betting()
 {
-	cout << "판돈을 거세요." << endl;
+	cout << "현재 보유 금액 : " << _money << endl;
+	cout << "판돈을 거세요 : ";
 	cin >> _betMoney;
 }
 
-int CardGame::CardPedigree(vector<int> _cards)
+int CardGame::CardPedigree(vector<int> arr)
 {
-	int _first = _cards[0];
-	int _second = _cards[1];
-
+	int _first = arr[0];
+	int _second = arr[1];
+	cout << _first << ", " << _second << endl;
 	if ((_first == 2 && _second == 7) || (_first == 7 && _second == 2))//삼팔광땡
 	{
 		return 0;
@@ -64,50 +71,45 @@ int CardGame::CardPedigree(vector<int> _cards)
 	{
 		return 2;
 	}
-	else if (abs(_first - _second) == 10) // 장땡, cardGame에서 com과 player 숫자 크기 판별 필요.
+
+	_first = _first % 10 + 1;
+	_second = _second % 10 + 1;
+
+	cout << _first << ", " << _second << endl;
+	if (_first == _second) // 장땡, cardGame에서 com과 player 숫자 크기 판별 필요. -> 너무 번거롭다
 	{
 		return 3;
 	}
-
-	if (9 < _first)
-	{
-		_first -= 10;
-	}
-	if (9 < _second)
-	{
-		_second -= 10;
-	}
-
-	if ((_first == 0 && _second == 1) || (_first == 1 && _second == 0))//알리(1,2)
+	else if ((_first == 1 && _second == 2) || (_first == 2 && _second == 1))//알리(1,2)
 	{
 		return 4;
 	}
-	else if ((_first == 0 && _second == 3) || (_first == 3 && _second == 0))//독사(1, 4)
+	else if ((_first == 1 && _second == 4) || (_first == 4 && _second == 1))//독사(1, 4)
 	{
 		return 5;
 	}
-	else if ((_first == 0 && _second == 8) || (_first == 8 && _second == 0))//구삥(1, 9)
+	else if ((_first == 1 && _second == 9) || (_first == 9 && _second == 1))//구삥(1, 9)
 	{
 		return 6;
 	}
-	else if ((_first == 0 && _second == 9) || (_first == 9 && _second == 0))//장삥(10, 1)
+	else if ((_first == 10 && _second == 1) || (_first == 1 && _second == 10))//장삥(10, 1)
 	{
 		return 7;
 	}
-	else if ((_first == 9 && _second == 3) || (_first == 3 && _second == 9))//장사(10, 4)
+	else if ((_first == 10 && _second == 4) || (_first == 4 && _second == 10))//장사(10, 4)
 	{
 		return 8;
 	}
-	else if ((_first == 5 && _second == 3) || (_first == 3 && _second == 5))//세륙(4, 6)
+	else if ((_first == 4 && _second == 6) || (_first == 6 && _second == 4))//세륙(4, 6)
 	{
 		return 9;
 	}
-	else if ((_first + _second == 9 && _first < 8 && _second < 8)
-		|| (_first + _second == 17))//갑오(두 개 합 9, 19)
+	else if ((_first + _second == 9 && _first < 9 && _second < 9)
+		|| (_first + _second == 19))//갑오(두 개 합 9, 19)
 	{
 		return 10;
 	}
-	else if (_first + _second == 8)//망통(두 개 합 10)
+	else if (_first + _second == 0)//망통(두 개 합 10)
 	{
 		return 12;
 	}
@@ -115,32 +117,39 @@ int CardGame::CardPedigree(vector<int> _cards)
 	{
 		return 11;
 	}
+	//특별 족보 없음.
 }
 
 void CardGame::Result()
 {
 	cout << "Player가 가진 카드는 ";
-	_card[_playerCard[0]].Print();
+	_card[0].Print();
+	//cout << _card[0].Index << " " << _playerCard[0] << endl;
 	cout << ", ";
-	_card[_playerCard[1]].Print();
+	_card[2].Print();
+	//cout << _card[2].Index << " " << _playerCard[1] << endl;
 	cout << "입니다." << endl;
 	
 	cout << "Computer가 가진 카드는 ";
-	_card[_computerCard[0]].Print();
+	_card[1].Print();
+	//cout << _card[1].Index << " " << _computerCard[0] << endl;
 	cout << ", ";
-	_card[_computerCard[1]].Print();
+	//cout << _card[3].Index << " " << _computerCard[1] << endl;
+	_card[3].Print();
 	cout << "입니다." << endl;
 
 	int _playerScore = CardPedigree(_playerCard);
 	int _computerScore = CardPedigree(_computerCard);
+	//cout << "_playerScore : " << _playerScore << endl;
+	//cout << "_computerScore : " << _computerScore << endl;
 	if (_playerScore < _computerScore)
 	{
-		cout << "Player의 승리입니다.";
+		cout << "Player의 승리입니다." << endl;
 		_money += _betMoney * 2;
 	}
 	else
 	{
-		cout << "Player의 패배입니다.";
+		cout << "Player의 패배입니다." << endl;
 		_money -= _betMoney;
 	}
 	_order = 0;

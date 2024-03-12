@@ -1,5 +1,4 @@
 #pragma once
-#include <vector>
 
 struct Card {
 	int Index;

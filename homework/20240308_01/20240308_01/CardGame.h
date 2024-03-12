@@ -20,7 +20,7 @@ public:
 	void CardSetting();
 	void ReceiveCard();
 	void Betting();
-	int CardPedigree(vector<int> _cards);
+	int CardPedigree(vector<int> arr);
 	void Result();
 };
 
