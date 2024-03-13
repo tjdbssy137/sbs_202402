@@ -71,17 +71,13 @@ void BlackJack::ReceivePlayerCard()
 		_playerCard.push_back(_card[_order].Index);
 		if (_card[_order].Index % 13 + 1 == 1)
 		{
-			int _choose = 0;
-			_card[_order].Print();
-			cout << "카드를 받았습니다. \n1을 더하고 싶을 경우엔 '0', 11을 더하고 싶을 경우엔 '1'을 선택해주세요." << endl;
-			cin >> _choose;
-			if (_choose == 0)
-			{
-				_playerCardSum += 1;
-			}
-			else if (_choose == 1)
+			if (_playerCardSum + 11 <= CARD_SUM)
 			{
 				_playerCardSum += 11;
+			}
+			else
+			{
+				_playerCardSum += 1;
 			}
 		}
 		else if ((11 <= _card[_order].Index % 13 + 1) && (_card[_order].Index % 13 + 1 <= 13))

@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D8C01C-64F2-431E-802B-A36B53F331E8}|20240308_01\\20240308_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\20240308_01\\BlackJack.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D7D8C01C-64F2-431E-802B-A36B53F331E8}|20240308_01\\20240308_01.vcxproj|solutionrelative:20240308_01\\BlackJack.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D8C01C-64F2-431E-802B-A36B53F331E8}|20240308_01\\20240308_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\20240308_01\\CardGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D7D8C01C-64F2-431E-802B-A36B53F331E8}|20240308_01\\20240308_01.vcxproj|solutionrelative:20240308_01\\CardGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D8C01C-64F2-431E-802B-A36B53F331E8}|20240308_01\\20240308_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\20240308_01\\mainBJ.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D7D8C01C-64F2-431E-802B-A36B53F331E8}|20240308_01\\20240308_01.vcxproj|solutionrelative:20240308_01\\mainBJ.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D8C01C-64F2-431E-802B-A36B53F331E8}|20240308_01\\20240308_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\20240308_01\\mainCG.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D7D8C01C-64F2-431E-802B-A36B53F331E8}|20240308_01\\20240308_01.vcxproj|solutionrelative:20240308_01\\mainCG.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D8C01C-64F2-431E-802B-A36B53F331E8}|20240308_01\\20240308_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\20240308_01\\mainHM.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D7D8C01C-64F2-431E-802B-A36B53F331E8}|20240308_01\\20240308_01.vcxproj|solutionrelative:20240308_01\\mainHM.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BlackJack.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\20240308_01\\BlackJack.cpp",
+              "RelativeDocumentMoniker": "20240308_01\\BlackJack.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\20240308_01\\BlackJack.cpp",
+              "RelativeToolTip": "20240308_01\\BlackJack.cpp",
+              "ViewState": "AQIAAIQAAAAAAAAAAAAAAGwAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-13T10:58:51.197Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CardGame.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\20240308_01\\CardGame.cpp",
+              "RelativeDocumentMoniker": "20240308_01\\CardGame.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\20240308_01\\CardGame.cpp",
+              "RelativeToolTip": "20240308_01\\CardGame.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAFMAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-13T10:56:14.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "mainBJ.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\20240308_01\\mainBJ.cpp",
+              "RelativeDocumentMoniker": "20240308_01\\mainBJ.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\20240308_01\\mainBJ.cpp",
+              "RelativeToolTip": "20240308_01\\mainBJ.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-13T10:16:09.471Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "mainCG.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\20240308_01\\mainCG.cpp",
+              "RelativeDocumentMoniker": "20240308_01\\mainCG.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\20240308_01\\mainCG.cpp",
+              "RelativeToolTip": "20240308_01\\mainCG.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-13T10:13:06.48Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "mainHM.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\20240308_01\\mainHM.cpp",
+              "RelativeDocumentMoniker": "20240308_01\\mainHM.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\homework\\20240308_01\\20240308_01\\mainHM.cpp",
+              "RelativeToolTip": "20240308_01\\mainHM.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-13T10:16:10.527Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

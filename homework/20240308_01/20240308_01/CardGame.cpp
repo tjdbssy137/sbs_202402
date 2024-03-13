@@ -56,66 +56,72 @@ void CardGame::Betting()
 
 int CardGame::CardPedigree(vector<int> arr)
 {
-	int _first = arr[0];
-	int _second = arr[1];
-	cout << _first << ", " << _second << endl;
-	if ((_first == 2 && _second == 7) || (_first == 7 && _second == 2))//»ïÆÈ±¤¶¯
+	int _first = 0, _second = 0;
+	// Â÷ÀÌ¸¦ Å©°Ô ¹ú·ÁµÎ±â.
+	// ³»¸²Â÷¼øÀ¸·Î ¼ýÀÚ¸¦ Á¤¸®ÇØ¼­ || ¸¦ »ç¿ëÇÏÁö ¾Ê±â.
+	arr[0] < arr[1] ? _first = arr[0] : _second = arr[0];
+	arr[0] < arr[1] ? _first = arr[1] : _second = arr[1];
+
+	//cout << _first << ", " << _second << endl;
+	
+	if (_first == 2 && _second == 7)//»ïÆÈ±¤¶¯
 	{
 		return 0;
 	}
-	else if ((_first == 0 && _second == 7) || (_first == 7 && _second == 0))//ÀÏÆÈ±¤¶¯
+	else if (_first == 0 && _second == 7)//ÀÏÆÈ±¤¶¯
 	{
-		return 1;
+		return 1000;
 	}
-	else if ((_first == 0 && _second == 2) || (_first == 2 && _second == 0))//ÀÏ»ï±¤¶¯
+	else if (_first == 0 && _second == 2)//ÀÏ»ï±¤¶¯
 	{
-		return 2;
+		return 2000;
 	}
 
 	_first = _first % 10 + 1;
 	_second = _second % 10 + 1;
 
 	cout << _first << ", " << _second << endl;
-	if (_first == _second) // Àå¶¯, cardGame¿¡¼­ com°ú player ¼ýÀÚ Å©±â ÆÇº° ÇÊ¿ä. -> ³Ê¹« ¹ø°Å·Ó´Ù
+	if (_first == _second) // Àå¶¯, com°ú player ¼ýÀÚ Å©±â ÆÇº° ÇÊ¿ä. -> ³Ê¹« ¹ø°Å·Ó´Ù
 	{
-		return 3;
+		return 3000 - _first; //±¸¶¯ ÆÈ¶¯ ¾Ë±â À§ÇØ '- _first' ÇØÁÖ±â.
+		// ÀÌ·¯¸é com°ú player ¼ýÀÚ Å©±â ÆÇº°ÀÌ ¾Ë¾Æ¼­ µÊ.
 	}
-	else if ((_first == 1 && _second == 2) || (_first == 2 && _second == 1))//¾Ë¸®(1,2)
+	else if (_first == 1 && _second == 2)//¾Ë¸®(1,2)
 	{
-		return 4;
+		return 4000;
 	}
-	else if ((_first == 1 && _second == 4) || (_first == 4 && _second == 1))//µ¶»ç(1, 4)
+	else if (_first == 1 && _second == 4)//µ¶»ç(1, 4)
 	{
-		return 5;
+		return 5000;
 	}
-	else if ((_first == 1 && _second == 9) || (_first == 9 && _second == 1))//±¸»æ(1, 9)
+	else if (_first == 1 && _second == 9)//±¸»æ(1, 9)
 	{
-		return 6;
+		return 6000;
 	}
-	else if ((_first == 10 && _second == 1) || (_first == 1 && _second == 10))//Àå»æ(10, 1)
+	else if (_first == 1 && _second == 10)//Àå»æ(10, 1)
 	{
-		return 7;
+		return 7000;
 	}
-	else if ((_first == 10 && _second == 4) || (_first == 4 && _second == 10))//Àå»ç(10, 4)
+	else if (_first == 4 && _second == 10)//Àå»ç(10, 4)
 	{
-		return 8;
+		return 8000;
 	}
-	else if ((_first == 4 && _second == 6) || (_first == 6 && _second == 4))//¼¼·ú(4, 6)
+	else if (_first == 4 && _second == 6)//¼¼·ú(4, 6)
 	{
-		return 9;
+		return 9000;
 	}
 	else if ((_first + _second == 9 && _first < 9 && _second < 9)
 		|| (_first + _second == 19))//°©¿À(µÎ °³ ÇÕ 9, 19)
 	{
-		return 10;
+		return 10000;
 	}
 	else if (_first + _second == 0)//¸ÁÅë(µÎ °³ ÇÕ 10)
 	{
-		return 12;
+		return 12000;
 	}
 	else //8²ý~1²ý
 	{
-		return 11;
+		return 11000;
 	}
 	//Æ¯º° Á·º¸ ¾øÀ½.
 }
