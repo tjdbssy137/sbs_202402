@@ -34,12 +34,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
@@ -50,8 +46,7 @@
               "RelativeToolTip": "20240228_01\\main06.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-02-28T12:34:22.524Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-28T12:34:22.524Z"
             },
             {
               "$type": "Document",
@@ -63,8 +58,7 @@
               "RelativeToolTip": "20240228_01\\main05.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACYAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-02-28T12:15:33.508Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-28T12:15:33.508Z"
             },
             {
               "$type": "Document",
@@ -76,8 +70,7 @@
               "RelativeToolTip": "20240228_01\\main04.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-02-28T11:33:21.492Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-28T11:33:21.492Z"
             },
             {
               "$type": "Document",

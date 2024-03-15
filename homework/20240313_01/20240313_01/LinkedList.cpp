@@ -101,8 +101,7 @@ void LinkedList::remove_data(int data)
 }
 void LinkedList::add_data(int data, int index)
 {
-	Node* newNode = new Node();
-	newNode->Data = data;
+	Node* newNode = create_node(data);
 	Node* currentNode = _root;
 
 	for (int i = 0; i < index; i++)
@@ -129,4 +128,14 @@ void LinkedList::test()
 	}
 	cout << currentNode->Data << " "; // 맨처음값
 
+}
+
+Node* LinkedList::create_node(int data)
+{
+	Node * newNode = new Node();
+	newNode->Data = data;
+	newNode->Next = nullptr;
+	newNode->Prev = nullptr;
+
+	return newNode;
 }

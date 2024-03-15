@@ -1,2 +1,5 @@
 ﻿  LinkedList.cpp
-  20240313_01.vcxproj -> D:\GitHub\sbs_202402\homework\20240313_01\x64\Debug\20240313_01.exe
+  main.cpp
+  코드를 생성하고 있습니다...
+C:\Users\NewITest\Documents\GitHub\sbs_202402\homework\20240313_01\20240313_01\main.cpp(6,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+  20240313_01.vcxproj -> C:\Users\NewITest\Documents\GitHub\sbs_202402\homework\20240313_01\x64\Debug\20240313_01.exe

@@ -8,7 +8,7 @@ class LinkedList
 {
 private:
 	Node* _root = nullptr;
-public:
+public: // LinkedList.cpp를 제외한 외부 파일에서도 호출이 가능.
 	LinkedList();
 	~LinkedList();
 public:
@@ -19,5 +19,7 @@ public:
 	void remove_data(int data);
 	void add_data(int data, int index);
 	void test();
+private:
+	Node* create_node(int data); // LinkedList.cpp를 제외한 외부 파일에서 호출이 불가능.
 };
 
