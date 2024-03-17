@@ -2,7 +2,7 @@
 #include "MyVector.h"
 using namespace std;
 
-int main()
+void main()
 {
 	// <vector와 Linked List의 차이>
 	// Linked List : 주소값이 지 멋대로다.
@@ -27,5 +27,4 @@ int main()
 	{
 		cout << vec[i] << " ";
 	}
-	return 0;
 }

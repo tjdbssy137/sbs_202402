@@ -1,0 +1,33 @@
+﻿  main01.cpp
+D:\GitHub\sbs_202402\homework\20240315_01\20240315_01\main01.cpp(6,1): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+D:\GitHub\sbs_202402\homework\20240315_01\20240315_01\myVector.h(50,16): warning C4244: '*=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 'main01.cpp'을(를) 컴파일하는 중)
+  D:\GitHub\sbs_202402\homework\20240315_01\20240315_01\myVector.h(50,16):
+  템플릿 인스턴스화 컨텍스트(가장 오래된 인스턴스화 컨텍스트)가
+  	D:\GitHub\sbs_202402\homework\20240315_01\20240315_01\main01.cpp(7,16):
+  	컴파일되는 클래스 템플릿 인스턴스화 'myVector<int>'에 대한 참조를 확인하세요.
+  	D:\GitHub\sbs_202402\homework\20240315_01\20240315_01\myVector.h(46,1):
+  	클래스 템플릿 멤버 함수 'void myVector<int>::push_back(T)'을(를) 컴파일하는 중입니다.
+          with
+          [
+              T=int
+          ]
+  		D:\GitHub\sbs_202402\homework\20240315_01\20240315_01\main01.cpp(9,15):
+  		'main'에서 'myVector<int>::push_back'에 대한 첫 번째 참조를 확인하세요.
+  
+D:\GitHub\sbs_202402\homework\20240315_01\20240315_01\myVector.h(92,16): warning C4244: '*=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 'main01.cpp'을(를) 컴파일하는 중)
+  D:\GitHub\sbs_202402\homework\20240315_01\20240315_01\myVector.h(92,16):
+  템플릿 인스턴스화 컨텍스트(가장 오래된 인스턴스화 컨텍스트)가
+  	D:\GitHub\sbs_202402\homework\20240315_01\20240315_01\myVector.h(72,1):
+  	클래스 템플릿 멤버 함수 'void myVector<int>::insert(int,T)'을(를) 컴파일하는 중입니다.
+          with
+          [
+              T=int
+          ]
+  		D:\GitHub\sbs_202402\homework\20240315_01\20240315_01\main01.cpp(16,12):
+  		'main'에서 'myVector<int>::insert'에 대한 첫 번째 참조를 확인하세요.
+  
+  myVector.cpp
+  코드를 생성하고 있습니다...
+  20240315_01.vcxproj -> D:\GitHub\sbs_202402\homework\20240315_01\x64\Debug\20240315_01.exe
