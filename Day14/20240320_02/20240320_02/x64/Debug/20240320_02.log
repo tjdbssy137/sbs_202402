@@ -1,0 +1,11 @@
+﻿  pch.cpp
+  WinMain.cpp
+C:\Users\NewITest\Documents\GitHub\sbs_202402\Day14\20240320_02\20240320_02\WinMain.cpp(78,2): warning C4102: 'delfault': 참조되지 않은 레이블입니다.
+  (소스 파일 '/WinMain.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\NewITest\Documents\GitHub\sbs_202402\Day14\20240320_02\20240320_02\WinMain.cpp(92,2): error C2065: 'Adjust': 선언되지 않은 식별자입니다.
+  (소스 파일 '/WinMain.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\NewITest\Documents\GitHub\sbs_202402\Day14\20240320_02\20240320_02\WinMain.cpp(93,1): error C2143: 구문 오류: ';'이(가) '}' 앞에 없습니다.
+  (소스 파일 '/WinMain.cpp'을(를) 컴파일하는 중)
+  

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="00.Main">
+      <UniqueIdentifier>{07e182ef-f4f9-4d83-985c-afa64c0fe92f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.Utils">
+      <UniqueIdentifier>{134ef256-5b5b-4b3a-a3f2-0e47a3e10bb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.Utils\01.Random">
+      <UniqueIdentifier>{6bd27a38-65d8-48c4-8c99-5ada400935bd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main01.cpp">
+      <Filter>00.Main</Filter>
+    </ClCompile>
+    <ClCompile Include="main02.cpp">
+      <Filter>00.Main</Filter>
+    </ClCompile>
+    <ClCompile Include="main03.cpp">
+      <Filter>00.Main</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>99.Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="main04.cpp">
+      <Filter>00.Main</Filter>
+    </ClCompile>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>00.Main</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomModule.h">
+      <Filter>99.Utils\01.Random</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

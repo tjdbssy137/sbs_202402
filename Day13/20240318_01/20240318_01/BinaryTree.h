@@ -74,12 +74,66 @@ void BinaryTree<T>::RemoveNode(BinaryTree<T>::Node* removeNode)
 {
 	if (removeNode->Parent->Left == removeNode)// 같은 곳을 가르키고 있는지?
 	{
-		removeNode->Parent->Left == nullptr;
+		//1. 양쪽 갈래 모두 살아있을 때
+		//2. 왼쪽 갈래만 살아있을 때
+		//3. 오른쪽만 살아있을 때
+		//4. 둘다 없을 때
+		if (removeNode->Left != nullptr && removeNode->Right != nullptr)
+		{
+			//들어올 수 없음
+			printf("Error\n");
+			return;
+		}
+		else if (removeNode->Left != nullptr && removeNode->Right == nullptr)
+		{
+			//왼쪽 부모를 자기로 올리고 자기 자신을 지운다
+			//나 = 부모의 왼쪽
+			removeNode->Parent->Left = removeNode->Left;
+			removeNode->Left->Parent = removeNode->Parent;
+		}
+		else if (removeNode->Left = nullptr && removeNode->Right != nullptr)
+		{
+			//오른쪽 부모를 자기로 올리고 자기 자신을 지운다
+			//나 = 부모의 왼쪽
+			removeNode->Parent->Left = removeNode->Right;
+			removeNode->Right->Parent = removeNode->Parent;
+		}
+		else if (removeNode->Left == nullptr && removeNode->Right == nullptr)
+		{
+			//부모의 왼쪽을 지우고 자기자신을 지운다.
+			removeNode->Parent->Left = nullptr;
+		}
 	}
 	else
 	{
-		removeNode->Parent->Right == nullptr;
+		if (removeNode->Left != nullptr && removeNode->Right != nullptr)
+		{
+			//들어올 수 없음
+			printf("Error\n");
+			return;
+		}
+		else if (removeNode->Left != nullptr && removeNode->Right == nullptr)
+		{
+			//왼쪽 부모를 자기로 올리고 자기 자신을 지운다
+			//나 = 부모의 오른쪽
+			removeNode->Parent->Right = removeNode->Left;
+			removeNode->Left->Parent = removeNode->Parent;
+		}
+		else if (removeNode->Left = nullptr && removeNode->Right != nullptr)
+		{
+			//오른쪽 부모를 자기로 올리고 자기 자신을 지운다
+			//나 = 부모의 오른쪽
+			removeNode->Parent->Right = removeNode->Right;
+			removeNode->Right->Parent = removeNode->Parent;
+		}
+		else if (removeNode->Left == nullptr && removeNode->Right == nullptr)
+		{
+			//부모의 왼쪽을 지우고 자기자신을 지운다.
+			removeNode->Parent->Left = nullptr;
+		}
 	}
+
+	//자기자신을 지운다
 	delete removeNode;
 	removeNode = nullptr;
 }
