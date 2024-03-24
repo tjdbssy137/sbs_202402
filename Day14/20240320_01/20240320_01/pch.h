@@ -46,5 +46,6 @@ using namespace std;
 //==========================
 //전역 변수 선언
 //==========================
+
 extern HINSTANCE _hInstace; // instance => 프로그램 객체 그 자체 (ex: zoom, visual studio뭐 그런 것)
 extern HWND _hWnd; // wnd => 윈도우 객체 => 프로그램 그 안에 있는 값 같은 것
