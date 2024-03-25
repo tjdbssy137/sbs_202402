@@ -19,6 +19,9 @@
     <ClCompile Include="winMain.cpp">
       <Filter>00.Main</Filter>
     </ClCompile>
+    <ClCompile Include="winMain2.cpp">
+      <Filter>00.Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
