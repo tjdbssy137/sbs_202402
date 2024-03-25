@@ -1,63 +1,31 @@
 #include "pch.h"
 // 프로젝트 속성 - 링커 - 시스템 - 창으로 수정
 // 프로젝트 속성 - C/C++ - 전처리기 - _DEBUG;_Windows;%(PreprocessorDefinitions)
-
 HINSTANCE _hInstance;
 HWND _hWnd;
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-void SetWindowSize(int x, int y, int width, int heigh);
+void SetWindowSize(int x, int y, int width, int height);
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, char* lpszCmdParam, int nCmdShow);
+
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, char* lpszCmdParam, int nCmdShow)
 {
 	_hInstance = hInstance;
 	
 	WNDCLASS wndClass = {};
-
 	wndClass.cbClsExtra = 0;
 	wndClass.cbWndExtra = 0;
 	wndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-	wndClass.hCursor = LoadCursorW(NULL, IDC_ARROW);
-	wndClass.hIcon = LoadIconW(NULL, IDI_APPLICATION);
-	wndClass.lpfnWndProc = (WNDPROC)WinProc;
+	wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	wndClass.hInstance = _hInstance;
-	wndClass.lpszClassName = _T("SBS ACADEMY");
+	//wndClass.lpfnWndProc = (WNDPROC)WndProc;
+	wndClass.lpszClassName = _T("SBS Academy");
 	wndClass.lpszMenuName = NULL;
 	wndClass.style = CS_HREDRAW | CS_VREDRAW;
-
-	::RegisterClass(&wndClass);
-
-	_hWnd = CreateWindow(
-		_T("SBS ACADEMY"),
-		_T("SBS ACADEMY"),
-		WS_CAPTION | WS_SYSMENU,
-		0,
-		0,
-		800,
-		600,
-		NULL,
-		NULL,
-		_hInstance,
-		NULL
-	);
-
-	SetWindowSize(0, 0, 800, 600);
-	::ShowWindow(_hWnd, nCmdShow);
-	MSG message;
-	while (true)
-	{
-		if (::PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
-		{
-			::TranslateMessage(&message);
-			::DispatchMessage(&message);
-		}
-		else
-		{
-
-		}
 	}
-}
 
-LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -78,6 +46,7 @@ void SetWindowSize(int x, int y, int width, int heigh)
 	rc.right = width;
 	rc.bottom = heigh;
 
-	AdjustWindowRect(&rc, WS_CAPTION | WS_SYSMENU, FALSE);
+	AdjustWindowRect(&rc, WS_CAPTION | WS_SYSMENU, NULL);
 	SetWindowPos(_hWnd, NULL, x, y, rc.right - rc.left, rc.bottom - rc.top, SWP_NOZORDER | SWP_NOMOVE);
 }
+
