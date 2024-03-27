@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day16\\20240327_02\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{ED7E2962-EA06-453F-AAB7-0F8FB1A5EBBF}|20240327_02\\20240327_02.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day16\\20240327_02\\20240327_02\\main01.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{ED7E2962-EA06-453F-AAB7-0F8FB1A5EBBF}|20240327_02\\20240327_02.vcxproj|solutionrelative:20240327_02\\main01.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main01.cpp",
+              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day16\\20240327_02\\20240327_02\\main01.cpp",
+              "RelativeDocumentMoniker": "20240327_02\\main01.cpp",
+              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\Day16\\20240327_02\\20240327_02\\main01.cpp",
+              "RelativeToolTip": "20240327_02\\main01.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-27T11:12:36.594Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
