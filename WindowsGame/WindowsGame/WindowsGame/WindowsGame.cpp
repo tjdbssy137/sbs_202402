@@ -114,7 +114,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_PAINT    - 주 창을 그립니다.
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
-//
+
+// 숙제 사용 변수
+int gugudan = 1;
+bool _pressA = false;
+int _x = 0;
+int _y = 0;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -122,6 +127,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_MOUSEMOVE:
         _mousePos.x = GET_X_LPARAM(lParam);
         _mousePos.y = GET_Y_LPARAM(lParam);
+
+        //_hWnd를 Rect영역(NULL이면 전체) 를 erase하고 다시 그리겠다.
         ::InvalidateRect(_hWnd, NULL, true);
         break;
         // 화면을 그려라.라는 메세지가 왔을 때 처리하는 곳
@@ -129,7 +136,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_KEYDOWN:
         if (wParam == 'A')
         {
-
+            printf("A를 눌렀다\n");
+            _pressA = !(_pressA); // A 토글
+            _x = _mousePos.x;
+            _y = _mousePos.y;
+        }
+        //최대 9단
+        if (wParam == VK_RIGHT)
+        {
+            gugudan++;   
+        }
+        //최대 1단
+        else if (wParam == VK_LEFT)
+        {
+            gugudan--;
         }
         break;
     case WM_PAINT:
@@ -137,7 +157,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps; // 그림 도구
             HDC hdc = BeginPaint(hWnd, &ps); //도화지
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-            // 가장 간단한 함수
+
             // 사각형 그리기
             ::Rectangle(hdc, 100, 100, 200, 200);
             
@@ -147,29 +167,38 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
             wchar_t str[128];
 
-            // <마우스 좌표>
-            wsprintf(str, L"%d X %d", _mousePos.x, _mousePos.y);
-            ::TextOut(hdc, 400, 400, str, _tcsclen(str));
-
-            
-            {// <구구단>
-                int a = 1;
+            if (_pressA == false) // A를 눌렀을 때
+            {
+                for (int i = 1; i < 10; i++)
+                {
+                    wsprintf(str, L"%d X %d = %d", gugudan, i, i * gugudan);
+                    ::TextOut(hdc, _mousePos.x, _mousePos.y + i * 15, str, _tcsclen(str));
+                }
+            }
+            else // A를 한 번 더 눌렀을 때
+            {
+                int a = 0;
                 int b = 0;
                 for (int i = 1; i < 10; i++)
                 {
                     for (int j = 1; j < 10; j++)
                     {
                         wsprintf(str, L"%d X %d = %d", i, j, i * j);
-                        ::TextOut(hdc, a * 100, j * 15 + b, str, _tcsclen(str));
+                        ::TextOut(hdc, _x + a * 100, _y + j * 15 + b, str, _tcsclen(str));
                     }
                     a++;
-                    if (a % 3 == 1 && a != 1)
+                    if (a % 3 == 0)
                     {
-                        a = 1;
+                        a = 0;
                         b += 150;
                     }
                 }
             }
+
+            // <마우스 좌표>
+            //wsprintf(str, L"(%d , %d)", _mousePos.x, _mousePos.y);
+            //::TextOut(hdc, _mousePos.x, _mousePos.y, str, _tcsclen(str));
+
             EndPaint(hWnd, &ps);
         }
         break;
