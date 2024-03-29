@@ -43,6 +43,12 @@
     <ClInclude Include="CommonFunction.h">
       <Filter>99.Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>00.MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>01.Managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -66,6 +72,15 @@
     </ClCompile>
     <ClCompile Include="CommonFunction.cpp">
       <Filter>99.Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Day17.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>00.MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>01.Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

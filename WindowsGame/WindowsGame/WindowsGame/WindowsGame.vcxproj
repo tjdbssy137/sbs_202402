@@ -144,18 +144,25 @@
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="WindowsGame.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommonFunction.cpp" />
+    <ClCompile Include="Day17.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="WindowsGame.cpp" />
   </ItemGroup>
   <ItemGroup>

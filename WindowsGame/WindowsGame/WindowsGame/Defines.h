@@ -12,4 +12,4 @@ public:										\
 		return &instance;					\
 	}
 
-
+#define GET_SINGLE(ClassName)	 ClassName::GetInstance()

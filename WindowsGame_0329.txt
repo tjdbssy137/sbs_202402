@@ -1,9 +1,8 @@
-﻿// WindowsGame.cpp : 애플리케이션에 대한 진입점을 정의합니다.
+// WindowsGame.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 
 #include "pch.h"
 #include "WindowsGame.h"
-#include "Game.h"
 
 #define MAX_LOADSTRING 100
 
@@ -36,33 +35,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
 
-    MSG msg = {};
+    MSG msg;
 
     // 3. 메세지 루프
-    Game game;
-    game.Init(_hWnd);
-    //GetMessage : 메세지가 올 때까지 기다린다(scanf 느낌).
-    //PeekMessage : 메세지가 안 오면 그냥 null처리 하고 다시 while 루프를 돌게 함.
-
-    uint64 prevTick = 0;
-
-    while (msg.message != WM_QUIT)
+    // 마우스를 움직였나?
+    // 키보드를 눌렀나?
+    // 다른 시스템적인 무언가가 왔나?
+    // 기본 메시지 루프입니다:
+    while (GetMessage(&msg, nullptr, 0, 0))
     {
-        if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
-        {
-            ::TranslateMessage(&msg);
-            ::DispatchMessage(&msg);
-        }
-        else
-        {
-            uint64 currentTick = ::GetTickCount64();
-            //if (30 <= currentTick - prevTick)
-            {
-                game.Update(); // 업뎃이 렌더보다 먼저
-                game.Render();
-                prevTick = currentTick;
-            }
-        }
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
     }
 
     return (int) msg.wParam;
@@ -112,8 +95,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    HWND hWnd = CreateWindowW(_T("WINDOWS GAME"), _T("GAME CLIENT"), WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
-   _hWnd = hWnd;
-
    if (!hWnd)
    {
       return FALSE;
@@ -134,16 +115,95 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 
+// 숙제 사용 변수
+int gugudan = 1;
+bool _pressA = false;
+int _x = 0;
+int _y = 0;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
-    
+    case WM_MOUSEMOVE:
+        _mousePos.x = GET_X_LPARAM(lParam);
+        _mousePos.y = GET_Y_LPARAM(lParam);
+
+        //_hWnd를 Rect영역(NULL이면 전체) 를 erase하고 다시 그리겠다.
+        ::InvalidateRect(_hWnd, NULL, true);
+        break;
+        // 화면을 그려라.라는 메세지가 왔을 때 처리하는 곳
+
+    case WM_KEYDOWN:
+        if (wParam == 'A')
+        {
+            printf("A를 눌렀다\n");
+            _pressA = !(_pressA); // A 토글
+            _x = _mousePos.x;
+            _y = _mousePos.y;
+        }
+        //최대 9단
+        if (wParam == VK_RIGHT)
+        {
+            if (gugudan < 9)
+            {
+                gugudan++;
+            }
+        }
+        //최대 1단
+        else if (wParam == VK_LEFT)
+        {
+            if (1 < gugudan)
+            {
+                gugudan--;
+            }
+        }
+        break;
     case WM_PAINT:
         {
             PAINTSTRUCT ps; // 그림 도구
             HDC hdc = BeginPaint(hWnd, &ps); //도화지
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+
+            // 사각형 그리기
+            ::Rectangle(hdc, 100, 100, 200, 200);
+            
+            // 원 그리기
+            ::Ellipse(hdc, 250, 250, 350, 350);
+
+
+            wchar_t str[128];
+
+            if (_pressA == false) // A를 눌렀을 때
+            {
+                for (int i = 1; i <= 9; i++)
+                {
+                    wsprintf(str, L"%d X %d = %d", gugudan, i, i * gugudan);
+                    ::TextOut(hdc, _mousePos.x, _mousePos.y + i * 15, str, _tcsclen(str));
+                }
+            }
+            else // A를 한 번 더 눌렀을 때
+            {
+                int a = 0;
+                int b = 0;
+                for (int i = 1; i <= 9; i++)
+                {
+                    for (int j = 1; j <= 9; j++)
+                    {
+                        wsprintf(str, L"%d X %d = %d", i, j, i * j);
+                        ::TextOut(hdc, _x + a * 100, _y + j * 15 + b, str, _tcsclen(str));
+                    }
+                    a++;
+                    if (a % 3 == 0)
+                    {
+                        a = 0;
+                        b += 150;
+                    }
+                }
+            }
+
+            // <마우스 좌표>
+            //wsprintf(str, L"(%d , %d)", _mousePos.x, _mousePos.y);
+            //::TextOut(hdc, _mousePos.x, _mousePos.y, str, _tcsclen(str));
 
             EndPaint(hWnd, &ps);
         }

@@ -32,6 +32,6 @@
 *.app
 
 
-*/.vs/
-*/Binaries/
-*/intermediates/
+**/.vs/
+**/Binaries/
+**/intermediates/
