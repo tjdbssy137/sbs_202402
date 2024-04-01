@@ -12,4 +12,8 @@ public:										\
 		return &instance;					\
 	}
 
-#define GET_SINGLE(ClassName)	 ClassName::GetInstance()
+
+#define GET_SINGLE(ClassName)	ClassName::GetInstance()
+
+#define Input GET_SINGLE(InputManager)
+#define Time GET_SINGLE(TimeManager)

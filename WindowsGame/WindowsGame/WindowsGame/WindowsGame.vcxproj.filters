@@ -6,26 +6,26 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="00.MainGame">
-      <UniqueIdentifier>{8338b4ad-507c-4c1b-bbbf-3ca38cf896b3}</UniqueIdentifier>
+      <UniqueIdentifier>{16eeb066-6835-4e77-ab71-51faa2a56940}</UniqueIdentifier>
     </Filter>
     <Filter Include="01.Managers">
-      <UniqueIdentifier>{018473d8-1b77-4222-852b-795a14d486c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="999.Comments">
-      <UniqueIdentifier>{9b0eaa1f-5420-48e6-b883-7d2fd5fd9a40}</UniqueIdentifier>
+      <UniqueIdentifier>{67553a7c-d79b-4d46-b6d0-92cbb0211ce4}</UniqueIdentifier>
     </Filter>
     <Filter Include="99.Utils">
-      <UniqueIdentifier>{b18e2dae-dd57-4a85-84d9-2ce4bfcf1cc5}</UniqueIdentifier>
+      <UniqueIdentifier>{3e8c1370-f658-4c97-9daf-fd20246c9123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="999.Comments">
+      <UniqueIdentifier>{a453a446-5a59-49b6-aee5-5a9fefa45660}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
     <ClInclude Include="framework.h">
       <Filter>99.Utils</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>99.Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
       <Filter>99.Utils</Filter>
     </ClInclude>
     <ClInclude Include="WindowsGame.h">
@@ -47,6 +47,9 @@
       <Filter>00.MainGame</Filter>
     </ClInclude>
     <ClInclude Include="TimeManager.h">
+      <Filter>01.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
       <Filter>01.Managers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -80,6 +83,12 @@
       <Filter>00.MainGame</Filter>
     </ClCompile>
     <ClCompile Include="TimeManager.cpp">
+      <Filter>01.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Day18.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
       <Filter>01.Managers</Filter>
     </ClCompile>
   </ItemGroup>

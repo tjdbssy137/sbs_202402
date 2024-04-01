@@ -1,14 +1,14 @@
 #pragma once
 
 #include "framework.h"
-#include <Windows.h>
-#include <Windowsx.h>
+
 //===========================================
 //		## WindowsGame Ä¿½ºÅÒ Çì´õ ##
 //===========================================
 #include "Defines.h"
 #include "Types.h"
 #include "CommonFunction.h"
+
 
 #pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
 
@@ -30,14 +30,16 @@
 #include <map>
 
 //===========================================
-//		## ½Ì±ÛÅæ ##
-//===========================================
-#include "TimeManager.h"
-
-//===========================================
 //		## NAMESPACE ##
 //===========================================
 using namespace std;
+
+
+//===========================================
+//		## ½Ì±ÛÅæ ##
+//===========================================
+#include "TimeManager.h"	//Time
+#include "InputManager.h"	//Input
 
 
 //===========================================
@@ -45,4 +47,3 @@ using namespace std;
 //===========================================
 extern HINSTANCE _hInstance;	// instance => ÇÁ·Î±×·¥(ÀÎ½ºÅÏ½º) °´Ã¼
 extern HWND _hWnd;				// wnd => À©µµ¿ì °´Ã¼
-extern POINT _mousePos;			// ¸¶¿ì½º ÁÂÇ¥

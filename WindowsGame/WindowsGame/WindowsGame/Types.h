@@ -1,7 +1,6 @@
 #pragma once
+// 타입들을 추가해줄거에요.
 
-// using : typedef의 역
-// using A B -> B를 A라 부르겠다
 using int8 = __int8;
 using int16 = __int16;
 using int32 = __int32;

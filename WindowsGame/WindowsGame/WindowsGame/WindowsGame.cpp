@@ -8,9 +8,8 @@
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
-HINSTANCE _hInstance;
-HWND _hWnd;
-POINT _mousePos; // 마우스 좌표
+HINSTANCE   _hInstance;	// instance => 프로그램(인스턴스) 객체
+HWND        _hWnd;	    // wnd => 윈도우 객체
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -18,31 +17,30 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
-
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-    // TODO: 여기에 코드를 입력합니다.
-
-    // 1. 클래스 등록
+    //1. 클래스 등록
     MyRegisterClass(hInstance);
 
-    // 2. 클래스 생성
+    //2. 윈도우 생성
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance (hInstance, nCmdShow))
     {
         return FALSE;
     }
 
+
     MSG msg = {};
 
-    // 3. 메세지 루프
+    //3. 메세지 루프
     Game game;
     game.Init(_hWnd);
-    //GetMessage : 메세지가 올 때까지 기다린다(scanf 느낌).
-    //PeekMessage : 메세지가 안 오면 그냥 null처리 하고 다시 while 루프를 돌게 함.
+
+    //GetMessage  : 메세지가 올떄까지 기다립니다. (scanf 이런느낌)
+    //PeekMessage : 메세지가 안오면 그냥 null처리하고 다시 while 루프 돌게합니다.
 
     uint64 prevTick = 0;
 
@@ -56,9 +54,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             uint64 currentTick = ::GetTickCount64();
-            //if (30 <= currentTick - prevTick)
+            //if (currentTick - prevTick >= 30)
             {
-                game.Update(); // 업뎃이 렌더보다 먼저
+                game.Update();
                 game.Render();
                 prevTick = currentTick;
             }
@@ -67,6 +65,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     return (int) msg.wParam;
 }
+
 
 
 //
@@ -81,7 +80,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.cbSize = sizeof(WNDCLASSEX);
 
     wcex.style          = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc    = WndProc; // *중요* 아래서 메세지 처리
+    wcex.lpfnWndProc    = WndProc;
     wcex.cbClsExtra     = 0;
     wcex.cbWndExtra     = 0;
     wcex.hInstance      = hInstance;
@@ -89,7 +88,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
     wcex.lpszMenuName   = nullptr;
-    wcex.lpszClassName  = _T("WINDOWS GAME");
+    wcex.lpszClassName  = _T("GameClient");
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     return RegisterClassExW(&wcex);
@@ -107,9 +106,9 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
-   _hInstance = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
+    _hInstance = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-   HWND hWnd = CreateWindowW(_T("WINDOWS GAME"), _T("GAME CLIENT"), WS_OVERLAPPEDWINDOW,
+   HWND hWnd = CreateWindowW(_T("GameClient"), _T("GameClient"), WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
    _hWnd = hWnd;
@@ -130,25 +129,47 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //  용도: 주 창의 메시지를 처리합니다.
 //
+//  WM_COMMAND  - 애플리케이션 메뉴를 처리합니다.
 //  WM_PAINT    - 주 창을 그립니다.
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
+//
 //
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
-    
+    case WM_COMMAND:
+        {
+            int wmId = LOWORD(wParam);
+            // 메뉴 선택을 구문 분석합니다:
+            switch (wmId)
+            {
+            case IDM_ABOUT:
+                DialogBox(_hInstance, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+                break;
+            case IDM_EXIT:
+                DestroyWindow(hWnd);
+                break;
+            default:
+                return DefWindowProc(hWnd, message, wParam, lParam);
+            }
+        }
+        break;
+
+        // 호출시점이
+        // 1. 게임 시작했을떄.
+        // 2. InvalidateRect를 호출하였을떄.
+        //화면을 그려라.라는 메세지가 왔을때 처리하는 곳
     case WM_PAINT:
         {
-            PAINTSTRUCT ps; // 그림 도구
-            HDC hdc = BeginPaint(hWnd, &ps); //도화지
-            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-
+            PAINTSTRUCT ps; 
+            HDC hdc = BeginPaint(hWnd, &ps);
+            
             EndPaint(hWnd, &ps);
         }
         break;
-    case WM_DESTROY: 
+    case WM_DESTROY:
         PostQuitMessage(0);
         break;
     default:
