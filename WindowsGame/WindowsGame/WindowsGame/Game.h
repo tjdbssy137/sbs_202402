@@ -24,5 +24,6 @@ private:
 private:
 	RECT _player = {};
 	RECT _enemy = {};
+	RECT _rectangle[9] = {};
 };
 

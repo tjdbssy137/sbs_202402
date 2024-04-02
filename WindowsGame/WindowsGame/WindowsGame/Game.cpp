@@ -37,10 +37,26 @@ void Game::Init(HWND hwnd)
 	_player.top = 100;
 	_player.bottom = 200;
 
-	_enemy.left = 650;
-	_enemy.right = 700;
-	_enemy.top = 200;
-	_enemy.bottom = 250;
+	_enemy.left = 550;
+	_enemy.right = 600;
+	_enemy.top = 100;
+	_enemy.bottom = 150;
+
+	int a = 0;
+	int b = 0;
+	for (int i = 1; i <= 9; i++)
+	{
+		_rectangle[i - 1].left = 200 + a;
+		_rectangle[i - 1].right = 300 + a;
+		_rectangle[i - 1].top = 200 + b;
+		_rectangle[i - 1].bottom = 300 + b;
+		a += 110;
+		if (i % 3 == 0)
+		{
+			a = 0;
+			b += 110;
+		}
+	}
 }
 
 void Game::Update()
@@ -62,40 +78,54 @@ void Game::Update()
 	//------------------------------
 	
 	// 이동 스크립트
+	POINT _direction = {};
+	int _moveDistance = 10;
 	if (Input->GetKeyDown(KeyCode::Right))
 	{
-		_player.left += 15;
-		_player.right += 15;
+		_player.left += _moveDistance;
+		_player.right += _moveDistance;
+		_direction = { 0, 1 };
 	}
 	else if (Input->GetKeyDown(KeyCode::Left))
 	{
-		_player.left -= 15;
-		_player.right -= 15;
+		_player.left -= _moveDistance;
+		_player.right -= _moveDistance;
+		_direction = { 0, -1 };
 	}
 	else if (Input->GetKeyDown(KeyCode::Up))
 	{
-		_player.top -= 15;
-		_player.bottom -= 15;
+		_player.top -= _moveDistance;
+		_player.bottom -= _moveDistance;
+		_direction = { -1, 0 };
 	}
 	else if (Input->GetKeyDown(KeyCode::Down))
 	{
-		_player.top += 15;
-		_player.bottom += 15;
+		_player.top += _moveDistance;
+		_player.bottom += _moveDistance;
+		_direction = { 1, 0 };
 	}
 
-	// _enemy와의 충돌 스크립트
-	if(Collision::RectInRect(_player, _enemy))
+	// _enemy와의 충돌&이동 스크립트
+	if (Collision::RectInRect(_player, _enemy))
 	{
-		::MessageBox(_hwnd, L"충돌되었습니다", L"알림", 0);
+		//::MessageBox(_hwnd, L"충돌되었습니다", L"알림", 0);
+		_enemy.left += _moveDistance * _direction.y;
+		_enemy.right += _moveDistance * _direction.y;
+		_enemy.top += _moveDistance * _direction.x;
+		_enemy.bottom += _moveDistance * _direction.x;
 	}
+
 
 	// 마우스 클릭 스크립트
 	if (Input->GetKeyDown(KeyCode::LeftMouse))
 	{
 		POINT mousePosUpdate = Input->GetMousePos();
-		if (Collision::PtInRect(mousePosUpdate, _player))
+		for (int i = 0; i < 9; i++)
 		{
-			::MessageBox(_hwnd, L"플레이어를 선택하였습니다.", L"알림", 0);
+			if (Collision::PtInRect(mousePosUpdate, _rectangle[i]))
+			{
+				::MessageBox(_hwnd, (L"_rectangle(" + ::to_wstring(i + 1) + L")을 선택하였습니다.").c_str(), L"알림", 0);
+			}
 		}
 	}
 	
@@ -124,7 +154,10 @@ void Game::Render()
 	::Rectangle(_hdcBack, _player.left, _player.top, _player.right, _player.bottom);
 	::Rectangle(_hdcBack, _enemy.left, _enemy.top, _enemy.right, _enemy.bottom);
 
-
+	for (int i = 0; i < 9; i++)
+	{
+		::Rectangle(_hdcBack, _rectangle[i].left, _rectangle[i].top, _rectangle[i].right, _rectangle[i].bottom);
+	}
 
 	//비트블릿 : 고속 복사
 	::BitBlt(_hdc, 0, 0, _rect.right, _rect.bottom, _hdcBack, 0, 0, SRCCOPY);
