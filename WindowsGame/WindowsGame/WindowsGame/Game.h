@@ -20,10 +20,5 @@ private:
 	RECT _rect = {};		//크기
 	HDC _hdcBack = {};		//유저에게 보이지 않는 화면
 	HBITMAP _bmpBack = {};	//화면에 그릴 물감
-
-private:
-	RECT _player = {};
-	RECT _enemy = {};
-	RECT _rectangle[9] = {};
 };
 

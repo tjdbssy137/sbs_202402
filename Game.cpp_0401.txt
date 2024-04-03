@@ -16,21 +16,21 @@ void Game::Init(HWND hwnd)
 	this->_hwnd = hwnd;
 	this->_hdc = ::GetDC(this->_hwnd);
 
-	//´õºí¹öÆÛ¸µ
-	::GetClientRect(_hwnd, &_rect);		//À©µµ¿ìÇÚµéÀÇ Å©±â¸¦ ¹ÝÈ¯ÇÏ°Ú´Ù.
+	//ë”ë¸”ë²„í¼ë§
+	::GetClientRect(_hwnd, &_rect);		//ìœˆë„ìš°í•¸ë“¤ì˜ í¬ê¸°ë¥¼ ë°˜í™˜í•˜ê² ë‹¤.
 
-	_hdcBack = ::CreateCompatibleDC(_hdc);	//_hdc¿Í È£È¯µÇ´Â È­¸é »ý¼º
-	_bmpBack = ::CreateCompatibleBitmap(_hdc, _rect.right, _rect.bottom);	//_hdc¿Í È£È¯µÇ´Â ºñÆ®¸Ê »ý¼º
-	HBITMAP prev = (HBITMAP)::SelectObject(_hdcBack, _bmpBack);	//_hdcBack¿¡ _bmp ¿¬°á
+	_hdcBack = ::CreateCompatibleDC(_hdc);	//_hdcì™€ í˜¸í™˜ë˜ëŠ” í™”ë©´ ìƒì„±
+	_bmpBack = ::CreateCompatibleBitmap(_hdc, _rect.right, _rect.bottom);	//_hdcì™€ í˜¸í™˜ë˜ëŠ” ë¹„íŠ¸ë§µ ìƒì„±
+	HBITMAP prev = (HBITMAP)::SelectObject(_hdcBack, _bmpBack);	//_hdcBackì— _bmp ì—°ê²°
 	::DeleteObject(prev);
 
 
-	//½Ì±ÛÅæ ÃÊ±âÈ­
+	//ì‹±ê¸€í†¤ ì´ˆê¸°í™”
 	Time->Init();
 	Input->Init(_hwnd);
 
 	//------------------------------
-	//	## ÄÚµå Â¥´Â °÷
+	//	## ì½”ë“œ ì§œëŠ” ê³³
 	//------------------------------
 	_player.left = 100;
 	_player.right = 200;
@@ -46,12 +46,10 @@ void Game::Init(HWND hwnd)
 	int b = 0;
 	for (int i = 1; i <= 9; i++)
 	{
-		RECT _temp = {};
-		_temp.left = 200 + a;
-		_temp.right = 300 + a;
-		_temp.top = 200 + b;
-		_temp.bottom = 300 + b;
-		_gugudanVec.push_back(_temp);
+		_rectangle[i - 1].left = 200 + a;
+		_rectangle[i - 1].right = 300 + a;
+		_rectangle[i - 1].top = 200 + b;
+		_rectangle[i - 1].bottom = 300 + b;
 		a += 110;
 		if (i % 3 == 0)
 		{
@@ -59,29 +57,27 @@ void Game::Init(HWND hwnd)
 			b += 110;
 		}
 	}
-
-
 }
 
 void Game::Update()
 {
-	//½Ì±ÛÅæ ¾÷µ¥ÀÌÆ®
+	//ì‹±ê¸€í†¤ ì—…ë°ì´íŠ¸
 	Time->Update();
 	Input->Update();
 
 	//------------------------------
-	//	## ÄÚµå Â¥´Â °÷
+	//	## ì½”ë“œ ì§œëŠ” ê³³
 	//------------------------------
 	//------------------------------
-	//½Ç½À
-	// 1. WASD ³ª ¹æÇâÅ°·Î,
-	//    _player¸¦ ¿òÁ÷ÀÏ¼ö ÀÖ°ÔÇÑ´Ù.
-	// 2. _player¿Í _enmey°¡ ºÎµúÈ÷¸é
-	//   ::MessageBox(_hwnd, L"¾Ë¸²", L"Ãæµ¹µÇ¾ú½À´Ï´Ù", 0);
-	//  ¸¦ ½ÇÇàÇÑ´Ù.
+	//ì‹¤ìŠµ
+	// 1. WASD ë‚˜ ë°©í–¥í‚¤ë¡œ,
+	//    _playerë¥¼ ì›€ì§ì¼ìˆ˜ ìžˆê²Œí•œë‹¤.
+	// 2. _playerì™€ _enmeyê°€ ë¶€ë”ªížˆë©´
+	//   ::MessageBox(_hwnd, L"ì•Œë¦¼", L"ì¶©ëŒë˜ì—ˆìŠµë‹ˆë‹¤", 0);
+	//  ë¥¼ ì‹¤í–‰í•œë‹¤.
 	//------------------------------
-
-	// ÀÌµ¿ ½ºÅ©¸³Æ®
+	
+	// ì´ë™ ìŠ¤í¬ë¦½íŠ¸
 	POINT _direction = {};
 	int _moveDistance = 10;
 	if (Input->GetKeyDown(KeyCode::Right))
@@ -109,10 +105,10 @@ void Game::Update()
 		_direction = { 1, 0 };
 	}
 
-	// _enemy¿ÍÀÇ Ãæµ¹&ÀÌµ¿ ½ºÅ©¸³Æ®
+	// _enemyì™€ì˜ ì¶©ëŒ&ì´ë™ ìŠ¤í¬ë¦½íŠ¸
 	if (Collision::RectInRect(_player, _enemy))
 	{
-		//::MessageBox(_hwnd, L"Ãæµ¹µÇ¾ú½À´Ï´Ù", L"¾Ë¸²", 0);
+		//::MessageBox(_hwnd, L"ì¶©ëŒë˜ì—ˆìŠµë‹ˆë‹¤", L"ì•Œë¦¼", 0);
 		_enemy.left += _moveDistance * _direction.y;
 		_enemy.right += _moveDistance * _direction.y;
 		_enemy.top += _moveDistance * _direction.x;
@@ -120,23 +116,25 @@ void Game::Update()
 	}
 
 
-	// ¸¶¿ì½º Å¬¸¯ ½ºÅ©¸³Æ®
+	// ë§ˆìš°ìŠ¤ í´ë¦­ ìŠ¤í¬ë¦½íŠ¸
 	if (Input->GetKeyDown(KeyCode::LeftMouse))
 	{
-		for (int i = 0; i < _gugudanVec.size(); i++)
+		POINT mousePosUpdate = Input->GetMousePos();
+		for (int i = 0; i < 9; i++)
 		{
-			if (Collision::PtInRect(Input->GetMousePos(), _gugudanVec[i]))
+			if (Collision::PtInRect(mousePosUpdate, _rectangle[i]))
 			{
-				_dan = i + 1;
-				//_toggle = !_toggle;
+				_gugudan = i + 1;
+				_toggle = !(_toggle);
+				//::MessageBox(_hwnd, (L"_rectangle(" + ::to_wstring(i + 1) + L")ì„ ì„ íƒí•˜ì˜€ìŠµë‹ˆë‹¤.").c_str(), L"ì•Œë¦¼", 0);
 			}
 		}
 	}
-
+	
 }
 void Game::Render()
 {
-	//FPS Ãâ·Â
+	//FPS ì¶œë ¥
 	{
 		uint32 fps = Time->GetFps();
 		float deltaTime = Time->GetDeltaTime();
@@ -145,27 +143,19 @@ void Game::Render()
 		::TextOut(_hdcBack, 0, 0, timeStr.c_str(), timeStr.length());
 	}
 
-	//¸¶¿ì½ºÁÂÇ¥ Ãâ·Â
+	//ë§ˆìš°ìŠ¤ì¢Œí‘œ ì¶œë ¥
 	{
 		POINT mousePos = Input->GetMousePos();
 		wstring str = format(L"mouse({0}, {1})", mousePos.x, mousePos.y);
 		::TextOut(_hdcBack, 0, 20, str.c_str(), str.length());
 
-		if (_dan != 0)
-		{
-			for (int i = 1; i <= 9; i++)
-			{
-				wstring _gugudanStr = format(L"({0}) X ({1}) = ({2})", _dan, i, i * _dan);
-				::TextOut(_hdcBack, mousePos.x, mousePos.y + i * 15, _gugudanStr.c_str(), _gugudanStr.length());
-			}
-		}
-		/*
 		wchar_t gugudan_str[128];
-		if (_toggle == false) // A¸¦ ´­·¶À» ¶§
+
+		if (_toggle == false) // Aë¥¼ ëˆŒë €ì„ ë•Œ
 		{
 			for (int i = 1; i <= 9; i++)
 			{
-				wsprintf(gugudan_str, L"%d X %d = %d", _dan, i, i * _dan);
+				wsprintf(gugudan_str, L"%d X %d = %d", _gugudan, i, i * _gugudan);
 				::TextOut(_hdcBack, mousePos.x, mousePos.y + i * 15, gugudan_str, _tcsclen(gugudan_str));
 			}
 		}
@@ -187,21 +177,21 @@ void Game::Render()
 					b += 150;
 				}
 			}
+
 		}
-		*/
 	}
 	//------------------------------
-	//	## ÄÚµå Â¥´Â °÷
+	//	## ì½”ë“œ ì§œëŠ” ê³³
 	//------------------------------
 	::Rectangle(_hdcBack, _player.left, _player.top, _player.right, _player.bottom);
 	::Rectangle(_hdcBack, _enemy.left, _enemy.top, _enemy.right, _enemy.bottom);
 
-	for (int i = 0; i < _gugudanVec.size(); i++)
+	for (int i = 0; i < 9; i++)
 	{
-		::Rectangle(_hdcBack, _gugudanVec[i].left, _gugudanVec[i].top, _gugudanVec[i].right, _gugudanVec[i].bottom);
+		::Rectangle(_hdcBack, _rectangle[i].left, _rectangle[i].top, _rectangle[i].right, _rectangle[i].bottom);
 	}
 
-	//ºñÆ®ºí¸´ : °í¼Ó º¹»ç
+	//ë¹„íŠ¸ë¸”ë¦¿ : ê³ ì† ë³µì‚¬
 	::BitBlt(_hdc, 0, 0, _rect.right, _rect.bottom, _hdcBack, 0, 0, SRCCOPY);
 	::PatBlt(_hdcBack, 0, 0, _rect.right, _rect.bottom, WHITENESS);
 }

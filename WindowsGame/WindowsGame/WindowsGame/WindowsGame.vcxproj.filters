@@ -17,6 +17,15 @@
     <Filter Include="999.Comments">
       <UniqueIdentifier>{a453a446-5a59-49b6-aee5-5a9fefa45660}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Scene">
+      <UniqueIdentifier>{5fc408f4-4325-4303-bc48-e4a6173f8fe2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Scene\Game">
+      <UniqueIdentifier>{0c70c7bd-c08a-4257-8c1e-0826f6cd3d30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.Utils\Types">
+      <UniqueIdentifier>{ae020741-0aad-4198-85ba-057170fd69d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -37,9 +46,6 @@
     <ClInclude Include="Defines.h">
       <Filter>99.Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Types.h">
-      <Filter>99.Utils</Filter>
-    </ClInclude>
     <ClInclude Include="CommonFunction.h">
       <Filter>99.Utils</Filter>
     </ClInclude>
@@ -51,6 +57,30 @@
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>01.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>01.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Dev1Scene.h">
+      <Filter>02.Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Dev2Scene.h">
+      <Filter>02.Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>02.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>99.Utils\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>99.Utils\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CenterRect.h">
+      <Filter>99.Utils\Types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +120,27 @@
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>01.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Day19.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>01.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Dev1Scene.cpp">
+      <Filter>02.Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Dev2Scene.cpp">
+      <Filter>02.Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>02.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>99.Utils\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="CenterRect.cpp">
+      <Filter>99.Utils\Types</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

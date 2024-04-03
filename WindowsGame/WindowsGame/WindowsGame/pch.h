@@ -8,7 +8,7 @@
 #include "Defines.h"
 #include "Types.h"
 #include "CommonFunction.h"
-
+#include "Enums.h"
 
 #pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
 
@@ -40,7 +40,7 @@ using namespace std;
 //===========================================
 #include "TimeManager.h"	//Time
 #include "InputManager.h"	//Input
-
+#include "SceneManager.h"	//Scene Manager
 
 //===========================================
 //		## 전역 변수 선언 ##

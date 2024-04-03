@@ -24,6 +24,12 @@ private:
 private:
 	RECT _player = {};
 	RECT _enemy = {};
-	RECT _rectangle[9] = {};
-};
 
+private:
+	//RECT _rectangle[9] = {};
+	//bool _toggle = false;
+	//int _gugudan = 1;
+private:
+	vector<RECT> _gugudanVec;
+	int _dan = 1;
+};
