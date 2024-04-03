@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="00.MainGame">
+      <UniqueIdentifier>{16eeb066-6835-4e77-ab71-51faa2a56940}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Managers">
+      <UniqueIdentifier>{67553a7c-d79b-4d46-b6d0-92cbb0211ce4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.Utils">
+      <UniqueIdentifier>{3e8c1370-f658-4c97-9daf-fd20246c9123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="999.Comments">
+      <UniqueIdentifier>{a453a446-5a59-49b6-aee5-5a9fefa45660}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsGame.h">
+      <Filter>00.MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonFunction.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>00.MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>01.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>01.Managers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="WindowsGame.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="WindowsGame.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="WindowsGame.cpp">
+      <Filter>00.MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>99.Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="CommonFunction.cpp">
+      <Filter>99.Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Day17.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>00.MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>01.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Day18.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>01.Managers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Day16.cpp">
+      <Filter>999.Comments</Filter>
+    </None>
+  </ItemGroup>
+</Project>
