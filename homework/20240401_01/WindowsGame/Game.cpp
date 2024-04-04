@@ -59,8 +59,6 @@ void Game::Init(HWND hwnd)
 			b += 110;
 		}
 	}
-
-
 }
 
 void Game::Update()
@@ -128,7 +126,6 @@ void Game::Update()
 			if (Collision::PtInRect(Input->GetMousePos(), _gugudanVec[i]))
 			{
 				_dan = i + 1;
-				//_toggle = !_toggle;
 			}
 		}
 	}
@@ -159,36 +156,6 @@ void Game::Render()
 				::TextOut(_hdcBack, mousePos.x, mousePos.y + i * 15, _gugudanStr.c_str(), _gugudanStr.length());
 			}
 		}
-		/*
-		wchar_t gugudan_str[128];
-		if (_toggle == false) // A를 눌렀을 때
-		{
-			for (int i = 1; i <= 9; i++)
-			{
-				wsprintf(gugudan_str, L"%d X %d = %d", _dan, i, i * _dan);
-				::TextOut(_hdcBack, mousePos.x, mousePos.y + i * 15, gugudan_str, _tcsclen(gugudan_str));
-			}
-		}
-		else
-		{
-			int a = 0;
-			int b = 0;
-			for (int i = 1; i <= 9; i++)
-			{
-				for (int j = 1; j <= 9; j++)
-				{
-					wsprintf(gugudan_str, L"%d X %d = %d", i, j, i * j);
-					::TextOut(_hdcBack, mousePos.x + a * 100, mousePos.y + j * 15 + b, gugudan_str, _tcsclen(gugudan_str));
-				}
-				a++;
-				if (a % 3 == 0)
-				{
-					a = 0;
-					b += 150;
-				}
-			}
-		}
-		*/
 	}
 	//------------------------------
 	//	## 코드 짜는 곳
