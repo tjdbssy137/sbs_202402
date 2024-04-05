@@ -10,6 +10,7 @@ public:
 	virtual void Release() override;
 private:
 	CenterRect _ball;
+	int _ballposX = 130;
 	Vector2 _ballDir;
 	Vector2 _targetPos = { -1, -1 };
 	Vector2 _prevPos = { -1, -1 };
@@ -27,7 +28,6 @@ private:
 
 	int _leftPoint = 0;
 	int _rightPoint = 0;
-	bool _whoseTurn = true; // true == leftPlayer, false == rightPlayer
 	bool _mouseTurn = true;
 };
 

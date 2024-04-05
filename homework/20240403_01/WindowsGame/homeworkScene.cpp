@@ -81,68 +81,66 @@ void homeworkScene::Update()
 	{
 		if (Input->GetKeyDown(KeyCode::LeftMouse))
 		{
-			POINT pt = Input->GetMousePos();
-			_targetPos = Vector2(pt.x, pt.y);
+			if (_mouseTurn)
+			{
+				_mouseTurn = false;
+				POINT pt = Input->GetMousePos();
+				_targetPos = Vector2(pt.x, pt.y);
+			}
 			_ballDir = (_targetPos - _ball.pos).Normalize();
 		}
-		
 	}
 
-	// ball Collision
+	//if (2 < (_targetPos - _ball.pos).Length())
 	{
-		//_ballDir -> 부딪힌 좌표(_ball.pos)를 구한다음
-		//			-> 이전 좌표 * -1 한 방향을 구해서
-		//			-> _ballDir = (이전 좌표 * -1, _ball.pos).Normalize();
-		
-	}
-	
-	// Game Over
-	if (2 < (_targetPos - _ball.pos).Length())
-	{
-		_ball.pos += _ballDir * (Time->GetDeltaTime() * 100);
+		_ball.pos += _ballDir * (Time->GetDeltaTime() * 200);
 		
 		if (_ball.pos.x < 15 || 535 < _ball.pos.x)
 		{
 			_ballDir = Vector2(0, 0);
-			//공위치 원상복귀하는 것도
-			//점수
-			//마지막에 닿은 플레이어가 누군지 확인하고, 그 플레이어에게 점수
-			if (_whoseTurn)
-			{
-				_leftPoint++;
-			}
-			else
+			_mouseTurn = true;
+			if (_ball.pos.x < 15)
 			{
 				_rightPoint++;
+				_ball.pos = Vector2(130, 200);
+			}
+			if (535 < _ball.pos.x)
+			{
+				_leftPoint++;
+				_ball.pos = Vector2(430, 200);
+			}
+
+			if (10 == _leftPoint)
+			{
+
+			}
+			if (10 == _rightPoint)
+			{
+
 			}
 		}
 		
 		if (Collision::RectInRect(_leftPlayer.ToRect(), _ball.ToRect()))
 		{
-			_whoseTurn = true;
-			Vector2 _tempDir = Vector2(_ballDir.x * -1, _ballDir.y).Normalize(); // 반사각 수정
-			_ball.pos += _tempDir * (Time->GetDeltaTime() * 100);
+			_ballDir.x *= -1;
+			_ball.pos += _ballDir * (Time->GetDeltaTime() * 200);
 		}
 		if (Collision::RectInRect(_rightPlayer.ToRect(), _ball.ToRect()))
 		{
-			_whoseTurn = false;
-			Vector2 _tempDir = Vector2(_ballDir.x * -1, _ballDir.y).Normalize();
-			_ball.pos += _tempDir * (Time->GetDeltaTime() * 100);
+			_ballDir.x *= -1; 
+			_ball.pos += _ballDir * (Time->GetDeltaTime() * 200);
 		}
 		if (Collision::RectInRect(_roofRect.ToRect(), _ball.ToRect()))
 		{
-			Vector2 _tempDir = Vector2(_ballDir.x, _ballDir.y * -1).Normalize();
-			_ball.pos += _tempDir * (Time->GetDeltaTime() * 100);
+			_ballDir.y *= -1; 
+			_ball.pos += _ballDir * (Time->GetDeltaTime() * 200);
 		}
 		if (Collision::RectInRect(_floorRect.ToRect(), _ball.ToRect()))
 		{
-			Vector2 _tempDir = Vector2(_ballDir.x, _ballDir.y * -1).Normalize();
-			_ball.pos += _tempDir * (Time->GetDeltaTime() * 100);
-			//_ballDir * (-1) => 그대로 돌아감. 
-			//Vector2 _tempDir = Vector2(_ballDir.x * -1, _ballDir.y);//경우에 따라 x축에만 -1하거나 y축에만 -1하기
+			_ballDir.y *= -1; 
+			_ball.pos += _ballDir * (Time->GetDeltaTime() * 200);
 		}
 	}
-	
 }
 void homeworkScene::Release()
 {
