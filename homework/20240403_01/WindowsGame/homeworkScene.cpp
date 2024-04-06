@@ -23,6 +23,18 @@ void homeworkScene::Render(HDC hdc) {
 	wstring str2 =  L"{ " + to_wstring(_leftPoint) + L" : " + to_wstring(_rightPoint) + L" }";
 	::TextOut(hdc, 200, 45, str2.c_str(), str2.length());
 
+
+	if (10 == _leftPoint)
+	{
+		wstring str3 = L"좌측 플레이어의 승리!";
+		::TextOut(hdc, 200, 100, str3.c_str(), str3.length());
+	}
+	if (10 == _rightPoint)
+	{
+		wstring str3 = L"우측 플레이어의 승리!";
+		::TextOut(hdc, 200, 100, str3.c_str(), str3.length());
+	}
+
 	_ball.Draw(hdc);
 	_leftPlayer.Draw(hdc);
 	_rightPlayer.Draw(hdc);
@@ -93,7 +105,7 @@ void homeworkScene::Update()
 
 	//if (2 < (_targetPos - _ball.pos).Length())
 	{
-		_ball.pos += _ballDir * (Time->GetDeltaTime() * 200);
+		_ball.pos += _ballDir * (Time->GetDeltaTime() * 400);
 		
 		if (_ball.pos.x < 15 || 535 < _ball.pos.x)
 		{
@@ -109,36 +121,27 @@ void homeworkScene::Update()
 				_leftPoint++;
 				_ball.pos = Vector2(430, 200);
 			}
-
-			if (10 == _leftPoint)
-			{
-
-			}
-			if (10 == _rightPoint)
-			{
-
-			}
 		}
 		
 		if (Collision::RectInRect(_leftPlayer.ToRect(), _ball.ToRect()))
-		{
+		{//상하좌우 충돌 판단하는 법 필요
 			_ballDir.x *= -1;
-			_ball.pos += _ballDir * (Time->GetDeltaTime() * 200);
+			_ball.pos += _ballDir * (Time->GetDeltaTime() * 400);
 		}
 		if (Collision::RectInRect(_rightPlayer.ToRect(), _ball.ToRect()))
 		{
 			_ballDir.x *= -1; 
-			_ball.pos += _ballDir * (Time->GetDeltaTime() * 200);
+			_ball.pos += _ballDir * (Time->GetDeltaTime() * 400);
 		}
 		if (Collision::RectInRect(_roofRect.ToRect(), _ball.ToRect()))
 		{
 			_ballDir.y *= -1; 
-			_ball.pos += _ballDir * (Time->GetDeltaTime() * 200);
+			_ball.pos += _ballDir * (Time->GetDeltaTime() * 400);
 		}
 		if (Collision::RectInRect(_floorRect.ToRect(), _ball.ToRect()))
 		{
 			_ballDir.y *= -1; 
-			_ball.pos += _ballDir * (Time->GetDeltaTime() * 200);
+			_ball.pos += _ballDir * (Time->GetDeltaTime() * 400);
 		}
 	}
 }

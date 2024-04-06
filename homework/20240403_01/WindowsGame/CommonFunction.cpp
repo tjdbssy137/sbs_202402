@@ -11,6 +11,7 @@ namespace Collision
 		}
 		return false;
 	}
+
 	// 오버라이드 : 클래스에서의 상속 개념, 자식 클래스를 호출
 	// 오버로딩 : 함수명은 같은데 매개변수가 다름
 	bool PtInRect(int ptX, int ptY, int x1, int y1, int x2, int y2)
