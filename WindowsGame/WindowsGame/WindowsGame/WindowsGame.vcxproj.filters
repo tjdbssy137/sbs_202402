@@ -142,6 +142,9 @@
     <ClCompile Include="CenterRect.cpp">
       <Filter>99.Utils\Types</Filter>
     </ClCompile>
+    <ClCompile Include="Day20.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Day16.cpp">

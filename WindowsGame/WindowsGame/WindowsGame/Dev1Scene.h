@@ -12,5 +12,8 @@ private:
 	CenterRect _player;
 	Vector2 _playerDir;
 	Vector2 _targetPos = { -1, -1 };
+
+private:
+	CenterRect _wall = {};
 };
 
