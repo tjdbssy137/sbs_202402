@@ -29,7 +29,8 @@ void Game::Init(HWND hwnd)
 	Time->Init();
 	Input->Init(_hwnd);
 	GET_SINGLE(SceneManager)->Init();
-	
+	GET_SINGLE(CollisionManager)->Init();
+
 	GET_SINGLE(SceneManager)->ChangeScene(SceneType::Dev1Scene);
 }
 
@@ -39,7 +40,8 @@ void Game::Update()
 	Time->Update();
 	Input->Update();
 	GET_SINGLE(SceneManager)->Update();
-	
+	GET_SINGLE(CollisionManager)->Update();
+
 }
 void Game::Render()
 {
