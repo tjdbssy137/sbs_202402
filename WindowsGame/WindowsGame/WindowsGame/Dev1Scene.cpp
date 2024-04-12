@@ -1,11 +1,34 @@
 #include "pch.h"
 #include "Dev1Scene.h"
-
+#include "PlayerActor.h"
+#include "BoxCollider.h"
 void Dev1Scene::Init()
 {
 	Super::Init();
-	_player = {Vector2(250, 250), 100, 100};
-	_wall = Shape::MakeCenterRectLTRB(700, 200, 800, 300);
+
+	{
+		PlayerActor* player = new PlayerActor();
+		player->Init();
+		player->SetName("플레이어1");
+
+		BoxCollider* collider = new BoxCollider();
+		collider->SetCollision(Shape::MakeCenterRect(0, 0, 100, 100));
+		player->AddComponent(collider);
+		player->SetBody(Shape::MakeCenterRect(100, 100, 100, 100));
+		this->SpawnActor(player);
+	}
+
+	{
+		PlayerActor* player = new PlayerActor();
+		player->Init();
+		player->SetName("플레이어2");
+		BoxCollider* collider = new BoxCollider();
+		collider->SetCollision(Shape::MakeCenterRect(0, 0, 100, 100));
+		player->AddComponent(collider);
+		player->SetBody(Shape::MakeCenterRect(500, 500, 100, 100));
+		this->SpawnActor(player);
+	}
+
 }
 void Dev1Scene::Render(HDC hdc) {
 	Super::Render(hdc);

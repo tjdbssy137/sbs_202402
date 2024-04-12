@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "BoxCollider.h"
 #include "Actor.h"
+
 void BoxCollider::Init()
 {
 	Super::Init();
@@ -12,6 +13,7 @@ void BoxCollider::Render(HDC hdc)
 void BoxCollider::Update()
 {
 	Super::Update();
+
 }
 void BoxCollider::Release()
 {
