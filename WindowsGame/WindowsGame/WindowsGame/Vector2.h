@@ -42,5 +42,27 @@ struct Vector2
 
 	Vector2 Reflect(Vector2 normal);
 	static Vector2 Reflect(Vector2 originVector, Vector2 normal);
+
+	static Vector2 Zero()
+	{
+		return Vector2(0, 0);
+	}
+	static Vector2 Up()
+	{
+		return Vector2(0, -1);
+	}
+	static Vector2 Down()
+	{
+		return Vector2(0, 1);
+	}
+	static Vector2 Right()
+	{
+		return Vector2(1, 0);
+	}
+	static Vector2 Left()
+	{
+		return Vector2(-1, 0);
+	}
+
 };
 

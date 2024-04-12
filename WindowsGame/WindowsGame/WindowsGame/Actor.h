@@ -17,8 +17,8 @@ public:
 	void SetName(string name) { _name = name; }
 public:
 	//Unity
-	void OnTriggerEnter(Collider* collider, Collider* other); // 충돌 시작
-	void OnTriggerExit(Collider* collider, Collider* other); // 충돌 끝
+	virtual void OnTriggerEnter(Collider* collider, Collider* other); // 충돌 시작
+	virtual void OnTriggerExit(Collider* collider, Collider* other); // 충돌 끝
 
 	//Unreal Engine
 	// void OnComponentBeginOverlap(Collider* collder, Collider* other); 충돌 시작

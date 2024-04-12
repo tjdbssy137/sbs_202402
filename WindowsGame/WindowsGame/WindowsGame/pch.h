@@ -46,6 +46,13 @@ using namespace std;
 #include "CollisionManager.h" // CollisionManager
 
 //===========================================
+//		## Windows Size ##
+//===========================================
+
+#define WIN_SIZE_X 1280
+#define WIN_SIZE_Y 720
+
+//===========================================
 //		## 전역 변수 선언 ##
 //===========================================
 extern HINSTANCE _hInstance;	// instance => 프로그램(인스턴스) 객체

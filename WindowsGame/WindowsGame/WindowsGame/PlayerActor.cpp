@@ -14,7 +14,7 @@ void PlayerActor::Render(HDC hdc)
 void PlayerActor::Update()
 {
 	Super::Update();
-
+	/*
 	if (Input->GetKeyDown(KeyCode::RightMouse) && _name == "플레이어1")
 	{
 		POINT pt = Input->GetMousePos();
@@ -26,6 +26,7 @@ void PlayerActor::Update()
 	{
 		_body.pos += _moveDir * (Time->GetDeltaTime() * 100);
 	}
+	*/
 }
 void PlayerActor::Release()
 {
