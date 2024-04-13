@@ -1,7 +1,6 @@
 #pragma once
 #include "Actor.h"
-class PaddleActor :
-    public Actor
+class PlayerActor : public Actor
 {
 public:
 	using Super = Actor;
@@ -11,11 +10,8 @@ public:
 	virtual void Update() override;
 	virtual void Release() override;
 
-public:
-	void Move(Vector2 moveDir);
-	void SetPos(Vector2 position);
-
 private:
-	float _speed = 0.0f;
+	Vector2 _targetPos = {};
+	Vector2 _moveDir = {};
 };
 
