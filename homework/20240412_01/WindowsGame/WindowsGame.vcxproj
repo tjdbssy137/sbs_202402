@@ -175,6 +175,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="PlayerActor.h" />
     <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="PooActor.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
@@ -233,6 +234,7 @@
     </ClCompile>
     <ClCompile Include="PlayerActor.cpp" />
     <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="PooActor.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="TimeManager.cpp" />

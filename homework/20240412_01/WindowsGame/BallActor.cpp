@@ -131,9 +131,15 @@ void BallActor::OnTriggerEnter(Collider* collider, Collider* other)
 				}
 			}
 
+			//BallActor의 OnTriggerEnter
 			if (other->GetOwner()->GetName() == "Brick")
 			{
+				//InGameScene* inGameScene = new InGameScene();
+				//inGameScene->DespawnActor(brick);
+
+				// 닿은 벽돌의 bool이 false가 되면 사라지게..
 				brick->SetBool(false);
+
 			}
 		}
 	}

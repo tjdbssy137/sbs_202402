@@ -11,11 +11,27 @@ void InGameScene::Init()
 	Super::Init();
 
 	{
-		_brick = new BrickActor();
+		int a = 0, b = 1;
+		for (int i = 0; i < COUNT; i++)
+		{
+			BrickActor* newBrick = new BrickActor();
+			
+			newBrick->Init();
+			float _x = newBrick->GetBody().pos.x;
+			float _y = newBrick->GetBody().pos.y;
 
-		_brick->Init();
+			newBrick->SetBody(CenterRect(Vector2(_x + 100 * a + 100, _y + 40 * b), 100, 30));
 
-		this->SpawnActor(_brick);
+			a++;
+
+			if ((i + 1) % 12 == 0)
+			{
+				a = 0;
+				b++;
+			}
+			_brick.push_back(newBrick);
+			this->SpawnActor(_brick[i]);
+		}
 	}
 
 	{
@@ -37,7 +53,6 @@ void InGameScene::Init()
 		_playerController->Init(_paddle, _ball);
 	}
 
-
 	this->ChangeGameState(GameState::Wait);
 
 }
@@ -51,12 +66,23 @@ void InGameScene::Render(HDC hdc)
 
 	wstring gameStateStr = format(L"GameState : {0}", (int)_gameState);
 	::TextOut(hdc, 0, 60, gameStateStr.c_str(), gameStateStr.length());
+
 }
 void InGameScene::Update()
 {
 	Super::Update();
 
 	_playerController->Update();
+
+	//InGameScene¿« Update
+	for (int i = 0; i < COUNT; i++)
+	{
+		if (_brick[i]->GetBool() == false)
+		{
+			this->DespawnActor(_brick[i]);
+		}
+	}
+	
 }
 void InGameScene::Release()
 {

@@ -1,7 +1,12 @@
 #include "pch.h"
 #include "Dev1Scene.h"
 #include "PlayerActor.h"
+#include "PooActor.h"
 #include "BoxCollider.h"
+
+/// <summary>
+/// 똥피하기게임
+/// </summary>
 void Dev1Scene::Init()
 {
 	Super::Init();
@@ -9,26 +14,16 @@ void Dev1Scene::Init()
 	{
 		PlayerActor* player = new PlayerActor();
 		player->Init();
-		player->SetName("플레이어1");
-
-		BoxCollider* collider = new BoxCollider();
-		collider->SetCollision(Shape::MakeCenterRect(0, 0, 100, 100));
-		player->AddComponent(collider);
-		player->SetBody(Shape::MakeCenterRect(100, 100, 100, 100));
+		player->SetName("플레이어");
 		this->SpawnActor(player);
 	}
 
 	{
-		PlayerActor* player = new PlayerActor();
-		player->Init();
-		player->SetName("플레이어2");
-		BoxCollider* collider = new BoxCollider();
-		collider->SetCollision(Shape::MakeCenterRect(0, 0, 100, 100));
-		player->AddComponent(collider);
-		player->SetBody(Shape::MakeCenterRect(500, 500, 100, 100));
-		this->SpawnActor(player);
+		PooActor* poo = new PooActor();
+		poo->Init();
+		poo->SetName("Poo");
+		this->SpawnActor(poo);
 	}
-
 }
 void Dev1Scene::Render(HDC hdc) {
 	Super::Render(hdc);

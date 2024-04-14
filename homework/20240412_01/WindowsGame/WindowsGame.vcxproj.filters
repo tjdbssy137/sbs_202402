@@ -127,6 +127,7 @@
     <ClInclude Include="InGameScene.h">
       <Filter>02.Scene\Game</Filter>
     </ClInclude>
+    <ClInclude Include="PooActor.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -229,6 +230,7 @@
     <ClCompile Include="InGameScene.cpp">
       <Filter>02.Scene\Game</Filter>
     </ClCompile>
+    <ClCompile Include="PooActor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Day16.cpp">

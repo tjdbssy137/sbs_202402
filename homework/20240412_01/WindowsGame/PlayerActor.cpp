@@ -1,9 +1,17 @@
 #include "pch.h"
 #include "PlayerActor.h"
+#include "BoxCollider.h"
 
 void PlayerActor::Init()
 {
 	Super::Init();
+
+	BoxCollider* collider = new BoxCollider();
+	collider->SetCollision(Shape::MakeCenterRect(0, 0, 60, 60));
+	this->AddComponent(collider);
+	this->SetBody(Shape::MakeCenterRect(100, 100, 60, 60));
+
+	_speed = 400;
 }
 void PlayerActor::Render(HDC hdc)
 {
@@ -27,8 +35,36 @@ void PlayerActor::Update()
 		_body.pos += _moveDir * (Time->GetDeltaTime() * 100);
 	}
 	*/
+	if (Input->GetKey(KeyCode::A))
+	{
+		this->Move(Vector2::Left());
+	}
+	if (Input->GetKey(KeyCode::D))
+	{
+		this->Move(Vector2::Right());
+	}
 }
 void PlayerActor::Release()
 {
 	Super::Release();
+}
+
+void PlayerActor::Move(Vector2 moveDir)
+{
+	if (moveDir.Length() == 0.0f)
+	{
+		return;
+	}
+	if (moveDir.y != 0)
+	{
+		moveDir.y = 0;
+		moveDir = moveDir.Normalize();
+	}
+
+	_body.pos += moveDir * Time->GetDeltaTime() * _speed;
+}
+
+void PlayerActor::SetPos(Vector2 position)
+{
+	this->_body.pos = position;
 }

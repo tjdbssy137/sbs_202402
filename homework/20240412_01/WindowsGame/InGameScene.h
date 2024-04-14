@@ -26,6 +26,6 @@ private:
 	BallActor* _ball = nullptr;
 	PlayerController* _playerController = nullptr;
 	GameState _gameState = GameState::None;
-	BrickActor* _brick = nullptr;
+	vector<BrickActor*> _brick;
 };
 
