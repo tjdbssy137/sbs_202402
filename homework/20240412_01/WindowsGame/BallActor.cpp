@@ -78,73 +78,82 @@ void BallActor::SetPos(Vector2 position)
 void BallActor::OnTriggerEnter(Collider* collider, Collider* other)
 {
 	Super::OnTriggerEnter(collider, other);
-
-	//BrickActor* brick = new BrickActor();
 	
-	if (other->GetOwner()->GetName() == "Paddle" || other->GetOwner()->GetName() == "Brick")
-	{	
+	if (other->GetOwner()->GetName() == "Paddle")
+	{
 		//충돌로직체크
 		RECT myRect = static_cast<BoxCollider*>(collider)->GetCollision().ToRect();
-
 		myRect.left -= 1;
 		myRect.top -= 1;
 		myRect.right += 1;
 		myRect.bottom += 1;
 		RECT otherRect = static_cast<BoxCollider*>(other)->GetCollision().ToRect();
-		RECT temp = {};
 
-		if (IntersectRect(&temp, &myRect, &otherRect))
+		this->Bounce(myRect, otherRect);
+	}
+	if (other->GetOwner()->GetName() == "Brick")
+	{
+		RECT myRect = static_cast<BoxCollider*>(collider)->GetCollision().ToRect();
+		myRect.left -= 1;
+		myRect.top -= 1;
+		myRect.right += 1;
+		myRect.bottom += 1;
+		RECT otherRect = static_cast<BoxCollider*>(other)->GetCollision().ToRect();
+
+		this->Bounce(myRect, otherRect);
+
+		//Comment : other의 Owner가 벽돌이기 때문에 Actor* 인 GetOwner에서 dynamic_cast<BrickActor*>로 형변환을 해준다.
+		BrickActor* brickActor = dynamic_cast<BrickActor*>(other->GetOwner());
+		if (brickActor != nullptr)
 		{
-			int width = temp.right - temp.left;
-			int height = temp.bottom - temp.top;
-			if (width < height)
+			//Comment : 현재 씬을 가지고 오고 싶으면, SceneManager의 GetCurrentScene을 사용한다.
+			/*Scene* inGameScene = GET_SINGLE(SceneManager)->GetCurrentScene();
+			inGameScene->DespawnActor(brickActor);*/
+
+			// 닿은 벽돌의 bool이 false가 되면 사라지게..
+			brickActor->SetBool(false);
+		}
+	}	
+}
+
+void BallActor::Bounce(RECT myRect, RECT otherRect)
+{
+	RECT temp = {};
+
+	if (IntersectRect(&temp, &myRect, &otherRect))
+	{
+		int width = temp.right - temp.left;
+		int height = temp.bottom - temp.top;
+		if (width < height)
+		{
+			//오른쪽에서 왼쪽으로 충돌되었다.
+			if (temp.left == myRect.left)
 			{
-				//오른쪽에서 왼쪽으로 충돌되었다.
-				if (temp.left == myRect.left)
-				{
-					_moveDir.x = -_moveDir.x;
-					_body.pos.x += temp.right - temp.left;
-				}
-
-				//왼쪽에서 오른쪽으로 충돌되었다.
-				if (temp.right == myRect.right)
-				{
-					_moveDir.x = -_moveDir.x;
-					_body.pos.x -= temp.right - temp.left;
-				}
-			}
-			else
-			{
-				//아래에서 위로 충돌되었다.
-				if (temp.top == myRect.top)
-				{
-					_moveDir.y = -_moveDir.y;
-					_body.pos.y += temp.bottom - temp.top;
-				}
-
-
-				//위에서 아래로 충돌되었다.
-				if (temp.bottom == myRect.bottom)
-				{
-					_moveDir.y = -_moveDir.y;
-					_body.pos.y -= temp.bottom - temp.top;
-				}
+				_moveDir.x = -_moveDir.x;
+				_body.pos.x += temp.right - temp.left;
 			}
 
-			if (other->GetOwner()->GetName() == "Brick")
+			//왼쪽에서 오른쪽으로 충돌되었다.
+			if (temp.right == myRect.right)
 			{
-				//Comment : other의 Owner가 벽돌이기 때문에 Actor* 인 GetOwner에서 dynamic_cast<BrickActor*>로 형변환을 해준다.
-				BrickActor* brickActor = dynamic_cast<BrickActor*>(other->GetOwner());
-				if (brickActor != nullptr)
-				{
-					//Comment : 현재 씬을 가지고 오고 싶으면, SceneManager의 GetCurrentScene을 사용한다.
-					/*Scene* inGameScene = GET_SINGLE(SceneManager)->GetCurrentScene();
-					inGameScene->DespawnActor(brickActor);*/
+				_moveDir.x = -_moveDir.x;
+				_body.pos.x -= temp.right - temp.left;
+			}
+		}
+		else
+		{
+			//아래에서 위로 충돌되었다.
+			if (temp.top == myRect.top)
+			{
+				_moveDir.y = -_moveDir.y;
+				_body.pos.y += temp.bottom - temp.top;
+			}
 
-					// 닿은 벽돌의 bool이 false가 되면 사라지게..
-					brickActor->SetBool(false);
-				}
-
+			//위에서 아래로 충돌되었다.
+			if (temp.bottom == myRect.bottom)
+			{
+				_moveDir.y = -_moveDir.y;
+				_body.pos.y -= temp.bottom - temp.top;
 			}
 		}
 	}

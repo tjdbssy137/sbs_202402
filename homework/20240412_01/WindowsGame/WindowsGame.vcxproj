@@ -165,8 +165,11 @@
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Defines.h" />
+    <ClInclude Include="HammerActor.h" />
+    <ClInclude Include="MoleActor.h" />
+    <ClInclude Include="MoleHouseActor.h" />
     <ClInclude Include="PooGame.h" />
-    <ClInclude Include="Dev2Scene.h" />
+    <ClInclude Include="WhacAMole.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="InGameScene.h" />
@@ -220,8 +223,11 @@
     <ClCompile Include="Day22.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="HammerActor.cpp" />
+    <ClCompile Include="MoleActor.cpp" />
+    <ClCompile Include="MoleHouseActor.cpp" />
     <ClCompile Include="PooGame.cpp" />
-    <ClCompile Include="Dev2Scene.cpp" />
+    <ClCompile Include="WhacAMole.cpp" />
     <ClInclude Include="Enums.h" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="InGameScene.cpp" />

@@ -20,7 +20,7 @@ void PooGame::Init()
 	}
 
 	{
-		for (int i = 0; i < isActive; i ++)
+		for (int i = 0; i < IS_ACTIVE; i ++)
 		{
 			PooActor* poo = new PooActor();
 			poo->Init();
@@ -31,20 +31,22 @@ void PooGame::Init()
 	}
 
 	{
-		for (int i = 0; i < isActive; i++)
+		for (int i = 0; i < IS_ACTIVE; i++)
 		{
 			_isActive[i] = true;
 		}
 	}
 
 	{
-		pooGameController = new PooGameController();
-		pooGameController->Init(player);
+		_pooGameController = new PooGameController();
+		_pooGameController->Init(player, _poo);
 	}
 
-	srand(time(NULL));
 	this->ChangeGameState(GameState::Wait);
 
+	srand(time(NULL));
+	_tempTime = 20;
+	_throwTime = 0.5f;
 }
 void PooGame::Render(HDC hdc) {
 	Super::Render(hdc);
@@ -52,31 +54,39 @@ void PooGame::Render(HDC hdc) {
 	wstring str = L"PooGame";
 	::TextOut(hdc, 0, 45, str.c_str(), str.length());
 
-	wstring survivalTime = format(L"Survival time : {0}", _survivalTime);
+	wstring survivalTime = format(L"Survival time : {0:*>.1f}\t Level : {1}", _survivalTime, _level);
 	::TextOut(hdc, 0, 90, survivalTime.c_str(), survivalTime.length());
 
-	if (pooGameController->GetCanPlayerControl() == false)
+	if (_pooGameController->GetCanPlayerControl() == false)
 	{
 		wstring survival = L"Game Over";
-		::TextOut(hdc, 0, 135, survival.c_str(), survival.length());
+		::TextOut(hdc, 0, 75, survival.c_str(), survival.length());
 	}
 }
 void PooGame::Update()
 {
 	Super::Update();
 
-	pooGameController->Update();
+	_pooGameController->Update();
 	
-	if (pooGameController->GetCanPlayerControl() == true)
+	if (_pooGameController->GetCanPlayerControl() == true)
 	{
 		_survivalTime += Time->GetDeltaTime();
-	}
-
-	{
-		_time += Time->GetDeltaTime();
-		if (0.5f <= _time)
+		if (_tempTime < _survivalTime)
 		{
-			int random = rand() % isActive;
+			_tempTime *= 1.2f;
+			_throwTime -= 0.05f;
+			_level++;
+			if (_throwTime < 0.2f)
+			{
+				cout << "Game Win" << endl;
+			}
+		}
+	
+		_time += Time->GetDeltaTime();
+		if (_throwTime <= _time)
+		{
+			int random = rand() % IS_ACTIVE;
 			if (_isActive[random] == true)
 			{
 				_isActive[random] = false;
@@ -88,11 +98,12 @@ void PooGame::Update()
 	}
 
 	{
-		for (int i = 0; i < isActive; i++)
+		for (int i = 0; i < IS_ACTIVE; i++)
 		{
-			if (700 < _poo[i]->GetBody().pos.y)
+			if (750 < _poo[i]->GetBody().pos.y)
 			{
 				_isActive[i] = true;
+				_poo[i]->SetMoveDir(Vector2::Zero());
 			}
 		}
 	}
@@ -118,12 +129,19 @@ void PooGame::ChangeGameState(GameState state)
 		break;
 
 	case GameState::Wait:
-		pooGameController->SetCanPlayerController(false);
+		_pooGameController->SetCanPlayerController(false);
 	break;
 
 	case GameState::Play:
-		pooGameController->SetCanPlayerController(true);
+		_pooGameController->SetCanPlayerController(true);
 		_survivalTime = 0;
+		_tempTime = 20;
+		_throwTime = 0.5f;
+		_level = 1;
+		for (int i = 0; i < IS_ACTIVE; i++)
+		{
+			_poo[i]->SetBody(CenterRect(Vector2(WIN_SIZE_X / 2, -50), 50, 50));
+		}
 		player->SetPos(Vector2(WIN_SIZE_X / 2, 700));
 		break;
 	}

@@ -32,9 +32,9 @@ void Game::Init(HWND hwnd)
 	GET_SINGLE(SceneManager)->Init();
 	GET_SINGLE(CollisionManager)->Init();
 
-
-	GET_SINGLE(SceneManager)->ChangeScene(SceneType::PooGame);
-	//GET_SINGLE(SceneManager)->ChangeScene(SceneType::InGameScene);
+	GET_SINGLE(SceneManager)->ChangeScene(SceneType::WhacAMole); // 두더지 잡기 게임
+	//GET_SINGLE(SceneManager)->ChangeScene(SceneType::PooGame); // 똥피하기 게임
+	//GET_SINGLE(SceneManager)->ChangeScene(SceneType::InGameScene); // 벽돌깨기 게임
 }
 void Game::Update()
 {

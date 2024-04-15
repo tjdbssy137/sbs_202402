@@ -6,7 +6,7 @@ class PooActor;
 class InGameState;
 class PooGameController;
 
-#define isActive 18
+#define IS_ACTIVE 20
 class PooGame : public Scene
 {
 	using Super = Scene;
@@ -24,10 +24,13 @@ private:
 	vector<PooActor*> _poo;
 	float _time = 0;
 	float _survivalTime = 0;
-	bool _isActive[isActive];
+	bool _isActive[IS_ACTIVE];
 
-	PooGameController* pooGameController = nullptr;
+	PooGameController* _pooGameController = nullptr;
 	GameState _gameState = GameState::None;
 
+	float _tempTime = 0;
+	float _throwTime = 0;
+	int _level = 1;
 };
 

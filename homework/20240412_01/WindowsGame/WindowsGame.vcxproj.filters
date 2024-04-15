@@ -41,6 +41,9 @@
     <Filter Include="03.Objects\PooGame">
       <UniqueIdentifier>{bfea5b4b-1974-48f6-97c8-9fb413990aaf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.Objects\WhacAMole">
+      <UniqueIdentifier>{96dc08c0-3e82-432b-9b38-84a1bd7ecec3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -79,7 +82,7 @@
     <ClInclude Include="PooGame.h">
       <Filter>02.Scene\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Dev2Scene.h">
+    <ClInclude Include="WhacAMole.h">
       <Filter>02.Scene\Game</Filter>
     </ClInclude>
     <ClInclude Include="Enums.h">
@@ -133,7 +136,18 @@
     <ClInclude Include="PooActor.h">
       <Filter>03.Objects\PooGame</Filter>
     </ClInclude>
-    <ClInclude Include="PooGameController.h" />
+    <ClInclude Include="PooGameController.h">
+      <Filter>03.Objects\PooGame</Filter>
+    </ClInclude>
+    <ClInclude Include="MoleActor.h">
+      <Filter>03.Objects\WhacAMole</Filter>
+    </ClInclude>
+    <ClInclude Include="MoleHouseActor.h">
+      <Filter>03.Objects\WhacAMole</Filter>
+    </ClInclude>
+    <ClInclude Include="HammerActor.h">
+      <Filter>03.Objects\WhacAMole</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -182,7 +196,7 @@
     <ClCompile Include="PooGame.cpp">
       <Filter>02.Scene\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Dev2Scene.cpp">
+    <ClCompile Include="WhacAMole.cpp">
       <Filter>02.Scene\Game</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
@@ -239,7 +253,18 @@
     <ClCompile Include="PooActor.cpp">
       <Filter>03.Objects\PooGame</Filter>
     </ClCompile>
-    <ClCompile Include="PooGameController.cpp" />
+    <ClCompile Include="PooGameController.cpp">
+      <Filter>03.Objects\PooGame</Filter>
+    </ClCompile>
+    <ClCompile Include="MoleActor.cpp">
+      <Filter>03.Objects\WhacAMole</Filter>
+    </ClCompile>
+    <ClCompile Include="MoleHouseActor.cpp">
+      <Filter>03.Objects\WhacAMole</Filter>
+    </ClCompile>
+    <ClCompile Include="HammerActor.cpp">
+      <Filter>03.Objects\WhacAMole</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Day16.cpp">

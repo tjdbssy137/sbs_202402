@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "Component.h"
 #include "Collider.h"
+#include "Scene.h"
 
 void Actor::OnTriggerEnter(Collider* collider, Collider* other)
 {
@@ -28,6 +29,11 @@ void Actor::Update()
 	for (Component* component : _components)
 	{
 		component->Update();
+	}
+	if (_isEnable == false)
+	{
+		Scene* currentScene = GET_SINGLE(SceneManager)->GetCurrentScene();
+		currentScene->DespawnActor(this);
 	}
 }
 void Actor::Release()

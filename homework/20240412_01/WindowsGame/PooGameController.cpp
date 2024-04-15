@@ -4,9 +4,10 @@
 #include "PlayerActor.h"
 #include "PooGame.h"
 
-void PooGameController::Init(PlayerActor* player)
+void PooGameController::Init(PlayerActor* player, vector<PooActor*> poo)
 {
 	_player = player;
+	_poo = poo;
 }
 
 void PooGameController::Update()
@@ -20,6 +21,20 @@ void PooGameController::Update()
 		if (Input->GetKey(KeyCode::D))
 		{
 			_player->Move(Vector2::Right());
+		}
+
+		if (_player->GetBody().pos.x < 300)
+		{
+			_player->SetBody(CenterRect(Vector2(301, 700), 60, 40));
+		}
+		if (900 < _player->GetBody().pos.x)
+		{
+			_player->SetBody(CenterRect(Vector2(899, 700), 60, 40));
+		}
+
+		for (int i = 0; i < IS_ACTIVE; i++)
+		{
+			_poo[i]->Move();
 		}
 	}
 	else

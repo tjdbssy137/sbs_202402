@@ -8,7 +8,7 @@ void PooActor::Init()
 	BoxCollider* collider = new BoxCollider();
 	collider->SetCollision(Shape::MakeCenterRect(0, 0, 50, 50));
 	this->AddComponent(collider);
-	this->SetBody(Shape::MakeCenterRect(WIN_SIZE_X/2, 0, 50, 50));
+	this->SetBody(Shape::MakeCenterRect(WIN_SIZE_X/2, -50, 50, 50));
 }
 void PooActor::Render(HDC hdc)
 {
@@ -19,7 +19,7 @@ void PooActor::Render(HDC hdc)
 void PooActor::Update()
 {
 	Super::Update();
-	this->Move();
+	//this->Move();
 }
 void PooActor::Release()
 {
@@ -29,7 +29,7 @@ void PooActor::Release()
 void PooActor::Throw(float pPosX, float pPosY)
 {
 	_targetPos = Vector2(pPosX, 700);
-	this->SetBody(Shape::MakeCenterRect(pPosX, 20, 50, 50));
+	this->SetBody(Shape::MakeCenterRect(pPosX, 0, 50, 50));
 	_moveDir = (_targetPos - _body.pos).Normalize();
 }
 void PooActor::Move()

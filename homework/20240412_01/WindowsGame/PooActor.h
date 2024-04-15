@@ -1,5 +1,6 @@
 #pragma once
 #include "Actor.h"
+
 class PooActor :
     public Actor
 {
@@ -14,6 +15,7 @@ public:
 public:
 	void Throw(float pPosX, float pPosY);
 	void Move();
+	void SetMoveDir(Vector2 moveDir) { _moveDir = moveDir; }
 	//Vector2 GetPooPosition(){return this->_body.pos;};
 
 private:

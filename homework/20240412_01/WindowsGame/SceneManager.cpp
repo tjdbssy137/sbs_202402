@@ -2,7 +2,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "PooGame.h"
-#include "Dev2Scene.h"
+#include "WhacAMole.h"
 #include "InGameScene.h"
 
 void SceneManager::Init()
@@ -42,8 +42,8 @@ void SceneManager::Update()
 	case SceneType::PooGame:
 		newScene = new PooGame();
 		break;
-	case SceneType::Dev2Scene:
-		newScene = new Dev2Scene();
+	case SceneType::WhacAMole:
+		newScene = new WhacAMole();
 		break;
 	case SceneType::InGameScene:
 		newScene = new InGameScene();

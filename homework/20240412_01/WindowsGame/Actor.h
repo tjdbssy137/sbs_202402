@@ -7,6 +7,7 @@ protected:
 	CenterRect _body = {};
 	string _name;
 	vector<Component*> _components;
+	bool _isEnable = true;
 
 public:
 	//Getter, Setter
@@ -15,6 +16,9 @@ public:
 
 	string GetName() { return _name; }
 	void SetName(string name) { _name = name; }
+
+	bool GetEnable() { return _isEnable; }
+	void SetEnable(bool isEnable) { _isEnable = isEnable; }
 public:
 	//Unity
 	virtual void OnTriggerEnter(Collider* collider, Collider* other); // 충돌 시작
