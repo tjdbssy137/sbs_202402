@@ -38,6 +38,9 @@
     <Filter Include="03.Objects\Game">
       <UniqueIdentifier>{9d9f7f54-7dd7-47f0-a923-0581b5e8296a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.Objects\PooGame">
+      <UniqueIdentifier>{bfea5b4b-1974-48f6-97c8-9fb413990aaf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -73,7 +76,7 @@
     <ClInclude Include="SceneManager.h">
       <Filter>01.Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Dev1Scene.h">
+    <ClInclude Include="PooGame.h">
       <Filter>02.Scene\Game</Filter>
     </ClInclude>
     <ClInclude Include="Dev2Scene.h">
@@ -109,9 +112,6 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>01.Managers</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerActor.h">
-      <Filter>03.Objects\Game</Filter>
-    </ClInclude>
     <ClInclude Include="BallActor.h">
       <Filter>03.Objects\Game</Filter>
     </ClInclude>
@@ -127,7 +127,13 @@
     <ClInclude Include="InGameScene.h">
       <Filter>02.Scene\Game</Filter>
     </ClInclude>
-    <ClInclude Include="PooActor.h" />
+    <ClInclude Include="PlayerActor.h">
+      <Filter>03.Objects\PooGame</Filter>
+    </ClInclude>
+    <ClInclude Include="PooActor.h">
+      <Filter>03.Objects\PooGame</Filter>
+    </ClInclude>
+    <ClInclude Include="PooGameController.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -173,7 +179,7 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>01.Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Dev1Scene.cpp">
+    <ClCompile Include="PooGame.cpp">
       <Filter>02.Scene\Game</Filter>
     </ClCompile>
     <ClCompile Include="Dev2Scene.cpp">
@@ -209,9 +215,6 @@
     <ClCompile Include="CollisionManager.cpp">
       <Filter>01.Managers</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerActor.cpp">
-      <Filter>03.Objects\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Day22.cpp">
       <Filter>999.Comments</Filter>
     </ClCompile>
@@ -230,7 +233,13 @@
     <ClCompile Include="InGameScene.cpp">
       <Filter>02.Scene\Game</Filter>
     </ClCompile>
-    <ClCompile Include="PooActor.cpp" />
+    <ClCompile Include="PlayerActor.cpp">
+      <Filter>03.Objects\PooGame</Filter>
+    </ClCompile>
+    <ClCompile Include="PooActor.cpp">
+      <Filter>03.Objects\PooGame</Filter>
+    </ClCompile>
+    <ClCompile Include="PooGameController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Day16.cpp">

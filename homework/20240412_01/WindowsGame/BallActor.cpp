@@ -79,7 +79,7 @@ void BallActor::OnTriggerEnter(Collider* collider, Collider* other)
 {
 	Super::OnTriggerEnter(collider, other);
 
-	BrickActor* brick = new BrickActor();
+	//BrickActor* brick = new BrickActor();
 	
 	if (other->GetOwner()->GetName() == "Paddle" || other->GetOwner()->GetName() == "Brick")
 	{	
@@ -131,14 +131,19 @@ void BallActor::OnTriggerEnter(Collider* collider, Collider* other)
 				}
 			}
 
-			//BallActor의 OnTriggerEnter
 			if (other->GetOwner()->GetName() == "Brick")
 			{
-				//InGameScene* inGameScene = new InGameScene();
-				//inGameScene->DespawnActor(brick);
+				//Comment : other의 Owner가 벽돌이기 때문에 Actor* 인 GetOwner에서 dynamic_cast<BrickActor*>로 형변환을 해준다.
+				BrickActor* brickActor = dynamic_cast<BrickActor*>(other->GetOwner());
+				if (brickActor != nullptr)
+				{
+					//Comment : 현재 씬을 가지고 오고 싶으면, SceneManager의 GetCurrentScene을 사용한다.
+					/*Scene* inGameScene = GET_SINGLE(SceneManager)->GetCurrentScene();
+					inGameScene->DespawnActor(brickActor);*/
 
-				// 닿은 벽돌의 bool이 false가 되면 사라지게..
-				brick->SetBool(false);
+					// 닿은 벽돌의 bool이 false가 되면 사라지게..
+					brickActor->SetBool(false);
+				}
 
 			}
 		}

@@ -66,7 +66,6 @@ void InGameScene::Render(HDC hdc)
 
 	wstring gameStateStr = format(L"GameState : {0}", (int)_gameState);
 	::TextOut(hdc, 0, 60, gameStateStr.c_str(), gameStateStr.length());
-
 }
 void InGameScene::Update()
 {

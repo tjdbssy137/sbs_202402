@@ -1,15 +1,16 @@
 #include "pch.h"
 #include "PlayerActor.h"
 #include "BoxCollider.h"
+#include "PooGame.h"
 
 void PlayerActor::Init()
 {
 	Super::Init();
 
 	BoxCollider* collider = new BoxCollider();
-	collider->SetCollision(Shape::MakeCenterRect(0, 0, 60, 60));
+	collider->SetCollision(Shape::MakeCenterRect(0, 0, 50, 30));
 	this->AddComponent(collider);
-	this->SetBody(Shape::MakeCenterRect(100, 100, 60, 60));
+	this->SetBody(Shape::MakeCenterRect(WIN_SIZE_X / 2, 700, 60, 40));
 
 	_speed = 400;
 }
@@ -22,27 +23,6 @@ void PlayerActor::Render(HDC hdc)
 void PlayerActor::Update()
 {
 	Super::Update();
-	/*
-	if (Input->GetKeyDown(KeyCode::RightMouse) && _name == "플레이어1")
-	{
-		POINT pt = Input->GetMousePos();
-		_targetPos = Vector2(pt.x, pt.y);
-		_moveDir = (_targetPos - _body.pos).Normalize();
-	}
-
-	if (10 < (_targetPos - _body.pos).Length())
-	{
-		_body.pos += _moveDir * (Time->GetDeltaTime() * 100);
-	}
-	*/
-	if (Input->GetKey(KeyCode::A))
-	{
-		this->Move(Vector2::Left());
-	}
-	if (Input->GetKey(KeyCode::D))
-	{
-		this->Move(Vector2::Right());
-	}
 }
 void PlayerActor::Release()
 {
@@ -67,4 +47,18 @@ void PlayerActor::Move(Vector2 moveDir)
 void PlayerActor::SetPos(Vector2 position)
 {
 	this->_body.pos = position;
+}
+
+void PlayerActor::OnTriggerEnter(Collider* collider, Collider* other)
+{
+	Super::OnTriggerEnter(collider, other);
+	if (Collision::RectInRect(collider->GetOwner()->GetBody().ToRect(), other->GetOwner()->GetBody().ToRect()))
+	{
+		PooGame* currentScene = dynamic_cast<PooGame*>(GET_SINGLE(SceneManager)->GetCurrentScene());
+		if (currentScene != nullptr)
+		{
+			currentScene->ChangeGameState(GameState::Wait);
+		}
+	}
+	
 }
