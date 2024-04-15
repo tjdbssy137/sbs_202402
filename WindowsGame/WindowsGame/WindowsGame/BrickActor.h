@@ -12,10 +12,6 @@ public:
 	virtual void Update() override;
 	virtual void Release() override;
 
-	void SetBool(bool isDestroy) { *_isDestroy = isDestroy; }
-
 private:
-	CenterRect _bricks[COUNT];
-	bool _isDestroy[COUNT];
 };
 

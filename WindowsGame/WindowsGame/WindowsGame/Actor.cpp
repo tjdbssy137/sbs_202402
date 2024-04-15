@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "Component.h"
 #include "Collider.h"
+#include "Scene.h"
 
 void Actor::OnTriggerEnter(Collider* collider, Collider* other)
 {
@@ -28,6 +29,13 @@ void Actor::Update()
 	for (Component* component : _components)
 	{
 		component->Update();
+	}
+	if (_isEnable == false)
+	{
+		Scene* currentScene = GET_SINGLE(SceneManager)->GetCurrentScene();
+		//InGameScene* inGameScene = dynamic_cast<InGameScene*>(scene);
+		//dynamic_cast로 형변환을 해서 가져오면 if문으로 예외 처리해주는 것이 좋음.
+		currentScene->DespawnActor(this);
 	}
 }
 void Actor::Release()

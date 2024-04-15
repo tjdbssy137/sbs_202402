@@ -81,7 +81,7 @@ void BallActor::OnTriggerEnter(Collider* collider, Collider* other)
 
 	BrickActor* brick = new BrickActor();
 	
-	if (other->GetOwner()->GetName() == "Paddle" || other->GetOwner()->GetName() == "Brick")
+	if (other->GetOwner()->GetName() == "Paddle")
 	{	
 		//충돌로직체크
 		RECT myRect = static_cast<BoxCollider*>(collider)->GetCollision().ToRect();
@@ -90,50 +90,78 @@ void BallActor::OnTriggerEnter(Collider* collider, Collider* other)
 		myRect.top -= 1;
 		myRect.right += 1;
 		myRect.bottom += 1;
+
 		RECT otherRect = static_cast<BoxCollider*>(other)->GetCollision().ToRect();
-		RECT temp = {};
 
-		if (IntersectRect(&temp, &myRect, &otherRect))
+		Bounce(myRect, otherRect);
+		
+	}
+	if (other->GetOwner()->GetName() == "Brick")
+	{
+		RECT myRect = static_cast<BoxCollider*>(collider)->GetCollision().ToRect();
+
+		myRect.left -= 1;
+		myRect.top -= 1;
+		myRect.right += 1;
+		myRect.bottom += 1;
+
+		RECT otherRect = static_cast<BoxCollider*>(other)->GetCollision().ToRect();
+
+		Bounce(myRect, otherRect);
+
+		BrickActor* brickActor = dynamic_cast<BrickActor*>(other->GetOwner());
+		if (brickActor == nullptr)
 		{
-			int width = temp.right - temp.left;
-			int height = temp.bottom - temp.top;
-			if (width < height)
+			cout << "error" << endl;
+			return;
+		}
+		brickActor->SetEnable(false);
+
+		// 함수를 사용하는 이유
+		// - 1. 가독성
+		// - 2. 코드 재활용(유지보수)
+	}
+}
+
+void BallActor::Bounce(RECT myCollision, RECT otherCollision)
+{
+	RECT temp = {};
+
+	if (IntersectRect(&temp, &myCollision, &otherCollision))
+	{
+		int width = temp.right - temp.left;
+		int height = temp.bottom - temp.top;
+		if (width < height)
+		{
+			//오른쪽에서 왼쪽으로 충돌되었다.
+			if (temp.left == myCollision.left)
 			{
-				//오른쪽에서 왼쪽으로 충돌되었다.
-				if (temp.left == myRect.left)
-				{
-					_moveDir.x = -_moveDir.x;
-					_body.pos.x += temp.right - temp.left;
-				}
-
-				//왼쪽에서 오른쪽으로 충돌되었다.
-				if (temp.right == myRect.right)
-				{
-					_moveDir.x = -_moveDir.x;
-					_body.pos.x -= temp.right - temp.left;
-				}
-			}
-			else
-			{
-				//아래에서 위로 충돌되었다.
-				if (temp.top == myRect.top)
-				{
-					_moveDir.y = -_moveDir.y;
-					_body.pos.y += temp.bottom - temp.top;
-				}
-
-
-				//위에서 아래로 충돌되었다.
-				if (temp.bottom == myRect.bottom)
-				{
-					_moveDir.y = -_moveDir.y;
-					_body.pos.y -= temp.bottom - temp.top;
-				}
+				_moveDir.x = -_moveDir.x;
+				_body.pos.x += temp.right - temp.left;
 			}
 
-			if (other->GetOwner()->GetName() == "Brick")
+			//왼쪽에서 오른쪽으로 충돌되었다.
+			if (temp.right == myCollision.right)
 			{
-				brick->SetBool(false);
+				_moveDir.x = -_moveDir.x;
+				_body.pos.x -= temp.right - temp.left;
+			}
+		}
+		else
+		{
+			//아래에서 위로 충돌되었다.
+			if (temp.top == myCollision.top)
+			{
+				_moveDir.y = -_moveDir.y;
+				_body.pos.y += temp.bottom - temp.top;
+			}
+
+
+			//위에서 아래로 충돌되었다.
+			if (temp.bottom == myCollision.bottom)
+			{
+				_moveDir.y = -_moveDir.y;
+				_body.pos.y -= temp.bottom - temp.top;
 			}
 		}
 	}

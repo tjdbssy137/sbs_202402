@@ -17,6 +17,7 @@ public:
 	void SetPos(Vector2 position);
 	void SetMoveDir(Vector2 moveDir) { _moveDir = moveDir; }
 	Vector2 GetMoveDir() { return _moveDir; }
+	void Bounce(RECT myCollision, RECT otherCollision);
 
 private:
 	float _speed = 0.0f;

@@ -43,6 +43,8 @@ void PooGame::Init()
 	}
 
 	srand(time(NULL));
+	this->ChangeGameState(GameState::Wait);
+
 }
 void PooGame::Render(HDC hdc) {
 	Super::Render(hdc);

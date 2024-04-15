@@ -12,3 +12,4 @@ using uint64 = unsigned __int64;
 
 #include "Vector2.h"
 #include "CenterRect.h"
+#include "Vector2Int.h"

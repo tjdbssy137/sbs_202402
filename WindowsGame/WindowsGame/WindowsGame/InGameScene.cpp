@@ -11,12 +11,24 @@ void InGameScene::Init()
 	Super::Init();
 
 	{
-		_brick = new BrickActor();
+		vector<BrickActor*> _bricks;
 
-		_brick->Init();
 
-		this->SpawnActor(_brick);
+		for (int i = 0; i < 12; i++)
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				BrickActor* brick = new BrickActor();
+				brick->Init();
+				brick->SetBody((Shape::MakeCenterRect((i * 100) + 85, j * 40, 100, 40)));
+
+				_bricks.push_back(brick);
+				this->SpawnActor(_bricks.back());
+			}
+		}
+
 	}
+
 
 	{
 		_paddle = new PaddleActor();
