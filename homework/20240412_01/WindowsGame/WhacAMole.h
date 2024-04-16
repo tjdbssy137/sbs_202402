@@ -1,8 +1,10 @@
 #pragma once
 #include "Scene.h"
-#include "MoleActor.h"
-#include "MoleHouseActor.h"
-#include "HammerActor.h"
+
+class MoleActor;
+class MoleHouseActor;
+class HammerActor;
+class InGameState;
 
 class WhacAMole : public Scene
 {
@@ -13,6 +15,11 @@ public:
 	virtual void Update() override;
 	virtual void Release() override;
 
+	void TimeToComingMole(float time);
+
+	void ChangeGameState(GameState state);
+	GameState GetGameState() { return _gameState; }
+
 private:
 	vector<MoleActor*> _mole;
 	vector<MoleHouseActor*> _moleHouse;
@@ -20,6 +27,11 @@ private:
 
 	int _point = 0;
 	float _time = 0;
+	int _used = 13;//여러번 TimeToComingMole()호출 했을 때, Random 숫자 중복 방지
+
+private:
+	GameState _gameState = GameState::None;
+	float _playTime = 0;
 };
 
 // 3 X 3 판을 만든다 - 배경

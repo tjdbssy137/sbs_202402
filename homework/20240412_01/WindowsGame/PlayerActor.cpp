@@ -52,7 +52,7 @@ void PlayerActor::SetPos(Vector2 position)
 void PlayerActor::OnTriggerEnter(Collider* collider, Collider* other)
 {
 	Super::OnTriggerEnter(collider, other);
-	if (Collision::RectInRect(collider->GetOwner()->GetBody().ToRect(), other->GetOwner()->GetBody().ToRect()))
+	if (other->GetOwner()->GetName() == "Poo")
 	{
 		PooGame* currentScene = dynamic_cast<PooGame*>(GET_SINGLE(SceneManager)->GetCurrentScene());
 		if (currentScene != nullptr)

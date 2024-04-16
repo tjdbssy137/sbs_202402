@@ -26,6 +26,7 @@ private:
 	float _survivalTime = 0;
 	bool _isActive[IS_ACTIVE];
 
+private:
 	PooGameController* _pooGameController = nullptr;
 	GameState _gameState = GameState::None;
 

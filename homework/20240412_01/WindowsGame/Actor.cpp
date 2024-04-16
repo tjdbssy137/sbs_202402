@@ -6,11 +6,11 @@
 
 void Actor::OnTriggerEnter(Collider* collider, Collider* other)
 {
-	cout << "충돌 시작 : "<< collider->GetOwner()->GetName() << " -> " << other->GetOwner()->GetName() << endl;
+	//cout << "충돌 시작 : "<< collider->GetOwner()->GetName() << " -> " << other->GetOwner()->GetName() << endl;
 }
 void Actor::OnTriggerExit(Collider* collider, Collider* other)
 {
-	cout << "충돌 끝 : " << collider->GetOwner()->GetName() << " -> " << other->GetOwner()->GetName() << endl;
+	//cout << "충돌 끝 : " << collider->GetOwner()->GetName() << " -> " << other->GetOwner()->GetName() << endl;
 }
 
 void Actor::Init()
