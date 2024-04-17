@@ -1,34 +1,38 @@
 #include "pch.h"
 #include "Dev1Scene.h"
-#include "PlayerActor.h"
+#include "SpriteActor.h"
 #include "BoxCollider.h"
+
 void Dev1Scene::Init()
 {
 	Super::Init();
 
-	{
-		PlayerActor* player = new PlayerActor();
-		player->Init();
-		player->SetName("플레이어1");
-
-		BoxCollider* collider = new BoxCollider();
-		collider->SetCollision(Shape::MakeCenterRect(0, 0, 100, 100));
-		player->AddComponent(collider);
-		player->SetBody(Shape::MakeCenterRect(100, 100, 100, 100));
-		this->SpawnActor(player);
-	}
+	//texture = T_
+	//sprite = S_
+	//Windows API에선 bmp밖에 사용 안 됨
+	//하지만, 게임에선 png파일을 훨씬 더 많이 사용
+	//png는 Direct X
+	Resource->LoadTexture(L"T_MoleBackground", L"Mole/bg_mole.bmp");//확장자명은 내가 쓰는 거 아님.
+	Resource->CreateSprite(L"S_MoleBackground", Resource->GetTexture(L"T_MoleBackground"));
 
 	{
-		PlayerActor* player = new PlayerActor();
-		player->Init();
-		player->SetName("플레이어2");
-		BoxCollider* collider = new BoxCollider();
-		collider->SetCollision(Shape::MakeCenterRect(0, 0, 100, 100));
-		player->AddComponent(collider);
-		player->SetBody(Shape::MakeCenterRect(500, 500, 100, 100));
-		this->SpawnActor(player);
+		SpriteActor* spriteActor = new SpriteActor();
+		spriteActor->SetSprite(Resource->GetSprite(L"S_MoleBackground"));
+		spriteActor->Init();
+		spriteActor->SetBody(Shape::MakeCenterRectLTRB(0, 0, 795, 381));
+		SpawnActor(spriteActor);
 	}
 
+	Resource->LoadTexture(L"T_Character", L"Mole/idle.bmp");//확장자명은 내가 쓰는 거 아님.
+	Resource->CreateSprite(L"S_Character", Resource->GetTexture(L"T_Character"));
+
+	{
+		SpriteActor* spriteActor = new SpriteActor();
+		spriteActor->SetSprite(Resource->GetSprite(L"S_Character"));
+		spriteActor->Init();
+		spriteActor->SetBody(Shape::MakeCenterRectLTRB(0, 0, 258, 328));
+		SpawnActor(spriteActor);
+	}
 }
 void Dev1Scene::Render(HDC hdc) {
 	Super::Render(hdc);
@@ -36,93 +40,11 @@ void Dev1Scene::Render(HDC hdc) {
 	wstring str = L"Dev1Scene";
 	::TextOut(hdc, 0, 45, str.c_str(), str.length());
 	
-	_wall.Draw(hdc);
-	_player.Draw(hdc);
 }
 void Dev1Scene::Update()
 {
 	Super::Update();
-	if (Input->GetKey(KeyCode::Control) && Input->GetKeyDown(KeyCode::RightMouse))//not work
-	{// 두 개를 입력 받을 때에는 둘 중 하나는 GetKey로 해야함. 둘 다 GetKeyDown으로 받으면 한 프레임에 동시에 두 개 눌러야 함.
-		GET_SINGLE(SceneManager)->ChangeScene(SceneType::Dev2Scene);
-	}
-
-	/*
-	if (Input->GetKey(KeyCode::Left))
-	{
-		_playerDir = Vector2(-1, 0);
-		_player.pos += _playerDir * (Time->GetDeltaTime() * 100);
-	}
-	else if (Input->GetKey(KeyCode::Up))
-	{
-		_playerDir = Vector2(0, -1);
-		_player.pos += _playerDir * (Time->GetDeltaTime() * 100);
-	}
-	else if (Input->GetKey(KeyCode::Right))
-	{
-		_playerDir = Vector2(1, 0);
-		_player.pos += _playerDir * (Time->GetDeltaTime() * 100);
-	}
-	else if (Input->GetKey(KeyCode::Down))
-	{
-		_playerDir = Vector2(0, 1);
-		_player.pos += _playerDir * (Time->GetDeltaTime() * 100);
-	}
-	*/
-
-	if (Input->GetKeyDown(KeyCode::RightMouse))
-	{
-		POINT pt = Input->GetMousePos();
-		_targetPos = Vector2(pt.x, pt.y);
-		_playerDir = (_targetPos - _player.pos).Normalize();
-	}
 	
-	if(2 < (_targetPos - _player.pos).Length())
-	{
-		_player.pos += _playerDir * (Time->GetDeltaTime() * 100);
-	}
-
-	RECT collision = {}; // 충돌영역을 구해주는 변수
-	RECT playerCollision = _player.ToRect();
-	RECT wallCollision = _wall.ToRect();
-	if (::IntersectRect(&collision, &playerCollision, &wallCollision))
-	{
-		int collisionWidth = collision.right - collision.left;
-		int collisionHeight = collision.bottom - collision.top;
-
-		// 더 짧은 쪽이 부딪힌 쪽
-		if (collisionHeight < collisionWidth)
-		{
-			if (collision.top == playerCollision.top)
-			{
-				cout << "아래에서 위로 충돌 되었다" << endl;
-				//_player.pos.y += collisionHeight;
-				_wall.pos.y -= collisionHeight;
-			}
-			if (collision.bottom == playerCollision.bottom)
-			{
-				cout << "위에서 아래로 충돌 되었다" << endl;
-				//_player.pos.y -= collisionHeight;
-				_wall.pos.y += collisionHeight;
-			}
-		}
-		else
-		{
-			if (collision.left == playerCollision.left)
-			{
-				cout << "오른쪽에서 왼쪽으로 충돌 되었다" << endl;
-				//_player.pos.x += collisionWidth;
-				_wall.pos.x -= collisionWidth;
-			}
-		
-			if (collision.right == playerCollision.right)
-			{
-				cout << "왼쪽에서 오른쪽으로 충돌 되었다" << endl;
-				//_player.pos.x -= collisionWidth;
-				_wall.pos.x += collisionWidth;
-			}
-		}
-	}
 }
 void Dev1Scene::Release()
 {

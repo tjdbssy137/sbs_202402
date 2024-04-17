@@ -142,6 +142,15 @@
     <ClInclude Include="Texture.h">
       <Filter>05. Resources</Filter>
     </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>05. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteActor.h">
+      <Filter>03.Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomManager.h">
+      <Filter>01.Managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -258,6 +267,18 @@
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>05. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Day24.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>05. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteActor.cpp">
+      <Filter>03.Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomManager.cpp">
+      <Filter>01.Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

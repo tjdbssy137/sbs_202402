@@ -85,6 +85,8 @@ void WhacAMole::Update()
 				{
 					_point++;
 					//두번클릭방지해야함.
+					//두더지 잠깐 보류
+					// 두더지가 사라지는 건 걍 render->_body.draw(hdc)를 if문으로 하는 걸로..
 				}
 			}
 		}

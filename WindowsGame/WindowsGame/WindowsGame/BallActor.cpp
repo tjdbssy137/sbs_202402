@@ -12,10 +12,14 @@ void BallActor::Init()
 	this->SetName("Ball");
 
 	BoxCollider* collider = new BoxCollider();
-	collider->SetCollision(Shape::MakeCenterRect(0, 0, 20, 20));
+	collider->SetCollision(Shape::MakeCenterRect(0, 0, 18, 18));
 	this->AddComponent(collider);
 	this->SetBody(Shape::MakeCenterRect(WIN_SIZE_X / 2, WIN_SIZE_Y - 70 - 26, 26, 26));
 
+	Resource->LoadTexture(L"T_Ball", L"BrickGame/ball.bmp");//확장자명은 내가 쓰는 거 아님.
+	Resource->CreateSprite(L"S_Ball", Resource->GetTexture(L"T_Ball"));
+
+	this->SetSprite(Resource->GetSprite(L"S_Ball"));
 	_speed = 500;
 }
 
@@ -23,7 +27,7 @@ void BallActor::Render(HDC hdc)
 {
 	Super::Render(hdc);
 
-	_body.Draw(hdc);
+	//_body.Draw(hdc);
 }
 
 void BallActor::Update()

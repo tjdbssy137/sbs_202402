@@ -5,6 +5,7 @@
 #include "PaddleActor.h"
 #include "PlayerController.h"
 #include "BoxCollider.h"
+#include "SpriteActor.h"
 
 void InGameScene::Init()
 {

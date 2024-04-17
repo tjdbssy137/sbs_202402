@@ -1,10 +1,10 @@
 #pragma once
-#include "Actor.h"
+#include "SpriteActor.h"
 class PaddleActor :
-    public Actor
+    public SpriteActor
 {
 public:
-	using Super = Actor;
+	using Super = SpriteActor;
 public:
 	virtual void Init() override;
 	virtual void Render(HDC hdc) override;

@@ -1,10 +1,15 @@
 #include "pch.h"
 #include "PaddleActor.h"
-
 #include "BoxCollider.h"
 void PaddleActor::Init()
 {
 	Super::Init();
+	
+	Resource->LoadTexture(L"T_Paddle", L"BrickGame/paddle.bmp");//확장자명은 내가 쓰는 거 아님.
+	Resource->CreateSprite(L"S_Paddle", Resource->GetTexture(L"T_Paddle"));
+
+	this->SetSprite(Resource->GetSprite(L"S_Paddle"));
+	
 	this->SetName("Paddle");
 
 	BoxCollider* collider = new BoxCollider();
@@ -17,7 +22,7 @@ void PaddleActor::Init()
 void PaddleActor::Render(HDC hdc) 
 {
 	Super::Render(hdc);
-	_body.Draw(hdc);
+	//_body.Draw(hdc);
 }
 void PaddleActor::Update()
 {

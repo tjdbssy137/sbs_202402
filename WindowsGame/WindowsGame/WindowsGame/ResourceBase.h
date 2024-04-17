@@ -3,5 +3,5 @@ class ResourceBase
 {
 public:
 	ResourceBase();
-	~ResourceBase();
+	virtual ~ResourceBase();
 };

@@ -44,6 +44,8 @@ using namespace std;
 #include "InputManager.h"	// Input
 #include "SceneManager.h"	// Scene Manager
 #include "CollisionManager.h" // CollisionManager
+#include "ResourceManager.h"
+#include "RandomManager.h"
 
 //===========================================
 //		## Windows Size ##

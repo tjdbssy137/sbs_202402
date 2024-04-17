@@ -20,3 +20,5 @@ public:										\
 
 #define Input GET_SINGLE(InputManager)
 #define Time GET_SINGLE(TimeManager)
+#define Resource GET_SINGLE(ResourceManager)
+#define Random GET_SINGLE(RandomManager)

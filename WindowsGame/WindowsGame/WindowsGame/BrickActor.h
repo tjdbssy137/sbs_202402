@@ -1,11 +1,11 @@
 #pragma once
-#include "Actor.h"
+#include "SpriteActor.h"
 
 #define COUNT 48
-class BrickActor : public Actor
+class BrickActor : public SpriteActor
 {
 public:
-	using Super = Actor;
+	using Super = SpriteActor;
 public:
 	virtual void Init() override;
 	virtual void Render(HDC hdc) override;
