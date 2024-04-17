@@ -10,9 +10,12 @@ public:
 	virtual void Update() override;
 	virtual void Release() override;
 
+	void SetUseHammer(bool useHammer) { _useHammer = useHammer; }
+
 public:
 	void Move();
 private:
 	Vector2 _hammerPos = {};
+	bool _useHammer;
 };
 

@@ -5,6 +5,7 @@ class MoleActor;
 class MoleHouseActor;
 class HammerActor;
 class InGameState;
+class WhacAMoleGameController;
 
 class WhacAMole : public Scene
 {
@@ -32,6 +33,8 @@ private:
 private:
 	GameState _gameState = GameState::None;
 	float _playTime = 0;
+
+	WhacAMoleGameController* _whacAMoleGameController = nullptr;
 };
 
 // 3 X 3 판을 만든다 - 배경

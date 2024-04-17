@@ -187,6 +187,7 @@
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="WhacAMoleGameController.h" />
     <ClInclude Include="WindowsGame.h" />
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +248,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="WhacAMoleGameController.cpp" />
     <ClCompile Include="WindowsGame.cpp" />
   </ItemGroup>
   <ItemGroup>

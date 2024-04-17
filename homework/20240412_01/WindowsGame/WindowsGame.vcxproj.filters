@@ -148,6 +148,9 @@
     <ClInclude Include="HammerActor.h">
       <Filter>03.Objects\WhacAMole</Filter>
     </ClInclude>
+    <ClInclude Include="WhacAMoleGameController.h">
+      <Filter>03.Objects\WhacAMole</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -263,6 +266,9 @@
       <Filter>03.Objects\WhacAMole</Filter>
     </ClCompile>
     <ClCompile Include="HammerActor.cpp">
+      <Filter>03.Objects\WhacAMole</Filter>
+    </ClCompile>
+    <ClCompile Include="WhacAMoleGameController.cpp">
       <Filter>03.Objects\WhacAMole</Filter>
     </ClCompile>
   </ItemGroup>

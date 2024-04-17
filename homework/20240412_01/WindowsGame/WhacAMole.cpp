@@ -3,6 +3,7 @@
 #include "MoleActor.h"
 #include "MoleHouseActor.h"
 #include "HammerActor.h"
+#include "WhacAMoleGameController.h"
 
 void WhacAMole::Init()
 {
@@ -44,6 +45,11 @@ void WhacAMole::Init()
 			_hammer->SetName("hammer");
 			this->SpawnActor(_hammer);
 		}
+
+		{//_whacAMoleGameController
+			_whacAMoleGameController = new WhacAMoleGameController();
+			_whacAMoleGameController->Init(_hammer);
+		}
 	}
 
 	_playTime = 60;
@@ -64,18 +70,9 @@ void WhacAMole::Render(HDC hdc) {
 void WhacAMole::Update()
 {
 	Super::Update();
-
-	// wait인 경우 leftMouse click으로 play state에 들어간다
-	if (this->GetGameState() == GameState::Wait)
-	{
-		if (Input->GetKeyDown(KeyCode::LeftMouse))
-		{
-			this->ChangeGameState(GameState::Play);
-		}
-	}
-
+	_whacAMoleGameController->Update();
 	// playState인 경우
-	if (this->GetGameState() == GameState::Play)
+	if (_whacAMoleGameController->GetCanHammerController() == true)
 	{
 		this->TimeToComingMole(0.5f);
 		//this->Timer(0.7f); // 3.5초 쯤엔 동시에 생기길 바랬는데 안 됨..
@@ -144,11 +141,13 @@ void WhacAMole::ChangeGameState(GameState state)
 		break;
 
 	case GameState::Wait:
+		_whacAMoleGameController->SetCanHammerController(false);
 		break;
 
 	case GameState::Play:
 		_point = 0;
 		_playTime = 60;
+		_whacAMoleGameController->SetCanHammerController(true);
 		break;
 	}
 }
