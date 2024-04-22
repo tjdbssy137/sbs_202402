@@ -20,7 +20,7 @@ void PooGame::Init()
 	}
 
 	{
-		for (int i = 0; i < IS_ACTIVE; i ++)
+		for (int i = 0; i < POO_MAX; i ++)
 		{
 			PooActor* poo = new PooActor();
 			poo->Init();
@@ -31,9 +31,9 @@ void PooGame::Init()
 	}
 
 	{
-		for (int i = 0; i < IS_ACTIVE; i++)
+		for (int i = 0; i < POO_MAX; i++)
 		{
-			_isActive[i] = true;
+			_isRun[i] = true;
 		}
 	}
 
@@ -86,10 +86,10 @@ void PooGame::Update()
 		_time += Time->GetDeltaTime();
 		if (_throwTime <= _time)
 		{
-			int random = rand() % IS_ACTIVE;
-			if (_isActive[random] == true)
+			int random = rand() % POO_MAX;
+			if (_isRun[random] == true)
 			{
-				_isActive[random] = false;
+				_isRun[random] = false;
 				int _pooPosX = rand() % 600 + 300;
 				_poo[random]->Throw(_pooPosX, 700);
 			}
@@ -98,11 +98,11 @@ void PooGame::Update()
 	}
 
 	{
-		for (int i = 0; i < IS_ACTIVE; i++)
+		for (int i = 0; i < POO_MAX; i++)
 		{
 			if (750 < _poo[i]->GetBody().pos.y)
 			{
-				_isActive[i] = true;
+				_isRun[i] = true;
 				_poo[i]->SetMoveDir(Vector2::Zero());
 			}
 		}
@@ -138,7 +138,7 @@ void PooGame::ChangeGameState(GameState state)
 		_tempTime = 20;
 		_throwTime = 0.5f;
 		_level = 1;
-		for (int i = 0; i < IS_ACTIVE; i++)
+		for (int i = 0; i < POO_MAX; i++)
 		{
 			_poo[i]->SetBody(CenterRect(Vector2(WIN_SIZE_X / 2, -50), 50, 50));
 		}

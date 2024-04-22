@@ -32,7 +32,7 @@ void PooGameController::Update()
 			_player->SetBody(CenterRect(Vector2(899, 700), 60, 40));
 		}
 
-		for (int i = 0; i < IS_ACTIVE; i++)
+		for (int i = 0; i < POO_MAX; i++)
 		{
 			_poo[i]->Move();
 		}

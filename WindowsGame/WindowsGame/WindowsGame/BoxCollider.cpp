@@ -8,6 +8,16 @@ void BoxCollider::Init()
 void BoxCollider::Render(HDC hdc)
 {
 	Super::Render(hdc);
+
+	//fill 투명화
+	HBRUSH emptyBrush = GetStockBrush(NULL_BRUSH);
+	HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, emptyBrush);//이전에 쓰던 브러쉬 정보
+
+	//collider가 잘 붙어있는지 그려줌
+	this->GetCollision().Draw(hdc);
+	SelectObject(hdc, oldBrush);//그림을 그리고 나면 브러쉬 정보 롤백
+	DeleteObject(emptyBrush);
+
 }
 void BoxCollider::Update()
 {

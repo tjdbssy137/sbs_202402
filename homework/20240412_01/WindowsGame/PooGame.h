@@ -6,7 +6,7 @@ class PooActor;
 class InGameState;
 class PooGameController;
 
-#define IS_ACTIVE 20
+#define POO_MAX 20
 class PooGame : public Scene
 {
 	using Super = Scene;
@@ -24,7 +24,7 @@ private:
 	vector<PooActor*> _poo;
 	float _time = 0;
 	float _survivalTime = 0;
-	bool _isActive[IS_ACTIVE];
+	bool _isRun[POO_MAX];
 
 private:
 	PooGameController* _pooGameController = nullptr;

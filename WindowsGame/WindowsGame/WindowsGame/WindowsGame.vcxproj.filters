@@ -41,6 +41,9 @@
     <Filter Include="05. Resources">
       <UniqueIdentifier>{31bbfff6-65cc-4aa4-8670-221928f3826e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.Objects\Mole">
+      <UniqueIdentifier>{c618cd54-edcb-418c-b7e3-d987e1b495b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -150,6 +153,12 @@
     </ClInclude>
     <ClInclude Include="RandomManager.h">
       <Filter>01.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="MoleGameScene.h">
+      <Filter>02.Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="MoleActor.h">
+      <Filter>03.Objects\Mole</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -279,6 +288,15 @@
     </ClCompile>
     <ClCompile Include="RandomManager.cpp">
       <Filter>01.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Day25.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="MoleGameScene.cpp">
+      <Filter>02.Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="MoleActor.cpp">
+      <Filter>03.Objects\Mole</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
