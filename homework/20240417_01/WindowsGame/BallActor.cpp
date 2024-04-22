@@ -19,7 +19,7 @@ void BallActor::Init()
 	BoxCollider* collider = new BoxCollider();
 	collider->SetCollision(Shape::MakeCenterRect(0, 0, 18, 18));
 	this->AddComponent(collider);
-	this->SetBody(Shape::MakeCenterRect(WIN_SIZE_X / 2, WIN_SIZE_Y - 70 - 26, 23, 21));
+	this->SetBody(Shape::MakeCenterRect(WIN_SIZE_X / 2, WIN_SIZE_Y - 70 - 26, 21, 21));
 
 	_speed = 500;
 }

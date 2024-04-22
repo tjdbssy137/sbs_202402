@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "SceneManager.h"
 #include "Scene.h"
-#include "Dev1Scene.h"
+#include "WhacAMole.h"
 #include "Dev2Scene.h"
 #include "InGameScene.h"
 
@@ -39,8 +39,8 @@ void SceneManager::Update()
 	{
 	case SceneType::None:
 		break;
-	case SceneType::Dev1Scene:
-		newScene = new Dev1Scene();
+	case SceneType::WhacAMole:
+		newScene = new WhacAMole();
 		break;
 	case SceneType::Dev2Scene:
 		newScene = new Dev2Scene();
