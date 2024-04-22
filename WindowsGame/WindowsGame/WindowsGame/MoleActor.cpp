@@ -8,6 +8,7 @@ void MoleActor::Init()
 
 	this->SetName("Mole");
 	this->SetSprite(Resource->GetSprite(L"S_Mole_Idle"));
+	_isDie = false;
 }
 void MoleActor::Render(HDC hdc)
 {
@@ -29,8 +30,6 @@ void MoleActor::Update()
 		ChangeState(MoleActorState::Out);
 	}
 	*/
-
-
 	// Unity ¿¡¼­´Â Invoke
 	if (0.0f <= _comeInTimer)
 	{
@@ -50,7 +49,7 @@ void MoleActor::Release()
 
 void MoleActor::ComeOut()
 {
-	cout << "MoleActor::ComeOut()" << endl;
+	//cout << "MoleActor::ComeOut()" << endl;
 	this->SetSprite(Resource->GetSprite(L"S_Mole_Idle"));
 	_comeInTimer = 1.5f;
 }
@@ -58,15 +57,15 @@ void MoleActor::ComeOut()
 //¶¥±¼·Î µé¾î°¡´Ù.
 void MoleActor::ComeIn()
 {
-	cout << "MoleActor::ComeIn()" << endl;
-
+	//cout << "MoleActor::ComeIn()" << endl;
+	_isDie = false;
 	this->SetSprite(nullptr);
 }
 //Á×¾ú´Ù.
 void MoleActor::Die()
 {
-	cout << "MoleActor::Die()" << endl;
-
+	//cout << "MoleActor::Die()" << endl;
+	_isDie = true;
 	this->SetSprite(Resource->GetSprite(L"S_Mole_Die"));
 	_comeInTimer = 1.0f;
 }
@@ -96,10 +95,3 @@ void MoleActor::ChangeState(MoleActorState state)
 		break;
 	}
 }
-
-/*
-void MoleActor::OnCollisionEnter(RECT* mtCollider, RECT* other)
-{
-	Collision::RectInRect(mtCollider, other);
-}
-*/

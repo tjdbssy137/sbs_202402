@@ -1,8 +1,18 @@
 #pragma once
 #include "SpriteActor.h"
+
+enum class MoleActorState
+{
+	Out,
+	In,
+	Die,
+
+	None
+};
+
 class MoleActor :  public SpriteActor
 {
-private:
+public:
 	using Super = SpriteActor;
 public:
 	virtual void Init() override;
@@ -10,16 +20,22 @@ public:
 	virtual void Update() override;
 	virtual void Release() override;
 
-	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
-	virtual void OnTriggerExit(Collider* collider, Collider* other) override;
+	MoleActorState ChangeState() { return _state; }
+	bool GetIsDie() { return _isDie; }
 
-	void HitHammer();
-	void GetMolePos(CenterRect molePos) { _molePos = molePos; };
-	void MoleAppears();
+public:
+	// ¶¥±¼¿¡¼­ ³ª¿À´Ù
+	void ComeOut();
+	// ¶¥±¼·Î µé¾î°¡´Ù
+	void ComeIn();
+	// Á×´Ù
+	void Die();
+
+	void ChangeState(MoleActorState state);
 
 private:
-	bool _isCollision = false;
-	float _time = 0;
-	bool _isCalled = false;
-	CenterRect _molePos;
+	float _comeInTimer = 0.0f;
+	MoleActorState _state = MoleActorState::None;
+	bool _isDie;
 };
+

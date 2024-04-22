@@ -19,10 +19,10 @@ public:
 	virtual void Render(HDC hdc) override;
 	virtual void Update() override;
 	virtual void Release() override;
-	
-	MoleActorState ChangeState() { return _state; }
 
-	void OnCollisionEnter(RECT* mtCollider, RECT* other);
+	MoleActorState ChangeState() { return _state; }
+	bool GetIsDie() { return _isDie; }
+
 public:
 	// ¶¥±¼¿¡¼­ ³ª¿À´Ù
 	void ComeOut();
@@ -36,5 +36,6 @@ public:
 private:
 	float _comeInTimer = 0.0f;
 	MoleActorState _state = MoleActorState::None;
+	bool _isDie;
 };
 

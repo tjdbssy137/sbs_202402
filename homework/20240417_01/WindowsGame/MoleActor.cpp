@@ -1,27 +1,14 @@
 #include "pch.h"
 #include "MoleActor.h"
 #include "BoxCollider.h"
-#include "WhacAMole.h"
 
 void MoleActor::Init()
 {
 	Super::Init();
 
 	this->SetName("Mole");
-	Resource->LoadTexture(L"T_Mole_00", L"Mole/mole_00.bmp");//확장자명은 내가 쓰는 거 아님.
-	Resource->CreateSprite(L"S_Mole_00", Resource->GetTexture(L"T_Mole_00"));
-	
-	Resource->LoadTexture(L"T_Mole_01", L"Mole/mole_01.bmp");//확장자명은 내가 쓰는 거 아님.
-	Resource->CreateSprite(L"S_Mole_01", Resource->GetTexture(L"T_Mole_01"));
-
-	this->SetSprite(Resource->GetSprite(L"S_Mole_00"));
-
-	BoxCollider* collider = new BoxCollider();
-	collider->SetCollision(Shape::MakeCenterRect(0, 0, 20, 30));//이게 약간 이상함..
-	this->SetBody(Shape::MakeCenterRect(0, 1000, 20, 30));
-	this->AddComponent(collider);
-	
-	_isCollision = false;
+	this->SetSprite(Resource->GetSprite(L"S_Mole_Idle"));
+	_isDie = false;
 }
 void MoleActor::Render(HDC hdc)
 {
@@ -30,66 +17,81 @@ void MoleActor::Render(HDC hdc)
 void MoleActor::Update()
 {
 	Super::Update();
+	/*
+	if (Input->GetKeyDown(KeyCode::Space))
+	{
+		//죽기 실행
+		ChangeState(MoleActorState::Die);
+	}
+
+	if (Input->GetKeyDown(KeyCode::Control))
+	{
+		//죽기 실행
+		ChangeState(MoleActorState::Out);
+	}
+	*/
+	// Unity 에서는 Invoke
+	if (0.0f <= _comeInTimer)
+	{
+		_comeInTimer -= Time->GetDeltaTime();
+
+		if (_comeInTimer < 0.0f)
+		{
+			ChangeState(MoleActorState::In);
+		}
+	}
 }
 void MoleActor::Release()
 {
 	Super::Release();
+
 }
 
-void MoleActor::OnTriggerEnter(Collider* collider, Collider* other)
+void MoleActor::ComeOut()
 {
-	Super::OnTriggerEnter(collider, other);
-	if (other->GetOwner()->GetName() == "Hammer" && Input->GetKey(KeyCode::LeftMouse))
-	{
-		_isCollision = true;
-	}
+	//cout << "MoleActor::ComeOut()" << endl;
+	this->SetSprite(Resource->GetSprite(L"S_Mole_Idle"));
+	_comeInTimer = 1.5f;
 }
 
-void MoleActor::OnTriggerExit(Collider* collider, Collider* other)
+//땅굴로 들어가다.
+void MoleActor::ComeIn()
 {
-	Super::OnTriggerExit(collider, other);
-	if (other->GetOwner()->GetName() == "Hammer")
-	{
-		_isCollision = false;
-	}
+	//cout << "MoleActor::ComeIn()" << endl;
+	_isDie = false;
+	this->SetSprite(nullptr);
+}
+//죽었다.
+void MoleActor::Die()
+{
+	//cout << "MoleActor::Die()" << endl;
+	_isDie = true;
+	this->SetSprite(Resource->GetSprite(L"S_Mole_Die"));
+	_comeInTimer = 1.0f;
 }
 
-void MoleActor::HitHammer()
+void MoleActor::ChangeState(MoleActorState state)
 {
-	if (_isCollision == true)
-	{
-		this->SetSprite(Resource->GetSprite(L"S_Mole_01"));
-	}
-	_time += Time->GetDeltaTime();
-	if (1 < _time)
-	{
-		this->SetBody(Shape::MakeCenterRect(0, 1000, 20, 30)); //->WhacAMole에서 위치 다시 잘 잡기 알아서
-		this->SetSprite(Resource->GetSprite(L"S_Mole_00"));
-		_time = 0;
-	}
-}
+	//FSM 유한상태머신
 
-void MoleActor::MoleAppears()
-{
-	this->SetBody(_molePos);
-	if (_isCollision == true)
-	{
-		this->SetSprite(Resource->GetSprite(L"S_Mole_01"));
+	if (_state == state) return;
 
-		if (1 < _time)
-		{
-			this->SetBody(Shape::MakeCenterRect(0, 1000, 20, 30)); //->WhacAMole에서 위치 다시 잘 잡기 알아서
-			this->SetSprite(Resource->GetSprite(L"S_Mole_00"));
-			_time = 0;
-			return;
-		}
-	}
-	else
+	_state = state;
+
+	switch (_state)
 	{
-		if (1.5f < _time)
-		{
-			this->SetBody(Shape::MakeCenterRect(0, 1000, 20, 30));
-			_time = 0;
-		}
+	case MoleActorState::Out:
+		this->ComeOut();
+		break;
+	case MoleActorState::In:
+		this->ComeIn();
+		break;
+	case MoleActorState::Die:
+		this->Die();
+		break;
+	case MoleActorState::None:
+		break;
+	default:
+		break;
 	}
 }

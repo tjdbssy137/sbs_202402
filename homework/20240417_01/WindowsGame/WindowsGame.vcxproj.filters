@@ -41,8 +41,8 @@
     <Filter Include="05. Resources">
       <UniqueIdentifier>{31bbfff6-65cc-4aa4-8670-221928f3826e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.Objects\WhacAMole">
-      <UniqueIdentifier>{e314b49d-8f72-44f5-a184-d65416656a09}</UniqueIdentifier>
+    <Filter Include="03.Objects\Mole">
+      <UniqueIdentifier>{c618cd54-edcb-418c-b7e3-d987e1b495b0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -79,7 +79,7 @@
     <ClInclude Include="SceneManager.h">
       <Filter>01.Managers</Filter>
     </ClInclude>
-    <ClInclude Include="WhacAMole.h">
+    <ClInclude Include="Dev1Scene.h">
       <Filter>02.Scene\Game</Filter>
     </ClInclude>
     <ClInclude Include="Dev2Scene.h">
@@ -154,14 +154,11 @@
     <ClInclude Include="RandomManager.h">
       <Filter>01.Managers</Filter>
     </ClInclude>
-    <ClInclude Include="HammerActor.h">
-      <Filter>03.Objects\WhacAMole</Filter>
+    <ClInclude Include="MoleGameScene.h">
+      <Filter>02.Scene\Game</Filter>
     </ClInclude>
     <ClInclude Include="MoleActor.h">
-      <Filter>03.Objects\WhacAMole</Filter>
-    </ClInclude>
-    <ClInclude Include="BackgroundActor.h">
-      <Filter>03.Objects\WhacAMole</Filter>
+      <Filter>03.Objects\Mole</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -208,7 +205,7 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>01.Managers</Filter>
     </ClCompile>
-    <ClCompile Include="WhacAMole.cpp">
+    <ClCompile Include="Dev1Scene.cpp">
       <Filter>02.Scene\Game</Filter>
     </ClCompile>
     <ClCompile Include="Dev2Scene.cpp">
@@ -292,14 +289,14 @@
     <ClCompile Include="RandomManager.cpp">
       <Filter>01.Managers</Filter>
     </ClCompile>
-    <ClCompile Include="HammerActor.cpp">
-      <Filter>03.Objects\WhacAMole</Filter>
+    <ClCompile Include="Day25.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="MoleGameScene.cpp">
+      <Filter>02.Scene\Game</Filter>
     </ClCompile>
     <ClCompile Include="MoleActor.cpp">
-      <Filter>03.Objects\WhacAMole</Filter>
-    </ClCompile>
-    <ClCompile Include="BackgroundActor.cpp">
-      <Filter>03.Objects\WhacAMole</Filter>
+      <Filter>03.Objects\Mole</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

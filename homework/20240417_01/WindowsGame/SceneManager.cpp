@@ -1,10 +1,10 @@
 #include "pch.h"
 #include "SceneManager.h"
 #include "Scene.h"
-#include "WhacAMole.h"
+#include "Dev1Scene.h"
 #include "Dev2Scene.h"
 #include "InGameScene.h"
-
+#include "MoleGameScene.h"
 void SceneManager::Init()
 {
 
@@ -39,14 +39,16 @@ void SceneManager::Update()
 	{
 	case SceneType::None:
 		break;
-	case SceneType::WhacAMole:
-		newScene = new WhacAMole();
+	case SceneType::Dev1Scene:
+		newScene = new Dev1Scene();
 		break;
 	case SceneType::Dev2Scene:
 		newScene = new Dev2Scene();
 		break;
 	case SceneType::InGameScene:
 		newScene = new InGameScene();
+	case SceneType::MoleGameScene:
+		newScene = new MoleGameScene();
 	default:
 		break;
 	}

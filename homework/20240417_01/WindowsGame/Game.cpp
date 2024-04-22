@@ -33,7 +33,7 @@ void Game::Init(HWND hwnd)
 	GET_SINGLE(CollisionManager)->Init();
 	GET_SINGLE(ResourceManager)->Init();
 
-	GET_SINGLE(SceneManager)->ChangeScene(SceneType::WhacAMole);
+	GET_SINGLE(SceneManager)->ChangeScene(SceneType::MoleGameScene);
 	//GET_SINGLE(SceneManager)->ChangeScene(SceneType::InGameScene);
 }
 void Game::Update()
@@ -48,6 +48,9 @@ void Game::Update()
 }
 void Game::Render()
 {
+	GET_SINGLE(SceneManager)->Render(_hdcBack);
+
+
 	//FPS 출력
 	{
 		uint32 fps = Time->GetFps();
@@ -63,10 +66,6 @@ void Game::Render()
 		wstring str = format(L"mouse({0}, {1})", mousePos.x, mousePos.y);
 		::TextOut(_hdcBack, 0, 20, str.c_str(), str.length());
 	}
-
-
-	GET_SINGLE(SceneManager)->Render(_hdcBack);
-
 
 	//비트블릿 : 고속 복사
 	::BitBlt(_hdc, 0, 0, _rect.right, _rect.bottom, _hdcBack, 0, 0, SRCCOPY);
