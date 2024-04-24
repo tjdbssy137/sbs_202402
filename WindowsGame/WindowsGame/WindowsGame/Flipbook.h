@@ -9,7 +9,7 @@ struct FlipbookInfo//변수를 하나하나 getter setter 하기 힘들기 때문ㅇ
 	int end = 0;
 	int line = 0;
 
-	float duration = 1.f; //이 flipbook 전체 실행하는 데 걸리는 시간
+	float duration = 1.0f; //이 flipbook 전체 실행하는 데 걸리는 시간
 	bool loop = true; // 1회만 하고 멈출건지, 계속 반복할 건지 
 };
 class Flipbook : public ResourceBase

@@ -11,8 +11,8 @@ void SpriteActor::Render(HDC hdc)
 	if (_sprite == nullptr) return;
 	Vector2Int size = _sprite->GetSize();
 	::TransparentBlt(hdc,
-		static_cast<int>(_body.pos.x - _body.width / 2),
-		static_cast<int>(_body.pos.y - _body.height / 2),
+		static_cast<int>(_body.pos.x - size.x / 2),
+		static_cast<int>(_body.pos.y - size.y / 2),
 		size.x,
 		size.y,
 		_sprite->GetDC(),

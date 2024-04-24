@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+class SpriteActor;
 class MoleActor;
 class HammerActor;
 class PlayerHammerController;
@@ -14,7 +15,7 @@ public:
 	virtual void Update() override;
 	virtual void Release() override;
 public:
-	void ChangeGameState(MoleGameState state);
+	//void ChangeGameState(MoleGameState state);
 	MoleGameState GetGameState() { return _gameState; }
 
 	void PlusScore() { _score++; }

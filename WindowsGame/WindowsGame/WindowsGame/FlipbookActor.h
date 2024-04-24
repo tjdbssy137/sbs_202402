@@ -6,6 +6,9 @@ protected:
 	Flipbook* _flipbook = nullptr;
 	int _index = 0;
 	float _sumTime = 0.0f;
+
+	bool _activeLoop = true;
+	float _frameDuration = 0;
 public:
 	void SetFlipbook(Flipbook* flipbook);
 	void Reset();
@@ -17,8 +20,8 @@ public:
 	virtual void Update() override;
 	virtual void Release() override;
 public:
-	FlipbookActor();
-	virtual ~FlipbookActor();
+	FlipbookActor(){}
+	virtual ~FlipbookActor() {}
 
 };
 

@@ -66,7 +66,7 @@ public:
 	virtual void Release();
 
 public:
-	Actor();
-	virtual ~Actor();
+	Actor() {}
+	virtual ~Actor() {}
 };
 

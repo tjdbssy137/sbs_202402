@@ -1,6 +1,5 @@
 #pragma once
 #include "Scene.h"
-
 class BrickActor;
 class BallActor;
 class PaddleActor;

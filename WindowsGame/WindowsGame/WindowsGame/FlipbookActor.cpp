@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "FlipbookActor.h"
 #include "Flipbook.h"
+#include "Texture.h"
 
 void FlipbookActor::Init()
 {
@@ -9,6 +10,7 @@ void FlipbookActor::Init()
 void FlipbookActor::Render(HDC hdc)
 {
 	if (!_flipbook) return;
+
 	const FlipbookInfo& info = _flipbook->GetInfo();
 
 	::TransparentBlt(hdc,
@@ -16,27 +18,47 @@ void FlipbookActor::Render(HDC hdc)
 		static_cast<int>(_body.pos.y - info.size.y / 2),
 		info.size.x,
 		info.size.y,
-		info.texture->GetDc(),
-		2 * info.size.x,
-		0 * info.size.y,
+		info.texture->GetDC(),
+		_index * info.size.x,
+		info.line * info.size.y,
 		info.size.x,
 		info.size.y,
 		info.texture->GetTransparent()
 	);
+
+	_frameDuration = info.duration / info.end;
 	Super::Render(hdc);
 }
 void FlipbookActor::Update()
 {
 	Super::Update();
+
 	const FlipbookInfo& info = _flipbook->GetInfo();
 
-	_sumTime += Time->GetDeltaTime();
-	if (0.1f <= _sumTime)
+	if (_activeLoop == true)
 	{
-		_index++;
-		if (info.end < _index)
+		_sumTime += Time->GetDeltaTime();
+
+		if (_frameDuration <= _sumTime)
 		{
-			_index = info.start;
+			_index++;
+			_sumTime = 0;
+			//cout << _index << endl;
+			if (info.loop == true)
+			{
+				if (info.end < _index)
+				{
+					_index = info.start;
+				}
+			}
+			else
+			{
+				if (info.end < _index)
+				{
+					_index = info.end;
+					_activeLoop = false;
+				}
+			}
 		}
 	}
 }
@@ -48,6 +70,7 @@ void FlipbookActor::SetFlipbook(Flipbook* flipbook)
 {
 	if (!flipbook) return;
 	if (_flipbook == flipbook) return;
+
 	_flipbook = flipbook;
 	Reset();
 }

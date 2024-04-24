@@ -18,7 +18,7 @@ public:
 	virtual void Release() override;
 
 public:
-	SpriteActor();
-	virtual ~SpriteActor();
+	SpriteActor() {}
+	virtual ~SpriteActor() {}
 };
 

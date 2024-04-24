@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "BallActor.h"
-
+#include "SpriteActor.h"
 #include "BoxCollider.h"
 #include "InGameScene.h"
 #include "BrickActor.h"
