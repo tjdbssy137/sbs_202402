@@ -8,7 +8,6 @@ void MoleActor::Init()
 
 	this->SetName("Mole");
 	this->SetSprite(Resource->GetSprite(L"S_Mole_Idle"));
-	_isDie = false;
 }
 void MoleActor::Render(HDC hdc)
 {
@@ -17,19 +16,7 @@ void MoleActor::Render(HDC hdc)
 void MoleActor::Update()
 {
 	Super::Update();
-	/*
-	if (Input->GetKeyDown(KeyCode::Space))
-	{
-		//Á×±â ½ÇÇà
-		ChangeState(MoleActorState::Die);
-	}
-
-	if (Input->GetKeyDown(KeyCode::Control))
-	{
-		//Á×±â ½ÇÇà
-		ChangeState(MoleActorState::Out);
-	}
-	*/
+	
 	// Unity ¿¡¼­´Â Invoke
 	if (0.0f <= _comeInTimer)
 	{
@@ -44,7 +31,6 @@ void MoleActor::Update()
 void MoleActor::Release()
 {
 	Super::Release();
-
 }
 
 void MoleActor::ComeOut()
@@ -58,14 +44,12 @@ void MoleActor::ComeOut()
 void MoleActor::ComeIn()
 {
 	//cout << "MoleActor::ComeIn()" << endl;
-	_isDie = false;
 	this->SetSprite(nullptr);
 }
 //Á×¾ú´Ù.
 void MoleActor::Die()
 {
 	//cout << "MoleActor::Die()" << endl;
-	_isDie = true;
 	this->SetSprite(Resource->GetSprite(L"S_Mole_Die"));
 	_comeInTimer = 1.0f;
 }

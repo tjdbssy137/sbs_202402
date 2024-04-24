@@ -3,9 +3,9 @@
 
 enum class MoleActorState
 {
-	Out,
-	In,
-	Die,
+	Out, // ¶¥±¼¿¡¼­ ³ª¿È
+	In, // ¶¥±¼·Î µé¾î°¨
+	Die, // ÇØ¸Ó·Î ¸ÂÀº »óÅÂ
 
 	None
 };
@@ -20,8 +20,7 @@ public:
 	virtual void Update() override;
 	virtual void Release() override;
 
-	MoleActorState ChangeState() { return _state; }
-	bool GetIsDie() { return _isDie; }
+	MoleActorState GetGameState() { return _state; }
 
 public:
 	// ¶¥±¼¿¡¼­ ³ª¿À´Ù
@@ -36,6 +35,5 @@ public:
 private:
 	float _comeInTimer = 0.0f;
 	MoleActorState _state = MoleActorState::None;
-	bool _isDie;
 };
 

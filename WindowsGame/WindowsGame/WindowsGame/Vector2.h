@@ -22,6 +22,8 @@ struct Vector2
 	Vector2(float x, float y);
 	Vector2();
 
+	Vector2(POINT pt);
+
 
 	// 내적은 주로 두 Vector 사이의 각도를 계산할 때 많이 쓰인다.
 	// A Dot B = A.x * B.x + A.y * B.y

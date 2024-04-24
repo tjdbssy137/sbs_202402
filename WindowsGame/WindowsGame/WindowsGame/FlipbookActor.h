@@ -1,14 +1,14 @@
 #pragma once
 #include "Actor.h"
-class Sprite;
-class SpriteActor : public Actor
+class FlipbookActor : public Actor
 {
 protected:
-	Sprite* _sprite = nullptr;
-
+	Flipbook* _flipbook = nullptr;
+	int _index = 0;
+	float _sumTime = 0.0f;
 public:
-	void SetSprite(Sprite* sprite) { _sprite = sprite; }
-	Sprite* GetSprite() { return _sprite; }
+	void SetFlipbook(Flipbook* flipbook);
+	void Reset();
 public:
 	using Super = Actor;
 public:
@@ -16,9 +16,9 @@ public:
 	virtual void Render(HDC hdc) override;
 	virtual void Update() override;
 	virtual void Release() override;
-
 public:
-	SpriteActor();
-	virtual ~SpriteActor();
+	FlipbookActor();
+	virtual ~FlipbookActor();
+
 };
 

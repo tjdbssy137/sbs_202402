@@ -2,6 +2,9 @@
 class ResourceBase;
 class Texture;
 class Sprite;
+class Flipbook;
+struct FlipbookInfo;
+
 class ResourceManager
 {
 	DECLARE_SINGLE(ResourceManager);
@@ -15,6 +18,9 @@ public:
 
 	Sprite* CreateSprite(const wstring& key, Texture* texture, int x = 0, int y = 0, int cx = 0, int cy = 0);
 	Sprite* GetSprite(const wstring& key);
+
+	Flipbook* CreateFlipbook(const wstring& key, FlipbookInfo info);
+	Flipbook* GetFlipbook(const wstring& key);
 
 private:
 	wstring _resourcePath;

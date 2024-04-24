@@ -160,6 +160,18 @@
     <ClInclude Include="MoleActor.h">
       <Filter>03.Objects\Mole</Filter>
     </ClInclude>
+    <ClInclude Include="HammerActor.h">
+      <Filter>03.Objects\Mole</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHammerController.h">
+      <Filter>03.Objects\Mole</Filter>
+    </ClInclude>
+    <ClInclude Include="Flipbook.h">
+      <Filter>05. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="FlipbookActor.h">
+      <Filter>03.Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -297,6 +309,21 @@
     </ClCompile>
     <ClCompile Include="MoleActor.cpp">
       <Filter>03.Objects\Mole</Filter>
+    </ClCompile>
+    <ClCompile Include="Day26.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="HammerActor.cpp">
+      <Filter>03.Objects\Mole</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHammerController.cpp">
+      <Filter>03.Objects\Mole</Filter>
+    </ClCompile>
+    <ClCompile Include="Flipbook.cpp">
+      <Filter>05. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="FlipbookActor.cpp">
+      <Filter>03.Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

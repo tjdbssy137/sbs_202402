@@ -3,6 +3,8 @@
 #include "SpriteActor.h"
 #include "MoleActor.h"
 #include "BoxCollider.h"
+#include "HammerActor.h"
+#include "PlayerHammerController.h"
 
 void MoleGameScene::Init()
 {
@@ -39,8 +41,8 @@ void MoleGameScene::Init()
 		}
 
 		mole->Init();
-		_mole.push_back(mole);
-		this->SpawnActor(_mole[i]);
+		_moles.push_back(mole);
+		this->SpawnActor(_moles[i]);
 	}
 	
 
@@ -50,22 +52,20 @@ void MoleGameScene::Init()
 		Resource->CreateSprite(L"S_Hammer_Idle", Resource->GetTexture(L"T_Hammer"), 0, 0, 51, 51);
 		Resource->CreateSprite(L"S_Hammer_Hit", Resource->GetTexture(L"T_Hammer"), 51, 0, 51, 51);
 
-		_hammer = new SpriteActor();
-		_hammer->SetName("Hammer");
-		_hammer->SetSprite(Resource->GetSprite(L"S_Hammer_Idle"));
-
-		{
-			BoxCollider* collider = new BoxCollider();
-			collider->SetCollision(Shape::MakeCenterRect(0, 0, 50, 50));
-			_hammer->AddComponent(collider);
-		}
-
+		_hammer = new HammerActor();
 		_hammer->Init();
 		this->SpawnActor(_hammer);
 	}
+	
+	//Controller
+	{
+		_playerhammerController = new PlayerHammerController();
+		_playerhammerController->Init(_hammer, _moles);
+	}
+
 	_regenTimer = 0.5f;
 	_playTime = 60.0f;
-
+	_score = 0;
 }
 void MoleGameScene::Render(HDC hdc)
 {
@@ -74,7 +74,7 @@ void MoleGameScene::Render(HDC hdc)
 	wstring str = L"MoleGameScene";
 	::TextOut(hdc, 0, 45, str.c_str(), str.length());
 
-	wstring pointStr = format(L"Point : {0}", _point);
+	wstring pointStr = format(L"Point : {0}", _score);
 	::TextOut(hdc, 0, 65, pointStr.c_str(), pointStr.length());
 
 	wstring timeStr = format(L"Time : {0:*>.1f}", _playTime);
@@ -83,6 +83,7 @@ void MoleGameScene::Render(HDC hdc)
 void MoleGameScene::Update()
 {
 	Super::Update();
+	_playerhammerController->Update();
 
 	//-------------------------
 	//		* Play Time *
@@ -94,60 +95,22 @@ void MoleGameScene::Update()
 	}
 
 	//-------------------------
-	//		* Hammer Code *
-	//-------------------------
-	MovementMouse();
-
-	//-------------------------
 	//		* Mole Code *
 	//-------------------------
 	// N초마다 랜덤한 두더지가 ChangeState(Out)으로 변한다.
 	_regenTimer -= Time->GetDeltaTime();
 	if (_regenTimer <= 0.0f)
 	{
-		MoleActor* randomMoleActor = _mole[Random->GetRandomInt(0, _mole.size() - 1)];
-		if (randomMoleActor->ChangeState() == MoleActorState::In)
+		MoleActor* randomMoleActor = _moles[Random->GetRandomInt(0, _moles.size() - 1)];
+		if (randomMoleActor->GetGameState() == MoleActorState::In)
 		{
 			randomMoleActor->ChangeState(MoleActorState::Out);
 
 			_regenTimer = 0.5f;
 		}
 	}
-
-	// 잡은 두더지가 있는지 확인하고 state 변경 후 점수 추가.
-	for (int i = 0; i < 8; i++)
-	{
-		if (Collision::RectInRect(_mole[i]->GetBody().ToRect(), _hammer->GetBody().ToRect()))
-		{
-			if (_isHit == true)
-			{
-				_isHit = false;
-				if (_mole[i]->GetIsDie() == false) // 더블클릭 점수 방지
-				{
-					_point++;
-				}
-				_mole[i]->ChangeState(MoleActorState::Die);
-			}
-		}
-	}
 }
 void MoleGameScene::Release()
 {
 	Super::Release();
-}
-
-void MoleGameScene::MovementMouse()
-{
-	POINT mousePos = Input->GetMousePos();
-	_hammer->SetBody(Shape::MakeCenterRect(mousePos.x, mousePos.y, 51, 51));
-	if (Input->GetKeyDown(KeyCode::LeftMouse))
-	{
-		_hammer->SetSprite(Resource->GetSprite(L"S_Hammer_Hit"));
-		_isHit = true;
-	}
-	if (Input->GetKeyUp(KeyCode::LeftMouse))
-	{
-		_hammer->SetSprite(Resource->GetSprite(L"S_Hammer_Idle"));
-		_isHit = false;
-	}
 }

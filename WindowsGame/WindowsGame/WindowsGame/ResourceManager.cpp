@@ -3,6 +3,7 @@
 #include "ResourceBase.h"
 #include "Texture.h"
 #include "Sprite.h"
+#include "Flipbook.h"
 
 void ResourceManager::Init()
 {
@@ -64,4 +65,21 @@ Sprite* ResourceManager::CreateSprite(const wstring& key, Texture* texture, int 
 Sprite* ResourceManager::GetSprite(const wstring& key)
 {
 	return dynamic_cast<Sprite*>(_resources[key]);
+}
+
+Flipbook* ResourceManager::CreateFlipbook(const wstring& key, FlipbookInfo info)
+{
+	if (_resources.contains(key))
+	{
+		return GetFlipbook(key);
+	}
+
+	Flipbook* flipbook = new Flipbook();
+	flipbook->SetInfo(info);
+	_resources[key] = flipbook;
+	return flipbook;
+}
+Flipbook* ResourceManager::GetFlipbook(const wstring& key)
+{
+	return dynamic_cast<Flipbook*>(_resources[key]);
 }

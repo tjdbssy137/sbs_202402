@@ -69,6 +69,13 @@ Vector2::Vector2()
 	this->x = 0;
 	this->y = 0;
 }
+
+Vector2::Vector2(POINT pt)
+{
+	this->x = static_cast<float>(pt.x);
+	this->y = static_cast<float>(pt.y);
+}
+
 float Vector2::Dot(Vector2 other)
 {
 	return x * other.x + y * other.y;

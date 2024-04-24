@@ -1,7 +1,9 @@
 #pragma once
 #include "Scene.h"
 class MoleActor;
-class SpriteActor;
+class HammerActor;
+class PlayerHammerController;
+
 class MoleGameScene : public Scene
 {
 public:
@@ -15,21 +17,18 @@ public:
 	void ChangeGameState(MoleGameState state);
 	MoleGameState GetGameState() { return _gameState; }
 
-public:
-	void MovementMouse();
-
+	void PlusScore() { _score++; }
 private:
 	MoleGameState _gameState = MoleGameState::None;
-	SpriteActor* _hammer = nullptr;
-	vector<MoleActor*> _mole;
+	HammerActor* _hammer = nullptr;
+	vector<MoleActor*> _moles;
 	int _posX[8] = {220, 220, 224, 428, 428, 620, 620, 622 };
 	int _posY[8] = { 86, 237, 405, 160, 313, 86, 237, 405 };
-	
+
+	PlayerHammerController* _playerhammerController = nullptr;
+
 	float _regenTimer = 0;
 	float _playTime = 0;
-	int _point = 0;
-	
-	bool _isHit = false;
-	
+	int _score = 0;	
 };
 
