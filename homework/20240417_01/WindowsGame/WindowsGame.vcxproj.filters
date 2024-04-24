@@ -44,6 +44,9 @@
     <Filter Include="03.Objects\Mole">
       <UniqueIdentifier>{c618cd54-edcb-418c-b7e3-d987e1b495b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.Objects\Poo">
+      <UniqueIdentifier>{baf9d708-516a-4809-8c8d-dfc28c9a238d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -79,7 +82,7 @@
     <ClInclude Include="SceneManager.h">
       <Filter>01.Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Dev1Scene.h">
+    <ClInclude Include="PooGame.h">
       <Filter>02.Scene\Game</Filter>
     </ClInclude>
     <ClInclude Include="Dev2Scene.h">
@@ -160,6 +163,9 @@
     <ClInclude Include="MoleActor.h">
       <Filter>03.Objects\Mole</Filter>
     </ClInclude>
+    <ClInclude Include="Pumpkin.h">
+      <Filter>03.Objects\Poo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -205,7 +211,7 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>01.Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Dev1Scene.cpp">
+    <ClCompile Include="PooGame.cpp">
       <Filter>02.Scene\Game</Filter>
     </ClCompile>
     <ClCompile Include="Dev2Scene.cpp">
@@ -297,6 +303,9 @@
     </ClCompile>
     <ClCompile Include="MoleActor.cpp">
       <Filter>03.Objects\Mole</Filter>
+    </ClCompile>
+    <ClCompile Include="Pumpkin.cpp">
+      <Filter>03.Objects\Poo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
