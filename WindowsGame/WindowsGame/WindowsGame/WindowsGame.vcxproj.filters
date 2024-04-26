@@ -44,6 +44,9 @@
     <Filter Include="03.Objects\Mole">
       <UniqueIdentifier>{c618cd54-edcb-418c-b7e3-d987e1b495b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.Objects\Zelda">
+      <UniqueIdentifier>{d2943c2b-1ded-4b1b-b776-8acaa1adc3ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -171,6 +174,12 @@
     </ClInclude>
     <ClInclude Include="FlipbookActor.h">
       <Filter>03.Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CreatureActor.h">
+      <Filter>03.Objects\Zelda</Filter>
+    </ClInclude>
+    <ClInclude Include="UserCharacterController.h">
+      <Filter>03.Objects\Zelda</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +333,15 @@
     </ClCompile>
     <ClCompile Include="FlipbookActor.cpp">
       <Filter>03.Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Day27.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="CreatureActor.cpp">
+      <Filter>03.Objects\Zelda</Filter>
+    </ClCompile>
+    <ClCompile Include="UserCharacterController.cpp">
+      <Filter>03.Objects\Zelda</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

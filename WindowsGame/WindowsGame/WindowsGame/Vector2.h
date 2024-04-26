@@ -15,6 +15,7 @@ struct Vector2
 	void operator*=(const float other);
 	Vector2 operator/(const float other);
 	void operator/=(const float other);
+	bool operator==(const Vector2 other);
 
 	float Length();
 	Vector2 Normalize(); // 벡터의 길이를 1로 만들어 준다

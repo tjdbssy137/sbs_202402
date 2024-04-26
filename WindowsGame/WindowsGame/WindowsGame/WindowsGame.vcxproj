@@ -164,6 +164,7 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="CreatureActor.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="Dev1Scene.h" />
     <ClInclude Include="Dev2Scene.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Types.h" />
+    <ClInclude Include="UserCharacterController.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector2Int.h" />
     <ClInclude Include="WindowsGame.h" />
@@ -207,6 +209,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="CommonFunction.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="CreatureActor.cpp" />
     <ClCompile Include="Day17.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -243,6 +246,9 @@
     <ClCompile Include="Day26.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Day27.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Dev1Scene.cpp" />
     <ClCompile Include="Dev2Scene.cpp" />
     <ClInclude Include="Enums.h" />
@@ -273,6 +279,7 @@
     <ClCompile Include="SpriteActor.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="UserCharacterController.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector2Int.cpp" />
     <ClCompile Include="WindowsGame.cpp" />

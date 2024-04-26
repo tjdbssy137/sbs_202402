@@ -7,7 +7,6 @@ protected:
 	int _index = 0;
 	float _sumTime = 0.0f;
 
-	bool _activeLoop = true;
 	float _frameDuration = 0;
 public:
 	void SetFlipbook(Flipbook* flipbook);

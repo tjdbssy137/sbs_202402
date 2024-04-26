@@ -45,6 +45,10 @@ void Vector2::operator/=(const float other)
 	this->x /= other;
 	this->y /= other;
 }
+bool Vector2::operator==(const Vector2 other)
+{
+	return { this->x == other.x && this->y == other.y };
+}
 
 float Vector2::Length()
 {

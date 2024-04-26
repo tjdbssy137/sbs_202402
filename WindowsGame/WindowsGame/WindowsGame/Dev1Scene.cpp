@@ -1,32 +1,24 @@
 #include "pch.h"
 #include "Dev1Scene.h"
 #include "BoxCollider.h"
-#include "SpriteActor.h"
-#include "FlipbookActor.h"
-#include "Flipbook.h"
+#include "CreatureActor.h"
+#include "UserCharacterController.h"
 void Dev1Scene::Init()
 {
 	Super::Init();
-
-	Resource->LoadTexture(L"T_Character", L"FlipbookTest/character.bmp");
-	FlipbookInfo info = {};
-	info.start = 0;
-	info.end = 12;
-	info.size = Vector2Int(32, 32);
-	info.texture = Resource->GetTexture(L"T_Character");
-	info.duration = 1.5;
-	info.loop = true;
-	Resource->CreateFlipbook(L"FB_CharacterIdle", info);
+	{
+		_creature = new CreatureActor();
+		_creature->SetPos(Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2));
+		_creature->Init();
+		SpawnActor(_creature);
+	}
 
 	{
-		FlipbookActor* flipbookActor = new FlipbookActor();
-
-		flipbookActor->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterIdle"));
-		flipbookActor->SetPos(Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2));
-
-		SpawnActor(flipbookActor);
+		_userCharacterController = new UserCharacterController();
+		_userCharacterController->Init(_creature);
 	}
 }
+
 void Dev1Scene::Render(HDC hdc)
 {
 	Super::Render(hdc);
@@ -40,7 +32,7 @@ void Dev1Scene::Render(HDC hdc)
 void Dev1Scene::Update()
 {
 	Super::Update();
-
+	_userCharacterController->Update();
 
 
 }

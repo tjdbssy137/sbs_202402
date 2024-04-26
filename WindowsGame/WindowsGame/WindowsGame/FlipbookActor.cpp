@@ -26,7 +26,6 @@ void FlipbookActor::Render(HDC hdc)
 		info.texture->GetTransparent()
 	);
 
-	_frameDuration = info.duration / info.end;
 	Super::Render(hdc);
 }
 void FlipbookActor::Update()
@@ -35,32 +34,24 @@ void FlipbookActor::Update()
 
 	const FlipbookInfo& info = _flipbook->GetInfo();
 
-	if (_activeLoop == true)
-	{
-		_sumTime += Time->GetDeltaTime();
+	_sumTime += Time->GetDeltaTime();
+	int frameAmount = (info.end - info.start + 1);
+	// frameAmount장수만큼 실행 시키는데 duration 시간이 걸린다
+	// ?? : 1 = info.duration : frameAmount
+	_frameDuration = info.duration / frameAmount;
 
-		if (_frameDuration <= _sumTime)
+	if (_frameDuration <= _sumTime)
+	{
+		_sumTime -= _frameDuration;
+		//cout << _index << endl;
+
+		if (false == (info.loop == false && info.end == _index))
 		{
 			_index++;
-			_sumTime = 0;
-			//cout << _index << endl;
-			if (info.loop == true)
-			{
-				if (info.end < _index)
-				{
-					_index = info.start;
-				}
-			}
-			else
-			{
-				if (info.end < _index)
-				{
-					_index = info.end;
-					_activeLoop = false;
-				}
-			}
+			_index %= frameAmount + info.start;
 		}
 	}
+	
 }
 void FlipbookActor::Release()
 {
