@@ -1,6 +1,5 @@
 #pragma once
 #include "FlipbookActor.h"
-class FlipbookActor;
 class Flipbook;
 
 enum class CreatureState
@@ -44,5 +43,9 @@ public:
 private:
 	CreatureState _state = CreatureState::None;
 	CreatureDirectionState _dirState = CreatureDirectionState::None;
+
+private:
+	float _invokeTime = 0;
+
 };
 

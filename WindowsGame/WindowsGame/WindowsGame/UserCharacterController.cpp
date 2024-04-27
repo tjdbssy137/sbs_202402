@@ -1,19 +1,31 @@
 #include "pch.h"
 #include "UserCharacterController.h"
 #include "CreatureActor.h"
+#include "MonsterActor.h"
+#include "BoxCollider.h"
 
-void UserCharacterController::Init(CreatureActor* creature)
+void UserCharacterController::Init(CreatureActor* creature, MonsterActor* monster)
 {
 	_creature = creature;
+	_monster = monster;
+	
 }
 void UserCharacterController::Update()
 {
 	this->ChangeCreatureDir();
 	this->ChangeCreaturePos();
 
+	_monster->LookAtPlayer(_creature->GetPos());
+
+	if (_monster->GetMonsterHp() < 0)
+	{
+		_monster->ChangeState(MonsterState::Die);
+	}
+
 	if (Input->GetKeyDown(KeyCode::Space))
 	{
 		_creature->ChangeState(CreatureState::Attack);
+		PlayerAttackMonster();
 	}
 }
 
@@ -47,21 +59,26 @@ Vector2 UserCharacterController::ChangeCreatureDir()
 		return Vector2::Down();
 	}
 
-	if (false == (Input->GetKeyDown(KeyCode::Space)))//°ø°ÝÀÌ ¾Æ´Ò ¶§ ¸ØÃã.
+	if (_creature->GetState() != CreatureState::Attack)//°ø°ÝÀÌ ¾Æ´Ò ¶§ ¸ØÃã.
 	{
 		_creature->ChangeState(CreatureState::Idle);
+		_monster->ChangeState(MonsterState::Idle);
 	}
 	return Vector2::Zero();
 }
-
 
 void UserCharacterController::ChangeCreaturePos()
 {
 	_creature->SetPos(ChangeCreatureDir() * Time->GetDeltaTime() * _speed + _creature->GetPos());
 }
-/*
-void UserCharacterController::AttacCreature()
+
+void UserCharacterController::PlayerAttackMonster()
 {
-	_creature->DoAttack(ChangeCreatureDir());
+	BoxCollider* creatureCollider = _creature->GetComponent<BoxCollider>();
+	BoxCollider* monsterCollider = _monster->GetComponent<BoxCollider>();
+	if (Collision::RectInRect(creatureCollider->GetCollision().ToRect(), monsterCollider->GetCollision().ToRect()))
+	{
+		_monster->ChangeState(MonsterState::GetHit);
+		_monster->SetMonsterHp();
+	}
 }
-*/

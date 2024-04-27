@@ -173,6 +173,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HammerActor.h" />
+    <ClInclude Include="MonsterActor.h" />
     <ClInclude Include="PlayerHammerController.h" />
     <ClInclude Include="InGameScene.h" />
     <ClInclude Include="InputManager.h" />
@@ -256,6 +257,7 @@
     <ClCompile Include="FlipbookActor.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HammerActor.cpp" />
+    <ClCompile Include="MonsterActor.cpp" />
     <ClCompile Include="PlayerHammerController.cpp" />
     <ClCompile Include="InGameScene.cpp" />
     <ClCompile Include="InputManager.cpp" />

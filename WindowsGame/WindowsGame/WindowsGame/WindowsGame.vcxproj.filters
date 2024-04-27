@@ -181,6 +181,9 @@
     <ClInclude Include="UserCharacterController.h">
       <Filter>03.Objects\Zelda</Filter>
     </ClInclude>
+    <ClInclude Include="MonsterActor.h">
+      <Filter>03.Objects\Zelda</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -341,6 +344,9 @@
       <Filter>03.Objects\Zelda</Filter>
     </ClCompile>
     <ClCompile Include="UserCharacterController.cpp">
+      <Filter>03.Objects\Zelda</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterActor.cpp">
       <Filter>03.Objects\Zelda</Filter>
     </ClCompile>
   </ItemGroup>

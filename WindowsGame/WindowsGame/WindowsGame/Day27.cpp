@@ -68,7 +68,6 @@ void Comment04()
 	// CreatureActor를 만들고
 	// 컨트롤러도 있어야 함.
 
-
 	// space를 누르면 공격(Attack)
 	// 화살표를 누르면 이동(Move)
 	// 가만히 있으면 Idle 상태

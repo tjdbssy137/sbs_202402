@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 class CreatureActor;
+class MonsterActor;
 class UserCharacterController;
 
 class Dev1Scene : public Scene
@@ -14,6 +15,7 @@ public:
 
 private:
 	CreatureActor* _creature = nullptr;
+	MonsterActor* _monster = nullptr;
 	UserCharacterController* _userCharacterController = nullptr;
 };
 
