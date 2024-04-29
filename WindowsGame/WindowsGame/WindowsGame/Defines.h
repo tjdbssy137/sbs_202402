@@ -22,3 +22,4 @@ public:										\
 #define Time GET_SINGLE(TimeManager)
 #define Resource GET_SINGLE(ResourceManager)
 #define Random GET_SINGLE(RandomManager)
+#define EPSILON 1e-6f //(0.000001)

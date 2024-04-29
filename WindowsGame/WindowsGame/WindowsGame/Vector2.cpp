@@ -47,7 +47,11 @@ void Vector2::operator/=(const float other)
 }
 bool Vector2::operator==(const Vector2 other)
 {
-	return { this->x == other.x && this->y == other.y };
+	if (abs(this->x == other.x) <= EPSILON && abs(this->y == other.y) <= EPSILON)
+	{
+		return true;
+	}
+	return false;
 }
 
 float Vector2::Length()

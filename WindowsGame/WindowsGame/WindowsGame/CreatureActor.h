@@ -2,23 +2,21 @@
 #include "FlipbookActor.h"
 class Flipbook;
 
-enum class CreatureState
-{
-	Attack,
-	Move,
-	Idle,
-
-	None
-};
-
-enum class CreatureDirectionState
+enum eCreatureDirection
 {
 	Down,
 	Up,
 	Left,
 	Right,
 
-	None
+	End
+};
+
+enum class CreatureState
+{
+	Attack,
+	Move,
+	Idle
 };
 
 class CreatureActor : public FlipbookActor
@@ -32,20 +30,28 @@ public:
 	virtual void Release() override;
 
 public:
-	void DoIdle();
-	void DoAttack();
-	void DoMove();
-	void SetDirState(CreatureDirectionState dirState) { _dirState = dirState; }
+	void SetState(CreatureState state);
 	CreatureState GetState() { return _state; }
-	
-public:
-	void ChangeState(CreatureState state);
-private:
-	CreatureState _state = CreatureState::None;
-	CreatureDirectionState _dirState = CreatureDirectionState::None;
 
+	void SetVelocity(Vector2 velocity) { _velocity = velocity; }
+	Vector2 GetVelocity() { return _velocity; }
+
+	void ChangeDirection(eCreatureDirection dir);
+	void UpdateInput();
+public:
+	void SetIsAttackInput(bool isAttackInput) { _isAttackInput = isAttackInput; }
+	void UpdateMove();
+	void UpdateAttack();
+	void UpdateIdle();
+private:
+	CreatureState _state = CreatureState::Idle;
+
+	eCreatureDirection _dir = eCreatureDirection::Down;
+	Flipbook* _idleFlipbook[eCreatureDirection::End] = {};
+	Flipbook* _attackFlipbook[eCreatureDirection::End] = {};
+	Flipbook* _moveFlipbook[eCreatureDirection::End] = {};
 private:
 	float _invokeTime = 0;
-
+	Vector2 _velocity = {};
+	bool _isAttackInput = false;
 };
-

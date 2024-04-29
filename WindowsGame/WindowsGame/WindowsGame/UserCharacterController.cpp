@@ -24,7 +24,7 @@ void UserCharacterController::Update()
 
 	if (Input->GetKeyDown(KeyCode::Space))
 	{
-		_creature->ChangeState(CreatureState::Attack);
+		//_creature->ChangeState(CreatureState::Attack);
 		PlayerAttackMonster();
 	}
 }
@@ -33,36 +33,36 @@ Vector2 UserCharacterController::ChangeCreatureDir()
 {
 	if (Input->GetKey(KeyCode::Left))
 	{
-		_creature->SetDirState(CreatureDirectionState::Left);
-		_creature->ChangeState(CreatureState::Move);
+		_creature->ChangeDirection(eCreatureDirection::Left);
+		//_creature->ChangeState(CreatureState::Move);
 		return Vector2::Left();
 	}
 
 	if (Input->GetKey(KeyCode::Right))
 	{
-		_creature->SetDirState(CreatureDirectionState::Right);
-		_creature->ChangeState(CreatureState::Move);
+		_creature->ChangeDirection(eCreatureDirection::Right);
+		//_creature->ChangeState(CreatureState::Move);
 		return Vector2::Right();
 	}
 
 	if (Input->GetKey(KeyCode::Up))
 	{
-		_creature->SetDirState(CreatureDirectionState::Up);
-		_creature->ChangeState(CreatureState::Move);
+		_creature->ChangeDirection(eCreatureDirection::Up);
+		//_creature->ChangeState(CreatureState::Move);
 		return Vector2::Up();
 	}
 	
 	if (Input->GetKey(KeyCode::Down))
 	{
-		_creature->SetDirState(CreatureDirectionState::Down);
-		_creature->ChangeState(CreatureState::Move);
+		_creature->ChangeDirection(eCreatureDirection::Down);
+		//_creature->ChangeState(CreatureState::Move);
 		return Vector2::Down();
 	}
 
 	if (_creature->GetState() != CreatureState::Attack)//°ø°ÝÀÌ ¾Æ´Ò ¶§ ¸ØÃã.
 	{
-		_creature->ChangeState(CreatureState::Idle);
-		_monster->ChangeState(MonsterState::Idle);
+		_creature->SetState(CreatureState::Idle);
+		//_monster->ChangeState(MonsterState::Idle);
 	}
 	return Vector2::Zero();
 }

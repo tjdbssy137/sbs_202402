@@ -3,7 +3,6 @@
 class CreatureActor;
 class MonsterActor;
 class UserCharacterController;
-
 class Dev1Scene : public Scene
 {
 	using Super = Scene;
@@ -12,6 +11,9 @@ public:
 	virtual void Render(HDC hdc) override;
 	virtual void Update() override;
 	virtual void Release() override;
+
+public:
+	void LoadResource();
 
 private:
 	CreatureActor* _creature = nullptr;

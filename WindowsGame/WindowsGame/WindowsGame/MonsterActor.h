@@ -47,7 +47,7 @@ private:
 	MonsterDirectionState _dirState = MonsterDirectionState::None;
 
 private:
-	float _invokeTime;
+	float _invokeTime = 0;
 	int _monsterHp = 3;
 	bool _isDie = false;
 };

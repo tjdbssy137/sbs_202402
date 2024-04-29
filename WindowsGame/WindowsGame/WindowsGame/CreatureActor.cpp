@@ -1,104 +1,25 @@
 #include "pch.h"
 #include "CreatureActor.h"
-#include "Flipbook.h"
 void CreatureActor::Init()
 {
 	Super::Init();
+	// IDLE
+	_idleFlipbook[eCreatureDirection::Down] = Resource->GetFlipbook(L"FB_CharacterDown_Idle");
+	_idleFlipbook[eCreatureDirection::Up] = Resource->GetFlipbook(L"FB_CharacterUp_Idle");
+	_idleFlipbook[eCreatureDirection::Left] = Resource->GetFlipbook(L"FB_CharacterLeft_Idle");
+	_idleFlipbook[eCreatureDirection::Right] = Resource->GetFlipbook(L"FB_CharacterRight_Idle");
 
-	// PlayerDown
-	{
-		Resource->LoadTexture(L"T_Character", L"FlipbookTest/PlayerDown.bmp", RGB(128, 128, 128));
-		FlipbookInfo _downInfo = {};
-		_downInfo.start = 0;
-		_downInfo.end = 9;
-		_downInfo.line = 0;
-		_downInfo.size = Vector2Int(200, 200);
-		_downInfo.duration = 1.0f;
-		_downInfo.loop = true;
-		_downInfo.texture = Resource->GetTexture(L"T_Character");
+	// MOVE
+	_moveFlipbook[eCreatureDirection::Down] = Resource->GetFlipbook(L"FB_CharacterDown_Move");
+	_moveFlipbook[eCreatureDirection::Up] = Resource->GetFlipbook(L"FB_CharacterUp_Move");
+	_moveFlipbook[eCreatureDirection::Left] = Resource->GetFlipbook(L"FB_CharacterLeft_Move");
+	_moveFlipbook[eCreatureDirection::Right] = Resource->GetFlipbook(L"FB_CharacterRight_Move");
 
-		Resource->CreateFlipbook(L"FB_CharacterDown_Idle", _downInfo);
-
-		_downInfo.line = 1;
-		Resource->CreateFlipbook(L"FB_CharacterDown_Move", _downInfo);
-
-		_downInfo.line = 3;
-		_downInfo.end = 7;
-		_downInfo.loop = false;
-		Resource->CreateFlipbook(L"FB_CharacterDown_Attack", _downInfo);
-	}
-
-	// PlayerUp
-	{
-		Resource->LoadTexture(L"T_Character2", L"FlipbookTest/PlayerUp.bmp", RGB(128, 128, 128));
-		FlipbookInfo _upInfo = {};
-		_upInfo.start = 0;
-		_upInfo.end = 9;
-		_upInfo.line = 0;
-		_upInfo.size = Vector2Int(200, 200);
-		_upInfo.duration = 1.0f;
-		_upInfo.loop = true;
-		_upInfo.texture = Resource->GetTexture(L"T_Character2");
-
-		Resource->CreateFlipbook(L"FB_CharacterUp_Idle", _upInfo);
-
-		_upInfo.line = 1;
-		Resource->CreateFlipbook(L"FB_CharacterUp_Move", _upInfo);
-
-		_upInfo.line = 3;
-		_upInfo.end = 7;
-		_upInfo.loop = false;
-		Resource->CreateFlipbook(L"FB_CharacterUp_Attack", _upInfo);
-	}
-
-	// PlayerLeft
-	{
-		Resource->LoadTexture(L"T_Character3", L"FlipbookTest/PlayerLeft.bmp", RGB(128, 128, 128));
-		FlipbookInfo _leftInfo = {};
-		_leftInfo.start = 0;
-		_leftInfo.end = 9;
-		_leftInfo.line = 0;
-		_leftInfo.size = Vector2Int(200, 200);
-		_leftInfo.duration = 1.0f;
-		_leftInfo.loop = true;
-		_leftInfo.texture = Resource->GetTexture(L"T_Character3");
-
-		Resource->CreateFlipbook(L"FB_CharacterLeft_Idle", _leftInfo);
-
-		_leftInfo.line = 1;
-		Resource->CreateFlipbook(L"FB_CharacterLeft_Move", _leftInfo);
-
-		_leftInfo.line = 3;
-		_leftInfo.end = 7;
-		_leftInfo.loop = false;
-		Resource->CreateFlipbook(L"FB_CharacterLeft_Attack", _leftInfo);
-	}
-
-	// PlayerRight
-	{
-		Resource->LoadTexture(L"T_Character4", L"FlipbookTest/PlayerRight.bmp", RGB(128, 128, 128));
-		FlipbookInfo _rightInfo = {};
-		_rightInfo.start = 0;
-		_rightInfo.end = 9;
-		_rightInfo.line = 0;
-		_rightInfo.size = Vector2Int(200, 200);
-		_rightInfo.duration = 1.0f;
-		_rightInfo.loop = true;
-		_rightInfo.texture = Resource->GetTexture(L"T_Character4");
-
-		Resource->CreateFlipbook(L"FB_CharacterRight_Idle", _rightInfo);
-
-		_rightInfo.line = 1;
-		Resource->CreateFlipbook(L"FB_CharacterRight_Move", _rightInfo);
-
-		_rightInfo.line = 3;
-		_rightInfo.end = 7;
-		_rightInfo.loop = false;
-		Resource->CreateFlipbook(L"FB_CharacterRight_Attack", _rightInfo);
-	}
-
-	// 기본
-	this->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterDown_Idle"));
+	// ATTACK
+	_attackFlipbook[eCreatureDirection::Down] = Resource->GetFlipbook(L"FB_CharacterDown_Attack");
+	_attackFlipbook[eCreatureDirection::Up] = Resource->GetFlipbook(L"FB_CharacterUp_Attack");
+	_attackFlipbook[eCreatureDirection::Left] = Resource->GetFlipbook(L"FB_CharacterLeft_Attack");
+	_attackFlipbook[eCreatureDirection::Right] = Resource->GetFlipbook(L"FB_CharacterRight_Attack");
 }
 void CreatureActor::Render(HDC hdc)
 {
@@ -108,6 +29,7 @@ void CreatureActor::Update()
 {
 	Super::Update();
 
+	/*
 	if (0.0f <= _invokeTime)
 	{
 		_invokeTime -= Time->GetDeltaTime();
@@ -116,43 +38,41 @@ void CreatureActor::Update()
 			this->ChangeState(CreatureState::Idle);
 		}
 	}
-
-	/*
-	if (Input->GetKeyDown(KeyCode::A))
-	{
-		printf("%f, %f\n", this->_body.pos.x, this->_body.pos.y);
-	}
 	*/
-	/*
-	if ( 내 movement Vecotr가 0이고 공격중이 아니라면)
+	// TODO : // Comment 작성
+	UpdateInput();
+
+	// XXX : <- 이슈 위험
+	switch (_state)
 	{
-		changeState(idle);
+	case CreatureState::Attack:
+		UpdateAttack();
+		break;
+	case CreatureState::Move:
+		UpdateMove();
+		break;
+	case CreatureState::Idle:
+		UpdateIdle();
+		break;
+	default:
+		break;
 	}
 
-	
-	switch(state)
-	{
-		case idle:
-			doidle();
-	}
+	// _velocity
+	// 0부터 키를 누르고 있으면 점점 전체 속도가 증가함. 최대 1까지
 
-
-	//doidle
-	switch(dir)
-	{
-		case down: 
-			setFlipbook
-	}
-
-	*/
-	
-	
+	// Input에 따라서 이동속도벡터(velocity)를 제어한다
+	// state가 최종 판단을 해준다
+	// velocity가 0이면, Idle
+	// 그렇지 않으면 Move 상태로 바꿔준다.
 }
+
 void CreatureActor::Release()
 {
 	Super::Release();
 }
-void CreatureActor::ChangeState(CreatureState state)
+
+void CreatureActor::SetState(CreatureState state)
 {
 	//FSM 유한상태머신
 	if (_state == state) return;
@@ -162,83 +82,131 @@ void CreatureActor::ChangeState(CreatureState state)
 	switch (_state)
 	{
 	case CreatureState::Idle:
-		this->DoIdle();
+		this->SetFlipbook(_idleFlipbook[_dir]);
 		break;
 	case CreatureState::Attack:
-		this->DoAttack();
-		_invokeTime = 1.2f;
+		this->SetFlipbook(_attackFlipbook[_dir]);
+		//_invokeTime = 1.2f;
 		break;
 	case CreatureState::Move:
-		this->DoMove();
-		break;
-	case CreatureState::None:
+		this->SetFlipbook(_moveFlipbook[_dir]);
 		break;
 	default:
 		break;
 	}
 }
-void CreatureActor::DoIdle()
+void CreatureActor::UpdateIdle()
 {
-	switch (_dirState)
+	//Idle 때만 공격 가능.
+	if (this->_isAttackInput == true)
 	{
-	case CreatureDirectionState::Down:
-		this->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterDown_Idle"));
-		break;
+		this->SetState(CreatureState::Attack);
+	}
+	else if (EPSILON < _velocity.Length())
+	{
+		SetState(CreatureState::Move);
+	}
 
-	case CreatureDirectionState::Up:
-		this->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterUp_Idle"));
+}
+void CreatureActor::UpdateInput()
+{
+	this->SetIsAttackInput(false);
+	Vector2 newVelocity = this->GetVelocity();
+	bool isMoveKeyInput = false;
+
+	if (Input->GetKey(KeyCode::Left))
+	{
+		isMoveKeyInput = true;
+		ChangeDirection(eCreatureDirection::Left);
+		newVelocity.x -= Time->GetDeltaTime() * 1.0f; // 1초만에 변함.
+		newVelocity.x = clamp(newVelocity.x, -1.0f, 1.0f); // newVelocity.x의 범위를 -1.0f ~ 1.0f로 한정시킨다.
+		newVelocity.y = 0;
+		SetVelocity(newVelocity);
+	}
+
+	else if (Input->GetKey(KeyCode::Right))
+	{
+		isMoveKeyInput = true;
+		ChangeDirection(eCreatureDirection::Right);
+		newVelocity.x += Time->GetDeltaTime() * 1.0f; // 1초만에 변함.
+		newVelocity.x = clamp(newVelocity.x, -1.0f, 1.0f);
+		newVelocity.y = 0;
+		SetVelocity(newVelocity);
+	}
+
+	else if (Input->GetKey(KeyCode::Up))
+	{
+		isMoveKeyInput = true;
+		ChangeDirection(eCreatureDirection::Up);
+		newVelocity.y -= Time->GetDeltaTime() * 1.0f; // 0.5초만에 변함.
+		newVelocity.y = clamp(newVelocity.y, -1.0f, 1.0f);
+		newVelocity.x = 0;
+		SetVelocity(newVelocity);
+	}
+
+	else if (Input->GetKey(KeyCode::Down))
+	{
+		isMoveKeyInput = true;
+		ChangeDirection(eCreatureDirection::Down);
+		newVelocity.y += Time->GetDeltaTime() * 1.0f; // 0.5초만에 변함.
+		newVelocity.y = clamp(newVelocity.y, -1.0f, 1.0f); 
+		newVelocity.x = 0;
+		SetVelocity(newVelocity);
+	}
+
+	if (Input->GetKeyDown(KeyCode::Space))
+	{
+		this->SetIsAttackInput(true);
+	}
+
+	if (isMoveKeyInput == false)
+	{
+		newVelocity = { 0,0 };
+	}
+	this->SetVelocity(newVelocity);
+}
+
+void CreatureActor::ChangeDirection(eCreatureDirection dir)
+{
+	// 만약에 방향이 바뀌면, setFlipbook을 해준다/
+
+	if (_dir == dir) return;
+
+	_dir = dir;
+
+	switch (_state)
+	{
+	case CreatureState::Idle:
+		this->SetFlipbook(_idleFlipbook[_dir]);
 		break;
-	
-	case CreatureDirectionState::Left:
-		this->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterLeft_Idle"));
+	case CreatureState::Attack:
+		this->SetFlipbook(_attackFlipbook[_dir]);
+		//_invokeTime = 1.2f;
 		break;
-	
-	case CreatureDirectionState::Right:
-		this->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterRight_Idle"));
+	case CreatureState::Move:
+		this->SetFlipbook(_moveFlipbook[_dir]);
+		break;
+	default:
 		break;
 	}
 }
 
-void CreatureActor::DoAttack()
+void CreatureActor::UpdateMove()
 {
-	switch (_dirState)
+	if (_velocity.Length() < EPSILON)
 	{
-	case CreatureDirectionState::Down:
-		this->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterDown_Attack"));
-		break;
+		SetState(CreatureState::Idle);
+	}
 
-	case CreatureDirectionState::Up:
-		this->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterUp_Attack"));
-		break;
-
-	case CreatureDirectionState::Left:
-		this->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterLeft_Attack"));
-		break;
-
-	case CreatureDirectionState::Right:
-		this->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterRight_Attack"));
-		break;
+	if (EPSILON < _velocity.Length())
+	{
+		Vector2 newPos = this->GetPos();
+		newPos += _velocity * 200 * Time->GetDeltaTime();
+		this->SetPos(newPos);
 	}
 }
 
-void CreatureActor::DoMove()
+void CreatureActor::UpdateAttack()
 {
-	switch (_dirState)
-	{
-	case CreatureDirectionState::Down:
-		this->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterDown_Move"));
-		break;
 
-	case CreatureDirectionState::Up:
-		this->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterUp_Move"));
-		break;
-
-	case CreatureDirectionState::Left:
-		this->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterLeft_Move"));
-		break;
-
-	case CreatureDirectionState::Right:
-		this->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterRight_Move"));
-		break;
-	}
 }

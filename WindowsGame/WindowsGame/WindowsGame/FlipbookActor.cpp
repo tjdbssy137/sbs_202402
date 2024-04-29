@@ -31,6 +31,8 @@ void FlipbookActor::Render(HDC hdc)
 void FlipbookActor::Update()
 {
 	Super::Update();
+	
+	if (_flipbook == nullptr) return;
 
 	const FlipbookInfo& info = _flipbook->GetInfo();
 
