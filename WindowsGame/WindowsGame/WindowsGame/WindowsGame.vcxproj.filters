@@ -349,6 +349,9 @@
     <ClCompile Include="MonsterActor.cpp">
       <Filter>03.Objects\Zelda</Filter>
     </ClCompile>
+    <ClCompile Include="Day28.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Day16.cpp">
