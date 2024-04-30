@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "CreatureActor.h"
+#include "BoxCollider.h"
+
 void CreatureActor::Init()
 {
 	Super::Init();
@@ -20,6 +22,15 @@ void CreatureActor::Init()
 	_attackFlipbook[eCreatureDirection::Up] = Resource->GetFlipbook(L"FB_CharacterUp_Attack");
 	_attackFlipbook[eCreatureDirection::Left] = Resource->GetFlipbook(L"FB_CharacterLeft_Attack");
 	_attackFlipbook[eCreatureDirection::Right] = Resource->GetFlipbook(L"FB_CharacterRight_Attack");
+
+	// ATTACK COLLISON POS
+	_attackCollisionPos[eCreatureDirection::Down] = CenterRect(Vector2(0, 60), 20, 40);
+	_attackCollisionPos[eCreatureDirection::Up] = CenterRect(Vector2(0, -60), 20, 40);
+	_attackCollisionPos[eCreatureDirection::Left] = CenterRect(Vector2(-60, 0), 40, 20);
+	_attackCollisionPos[eCreatureDirection::Right] = CenterRect(Vector2(60, 0), 40, 20);
+	
+	collider = new BoxCollider();
+	collider->SetCollision(Shape::MakeCenterRect(0, 0, 0, 0));
 }
 void CreatureActor::Render(HDC hdc)
 {
@@ -29,16 +40,16 @@ void CreatureActor::Update()
 {
 	Super::Update();
 
-	/*
-	if (0.0f <= _invokeTime)
+	if (0.0f < _invokeTime)
 	{
 		_invokeTime -= Time->GetDeltaTime();
-		if (_invokeTime < 0.0f)
+		if (_invokeTime <= 0.0f)
 		{
-			this->ChangeState(CreatureState::Idle);
+			//RemoveComponent(collider);
+			collider->SetCollision(Shape::MakeCenterRect(0,0,0,0));
+			this->SetState(CreatureState::Idle);
 		}
 	}
-	*/
 	// TODO : // Comment 작성
 	UpdateInput();
 
@@ -86,28 +97,26 @@ void CreatureActor::SetState(CreatureState state)
 		break;
 	case CreatureState::Attack:
 		this->SetFlipbook(_attackFlipbook[_dir]);
-		//_invokeTime = 1.2f;
+		_invokeTime = 1.05f;
 		break;
 	case CreatureState::Move:
 		this->SetFlipbook(_moveFlipbook[_dir]);
+		
 		break;
 	default:
 		break;
 	}
 }
-void CreatureActor::UpdateIdle()
-{
-	//Idle 때만 공격 가능.
-	if (this->_isAttackInput == true)
-	{
-		this->SetState(CreatureState::Attack);
-	}
-	else if (EPSILON < _velocity.Length())
-	{
-		SetState(CreatureState::Move);
-	}
 
+void CreatureActor::ChangeDirection(eCreatureDirection dir)
+{
+	// 만약에 방향이 바뀌면, setFlipbook을 해준다/
+
+	if (_dir == dir) return;
+
+	_dir = dir;
 }
+
 void CreatureActor::UpdateInput()
 {
 	this->SetIsAttackInput(false);
@@ -149,7 +158,7 @@ void CreatureActor::UpdateInput()
 		isMoveKeyInput = true;
 		ChangeDirection(eCreatureDirection::Down);
 		newVelocity.y += Time->GetDeltaTime() * 1.0f; // 0.5초만에 변함.
-		newVelocity.y = clamp(newVelocity.y, -1.0f, 1.0f); 
+		newVelocity.y = clamp(newVelocity.y, -1.0f, 1.0f);
 		newVelocity.x = 0;
 		SetVelocity(newVelocity);
 	}
@@ -164,31 +173,6 @@ void CreatureActor::UpdateInput()
 		newVelocity = { 0,0 };
 	}
 	this->SetVelocity(newVelocity);
-}
-
-void CreatureActor::ChangeDirection(eCreatureDirection dir)
-{
-	// 만약에 방향이 바뀌면, setFlipbook을 해준다/
-
-	if (_dir == dir) return;
-
-	_dir = dir;
-
-	switch (_state)
-	{
-	case CreatureState::Idle:
-		this->SetFlipbook(_idleFlipbook[_dir]);
-		break;
-	case CreatureState::Attack:
-		this->SetFlipbook(_attackFlipbook[_dir]);
-		//_invokeTime = 1.2f;
-		break;
-	case CreatureState::Move:
-		this->SetFlipbook(_moveFlipbook[_dir]);
-		break;
-	default:
-		break;
-	}
 }
 
 void CreatureActor::UpdateMove()
@@ -206,7 +190,26 @@ void CreatureActor::UpdateMove()
 	}
 }
 
+void CreatureActor::UpdateIdle()
+{
+	//Idle 때만 공격 가능.
+	if (this->_isAttackInput == true)
+	{
+		this->SetState(CreatureState::Attack);
+	}
+	else if (EPSILON < _velocity.Length())
+	{
+		SetState(CreatureState::Move);
+	}
+
+}
+
 void CreatureActor::UpdateAttack()
 {
-
+	if (collider == nullptr)
+	{
+		collider = new BoxCollider();
+	}
+	collider->SetCollision(_attackCollisionPos[_dir]);
+	this->AddComponent(collider);
 }

@@ -8,8 +8,6 @@ public:
 	void Init(CreatureActor* creature, MonsterActor* monster);
 	void Update();
 
-	void ChangeCreaturePos();
-	Vector2 ChangeCreatureDir();
 	void PlayerAttackMonster();
 private:
 	CreatureActor* _creature = nullptr;

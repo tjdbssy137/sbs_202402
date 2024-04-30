@@ -12,64 +12,17 @@ void UserCharacterController::Init(CreatureActor* creature, MonsterActor* monste
 }
 void UserCharacterController::Update()
 {
-	this->ChangeCreatureDir();
-	this->ChangeCreaturePos();
-
 	_monster->LookAtPlayer(_creature->GetPos());
-
+	/*
 	if (_monster->GetMonsterHp() < 0)
 	{
-		_monster->ChangeState(MonsterState::Die);
+		_monster->SetState(MonsterState::Die);
 	}
-
-	if (Input->GetKeyDown(KeyCode::Space))
+	*/
+	if (_creature->GetState() == CreatureState::Attack)
 	{
-		//_creature->ChangeState(CreatureState::Attack);
 		PlayerAttackMonster();
 	}
-}
-
-Vector2 UserCharacterController::ChangeCreatureDir()
-{
-	if (Input->GetKey(KeyCode::Left))
-	{
-		_creature->ChangeDirection(eCreatureDirection::Left);
-		//_creature->ChangeState(CreatureState::Move);
-		return Vector2::Left();
-	}
-
-	if (Input->GetKey(KeyCode::Right))
-	{
-		_creature->ChangeDirection(eCreatureDirection::Right);
-		//_creature->ChangeState(CreatureState::Move);
-		return Vector2::Right();
-	}
-
-	if (Input->GetKey(KeyCode::Up))
-	{
-		_creature->ChangeDirection(eCreatureDirection::Up);
-		//_creature->ChangeState(CreatureState::Move);
-		return Vector2::Up();
-	}
-	
-	if (Input->GetKey(KeyCode::Down))
-	{
-		_creature->ChangeDirection(eCreatureDirection::Down);
-		//_creature->ChangeState(CreatureState::Move);
-		return Vector2::Down();
-	}
-
-	if (_creature->GetState() != CreatureState::Attack)//°ø°ÝÀÌ ¾Æ´Ò ¶§ ¸ØÃã.
-	{
-		_creature->SetState(CreatureState::Idle);
-		//_monster->ChangeState(MonsterState::Idle);
-	}
-	return Vector2::Zero();
-}
-
-void UserCharacterController::ChangeCreaturePos()
-{
-	_creature->SetPos(ChangeCreatureDir() * Time->GetDeltaTime() * _speed + _creature->GetPos());
 }
 
 void UserCharacterController::PlayerAttackMonster()
@@ -78,7 +31,7 @@ void UserCharacterController::PlayerAttackMonster()
 	BoxCollider* monsterCollider = _monster->GetComponent<BoxCollider>();
 	if (Collision::RectInRect(creatureCollider->GetCollision().ToRect(), monsterCollider->GetCollision().ToRect()))
 	{
-		_monster->ChangeState(MonsterState::GetHit);
+		_monster->SetState(MonsterState::GetHit);
 		_monster->SetMonsterHp();
 	}
 }

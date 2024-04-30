@@ -12,11 +12,8 @@ void Dev1Scene::Init()
 	{
 		_creature = new CreatureActor();
 		_creature->SetPos(Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2));
-		
-		BoxCollider* collider = new BoxCollider();
-		collider->SetCollision(Shape::MakeCenterRect(0, 0, 55, 60));
-		_creature->AddComponent(collider);
-		
+		_creature->SetName("Creature");
+
 		_creature->Init();
 		_creature->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterDown_Idle"));
 
@@ -25,18 +22,19 @@ void Dev1Scene::Init()
 	{
 		_monster = new MonsterActor();
 		_monster->SetPos(Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2 - 60));
-
-		BoxCollider* collider = new BoxCollider();
-		collider->SetCollision(Shape::MakeCenterRect(0, 0, 28, 28));
-		_monster->AddComponent(collider);
+		_monster->SetName("Monster");
 		
 		_monster->Init();
+		_monster->SetFlipbook(Resource->GetFlipbook(L"FB_Monster_Down_Idle"));
+
 		SpawnActor(_monster);
 	}
+	/*
 	{
 		_userCharacterController = new UserCharacterController();
 		_userCharacterController->Init(_creature, _monster);
 	}
+	*/
 }
 
 void Dev1Scene::Render(HDC hdc)
@@ -46,14 +44,14 @@ void Dev1Scene::Render(HDC hdc)
 	wstring str = L"Zelda";
 	::TextOut(hdc, 0, 45, str.c_str(), str.length());
 
-
-
 }
 void Dev1Scene::Update()
 {
 	Super::Update();
 	//_userCharacterController->Update();
 	_creature->Update();
+	_monster->Update();
+	_monster->LookAtPlayer(_creature->GetPos());
 
 }
 void Dev1Scene::Release()
@@ -64,6 +62,12 @@ void Dev1Scene::Release()
 
 void Dev1Scene::LoadResource()
 {
+
+	// -------------------------------------
+	// 
+	//			CREATURE RESOURCE
+	// 
+	// ------------------------------------- 
 	// PlayerDown
 	{
 		Resource->LoadTexture(L"T_Character", L"FlipbookTest/PlayerDown.bmp", RGB(128, 128, 128));
@@ -154,5 +158,45 @@ void Dev1Scene::LoadResource()
 		_rightInfo.end = 7;
 		_rightInfo.loop = false;
 		Resource->CreateFlipbook(L"FB_CharacterRight_Attack", _rightInfo);
+	}
+
+
+	// -------------------------------------
+	// 
+	//			MONSTER RESOURCE
+	// 
+	// -------------------------------------
+
+	{
+		Resource->LoadTexture(L"T_Monster", L"FlipbookTest/Monster2.bmp", RGB(192, 192, 192));
+		FlipbookInfo _info = {};
+		_info.start = 0;
+		_info.end = 6;
+		_info.line = 0;
+		_info.size = Vector2Int(62, 45);
+		_info.duration = 1.0f;
+		_info.loop = true;
+		_info.texture = Resource->GetTexture(L"T_Monster");
+
+		Resource->CreateFlipbook(L"FB_Monster_Down_Idle", _info);
+
+		_info.line = 1;
+		Resource->CreateFlipbook(L"FB_Monster_Left_Idle", _info);
+
+		_info.line = 2;
+		Resource->CreateFlipbook(L"FB_Monster_Right_Idle", _info);
+
+		_info.end = 5;
+		_info.line = 3;
+		Resource->CreateFlipbook(L"FB_Monster_Up_Idle", _info);
+
+		_info.end = 3;
+		_info.line = 4;
+		_info.loop = false;
+		Resource->CreateFlipbook(L"FB_Monster_Die", _info);
+
+		_info.end = 1;
+		_info.line = 5;
+		Resource->CreateFlipbook(L"FB_Monster_GetHit", _info);
 	}
 }

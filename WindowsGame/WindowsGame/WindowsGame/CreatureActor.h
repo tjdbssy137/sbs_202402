@@ -1,5 +1,6 @@
 #pragma once
 #include "FlipbookActor.h"
+class BoxCollider;
 class Flipbook;
 
 enum eCreatureDirection
@@ -40,9 +41,13 @@ public:
 	void UpdateInput();
 public:
 	void SetIsAttackInput(bool isAttackInput) { _isAttackInput = isAttackInput; }
+	bool GetIsAttackInput() { return _isAttackInput; }
+
 	void UpdateMove();
 	void UpdateAttack();
 	void UpdateIdle();
+
+
 private:
 	CreatureState _state = CreatureState::Idle;
 
@@ -50,6 +55,9 @@ private:
 	Flipbook* _idleFlipbook[eCreatureDirection::End] = {};
 	Flipbook* _attackFlipbook[eCreatureDirection::End] = {};
 	Flipbook* _moveFlipbook[eCreatureDirection::End] = {};
+	CenterRect _attackCollisionPos[eCreatureDirection::End] = {};
+
+	BoxCollider* collider = nullptr;
 private:
 	float _invokeTime = 0;
 	Vector2 _velocity = {};
