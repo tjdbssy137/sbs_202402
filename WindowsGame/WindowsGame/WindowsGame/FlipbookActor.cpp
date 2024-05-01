@@ -3,6 +3,8 @@
 #include "Flipbook.h"
 #include "Texture.h"
 
+#include "Scene.h"
+
 void FlipbookActor::Init()
 {
 	Super::Init();
@@ -13,9 +15,18 @@ void FlipbookActor::Render(HDC hdc)
 
 	const FlipbookInfo& info = _flipbook->GetInfo();
 
+	// static_cast<int>(_body.pos.x - info.size.x / 2), static_cast<int>(_body.pos.y - info.size.y / 2),
+	// 요 위치에 그림을 그리겠다. 만약 100, 100 처럼 고정값을 주면 캐릭터는 더는 움직이지 않음
+	
+	Vector2Int cameraPos = CurrentScene->GetCameraPos();
+	Vector2Int ScreenSizeHalf = Vector2Int(WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
+	Vector2Int renderPos = Vector2Int(
+		static_cast<int>(_body.pos.x - info.size.x / 2 - cameraPos.x + ScreenSizeHalf.x),
+		static_cast<int>(_body.pos.y - info.size.y - cameraPos.y + ScreenSizeHalf.y)
+	);
 	::TransparentBlt(hdc,
-		static_cast<int>(_body.pos.x - info.size.x / 2),
-		static_cast<int>(_body.pos.y - info.size.y / 2),
+		renderPos.x,
+		renderPos.y,
 		info.size.x,
 		info.size.y,
 		info.texture->GetDC(),

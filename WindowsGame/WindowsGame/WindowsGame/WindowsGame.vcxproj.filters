@@ -184,6 +184,9 @@
     <ClInclude Include="MonsterActor.h">
       <Filter>03.Objects\Zelda</Filter>
     </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>04. Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -351,6 +354,12 @@
     </ClCompile>
     <ClCompile Include="Day28.cpp">
       <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Day29.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>04. Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

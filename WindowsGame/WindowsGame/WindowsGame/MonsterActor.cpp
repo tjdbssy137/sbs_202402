@@ -23,7 +23,6 @@ void MonsterActor::Update()
 {
 	Super::Update();
 	
-
 	switch (_state)
 	{
 	case MonsterState::GetHit:

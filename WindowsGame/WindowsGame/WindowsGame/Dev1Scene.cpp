@@ -5,14 +5,35 @@
 #include "MonsterActor.h"
 #include "UserCharacterController.h"
 #include "Flipbook.h"
+#include "CameraComponent.h"
+#include "SpriteActor.h"
 void Dev1Scene::Init()
 {
 	this->LoadResource();
 	Super::Init();
+
+	SpriteActor* background = nullptr;
+	{
+		Resource->LoadTexture(L"T_Background", L"Mole/bg_mole.bmp");
+		Resource->CreateSprite(L"S_Background", Resource->GetTexture(L"T_Background"));
+
+		background = new SpriteActor();
+		background->SetSprite(Resource->GetSprite(L"S_Background"));
+		background->SetBody(Shape::MakeCenterRectLTWH(0, 0, WIN_SIZE_X, WIN_SIZE_Y));
+		background->Init();
+		this->SpawnActor(background);
+	}
 	{
 		_creature = new CreatureActor();
 		_creature->SetPos(Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2));
 		_creature->SetName("Creature");
+		
+		{
+			CameraComponent* component = new CameraComponent();
+			component->SetLTWH(background->GetBody());
+			component->Init();
+			_creature->AddComponent(component);
+		}
 
 		_creature->Init();
 		_creature->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterDown_Idle"));

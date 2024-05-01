@@ -47,6 +47,8 @@ void CreatureActor::Update()
 		{
 			//RemoveComponent(collider);
 			collider->SetCollision(Shape::MakeCenterRect(0,0,0,0));
+			//enable을 만든다, component에서 Enable을 만들고, CollisionManager을 들어가서 충돌 처리 조건을 수정
+			//BoxCollider들어가서 콜라이더 위치 조정 잊지 않고 하기
 			this->SetState(CreatureState::Idle);
 		}
 	}

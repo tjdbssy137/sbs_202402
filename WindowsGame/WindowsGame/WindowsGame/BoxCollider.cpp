@@ -14,7 +14,7 @@ void BoxCollider::Render(HDC hdc)
 	HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, emptyBrush);//이전에 쓰던 브러쉬 정보
 
 	//collider가 잘 붙어있는지 그려줌
-	this->GetCollision().Draw(hdc);
+	this->GetCollision().Draw(hdc); // 여기에서 window사이즈 빼줘야함. flipbookactor에서 처럼!
 	SelectObject(hdc, oldBrush);//그림을 그리고 나면 브러쉬 정보 롤백
 	DeleteObject(emptyBrush);
 
