@@ -7,6 +7,7 @@
 #include "Flipbook.h"
 #include "CameraComponent.h"
 #include "SpriteActor.h"
+#include "Sprite.h"
 void Dev1Scene::Init()
 {
 	this->LoadResource();
@@ -14,12 +15,10 @@ void Dev1Scene::Init()
 
 	SpriteActor* background = nullptr;
 	{
-		Resource->LoadTexture(L"T_Background", L"Mole/bg_mole.bmp");
-		Resource->CreateSprite(L"S_Background", Resource->GetTexture(L"T_Background"));
-
 		background = new SpriteActor();
-		background->SetSprite(Resource->GetSprite(L"S_Background"));
-		background->SetBody(Shape::MakeCenterRectLTWH(0, 0, WIN_SIZE_X, WIN_SIZE_Y));
+		Sprite* sprite = Resource->GetSprite(L"S_Background");
+		background->SetSprite(sprite);
+		background->SetBody(Shape::MakeCenterRectLTWH(0, 0, sprite->GetSize().x, sprite->GetSize().y));
 		background->Init();
 		this->SpawnActor(background);
 	}
@@ -83,6 +82,14 @@ void Dev1Scene::Release()
 
 void Dev1Scene::LoadResource()
 {
+	//----------------------------------
+	//  ## Background
+	//----------------------------------
+	{
+		Texture* texture = Resource->LoadTexture(L"T_Background"
+			, L"CameraStudy/backround_supermario.bmp");
+		Resource->CreateSprite(L"S_Background", texture);
+	}
 
 	// -------------------------------------
 	// 

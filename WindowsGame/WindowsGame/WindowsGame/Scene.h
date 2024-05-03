@@ -7,7 +7,7 @@ class Scene
 protected:
 	vector<Actor*> _actors;
 
-	Vector2Int _cameraPosition = {};
+	Vector2 _cameraPosition = {};
 public:
 	//---------------
 	// 기본 함수
@@ -23,7 +23,7 @@ public:
 	void DespawnActor(Actor* actor);
 
 	// Camera 조작 함수
-	void SetCameraPos(Vector2Int pos) { _cameraPosition = pos; }
-	Vector2Int GetCameraPos() { return _cameraPosition; }
+	void SetCameraPos(Vector2 pos) { _cameraPosition = pos; }
+	Vector2 GetCameraPos() { return _cameraPosition; }
 };
 

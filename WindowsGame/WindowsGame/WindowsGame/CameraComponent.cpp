@@ -33,7 +33,7 @@ void CameraComponent::Update()
 	Actor* owner = this->GetOwner();
 	if (owner)
 	{
-		Vector2 startPos = Vector2(CurrentScene->GetCameraPos().x, CurrentScene->GetCameraPos().y);
+		Vector2 startPos = CurrentScene->GetCameraPos();
 		Vector2 endPos = owner->GetPos();
 
 
@@ -49,11 +49,11 @@ void CameraComponent::Update()
 		float clampSumTime = clamp<float>(_sumTime / _duration, 0.0f, 1.0f);
 		// _sumTime : ? = _duration : 1
 		Vector2 newCameraPos = Vector2::Lerp(_startPos, endPos, clampSumTime);
-		
+
 		int realMinX = min(_minX + WIN_SIZE_X / 2, _maxX - WIN_SIZE_X / 2);
-		int realMaxX = min(_minX + WIN_SIZE_X / 2, _maxX - WIN_SIZE_X / 2);
+		int realMaxX = max(_minX + WIN_SIZE_X / 2, _maxX - WIN_SIZE_X / 2);
 		int realMinY = min(_minY + WIN_SIZE_Y / 2, _maxY - WIN_SIZE_Y / 2);
-		int realMaxY = min(_minY + WIN_SIZE_Y / 2, _maxY - WIN_SIZE_Y / 2);
+		int realMaxY = max(_minY + WIN_SIZE_Y / 2, _maxY - WIN_SIZE_Y / 2);
 
 		newCameraPos.x = clamp<float>(newCameraPos.x, realMinX, realMaxX);
 		newCameraPos.y = clamp<float>(newCameraPos.y, realMinY, realMaxY);
