@@ -25,3 +25,6 @@ public:										\
 #define CurrentScene (GET_SINGLE(SceneManager)->GetCurrentScene())
 
 #define EPSILON 1e-6f //(0.000001)
+
+// 경고 메세지
+#define Alert(title, message) MessageBox(_hWnd, title, message, NULL)

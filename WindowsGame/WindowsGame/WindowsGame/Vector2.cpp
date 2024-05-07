@@ -58,6 +58,12 @@ float Vector2::Length()
 {
 	return static_cast<float>(::sqrt(x * x + y * y));
 }
+
+float Vector2::LengthSqrt()
+{
+	return static_cast<float>((x * x + y * y));
+}
+
 Vector2 Vector2::Normalize()
 {
 	float length = this->Length();

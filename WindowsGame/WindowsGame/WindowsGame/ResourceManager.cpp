@@ -4,7 +4,7 @@
 #include "Texture.h"
 #include "Sprite.h"
 #include "Flipbook.h"
-
+#include "Sound.h"
 void ResourceManager::Init()
 {
 	_resources.clear();
@@ -82,4 +82,31 @@ Flipbook* ResourceManager::CreateFlipbook(const wstring& key, FlipbookInfo info)
 Flipbook* ResourceManager::GetFlipbook(const wstring& key)
 {
 	return dynamic_cast<Flipbook*>(_resources[key]);
+}
+
+Sound* ResourceManager::LoadSound(const wstring& key, const wstring& path)
+{
+#ifdef USE_SOUND
+	if (_resources.contains(key))
+	{
+		return GetSound(key);
+	}
+
+	Sound* sound = new Sound();
+	wstring fullPath = _resourcePath + path;
+	sound->LoadWave(fullPath);
+	_resources[key] = sound;
+	return sound;
+#else
+	return nullptr;
+#endif
+}
+
+Sound* ResourceManager::GetSound(const wstring& key)
+{
+#ifdef USE_SOUND
+	return dynamic_cast<Sound*>(_resources[key]);
+#else
+	return nullptr;
+#endif
 }

@@ -4,6 +4,7 @@ class Texture;
 class Sprite;
 class Flipbook;
 struct FlipbookInfo;
+class Sound;
 
 class ResourceManager
 {
@@ -22,6 +23,8 @@ public:
 	Flipbook* CreateFlipbook(const wstring& key, FlipbookInfo info);
 	Flipbook* GetFlipbook(const wstring& key);
 
+	Sound* GetSound(const wstring& key);
+	Sound* LoadSound(const wstring& key, const wstring& path);
 private:
 	wstring _resourcePath;
 	map<wstring, ResourceBase*> _resources;

@@ -21,6 +21,6 @@ public:
 
 public:
 	BoxCollider();
-	~BoxCollider();
+	virtual ~BoxCollider();
 };
 

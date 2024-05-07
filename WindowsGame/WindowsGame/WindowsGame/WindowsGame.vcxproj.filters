@@ -187,6 +187,18 @@
     <ClInclude Include="CameraComponent.h">
       <Filter>04. Components</Filter>
     </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>05. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>01.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="DefineContents.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleCollider.h">
+      <Filter>04. Components\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -360,6 +372,18 @@
     </ClCompile>
     <ClCompile Include="CameraComponent.cpp">
       <Filter>04. Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Day30.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>05. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>01.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleCollider.cpp">
+      <Filter>04. Components\Collider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

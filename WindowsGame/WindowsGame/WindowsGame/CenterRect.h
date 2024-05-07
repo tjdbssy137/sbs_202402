@@ -8,4 +8,3 @@ struct CenterRect
 	RECT ToRect();
 	void Draw(HDC hdc);
 };
-

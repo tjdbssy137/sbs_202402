@@ -9,6 +9,7 @@ Game::Game()
 Game::~Game()
 {
 	GET_SINGLE(ResourceManager)->Release();
+	GET_SINGLE(SoundManager)->Release();
 }
 
 
@@ -32,6 +33,8 @@ void Game::Init(HWND hwnd)
 	GET_SINGLE(SceneManager)->Init();
 	GET_SINGLE(CollisionManager)->Init();
 	GET_SINGLE(ResourceManager)->Init();
+
+	GET_SINGLE(SoundManager)->Init();
 
 	GET_SINGLE(SceneManager)->ChangeScene(SceneType::Dev1Scene);
 

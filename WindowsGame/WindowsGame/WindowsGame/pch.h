@@ -9,6 +9,7 @@
 #include "Types.h"
 #include "CommonFunction.h"
 #include "Enums.h"
+#include "DefineContents.h"
 
 #pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
 
@@ -32,6 +33,14 @@
 #include <set>
 
 //===========================================
+//		## SOUND ##
+//===========================================
+#include <mmsystem.h>
+#include <dsound.h>
+#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "dsound.lib")
+
+//===========================================
 //		## NAMESPACE ##
 //===========================================
 using namespace std;
@@ -46,6 +55,7 @@ using namespace std;
 #include "CollisionManager.h" // CollisionManager
 #include "ResourceManager.h"
 #include "RandomManager.h"
+#include "SoundManager.h"
 
 //===========================================
 //		## Windows Size ##

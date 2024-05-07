@@ -8,11 +8,15 @@
 #include "CameraComponent.h"
 #include "SpriteActor.h"
 #include "Sprite.h"
+
 void Dev1Scene::Init()
 {
-	this->LoadResource();
 	Super::Init();
+	this->LoadResource();
 
+	Resource->LoadSound(L"BGM_Dev1Scene", L"Sounds/SoundStudy/BGM.wav");
+	GET_SINGLE(SoundManager)->Play(L"BGM_Dev1Scene", true);
+	
 	SpriteActor* background = nullptr;
 	{
 		background = new SpriteActor();
