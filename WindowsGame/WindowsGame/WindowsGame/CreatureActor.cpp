@@ -28,7 +28,7 @@ void CreatureActor::Init()
 	_attackCollisionPos[eCreatureDirection::Up] = CenterRect(Vector2(0, -60), 20, 40);
 	_attackCollisionPos[eCreatureDirection::Left] = CenterRect(Vector2(-60, 0), 40, 20);
 	_attackCollisionPos[eCreatureDirection::Right] = CenterRect(Vector2(60, 0), 40, 20);
-	
+
 	collider = new BoxCollider();
 	collider->SetCollision(Shape::MakeCenterRect(0, 0, 0, 0));
 }
@@ -45,8 +45,8 @@ void CreatureActor::Update()
 		_invokeTime -= Time->GetDeltaTime();
 		if (_invokeTime <= 0.0f)
 		{
-			//RemoveComponent(collider);
-			collider->SetCollision(Shape::MakeCenterRect(0,0,0,0));
+			collider->SetEnable(false);
+			collider->SetCollision(Shape::MakeCenterRect(0, 0, 0, 0));
 			//enable을 만든다, component에서 Enable을 만들고, CollisionManager을 들어가서 충돌 처리 조건을 수정
 			//BoxCollider들어가서 콜라이더 위치 조정 잊지 않고 하기
 			this->SetState(CreatureState::Idle);
@@ -103,7 +103,7 @@ void CreatureActor::SetState(CreatureState state)
 		break;
 	case CreatureState::Move:
 		this->SetFlipbook(_moveFlipbook[_dir]);
-		
+
 		break;
 	default:
 		break;
@@ -212,6 +212,7 @@ void CreatureActor::UpdateAttack()
 	{
 		collider = new BoxCollider();
 	}
+	collider->SetEnable(true);
 	collider->SetCollision(_attackCollisionPos[_dir]);
 	this->AddComponent(collider);
 }

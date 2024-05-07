@@ -9,7 +9,7 @@ private:
 	float _radius;
 public:
 	Vector2 GetCollisionPos();
-	float GetRadius();
+	float GetRadius() { return _radius; }
 	void SetCollision(Vector2 pos, float radius) { _pos = pos; _radius = radius; }
 
 public:

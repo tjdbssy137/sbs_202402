@@ -22,7 +22,7 @@ void FlipbookActor::Render(HDC hdc)
 	Vector2Int ScreenSizeHalf = Vector2Int(WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
 	Vector2Int renderPos = Vector2Int(
 		static_cast<int>(_body.pos.x - info.size.x / 2 - cameraPos.x + ScreenSizeHalf.x),
-		static_cast<int>(_body.pos.y - info.size.y - cameraPos.y + ScreenSizeHalf.y)
+		static_cast<int>(_body.pos.y - info.size.y / 2 - cameraPos.y + ScreenSizeHalf.y)
 	);
 	::TransparentBlt(hdc,
 		renderPos.x,
