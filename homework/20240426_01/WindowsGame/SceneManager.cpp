@@ -2,7 +2,6 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "Dev1Scene.h"
-#include "Dev2Scene.h"
 #include "Game2048Scene.h"
 #include "MoleGameScene.h"
 void SceneManager::Init()
@@ -41,9 +40,6 @@ void SceneManager::Update()
 		break;
 	case SceneType::Dev1Scene:
 		newScene = new Dev1Scene();
-		break;
-	case SceneType::Dev2Scene:
-		newScene = new Dev2Scene();
 		break;
 	case SceneType::Game2048Scene:
 		newScene = new Game2048Scene();

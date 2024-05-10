@@ -8,6 +8,7 @@ void Game2048Scene::Init()
 	Super::Init();
 	{
 		Resource->LoadTexture(L"T_2048", L"2048/IMAGE2048.bmp");
+
 		Resource->CreateSprite(L"S_Number_2", Resource->GetTexture(L"T_2048"), 0, 0, 300, 300);
 		Resource->CreateSprite(L"S_Number_4", Resource->GetTexture(L"T_2048"), 300, 0, 300, 300);
 		Resource->CreateSprite(L"S_Number_8", Resource->GetTexture(L"T_2048"), 600, 0, 300, 300);

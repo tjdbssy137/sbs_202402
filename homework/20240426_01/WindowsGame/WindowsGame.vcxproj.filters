@@ -47,9 +47,6 @@
     <Filter Include="03.Objects\Zelda">
       <UniqueIdentifier>{d2943c2b-1ded-4b1b-b776-8acaa1adc3ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.Objects\Baduk">
-      <UniqueIdentifier>{58e92c75-54f8-45e4-9fba-4cc53cef9cc7}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -86,9 +83,6 @@
       <Filter>01.Managers</Filter>
     </ClInclude>
     <ClInclude Include="Dev1Scene.h">
-      <Filter>02.Scene\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Dev2Scene.h">
       <Filter>02.Scene\Game</Filter>
     </ClInclude>
     <ClInclude Include="Enums.h">
@@ -178,9 +172,6 @@
     <ClInclude Include="NumberRectController.h">
       <Filter>03.Objects\Game</Filter>
     </ClInclude>
-    <ClInclude Include="BadukActor.h">
-      <Filter>03.Objects\Baduk</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -227,9 +218,6 @@
       <Filter>01.Managers</Filter>
     </ClCompile>
     <ClCompile Include="Dev1Scene.cpp">
-      <Filter>02.Scene\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Dev2Scene.cpp">
       <Filter>02.Scene\Game</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
@@ -336,9 +324,6 @@
     </ClCompile>
     <ClCompile Include="NumberRectController.cpp">
       <Filter>03.Objects\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="BadukActor.cpp">
-      <Filter>03.Objects\Baduk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

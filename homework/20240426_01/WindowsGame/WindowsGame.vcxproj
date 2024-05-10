@@ -156,7 +156,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
-    <ClInclude Include="BadukActor.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="CenterRect.h" />
     <ClInclude Include="Collider.h" />
@@ -166,7 +165,6 @@
     <ClInclude Include="CreatureActor.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="Dev1Scene.h" />
-    <ClInclude Include="Dev2Scene.h" />
     <ClInclude Include="Flipbook.h" />
     <ClInclude Include="FlipbookActor.h" />
     <ClInclude Include="framework.h" />
@@ -200,7 +198,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="BadukActor.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="CenterRect.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -248,7 +245,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Dev1Scene.cpp" />
-    <ClCompile Include="Dev2Scene.cpp" />
     <ClInclude Include="Enums.h" />
     <ClCompile Include="Flipbook.cpp" />
     <ClCompile Include="FlipbookActor.cpp" />
