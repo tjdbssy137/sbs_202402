@@ -1,10 +1,13 @@
 #include "pch.h"
 #include "Scene.h"
 #include "Actor.h"
-
+#include "UI.h"
 void Scene::Init()
 {
-
+	for (UI* ui : _uis)
+	{
+		ui->Init();
+	}
 }
 void Scene::Render(HDC hdc) 
 {
@@ -12,12 +15,20 @@ void Scene::Render(HDC hdc)
 	{
 		actor->Render(hdc);
 	}
+	for (UI* ui : _uis)
+	{
+		ui->Render(hdc);
+	}
 }
 void Scene::Update()
 {
 	for (Actor* actor : _actors)
 	{
 		actor->Update();
+	}
+	for (UI* ui : _uis)
+	{
+		ui->Update();
 	}
 }
 void Scene::Release()
@@ -28,6 +39,15 @@ void Scene::Release()
 		SAFE_DELETE(actor);
 	}
 	_actors.clear();
+
+	for (UI* ui : _uis)
+	{
+		ui->Init();
+		SAFE_DELETE(ui);
+	}
+	_uis.clear();
+
+	GET_SINGLE(CollisionManager)->ClearCollider();
 }
 
 void Scene::SpawnActor(Actor* actor)

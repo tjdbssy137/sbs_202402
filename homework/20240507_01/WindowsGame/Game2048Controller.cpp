@@ -9,25 +9,38 @@ void Game2048Controller::Init(vector<NumberBlockActor*> numberBlocks)
 void Game2048Controller::Update()
 {
 	{
-		if (Input->GetKeyDown(KeyCode::Down))
+		for (NumberBlockActor* numberBlock : _numberBlocks)
 		{
-			_numberBlocks[0]->SetPos(Vector2(_numberBlocks[0]->GetPos().x, _numberBlocks[0]->GetPos().y + 100));
-			_numberBlocks[1]->SetPos(Vector2(_numberBlocks[0]->GetPos().x, _numberBlocks[1]->GetPos().y + 100));
+			if (Input->GetKeyDown(KeyCode::Down))
+			{
+				numberBlock->ChangeDirectionState(NumberBlockDirState::Down);
+				numberBlock->SlideActor();
+				//numberBlock->SetPos(Vector2(numberBlock->GetPos().x, numberBlock->GetPos().y + 100));
+				//numberBlock->SetPos(Vector2(numberBlock->GetPos().x, numberBlock->GetPos().y + 100));
 
-		}else if (Input->GetKeyDown(KeyCode::Up))
-		{
-			_numberBlocks[0]->SetPos(Vector2(_numberBlocks[0]->GetPos().x, _numberBlocks[0]->GetPos().y - 100));
-			_numberBlocks[1]->SetPos(Vector2(_numberBlocks[0]->GetPos().x, _numberBlocks[1]->GetPos().y - 100));
+			}
+			else if (Input->GetKeyDown(KeyCode::Up))
+			{
+				numberBlock->ChangeDirectionState(NumberBlockDirState::Up);
+				numberBlock->SlideActor(); 
+				//numberBlock->SetPos(Vector2(numberBlock->GetPos().x, numberBlock->GetPos().y - 100));
+				//->SetPos(Vector2(numberBlock->GetPos().x, numberBlock->GetPos().y - 100));
+			}
+			else if (Input->GetKeyDown(KeyCode::Left))
+			{
+				numberBlock->ChangeDirectionState(NumberBlockDirState::Left);
+				numberBlock->SlideActor(); 
+				//numberBlock->SetPos(Vector2(numberBlock->GetPos().x - 100, numberBlock->GetPos().y));
+				//numberBlock->SetPos(Vector2(numberBlock->GetPos().x - 100, numberBlock->GetPos().y));
+			}
+			else if (Input->GetKeyDown(KeyCode::Right))
+			{
+				numberBlock->ChangeDirectionState(NumberBlockDirState::Right);
+				numberBlock->SlideActor(); 
+				//numberBlock->SetPos(Vector2(numberBlock->GetPos().x + 100, numberBlock->GetPos().y));
+				//numberBlock->SetPos(Vector2(numberBlock->GetPos().x + 100, numberBlock ->GetPos().y));
+			}
 		}
-		else if (Input->GetKeyDown(KeyCode::Left))
-		{
-			_numberBlocks[0]->SetPos(Vector2(_numberBlocks[0]->GetPos().x - 100, _numberBlocks[0]->GetPos().y));
-			_numberBlocks[1]->SetPos(Vector2(_numberBlocks[0]->GetPos().x - 100, _numberBlocks[1]->GetPos().y));
-		}
-		else if (Input->GetKeyDown(KeyCode::Right))
-		{
-			_numberBlocks[0]->SetPos(Vector2(_numberBlocks[0]->GetPos().x + 100, _numberBlocks[0]->GetPos().y));
-			_numberBlocks[1]->SetPos(Vector2(_numberBlocks[0]->GetPos().x + 100, _numberBlocks[1]->GetPos().y));
-		}
+		
 	}
 }

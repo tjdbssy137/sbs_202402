@@ -2,6 +2,7 @@
 #include "CircleCollider.h"
 #include "Actor.h"
 #include "BoxCollider.h"
+#include "Scene.h"
 CircleCollider::CircleCollider() : Collider(ColliderType::Circle)
 {
 	_pos = {};
@@ -32,13 +33,17 @@ void CircleCollider::Render(HDC hdc)
 	HBRUSH emptyBrush = GetStockBrush(NULL_BRUSH);
 	HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, emptyBrush);
 
+	Vector2Int cameraPos = CurrentScene->GetCameraPos();
+	Vector2Int ScreenSizeHalf = Vector2Int(WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
+
 	Vector2 pos = this->GetCollisionPos();
-	Ellipse(hdc, pos.x - _radius, pos.y - _radius, pos.x + _radius, pos.y - _radius);
+	Ellipse(hdc, pos.x  - _radius - cameraPos.x + ScreenSizeHalf.x,
+		pos.y  - _radius - cameraPos.y + ScreenSizeHalf.y,
+		pos.x  + _radius - cameraPos.x + ScreenSizeHalf.x,
+		pos.y  + _radius - cameraPos.y + ScreenSizeHalf.y);
 
 	SelectObject(hdc, oldBrush);
 	DeleteObject(emptyBrush);
-
-	//_collision.Draw(hdc);
 }
 void CircleCollider::Update()
 {

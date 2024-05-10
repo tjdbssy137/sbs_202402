@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "MonsterActor.h"
 #include "Flipbook.h"
-#include "BoxCollider.h"
+#include "CircleCollider.h"
 #include "CreatureActor.h"
 void MonsterActor::Init()
 {
@@ -11,8 +11,8 @@ void MonsterActor::Init()
 	_idleFlipbook[eMonsterDirection::MonsterLeft] = Resource->GetFlipbook(L"FB_Monster_Left_Idle");
 	_idleFlipbook[eMonsterDirection::MonsterRight] = Resource->GetFlipbook(L"FB_Monster_Right_Idle");
 
-	collider = new BoxCollider();
-	collider->SetCollision(Shape::MakeCenterRect(0, 0, 28, 28));
+	collider = new CircleCollider();
+	collider->SetCollision(Vector2::Zero(), 14);
 	this->AddComponent(collider);
 }
 void MonsterActor::Render(HDC hdc)

@@ -1,7 +1,7 @@
 #pragma once
 #include "FlipbookActor.h"
 class Flipbook;
-class BoxCollider;
+class CircleCollider;
 
 enum eMonsterDirection
 {
@@ -55,6 +55,6 @@ private:
 	bool _isDie = false;
 
 private:
-	BoxCollider* collider = nullptr;
+	CircleCollider* collider = nullptr;
 };
 

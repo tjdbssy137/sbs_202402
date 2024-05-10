@@ -6,6 +6,8 @@ void NumberBlockActor::Init()
 	Super::Init();
 	this->SetName("NumberBlock");
 	this->SetSprite(Resource->GetSprite(L"S_Number_2"));
+
+	_speed = 30000;
 }
 void NumberBlockActor::Render(HDC hdc)
 {
@@ -19,6 +21,13 @@ void NumberBlockActor::Update()
 void NumberBlockActor::Release()
 {
 	Super::Init();
+}
+
+void NumberBlockActor::SlideActor()
+{
+	this->SetPos(GetPos() + _direction * _speed * Time->GetDeltaTime());
+	//smoothÇÏ°Ô
+
 }
 void NumberBlockActor::ChangeImage(int sum)
 {
@@ -56,6 +65,31 @@ void NumberBlockActor::ChangeImage(int sum)
 		break;
 	default:
 		this->SetSprite(nullptr);
+		break;
+	}
+}
+
+void NumberBlockActor::ChangeDirectionState(NumberBlockDirState directionState)
+{
+	switch (directionState)
+	{
+	case NumberBlockDirState::Down:
+		_direction = Vector2::Down();
+		break;
+
+	case NumberBlockDirState::Up:
+		_direction = Vector2::Up();
+		break;
+
+	case NumberBlockDirState::Left:
+		_direction = Vector2::Left();
+		break;
+
+	case NumberBlockDirState::Right:
+		_direction = Vector2::Right();
+		break;
+	case NumberBlockDirState::None:
+		_direction = Vector2::Zero();
 		break;
 	}
 }

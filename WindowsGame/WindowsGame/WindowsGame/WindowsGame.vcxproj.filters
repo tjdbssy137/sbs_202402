@@ -47,6 +47,12 @@
     <Filter Include="03.Objects\Zelda">
       <UniqueIdentifier>{d2943c2b-1ded-4b1b-b776-8acaa1adc3ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06.UI">
+      <UniqueIdentifier>{ba42bd86-cf3e-4475-aa51-0f5c02728c9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.UI\Game">
+      <UniqueIdentifier>{073e21f8-d590-4f76-8659-54f8920de014}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -198,6 +204,18 @@
     </ClInclude>
     <ClInclude Include="CircleCollider.h">
       <Filter>04. Components\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>06.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>06.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>06.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TestPanel.h">
+      <Filter>06.UI\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -384,6 +402,21 @@
     </ClCompile>
     <ClCompile Include="CircleCollider.cpp">
       <Filter>04. Components\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Day31.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>06.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>06.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>06.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TestPanel.cpp">
+      <Filter>06.UI\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

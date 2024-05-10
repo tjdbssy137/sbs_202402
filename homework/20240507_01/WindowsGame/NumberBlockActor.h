@@ -1,5 +1,15 @@
 #pragma once
 #include "SpriteActor.h"
+
+enum class NumberBlockDirState
+{
+	Down,
+	Up,
+	Left,
+	Right,
+
+	None
+};
 class NumberBlockActor : public SpriteActor
 {
 public:
@@ -12,11 +22,15 @@ public:
 
 public:
 	void ChangeImage(int sum);
+	void ChangeDirectionState(NumberBlockDirState _directionState);
+	void SlideActor();
 
 	int GetNumber() { return _number; }
 	void SetNumber() { _number *= 2; }
 private:
 	int _number = 0;
-
+	NumberBlockDirState _directionState = NumberBlockDirState::None;
+	Vector2 _direction = Vector2::Zero();
+	float _speed = 0;
 };
 

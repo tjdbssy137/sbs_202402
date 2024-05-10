@@ -15,6 +15,12 @@ public:										\
 		return &instance;					\
 	}
 
+#define DECLARE_CHILD(ClassName, ParentName)	\
+public:											\
+	using Super = ParentName;					\
+public:											\
+		ClassName() {}							\
+	virtual ~ClassName() {}						\
 
 #define GET_SINGLE(ClassName)	ClassName::GetInstance()
 

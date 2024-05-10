@@ -20,13 +20,19 @@ void BoxCollider::Render(HDC hdc)
 	{
 		Vector2 cameraPos = CurrentScene->GetCameraPos();
 		Vector2 ScreenSizeHalf = Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
+		CenterRect renderRect = this->GetCollision();
+
+		renderRect.pos.x = renderRect.pos.x - cameraPos.x + ScreenSizeHalf.x;
+		renderRect.pos.y = renderRect.pos.y - cameraPos.y + ScreenSizeHalf.y;
+		/*
 		Vector2 renderPos = Vector2(
 			static_cast<int>(this->GetOwner()->GetBody().pos.x + this->_collision.pos.x - cameraPos.x + ScreenSizeHalf.x),
 			static_cast<int>(this->GetOwner()->GetBody().pos.y + this->_collision.pos.y - cameraPos.y + ScreenSizeHalf.y)
 
 		);
 		CenterRect resize = { renderPos, this->GetCollision().width, this->GetCollision().height };
-		resize.Draw(hdc);
+		*/
+		renderRect.Draw(hdc);
 	}
 
 	SelectObject(hdc, oldBrush);//그림을 그리고 나면 브러쉬 정보 롤백
@@ -49,10 +55,10 @@ bool BoxCollider::CheckCollision(Collider* other)
 	case ColliderType::Circle:
 	{
 		CircleCollider* otherCollider = static_cast<CircleCollider*>(other);
-		Vector2 circlePos = otherCollider->GetCollisionPos();
-		float circleRadius = otherCollider->GetRadius();
+		Vector2 otherCirclePos = otherCollider->GetCollisionPos();
+		float otherCircleRadius = otherCollider->GetRadius();
 
-		return Collision::RectInCircle(this->GetCollision(), circlePos, circleRadius);
+		return Collision::RectInCircle(this->GetCollision(), otherCirclePos, otherCircleRadius);
 	}
 		break;
 	case ColliderType::Box:

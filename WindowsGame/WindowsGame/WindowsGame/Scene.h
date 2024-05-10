@@ -1,6 +1,6 @@
 #pragma once
 class Actor; // 전방선언
-
+class UI;
 class Scene
 {
 
@@ -8,6 +8,8 @@ protected:
 	vector<Actor*> _actors;
 
 	Vector2 _cameraPosition = {};
+
+	vector<UI*> _uis;
 public:
 	//---------------
 	// 기본 함수
