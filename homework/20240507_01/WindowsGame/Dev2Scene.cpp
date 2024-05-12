@@ -12,7 +12,7 @@ void Dev2Scene::Init()
 	{
 		NumberBlockActor* numberBlock = new NumberBlockActor();
 		numberBlock->Init();
-		numberBlock->SetPos(Vector2(100 * i, 0));
+		numberBlock->SetPos(Vector2(-200 + i * 100, -200));
 		_numberBlocks.push_back(numberBlock);
 		SpawnActor(_numberBlocks.back());
 	}

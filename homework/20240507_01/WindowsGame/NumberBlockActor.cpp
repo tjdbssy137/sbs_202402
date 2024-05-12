@@ -1,13 +1,17 @@
 #include "pch.h"
 #include "NumberBlockActor.h"
-
+#include "BoxCollider.h"
 void NumberBlockActor::Init()
 {
 	Super::Init();
 	this->SetName("NumberBlock");
 	this->SetSprite(Resource->GetSprite(L"S_Number_2"));
 
-	_speed = 30000;
+	BoxCollider* collider = new BoxCollider();
+	collider->SetCollision(Shape::MakeCenterRect(0, 0, 90, 90));
+	this->AddComponent(collider);
+
+	_speed = 200;
 }
 void NumberBlockActor::Render(HDC hdc)
 {
@@ -17,18 +21,68 @@ void NumberBlockActor::Render(HDC hdc)
 void NumberBlockActor::Update()
 {
 	Super::Update();
+	this->SlideActor();
 }
 void NumberBlockActor::Release()
 {
 	Super::Init();
 }
+/*
+void NumberBlockActor::OnTriggerEnter(Collider* collider, Collider* other)
+{
+	Super::OnTriggerEnter(collider, other);
 
+	//RECT colliderRect = static_cast<BoxCollider*>(collider)->GetCollision().ToRect();
+
+	//RECT otherRect = static_cast<BoxCollider*>(other)->GetCollision().ToRect();
+	int otherNumberBlock = dynamic_cast<NumberBlockActor*>(other)->GetNumber();
+
+	if(other->GetOwner()->GetName() == "NumberBlock")
+	//if (Collision::RectInRect(colliderRect, otherRect))
+	{
+		if (this->GetNumber() == otherNumberBlock)
+		{
+			this->SetNumber();
+			this->ChangeImage(this->GetNumber());
+		}
+		else
+		{
+			this->ChangeDirectionState(NumberBlockDirState::None);
+		}
+	}
+}
+*/
 void NumberBlockActor::SlideActor()
 {
 	this->SetPos(GetPos() + _direction * _speed * Time->GetDeltaTime());
-	//smoothÇÏ°Ô
+	
+	//´Ù¸¥ block°ú ´êÀ¸¸é ¸ØÃã
 
+
+	//³¡¿¡ ´êÀ¸¸é ¸ØÃã
+	if (this->GetPos().x <= -201)
+	{
+		this->SetPos(Vector2(-200, this->GetPos().y));
+		this->ChangeDirectionState(NumberBlockDirState::None);
+	}
+	else if (101 <= this->GetPos().x)
+	{
+		this->SetPos(Vector2(100, this->GetPos().y));
+		this->ChangeDirectionState(NumberBlockDirState::None);
+	}
+
+	if (this->GetPos().y <= -201)
+	{
+		this->SetPos(Vector2(this->GetPos().x, -200));
+		this->ChangeDirectionState(NumberBlockDirState::None);
+	}
+	else if (101 <= this->GetPos().y)
+	{
+		this->SetPos(Vector2(this->GetPos().x, 100));
+		this->ChangeDirectionState(NumberBlockDirState::None);
+	}
 }
+
 void NumberBlockActor::ChangeImage(int sum)
 {
 	switch (sum)
@@ -93,3 +147,4 @@ void NumberBlockActor::ChangeDirectionState(NumberBlockDirState directionState)
 		break;
 	}
 }
+

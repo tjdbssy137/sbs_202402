@@ -6,6 +6,8 @@ public:
 	void Init(vector<NumberBlockActor*> numberBlocks);
 	void Update();
 
+public:
+	void SumNumberBlocks();
 private:
 	vector<NumberBlockActor*> _numberBlocks;
 };

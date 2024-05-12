@@ -18,6 +18,7 @@ public:
 	void SetRect(CenterRect rect);
 	CenterRect GetRect();
 	bool IsInMouse();
+
 protected:
 	Vector2 _pos = {};
 	Vector2Int _size = {};

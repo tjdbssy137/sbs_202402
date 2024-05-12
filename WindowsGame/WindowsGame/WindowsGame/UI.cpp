@@ -26,7 +26,6 @@ void UI::Hide()
 {
 
 }
-
 void UI::SetRect(CenterRect rect)
 {
 	_pos.x = rect.pos.x;
@@ -37,10 +36,12 @@ void UI::SetRect(CenterRect rect)
 CenterRect UI::GetRect()
 {
 	CenterRect rect;
-	rect.pos.x = rect.pos.x;
-	rect.pos.y = rect.pos.y;
-	rect.width = static_cast<int>(rect.height);
-	rect.height = static_cast<int>(rect.width);
+	rect.pos.x = _pos.x;
+	rect.pos.y = _pos.y;
+	//rect.pos = _pos;
+	rect.width = static_cast<float>(_size.x);
+	rect.height = static_cast<float>(_size.y);
+
 	return rect;
 }
 bool UI::IsInMouse()

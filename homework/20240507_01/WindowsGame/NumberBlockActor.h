@@ -19,7 +19,7 @@ public:
 	virtual void Render(HDC hdc);
 	virtual void Update();
 	virtual void Release();
-
+	//virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
 public:
 	void ChangeImage(int sum);
 	void ChangeDirectionState(NumberBlockDirState _directionState);
@@ -27,6 +27,7 @@ public:
 
 	int GetNumber() { return _number; }
 	void SetNumber() { _number *= 2; }
+
 private:
 	int _number = 0;
 	NumberBlockDirState _directionState = NumberBlockDirState::None;
