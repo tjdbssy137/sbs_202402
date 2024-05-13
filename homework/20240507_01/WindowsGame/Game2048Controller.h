@@ -1,5 +1,7 @@
 #pragma once
 class NumberBlockActor;
+
+#define MAX_BLOCK_COUNT 16
 class Game2048Controller
 {
 public:
@@ -8,7 +10,12 @@ public:
 
 public:
 	void SumNumberBlocks();
+	void ResetIsFull();
+	void InitIsFull();
+	void ChangeIsFull();
+
 private:
 	vector<NumberBlockActor*> _numberBlocks;
+	bool _isFull[MAX_BLOCK_COUNT] = {};
 };
 
