@@ -217,6 +217,9 @@
     <ClInclude Include="TestPanel.h">
       <Filter>06.UI\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>06.UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -417,6 +420,12 @@
     </ClCompile>
     <ClCompile Include="TestPanel.cpp">
       <Filter>06.UI\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Day32.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>06.UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

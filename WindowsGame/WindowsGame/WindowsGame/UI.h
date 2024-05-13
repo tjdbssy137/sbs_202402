@@ -1,4 +1,5 @@
 #pragma once
+class Panel;
 class UI
 {
 public:
@@ -17,12 +18,17 @@ public:
 public:
 	void SetRect(CenterRect rect);
 	CenterRect GetRect();
+	Vector2 GetPos() { return _pos; }
 	bool IsInMouse();
+
+	void SetParent(Panel* parent) { _parent = parent; }
+	Panel* GetParent() { return _parent; }
 
 protected:
 	Vector2 _pos = {};
 	Vector2Int _size = {};
 	bool _isShow = true;
+	Panel* _parent = nullptr;
 
 private:
 

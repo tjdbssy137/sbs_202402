@@ -10,6 +10,9 @@ public:
 	virtual void Render(HDC hdc) override;
 	virtual void Update() override;
 	virtual void Release() override;
+public:
+	void LoadResource();
+
 private:
 	Panel* panel = nullptr;
 };
