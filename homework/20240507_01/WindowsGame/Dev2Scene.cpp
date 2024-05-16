@@ -8,13 +8,16 @@ void Dev2Scene::Init()
 {
 	Super::Init();
 	RoadResource();
-	for (int i = 0; i < 2; i++)//INSTINATE_MAX
+	for (int i = 0; i < 4; i++)//INSTINATE_MAX
 	{
-		NumberBlockActor* numberBlock = new NumberBlockActor();
-		numberBlock->Init();
-		numberBlock->SetPos(Vector2(-200 + i * 100, -200));
-		_numberBlocks.push_back(numberBlock);
-		SpawnActor(_numberBlocks.back());
+		for (int j = 0; j < 4; j++)
+		{
+			NumberBlockActor* numberBlock = new NumberBlockActor();
+			numberBlock->Init();
+			numberBlock->SetPos(Vector2(-200 + i * 100, -200 + j * 100));
+			_numberBlocks.push_back(numberBlock);
+			SpawnActor(_numberBlocks.back());
+		}
 	}
 
 	{

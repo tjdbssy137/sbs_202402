@@ -26,10 +26,10 @@ public:
 	void SlideActor();
 
 	int GetNumber() { return _number; }
-	void SetNumber() { _number *= 2; }
+	void SetNumber(int number) { _number = number; }
 
 private:
-	int _number = 0;
+	int _number = 2;
 	NumberBlockDirState _directionState = NumberBlockDirState::None;
 	Vector2 _direction = Vector2::Zero();
 	float _speed = 0;
