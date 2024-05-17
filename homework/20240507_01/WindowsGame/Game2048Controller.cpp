@@ -23,7 +23,8 @@ void Game2048Controller::Update()
 {
 	
 	{//한번 누르면 끝에 닿을 때까지 방향 전환 못하도록 막기
-		//왜인지 상하좌우 반전
+		//왜인지 상하좌우 반전 -> 배열의 방향이 0 1 2 3 이 아니라 0 4 8 12 일지도??
+		//									 4 5 6 8		  1 5 8 13
 		
 		if (Input->GetKeyDown(KeyCode::Down))
 		{
@@ -33,32 +34,32 @@ void Game2048Controller::Update()
 			this->MoveRight();
 
 			this->SumNumberBlocks();
-			//this->CheckCreateNumberBlock();
-			//this->CreateNumberBlock();
+			this->CheckCreateNumberBlock();
+			this->CreateNumberBlock();
 		}
 		else if (Input->GetKeyDown(KeyCode::Up))
 		{
 			//numberBlock->ChangeDirectionState(NumberBlockDirState::Up);
 			this->MoveLeft();
 			this->SumNumberBlocks();
-			//this->CheckCreateNumberBlock();
-			//this->CreateNumberBlock();
+			this->CheckCreateNumberBlock();
+			this->CreateNumberBlock();
 		}
 		else if (Input->GetKeyDown(KeyCode::Left))
 		{
 			//numberBlock->ChangeDirectionState(NumberBlockDirState::Left);
 			this->MoveUp();
 			this->SumNumberBlocks();
-			//this->CheckCreateNumberBlock();
-			//this->CreateNumberBlock();
+			this->CheckCreateNumberBlock();
+			this->CreateNumberBlock();
 		}
 		else if (Input->GetKeyDown(KeyCode::Right))
 		{
 			//numberBlock->ChangeDirectionState(NumberBlockDirState::Right);
 			this->MoveDown();
 			this->SumNumberBlocks();
-			//this->CheckCreateNumberBlock();
-			//this->CreateNumberBlock();
+			this->CheckCreateNumberBlock();
+			this->CreateNumberBlock();
 		}
 	}
 }
@@ -138,7 +139,7 @@ void Game2048Controller::MoveDown()
 }
 void Game2048Controller::MoveUp()
 {
-	for (int i = 15; 4 <= i ; i--)
+	for (int i = MAX_BLOCK_COUNT - 1; 4 <= i ; i--)
 	{
 		if (_isFull[i] == 0)
 		{
@@ -159,7 +160,7 @@ void Game2048Controller::MoveUp()
 }
 void Game2048Controller::MoveLeft()
 {
-	for (int i = 0; i < MAX_BLOCK_COUNT; i++)
+	for (int i = MAX_BLOCK_COUNT - 1; 0 <= i; i--)
 	{
 		if (i % 4 == 0)
 		{
