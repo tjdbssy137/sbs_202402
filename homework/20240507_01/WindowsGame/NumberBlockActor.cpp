@@ -5,7 +5,7 @@ void NumberBlockActor::Init()
 {
 	Super::Init();
 	this->SetName("NumberBlock");
-	this->SetSprite(Resource->GetSprite(L"S_Number_2"));
+	this->SetSprite(nullptr);
 
 	_speed = 200;
 }

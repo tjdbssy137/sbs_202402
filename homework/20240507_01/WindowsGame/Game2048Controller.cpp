@@ -7,51 +7,58 @@ void Game2048Controller::Init(vector<NumberBlockActor*> numberBlocks)
 {
 	_numberBlocks = numberBlocks;
 
-
 	//위치 초기화
 	//ResetIsFull();
+	NumberBlockToZero();
 	InitIsFull();
-	SumNumberBlocks();
+	//SumNumberBlocks();
+	{
+		for (NumberBlockActor* numberBlock : _numberBlocks)
+		{
+			cout << numberBlock->GetNumber() << endl;
+		}
+	}
 }
 void Game2048Controller::Update()
 {
 	
 	{//한번 누르면 끝에 닿을 때까지 방향 전환 못하도록 막기
 		//왜인지 상하좌우 반전
-		for (NumberBlockActor* numberBlock : _numberBlocks)
+		
+		if (Input->GetKeyDown(KeyCode::Down))
 		{
-			if (Input->GetKeyDown(KeyCode::Down))
-			{
-				this->MoveRight();
-				this->SumNumberBlocks();
-				this->CanCreateNumberBlock();
-				this->CreateNumberBlock();
-				//numberBlock->ChangeDirectionState(NumberBlockDirState::Down);
-			}
-			else if (Input->GetKeyDown(KeyCode::Up))
-			{
-				this->MoveLeft();
-				this->SumNumberBlocks();
-				this->CanCreateNumberBlock();
-				this->CreateNumberBlock();
-				//numberBlock->ChangeDirectionState(NumberBlockDirState::Up);				
-			}
-			else if (Input->GetKeyDown(KeyCode::Left))
-			{
-				this->MoveUp();
-				this->SumNumberBlocks();
-				this->CanCreateNumberBlock();
-				this->CreateNumberBlock();
-				//numberBlock->ChangeDirectionState(NumberBlockDirState::Left);				
-			}
-			else if (Input->GetKeyDown(KeyCode::Right))
-			{
-				this->MoveDown();
-				this->SumNumberBlocks();
-				this->CanCreateNumberBlock();
-				this->CreateNumberBlock();
-				//numberBlock->ChangeDirectionState(NumberBlockDirState::Right);
-			}
+			//numberBlock->ChangeDirectionState(NumberBlockDirState::Down);
+			//cout << "hi" << endl; // 16번 호출됨
+			//한칸씩만 이동함
+			this->MoveRight();
+
+			this->SumNumberBlocks();
+			//this->CheckCreateNumberBlock();
+			//this->CreateNumberBlock();
+		}
+		else if (Input->GetKeyDown(KeyCode::Up))
+		{
+			//numberBlock->ChangeDirectionState(NumberBlockDirState::Up);
+			this->MoveLeft();
+			this->SumNumberBlocks();
+			//this->CheckCreateNumberBlock();
+			//this->CreateNumberBlock();
+		}
+		else if (Input->GetKeyDown(KeyCode::Left))
+		{
+			//numberBlock->ChangeDirectionState(NumberBlockDirState::Left);
+			this->MoveUp();
+			this->SumNumberBlocks();
+			//this->CheckCreateNumberBlock();
+			//this->CreateNumberBlock();
+		}
+		else if (Input->GetKeyDown(KeyCode::Right))
+		{
+			//numberBlock->ChangeDirectionState(NumberBlockDirState::Right);
+			this->MoveDown();
+			this->SumNumberBlocks();
+			//this->CheckCreateNumberBlock();
+			//this->CreateNumberBlock();
 		}
 	}
 }
@@ -89,18 +96,28 @@ void Game2048Controller::InitIsFull()
 					_isFull[check + 3] = numberBlock->GetNumber();
 				}
 			}
+
 		}
 	}
 }
 
 void Game2048Controller::NumberBlockToZero()
 {
-
+	for (int i = 0; i < 2; i++)
+	{
+		int random = Random->GetRandomInt(0, 15);
+		while(_numberBlocks[random]->GetNumber() != 0)//빈자리 찾기
+		{
+			random = Random->GetRandomInt(0, 15);
+		}
+		_numberBlocks[random]->SetNumber(2);
+		_numberBlocks[random]->ChangeImage(_numberBlocks[random]->GetNumber());
+	}
 }
 
 void Game2048Controller::MoveDown()
 {
-	for (int i = 11; 0 <= i; i--)
+	for (int i = 0; i < 12; i++)
 	{
 		if (_isFull[i] == 0)
 		{
@@ -121,7 +138,7 @@ void Game2048Controller::MoveDown()
 }
 void Game2048Controller::MoveUp()
 {
-	for (int i = 4; i < MAX_BLOCK_COUNT; i++)
+	for (int i = 15; 4 <= i ; i--)
 	{
 		if (_isFull[i] == 0)
 		{
@@ -209,13 +226,13 @@ void Game2048Controller::SumNumberBlocks()
 }
 void Game2048Controller::CreateNumberBlock()
 {
-	if (_canCreateNumberBlock == true)
+	if (_checkCreateNumberBlock == true)
 	{
 		// 비어있는자리찾기
-		int random = Random->GetRandomInt(0, 16);
+		int random = Random->GetRandomInt(0, 15);
 		while (_isFull[random] != 0)
 		{
-			random = Random->GetRandomInt(0, 16);
+			random = Random->GetRandomInt(0, 15);
 		}
 
 		// 생성될 숫자 구하기
@@ -236,11 +253,11 @@ void Game2048Controller::CreateNumberBlock()
 		}
 		break;
 		}
-		_canCreateNumberBlock = false;
+		_checkCreateNumberBlock = false;
 	}
 
 }
-void Game2048Controller::CanCreateNumberBlock()
+void Game2048Controller::CheckCreateNumberBlock()
 {
 	int count = 0;
 	for (int i = 0; i < 16; i++) {
@@ -251,12 +268,12 @@ void Game2048Controller::CanCreateNumberBlock()
 	}
 	if (count == 16)
 	{
-		_canCreateNumberBlock = false;
+		_checkCreateNumberBlock = false;
 		//game over
 	}
 	else
 	{
-		_canCreateNumberBlock = true;
+		_checkCreateNumberBlock = true;
 	}
 
 }

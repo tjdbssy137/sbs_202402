@@ -29,7 +29,7 @@ public:
 	void SetNumber(int number) { _number = number; }
 
 private:
-	int _number = 2;
+	int _number = 0;
 	NumberBlockDirState _directionState = NumberBlockDirState::None;
 	Vector2 _direction = Vector2::Zero();
 	float _speed = 0;

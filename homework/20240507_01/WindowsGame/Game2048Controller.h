@@ -19,14 +19,17 @@ public:
 	void MoveRight();
 
 	void CreateNumberBlock();
-	void CanCreateNumberBlock();
+	void CheckCreateNumberBlock();
 
 	// 처음에 0으로 리셋하고, 랜덤한 위치의 두개만 2로
 	void NumberBlockToZero();
 
+	// 배열의 가로 세로를 전환시켜주는 게 필요
+
 private:
 	vector<NumberBlockActor*> _numberBlocks;
 	int _isFull[MAX_BLOCK_COUNT] = {};
-	bool _canCreateNumberBlock = false;
+	bool _checkCreateNumberBlock = false;
+	bool _isClick = true;
 };
 
