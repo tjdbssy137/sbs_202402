@@ -8,21 +8,12 @@ void Game2048Controller::Init(vector<NumberBlockActor*> numberBlocks)
 	_numberBlocks = numberBlocks;
 
 	//위치 초기화
-	//ResetIsFull();
 	NumberBlockToZero();
 	InitIsFull();
-	//SumNumberBlocks();
-	{
-		for (NumberBlockActor* numberBlock : _numberBlocks)
-		{
-			cout << numberBlock->GetNumber() << endl;
-		}
-	}
 }
 void Game2048Controller::Update()
-{
-	
-	{//한번 누르면 끝에 닿을 때까지 방향 전환 못하도록 막기
+{	
+	{
 		//왜인지 상하좌우 반전 -> 배열의 방향이 0 1 2 3 이 아니라 0 4 8 12 일지도??
 		//									 4 5 6 8		  1 5 8 13
 		
@@ -31,73 +22,34 @@ void Game2048Controller::Update()
 			//numberBlock->ChangeDirectionState(NumberBlockDirState::Down);
 			//cout << "hi" << endl; // 16번 호출됨
 			//한칸씩만 이동함
-			this->MoveRight();
-
-			this->SumNumberBlocks();
-			this->CheckCreateNumberBlock();
-			this->CreateNumberBlock();
+			this->SetPressKeyState(PressKey::Down);
 		}
 		else if (Input->GetKeyDown(KeyCode::Up))
 		{
 			//numberBlock->ChangeDirectionState(NumberBlockDirState::Up);
-			this->MoveLeft();
-			this->SumNumberBlocks();
-			this->CheckCreateNumberBlock();
-			this->CreateNumberBlock();
+			this->SetPressKeyState(PressKey::Up);
 		}
 		else if (Input->GetKeyDown(KeyCode::Left))
 		{
 			//numberBlock->ChangeDirectionState(NumberBlockDirState::Left);
-			this->MoveUp();
-			this->SumNumberBlocks();
-			this->CheckCreateNumberBlock();
-			this->CreateNumberBlock();
+			this->SetPressKeyState(PressKey::Left);
 		}
 		else if (Input->GetKeyDown(KeyCode::Right))
 		{
 			//numberBlock->ChangeDirectionState(NumberBlockDirState::Right);
-			this->MoveDown();
-			this->SumNumberBlocks();
-			this->CheckCreateNumberBlock();
-			this->CreateNumberBlock();
+			this->SetPressKeyState(PressKey::Right);
 		}
 	}
 }
-void Game2048Controller::ResetIsFull()
-{
-	for (int i = 0; i < MAX_BLOCK_COUNT; i++)
-	{
-		_isFull[i] = 0;
-	}
-}
+
 void Game2048Controller::InitIsFull()
 {
-	for (NumberBlockActor* numberBlock : _numberBlocks)
+	int count = 0;
+	for (int i = 0; i < 4; i ++)
 	{
-		float posX = numberBlock->GetPos().x;
-		float posY = numberBlock->GetPos().y;
-		for (int check = 0; check < MAX_BLOCK_COUNT; check += 4)
+		for (int j = 0; j < 4; j++)
 		{
-			if (posX == -200 + (check % 4) * 100)
-			{
-				if (posY == -200)
-				{
-					_isFull[check] = numberBlock->GetNumber();
-				}
-				else if (posY == -100)
-				{
-					_isFull[check + 1] = numberBlock->GetNumber();
-				}
-				else if (posY == 0)
-				{
-					_isFull[check + 2] = numberBlock->GetNumber();
-				}
-				else if (posY == 100)
-				{
-					_isFull[check + 3] = numberBlock->GetNumber();
-				}
-			}
-
+			_blocksInfo[i][j] = _numberBlocks[count++]->GetNumber();
 		}
 	}
 }
@@ -116,100 +68,143 @@ void Game2048Controller::NumberBlockToZero()
 	}
 }
 
+void Game2048Controller::SetPressKeyState(PressKey state)
+{
+	switch (state)
+	{
+	case Down: 
+	{
+		this->MoveRight();
+		this->SumNumberBlocks();
+		this->CheckCreateNumberBlock();
+		this->CreateNumberBlock();
+		this->SetPressKeyState(PressKey::None);
+	}
+		break;
+	case Up:
+	{
+		this->MoveLeft();
+		this->SumNumberBlocks();
+		this->CheckCreateNumberBlock();
+		this->CreateNumberBlock();
+		this->SetPressKeyState(PressKey::None);
+	}
+		break;
+	case Left:
+	{
+		this->MoveUp();
+		this->SumNumberBlocks();
+		this->CheckCreateNumberBlock();
+		this->CreateNumberBlock();
+		this->SetPressKeyState(PressKey::None);
+	}
+		break;
+	case Right:
+	{
+		this->MoveDown();
+		this->SumNumberBlocks();
+		this->CheckCreateNumberBlock();
+		this->CreateNumberBlock();
+		this->SetPressKeyState(PressKey::None);
+	}
+		break;
+	default:
+		break;
+	}
+}
+
 void Game2048Controller::MoveDown()
 {
-	for (int i = 0; i < 12; i++)
+	for (int i = 0; i < 3; i++)
 	{
-		if (_isFull[i] == 0)
+		for (int j = 0; j < 4; j++)
 		{
-			continue;
-		}
-		else if (_isFull[i + 4] == 0)
-		{
-			int temp = _isFull[i];
-			_isFull[i] = _isFull[i + 4];
-			_isFull[i + 4] = temp;
-		}
-		else if (_isFull[i] == _isFull[i + 4])
-		{
-			_isFull[i + 4] += _isFull[i];
-			_isFull[i] = 0;
+			if (_blocksInfo[i][j] == 0)
+			{
+				continue;
+			}
+			else if (_blocksInfo[i + 1][j] == 0)
+			{
+				int temp = _blocksInfo[i][j];
+				_blocksInfo[i][j] = _blocksInfo[i + 1][j];
+				_blocksInfo[i + 1][j] = temp;
+			}
+			else if (_blocksInfo[i][j] == _blocksInfo[i + 1][j])
+			{
+				_blocksInfo[i + 1][j] += _blocksInfo[i][j];
+				_blocksInfo[i][j] = 0;
+			}
 		}
 	}
 }
 void Game2048Controller::MoveUp()
 {
-	for (int i = MAX_BLOCK_COUNT - 1; 4 <= i ; i--)
+	for (int i = 3; 1 <= i; i--)
 	{
-		if (_isFull[i] == 0)
+		for (int j = 0; j < 4; j++)
 		{
-			continue;
-		}
-		else if (_isFull[i - 4] == 0)
-		{
-			int temp = _isFull[i];
-			_isFull[i] = _isFull[i - 4];
-			_isFull[i - 4] = temp;
-		}
-		else if (_isFull[i] == _isFull[i - 4])
-		{
-			_isFull[i - 4] += _isFull[i];
-			_isFull[i] = 0;
+			if (_blocksInfo[i][j] == 0)
+			{
+				continue;
+			}
+			else if (_blocksInfo[i - 1][j] == 0)
+			{
+				int temp = _blocksInfo[i][j];
+				_blocksInfo[i][j] = _blocksInfo[i - 1][j];
+				_blocksInfo[i - 1][j] = temp;
+			}
+			else if (_blocksInfo[i][j] == _blocksInfo[i - 1][j])
+			{
+				_blocksInfo[i - 1][j] += _blocksInfo[i][j];
+				_blocksInfo[i][j] = 0;
+			}
 		}
 	}
 }
 void Game2048Controller::MoveLeft()
 {
-	for (int i = MAX_BLOCK_COUNT - 1; 0 <= i; i--)
+	for (int i = 0; i < 4; i++)
 	{
-		if (i % 4 == 0)
+		for (int j = 3; 1 <= j; j--)
 		{
-			continue;
-		}
-		else
-		{
-			if (_isFull[i] == 0)
+			if (_blocksInfo[i][j] == 0)
 			{
 				continue;
 			}
-			else if (_isFull[i - 1] == 0)
+			else if (_blocksInfo[i][j - 1] == 0)
 			{
-				int temp = _isFull[i];
-				_isFull[i] = _isFull[i - 1];
-				_isFull[i - 1] = temp;
+				int temp = _blocksInfo[i][j];
+				_blocksInfo[i][j] = _blocksInfo[i][j - 1];
+				_blocksInfo[i][j - 1] = temp;
 			}
-			else if (_isFull[i] == _isFull[i - 1])
+			else if (_blocksInfo[i][j] == _blocksInfo[i][j - 1])
 			{
-				_isFull[i - 1] += _isFull[i];
-				_isFull[i] = 0;
+				_blocksInfo[i][j - 1] += _blocksInfo[i][j];
+				_blocksInfo[i][j] = 0;
 			}
 		}
 	}
 }
 void Game2048Controller::MoveRight()
 {
-	for (int i = 0; i < MAX_BLOCK_COUNT; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		if (i % 4 == 3)
+		for (int j = 0; j < 3; j++)
 		{
-			continue;
-		}
-		else
-		{
-			if (_isFull[i] == 0)
+			if (_blocksInfo[i][j] == 0)
 			{
 				continue;
 			}
-			else if (_isFull[i + 1] == 0)//0일 시에만 넘어가기
+			else if (_blocksInfo[i][j + 1] == 0)
 			{
-				int temp = _isFull[i];
-				_isFull[i] = _isFull[i + 1];
-				_isFull[i + 1] = temp;
+				int temp = _blocksInfo[i][j];
+				_blocksInfo[i][j] = _blocksInfo[i][j + 1];
+				_blocksInfo[i][j + 1] = temp;
 			}
-			else if (_isFull[i] == _isFull[i + 1])//같으면 더하기
+			else if (_blocksInfo[i][j] == _blocksInfo[i][j + 1])
 			{
-				_isFull[i + 1] += _isFull[i];
-				_isFull[i] = 0;
+				_blocksInfo[i][j + 1] += _blocksInfo[i][j];
+				_blocksInfo[i][j] = 0;
 			}
 		}
 	}
@@ -218,12 +213,9 @@ void Game2048Controller::SumNumberBlocks()
 {
 	for (int i = 0; i < MAX_BLOCK_COUNT; i++)
 	{
-		//cout << "_isFull[" << i << "]" << _isFull[i] << endl;
-		_numberBlocks[i]->SetNumber(_isFull[i]);
+		_numberBlocks[i]->SetNumber(_blocksInfo[i / 4][i % 4]);
 		_numberBlocks[i]->ChangeImage(_numberBlocks[i]->GetNumber());
-		//cout << "_numberBlocks[" << i << "]" << _numberBlocks[i]->GetNumber() << endl;
 	}
-	//this->InitIsFull();
 }
 void Game2048Controller::CreateNumberBlock()
 {
@@ -231,7 +223,7 @@ void Game2048Controller::CreateNumberBlock()
 	{
 		// 비어있는자리찾기
 		int random = Random->GetRandomInt(0, 15);
-		while (_isFull[random] != 0)
+		while (_blocksInfo[random / 4][random % 4] != 0)
 		{
 			random = Random->GetRandomInt(0, 15);
 		}
@@ -241,15 +233,15 @@ void Game2048Controller::CreateNumberBlock()
 		{
 		case 1 : // 4는 20%로 생성
 		{
-			_isFull[random] = 4;
-			_numberBlocks[random]->SetNumber(_isFull[random]);
+			_blocksInfo[random / 4][random % 4] = 4;
+			_numberBlocks[random]->SetNumber(_blocksInfo[random / 4][random % 4]);
 			_numberBlocks[random]->ChangeImage(_numberBlocks[random]->GetNumber());
 		}
 		break;
 		default:
 		{
-			_isFull[random] = 2;
-			_numberBlocks[random]->SetNumber(_isFull[random]);
+			_blocksInfo[random / 4][random % 4] = 2;
+			_numberBlocks[random]->SetNumber(_blocksInfo[random / 4][random % 4]);
 			_numberBlocks[random]->ChangeImage(_numberBlocks[random]->GetNumber());
 		}
 		break;
@@ -261,10 +253,13 @@ void Game2048Controller::CreateNumberBlock()
 void Game2048Controller::CheckCreateNumberBlock()
 {
 	int count = 0;
-	for (int i = 0; i < 16; i++) {
-		if (_isFull[i] != 0)
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++)
 		{
-			count++;
+			if (_blocksInfo[i][j] != 0)
+			{
+				count++;
+			}
 		}
 	}
 	if (count == 16)

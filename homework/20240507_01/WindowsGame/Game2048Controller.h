@@ -1,6 +1,15 @@
 #pragma once
 class NumberBlockActor;
 
+enum PressKey
+{
+	Down,
+	Up,
+	Left,
+	Right,
+	None
+};
+
 #define MAX_BLOCK_COUNT 16
 class Game2048Controller
 {
@@ -10,7 +19,6 @@ public:
 
 public:
 	void SumNumberBlocks();
-	void ResetIsFull();
 	void InitIsFull();
 
 	void MoveDown();
@@ -24,12 +32,16 @@ public:
 	// 처음에 0으로 리셋하고, 랜덤한 위치의 두개만 2로
 	void NumberBlockToZero();
 
+	void SetPressKeyState(PressKey state);
 	// 배열의 가로 세로를 전환시켜주는 게 필요
 
 private:
 	vector<NumberBlockActor*> _numberBlocks;
-	int _isFull[MAX_BLOCK_COUNT] = {};
+	int _blocksInfo[4][4] = {};
+
 	bool _checkCreateNumberBlock = false;
 	bool _isClick = true;
+
+	PressKey _state = PressKey::None;
 };
 
