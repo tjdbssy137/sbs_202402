@@ -20,8 +20,8 @@ void Game2048Controller::Update()
 		if (Input->GetKeyDown(KeyCode::Down))
 		{
 			//numberBlock->ChangeDirectionState(NumberBlockDirState::Down);
-			//cout << "hi" << endl; // 16번 호출됨
-			//한칸씩만 이동함
+			// 네 칸이 모두 같은 숫자면 삭제 됨.
+			// 초반 [3][2] 좌표에 있는 2가 제대로 안 움직이는 문제.
 			this->SetPressKeyState(PressKey::Down);
 		}
 		else if (Input->GetKeyDown(KeyCode::Up))
@@ -75,6 +75,7 @@ void Game2048Controller::SetPressKeyState(PressKey state)
 	case Down: 
 	{
 		this->MoveRight();
+		this->SubtractTenThousand();
 		this->SumNumberBlocks();
 		this->CheckCreateNumberBlock();
 		this->CreateNumberBlock();
@@ -84,6 +85,7 @@ void Game2048Controller::SetPressKeyState(PressKey state)
 	case Up:
 	{
 		this->MoveLeft();
+		this->SubtractTenThousand();
 		this->SumNumberBlocks();
 		this->CheckCreateNumberBlock();
 		this->CreateNumberBlock();
@@ -93,6 +95,7 @@ void Game2048Controller::SetPressKeyState(PressKey state)
 	case Left:
 	{
 		this->MoveUp();
+		this->SubtractTenThousand();
 		this->SumNumberBlocks();
 		this->CheckCreateNumberBlock();
 		this->CreateNumberBlock();
@@ -102,6 +105,7 @@ void Game2048Controller::SetPressKeyState(PressKey state)
 	case Right:
 	{
 		this->MoveDown();
+		this->SubtractTenThousand();
 		this->SumNumberBlocks();
 		this->CheckCreateNumberBlock();
 		this->CreateNumberBlock();
@@ -115,48 +119,80 @@ void Game2048Controller::SetPressKeyState(PressKey state)
 
 void Game2048Controller::MoveDown()
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 3; 0 < i; i--)
 	{
 		for (int j = 0; j < 4; j++)
 		{
 			if (_blocksInfo[i][j] == 0)
 			{
-				continue;
+				if (_blocksInfo[i - 1][j] != 0)
+				{
+					for (int k = i; k < 4; k++)
+					{
+						if (_blocksInfo[k][j] == 0)
+						{
+							_blocksInfo[k][j] = _blocksInfo[k - 1][j];
+							_blocksInfo[k - 1][j] = 0;
+						}
+						else if(_blocksInfo[k][j] == _blocksInfo[k - 1][j])
+						{
+							_blocksInfo[k][j] += _blocksInfo[k - 1][j];
+							_blocksInfo[k][j] += 10000;
+							_blocksInfo[k - 1][j] = 0;
+						}
+					}
+				}
 			}
-			else if (_blocksInfo[i + 1][j] == 0)
+			else if (_blocksInfo[i][j] == _blocksInfo[i - 1][j])
 			{
-				int temp = _blocksInfo[i][j];
-				_blocksInfo[i][j] = _blocksInfo[i + 1][j];
-				_blocksInfo[i + 1][j] = temp;
-			}
-			else if (_blocksInfo[i][j] == _blocksInfo[i + 1][j])
-			{
-				_blocksInfo[i + 1][j] += _blocksInfo[i][j];
-				_blocksInfo[i][j] = 0;
+				_blocksInfo[i][j] += _blocksInfo[i - 1][j];
+				_blocksInfo[i][j] += 10000;
+				_blocksInfo[i - 1][j] = 0;
+				/*
+				for (int k = i; 0 < k; k--)
+				{
+					if (_blocksInfo[k - 1][j] == 0)
+					{
+						_blocksInfo[k][j] = _blocksInfo[k - 1][j];
+						_blocksInfo[k - 1][j] = 0;
+					}
+				}
+				*/
 			}
 		}
 	}
 }
 void Game2048Controller::MoveUp()
 {
-	for (int i = 3; 1 <= i; i--)
+	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 4; j++)
 		{
 			if (_blocksInfo[i][j] == 0)
 			{
-				continue;
+				if (_blocksInfo[i + 1][j] != 0)
+				{
+					for (int k = i; 0 <= k; k--)
+					{
+						if (_blocksInfo[k][j] == 0)
+						{
+							_blocksInfo[k][j] = _blocksInfo[k + 1][j];
+							_blocksInfo[k + 1][j] = 0;
+						}
+						else if (_blocksInfo[k][j] == _blocksInfo[k + 1][j])
+						{
+							_blocksInfo[k][j] += _blocksInfo[k + 1][j];
+							_blocksInfo[k][j] += 10000;
+							_blocksInfo[k + 1][j] = 0;
+						}
+					}
+				}
 			}
-			else if (_blocksInfo[i - 1][j] == 0)
+			else if (_blocksInfo[i][j] == _blocksInfo[i + 1][j])
 			{
-				int temp = _blocksInfo[i][j];
-				_blocksInfo[i][j] = _blocksInfo[i - 1][j];
-				_blocksInfo[i - 1][j] = temp;
-			}
-			else if (_blocksInfo[i][j] == _blocksInfo[i - 1][j])
-			{
-				_blocksInfo[i - 1][j] += _blocksInfo[i][j];
-				_blocksInfo[i][j] = 0;
+				_blocksInfo[i][j] += _blocksInfo[i + 1][j];
+				_blocksInfo[i][j] += 10000;
+				_blocksInfo[i + 1][j] = 0;
 			}
 		}
 	}
@@ -165,22 +201,33 @@ void Game2048Controller::MoveLeft()
 {
 	for (int i = 0; i < 4; i++)
 	{
-		for (int j = 3; 1 <= j; j--)
+		for (int j = 0; j < 3; j++)
 		{
 			if (_blocksInfo[i][j] == 0)
 			{
-				continue;
+				if (_blocksInfo[i][j + 1] != 0)
+				{
+					for (int k = j; 0 <= k; k--)
+					{
+						if (_blocksInfo[i][k] == 0)
+						{
+							_blocksInfo[i][k] = _blocksInfo[i][k + 1];
+							_blocksInfo[i][k + 1] = 0;
+						}
+						else if (_blocksInfo[i][k] == _blocksInfo[i][k + 1])
+						{
+							_blocksInfo[i][k] += _blocksInfo[i][k + 1];
+							_blocksInfo[i][k] += 10000;
+							_blocksInfo[i][k + 1] = 0;
+						}
+					}
+				}
 			}
-			else if (_blocksInfo[i][j - 1] == 0)
+			else if (_blocksInfo[i][j] == _blocksInfo[i][j + 1])
 			{
-				int temp = _blocksInfo[i][j];
-				_blocksInfo[i][j] = _blocksInfo[i][j - 1];
-				_blocksInfo[i][j - 1] = temp;
-			}
-			else if (_blocksInfo[i][j] == _blocksInfo[i][j - 1])
-			{
-				_blocksInfo[i][j - 1] += _blocksInfo[i][j];
-				_blocksInfo[i][j] = 0;
+				_blocksInfo[i][j] += _blocksInfo[i][j + 1];
+				_blocksInfo[i][j] += 10000;
+				_blocksInfo[i][j + 1] = 0;
 			}
 		}
 	}
@@ -189,23 +236,45 @@ void Game2048Controller::MoveRight()
 {
 	for (int i = 0; i < 4; i++)
 	{
-		for (int j = 0; j < 3; j++)
+		for (int j = 3; 0 < j; j--)
 		{
 			if (_blocksInfo[i][j] == 0)
 			{
-				continue;
+				if (_blocksInfo[i][j - 1] != 0)
+				{
+					for (int k = j; k < 4; k++)
+					{
+						if (_blocksInfo[i][k] == 0)
+						{
+							_blocksInfo[i][k] = _blocksInfo[i][k - 1];
+							_blocksInfo[i][k - 1] = 0;
+						}
+						else if (_blocksInfo[i][k] == _blocksInfo[i][k - 1])
+						{
+							_blocksInfo[i][k] += _blocksInfo[i][k - 1];
+							_blocksInfo[i][k] += 10000;
+							_blocksInfo[i][k - 1] = 0;
+						}
+					}
+				}
 			}
-			else if (_blocksInfo[i][j + 1] == 0)
+			else if (_blocksInfo[i][j] == _blocksInfo[i][j - 1])
 			{
-				int temp = _blocksInfo[i][j];
-				_blocksInfo[i][j] = _blocksInfo[i][j + 1];
-				_blocksInfo[i][j + 1] = temp;
+				_blocksInfo[i][j] += _blocksInfo[i][j - 1];
+				_blocksInfo[i][j] += 10000;
+				_blocksInfo[i][j - 1] = 0;
 			}
-			else if (_blocksInfo[i][j] == _blocksInfo[i][j + 1])
-			{
-				_blocksInfo[i][j + 1] += _blocksInfo[i][j];
-				_blocksInfo[i][j] = 0;
-			}
+		}
+	}
+}
+
+void Game2048Controller::SubtractTenThousand()
+{
+	for (int i = 0; i < MAX_BLOCK_COUNT; i++)
+	{
+		if (10000 < _blocksInfo[i / 4][i % 4])
+		{
+			_blocksInfo[i / 4][i % 4] -= 10000;
 		}
 	}
 }

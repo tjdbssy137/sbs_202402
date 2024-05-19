@@ -26,6 +26,8 @@ public:
 	void MoveLeft();
 	void MoveRight();
 
+	void SubtractTenThousand();
+
 	void CreateNumberBlock();
 	void CheckCreateNumberBlock();
 
