@@ -66,10 +66,15 @@ void Button::Update()
 				//웹페이지 이동 등등
 				cout << "CLICK!!" << endl;
 				// 새로운 문법 : 함수 포인터
+				Button b1;
+				this->AddOnClickDelegate(&b1, &Button::ChangeSceneFunc);
+				
 				if (_onClick != nullptr)
 				{
 					_onClick();
 					//Dev1Scene으로 넘어가도록 수정
+					
+					cout << "OnClick" << endl;
 				}
 			}
 			this->SetState(ButtonState::Hover);
@@ -80,6 +85,7 @@ void Button::Update()
 		this->SetState(ButtonState::Default);
 	}
 }
+
 void Button::Release()
 {
 	Super::Release();
@@ -89,4 +95,9 @@ void Button::SetState(ButtonState state)
 {
 	_state = state;
 	_currentSprite = _sprites[(int)_state];
+}
+
+void Button::ChangeSceneFunc()
+{
+	GET_SINGLE(SceneManager)->ChangeScene(SceneType::Dev1Scene);
 }

@@ -55,6 +55,7 @@ void TestPanel::Init()
 			button->SetSprite(ButtonState::Disabled, Resource->GetSprite(L"S_IconUI_Disabled"));
 			button->Init();
 			iconListPanel->AddChild(button);
+			
 		}
 	}
 }

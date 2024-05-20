@@ -35,6 +35,8 @@ public:
 		_onClick = bind(func, owner);
 	}
 
+	void ChangeSceneFunc();
+
 protected:
 	//버튼을 구성하는 요소
 	Sprite* _sprites[(int)ButtonState::End] = {};
