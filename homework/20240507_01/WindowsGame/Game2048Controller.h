@@ -25,7 +25,8 @@ public:
 	void MoveUp();
 	void MoveLeft();
 	void MoveRight();
-
+	
+	// 중복합을 피하려고 더한 10000을 다시 빼주는 함수
 	void SubtractTenThousand();
 
 	void CreateNumberBlock();
