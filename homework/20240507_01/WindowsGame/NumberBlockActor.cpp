@@ -7,7 +7,7 @@ void NumberBlockActor::Init()
 	this->SetName("NumberBlock");
 	this->SetSprite(nullptr);
 
-	_speed = 200;
+	_speed = 300;
 }
 void NumberBlockActor::Render(HDC hdc)
 {
@@ -29,7 +29,6 @@ void NumberBlockActor::SlideActor()
 	this->SetPos(GetPos() + _direction * _speed * Time->GetDeltaTime());
 	
 	//´Ù¸¥ block°ú ´êÀ¸¸é ¸ØÃã
-
 
 	//³¡¿¡ ´êÀ¸¸é ¸ØÃã
 	if (this->GetPos().x <= -201)

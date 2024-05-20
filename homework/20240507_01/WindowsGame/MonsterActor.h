@@ -10,7 +10,7 @@ enum eMonsterDirection
 	MonsterLeft,
 	MonsterRight,
 
-	None
+	PK_END
 };
 enum class MonsterState
 {
@@ -47,7 +47,7 @@ public:
 private:
 	MonsterState _state = MonsterState::Idle;
 	eMonsterDirection _dirState = eMonsterDirection::MonsterDown;
-	Flipbook* _idleFlipbook[eMonsterDirection::None] = {};
+	Flipbook* _idleFlipbook[eMonsterDirection::PK_END] = {};
 
 private:
 	float _invokeTime = 0;

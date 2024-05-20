@@ -6,28 +6,28 @@ void CreatureActor::Init()
 {
 	Super::Init();
 	// IDLE
-	_idleFlipbook[eCreatureDirection::Down] = Resource->GetFlipbook(L"FB_CharacterDown_Idle");
-	_idleFlipbook[eCreatureDirection::Up] = Resource->GetFlipbook(L"FB_CharacterUp_Idle");
-	_idleFlipbook[eCreatureDirection::Left] = Resource->GetFlipbook(L"FB_CharacterLeft_Idle");
-	_idleFlipbook[eCreatureDirection::Right] = Resource->GetFlipbook(L"FB_CharacterRight_Idle");
+	_idleFlipbook[eCreatureDirection::PK_DOWN] = Resource->GetFlipbook(L"FB_CharacterDown_Idle");
+	_idleFlipbook[eCreatureDirection::PK_UP] = Resource->GetFlipbook(L"FB_CharacterUp_Idle");
+	_idleFlipbook[eCreatureDirection::PK_LEFT] = Resource->GetFlipbook(L"FB_CharacterLeft_Idle");
+	_idleFlipbook[eCreatureDirection::PK_RIGHT] = Resource->GetFlipbook(L"FB_CharacterRight_Idle");
 
 	// MOVE
-	_moveFlipbook[eCreatureDirection::Down] = Resource->GetFlipbook(L"FB_CharacterDown_Move");
-	_moveFlipbook[eCreatureDirection::Up] = Resource->GetFlipbook(L"FB_CharacterUp_Move");
-	_moveFlipbook[eCreatureDirection::Left] = Resource->GetFlipbook(L"FB_CharacterLeft_Move");
-	_moveFlipbook[eCreatureDirection::Right] = Resource->GetFlipbook(L"FB_CharacterRight_Move");
+	_moveFlipbook[eCreatureDirection::PK_DOWN] = Resource->GetFlipbook(L"FB_CharacterDown_Move");
+	_moveFlipbook[eCreatureDirection::PK_UP] = Resource->GetFlipbook(L"FB_CharacterUp_Move");
+	_moveFlipbook[eCreatureDirection::PK_LEFT] = Resource->GetFlipbook(L"FB_CharacterLeft_Move");
+	_moveFlipbook[eCreatureDirection::PK_RIGHT] = Resource->GetFlipbook(L"FB_CharacterRight_Move");
 
 	// ATTACK
-	_attackFlipbook[eCreatureDirection::Down] = Resource->GetFlipbook(L"FB_CharacterDown_Attack");
-	_attackFlipbook[eCreatureDirection::Up] = Resource->GetFlipbook(L"FB_CharacterUp_Attack");
-	_attackFlipbook[eCreatureDirection::Left] = Resource->GetFlipbook(L"FB_CharacterLeft_Attack");
-	_attackFlipbook[eCreatureDirection::Right] = Resource->GetFlipbook(L"FB_CharacterRight_Attack");
+	_attackFlipbook[eCreatureDirection::PK_DOWN] = Resource->GetFlipbook(L"FB_CharacterDown_Attack");
+	_attackFlipbook[eCreatureDirection::PK_UP] = Resource->GetFlipbook(L"FB_CharacterUp_Attack");
+	_attackFlipbook[eCreatureDirection::PK_LEFT] = Resource->GetFlipbook(L"FB_CharacterLeft_Attack");
+	_attackFlipbook[eCreatureDirection::PK_RIGHT] = Resource->GetFlipbook(L"FB_CharacterRight_Attack");
 
 	// ATTACK COLLISON POS
-	_attackCollisionPos[eCreatureDirection::Down] = CenterRect(Vector2(0, 60), 20, 40);
-	_attackCollisionPos[eCreatureDirection::Up] = CenterRect(Vector2(0, -60), 20, 40);
-	_attackCollisionPos[eCreatureDirection::Left] = CenterRect(Vector2(-60, 0), 40, 20);
-	_attackCollisionPos[eCreatureDirection::Right] = CenterRect(Vector2(60, 0), 40, 20);
+	_attackCollisionPos[eCreatureDirection::PK_DOWN] = CenterRect(Vector2(0, 60), 20, 40);
+	_attackCollisionPos[eCreatureDirection::PK_UP] = CenterRect(Vector2(0, -60), 20, 40);
+	_attackCollisionPos[eCreatureDirection::PK_LEFT] = CenterRect(Vector2(-60, 0), 40, 20);
+	_attackCollisionPos[eCreatureDirection::PK_RIGHT] = CenterRect(Vector2(60, 0), 40, 20);
 
 	collider = new BoxCollider();
 	collider->SetCollision(Shape::MakeCenterRect(0, 0, 0, 0));
@@ -128,7 +128,7 @@ void CreatureActor::UpdateInput()
 	if (Input->GetKey(KeyCode::Left))
 	{
 		isMoveKeyInput = true;
-		ChangeDirection(eCreatureDirection::Left);
+		ChangeDirection(eCreatureDirection::PK_LEFT);
 		newVelocity.x -= Time->GetDeltaTime() * 1.0f; // 1초만에 변함.
 		newVelocity.x = clamp(newVelocity.x, -1.0f, 1.0f); // newVelocity.x의 범위를 -1.0f ~ 1.0f로 한정시킨다.
 		newVelocity.y = 0;
@@ -138,7 +138,7 @@ void CreatureActor::UpdateInput()
 	else if (Input->GetKey(KeyCode::Right))
 	{
 		isMoveKeyInput = true;
-		ChangeDirection(eCreatureDirection::Right);
+		ChangeDirection(eCreatureDirection::PK_RIGHT);
 		newVelocity.x += Time->GetDeltaTime() * 1.0f; // 1초만에 변함.
 		newVelocity.x = clamp(newVelocity.x, -1.0f, 1.0f);
 		newVelocity.y = 0;
@@ -148,7 +148,7 @@ void CreatureActor::UpdateInput()
 	else if (Input->GetKey(KeyCode::Up))
 	{
 		isMoveKeyInput = true;
-		ChangeDirection(eCreatureDirection::Up);
+		ChangeDirection(eCreatureDirection::PK_UP);
 		newVelocity.y -= Time->GetDeltaTime() * 1.0f; // 0.5초만에 변함.
 		newVelocity.y = clamp(newVelocity.y, -1.0f, 1.0f);
 		newVelocity.x = 0;
@@ -158,7 +158,7 @@ void CreatureActor::UpdateInput()
 	else if (Input->GetKey(KeyCode::Down))
 	{
 		isMoveKeyInput = true;
-		ChangeDirection(eCreatureDirection::Down);
+		ChangeDirection(eCreatureDirection::PK_DOWN);
 		newVelocity.y += Time->GetDeltaTime() * 1.0f; // 0.5초만에 변함.
 		newVelocity.y = clamp(newVelocity.y, -1.0f, 1.0f);
 		newVelocity.x = 0;

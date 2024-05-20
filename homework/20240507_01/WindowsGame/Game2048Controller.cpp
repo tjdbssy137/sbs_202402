@@ -2,41 +2,51 @@
 #include "Game2048Controller.h"
 #include "NumberBlockActor.h"
 #include "BoxCollider.h"
+#include "Scene.h"
 
 void Game2048Controller::Init(vector<NumberBlockActor*> numberBlocks)
 {
 	_numberBlocks = numberBlocks;
-
+	_time = 0.6f;
 	//위치 초기화
 	NumberBlockToZero();
 	InitIsFull();
 }
 void Game2048Controller::Update()
 {	
+	if(_gameState == GS_RELEASE)
 	{
 		//왜인지 상하좌우 반전 -> 배열의 방향이 0 1 2 3 이 아니라 0 4 8 12 일지도??
 		//									 4 5 6 8		  1 5 8 13
-		
 		if (Input->GetKeyDown(KeyCode::Down))
 		{
 			//numberBlock->ChangeDirectionState(NumberBlockDirState::Down);
 			// 한 줄(4개)이 모두 같은 숫자면 합쳐지지 않고 전부 삭제 됨. -> 왤까..
-			this->SetPressKeyState(PressKey::Down);
+			this->SetPressKeyState(PressKey::PK_DOWN);
 		}
 		else if (Input->GetKeyDown(KeyCode::Up))
 		{
 			//numberBlock->ChangeDirectionState(NumberBlockDirState::Up);
-			this->SetPressKeyState(PressKey::Up);
+			this->SetPressKeyState(PressKey::PK_UP);
 		}
 		else if (Input->GetKeyDown(KeyCode::Left))
 		{
 			//numberBlock->ChangeDirectionState(NumberBlockDirState::Left);
-			this->SetPressKeyState(PressKey::Left);
+			this->SetPressKeyState(PressKey::PK_LEFT);
 		}
 		else if (Input->GetKeyDown(KeyCode::Right))
 		{
 			//numberBlock->ChangeDirectionState(NumberBlockDirState::Right);
-			this->SetPressKeyState(PressKey::Right);
+			this->SetPressKeyState(PressKey::PK_RIGHT);
+		}
+	}
+	else if (_gameState == GS_ANIMATION)
+	{
+		// 몇초뒤 다시 GS_RELEAS로 변경
+		_time -= Time->GetDeltaTime();
+		if (_time <= 0)
+		{
+			this->SetGame2048State(GS_RELEASE);
 		}
 	}
 }
@@ -66,54 +76,95 @@ void Game2048Controller::NumberBlockToZero()
 		_numberBlocks[random]->ChangeImage(_numberBlocks[random]->GetNumber());
 	}
 }
-
-void Game2048Controller::SetPressKeyState(PressKey state)
+void Game2048Controller::SetGame2048State(Game2048State gameState)
 {
-	switch (state)
+	_gameState = gameState;
+
+	switch (gameState)
 	{
-	case Down: 
+	case GS_RELEASE:
 	{
-		this->MoveRight();
-		this->SubtractTenThousand();
-		this->SumNumberBlocks();
-		this->CheckCreateNumberBlock();
-		this->CreateNumberBlock();
-		this->SetPressKeyState(PressKey::None);
+		for (NumberBlockActor* _tempNumberBlock : _tempNumberBlocks)
+		{
+			CurrentScene->DespawnActor(_tempNumberBlock);
+		}
 	}
 		break;
-	case Up:
+	case GS_ANIMATION:
 	{
-		this->MoveLeft();
-		this->SubtractTenThousand();
-		this->SumNumberBlocks();
-		this->CheckCreateNumberBlock();
-		this->CreateNumberBlock();
-		this->SetPressKeyState(PressKey::None);
-	}
-		break;
-	case Left:
-	{
-		this->MoveUp();
-		this->SubtractTenThousand();
-		this->SumNumberBlocks();
-		this->CheckCreateNumberBlock();
-		this->CreateNumberBlock();
-		this->SetPressKeyState(PressKey::None);
-	}
-		break;
-	case Right:
-	{
-		this->MoveDown();
-		this->SubtractTenThousand();
-		this->SumNumberBlocks();
-		this->CheckCreateNumberBlock();
-		this->CreateNumberBlock();
-		this->SetPressKeyState(PressKey::None);
+		for (int i = 0; i < 16; i++)
+		{
+			NumberBlockActor* numberBlock = new NumberBlockActor();
+			numberBlock->Init();
+			numberBlock->SetPos(Vector2(-200 + (i / 4) * 100, -200 + (i % 4) * 100));
+			numberBlock->SetNumber(_numberBlocks[i]->GetNumber());
+			_tempNumberBlocks.push_back(numberBlock);
+			CurrentScene->SpawnActor(_tempNumberBlocks.back());
+		}
+
+		for (NumberBlockActor* _tempNumberBlock : _tempNumberBlocks)
+		{
+			if (_state == PK_DOWN)
+			{
+				_tempNumberBlock->ChangeDirectionState(NumberBlockDirState::Down);
+			}
+			else if (_state == PK_UP)
+			{
+				_tempNumberBlock->ChangeDirectionState(NumberBlockDirState::Up);
+			}
+			else if (_state == PK_LEFT)
+			{
+				_tempNumberBlock->ChangeDirectionState(NumberBlockDirState::Left);
+			}
+			else if (_state == PK_RIGHT)
+			{
+				_tempNumberBlock->ChangeDirectionState(NumberBlockDirState::Right);
+			}
+		}
+		
 	}
 		break;
 	default:
 		break;
 	}
+}
+
+void Game2048Controller::SetPressKeyState(PressKey state)
+{
+	_state = state;
+	//SetGame2048State(GS_ANIMATION);
+	switch (state)
+	{
+	case PK_DOWN: 
+	{
+		this->MoveRight();
+
+	}
+		break;
+	case PK_UP:
+	{
+		this->MoveLeft();
+
+	}
+		break;
+	case PK_LEFT:
+	{
+		this->MoveUp();
+	
+	}
+		break;
+	case PK_RIGHT:
+	{
+		this->MoveDown();
+	}
+		break;
+	default:
+		break;
+	}
+	this->SubtractTenThousand();
+	this->SumNumberBlocks();
+	this->CheckCreateNumberBlock();
+	this->CreateNumberBlock();
 }
 
 void Game2048Controller::MoveDown()

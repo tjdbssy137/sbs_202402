@@ -5,10 +5,10 @@ class Flipbook;
 
 enum eCreatureDirection
 {
-	Down,
-	Up,
-	Left,
-	Right,
+	PK_DOWN,
+	PK_UP,
+	PK_LEFT,
+	PK_RIGHT,
 
 	End
 };
@@ -51,7 +51,7 @@ public:
 private:
 	CreatureState _state = CreatureState::Idle;
 
-	eCreatureDirection _dir = eCreatureDirection::Down;
+	eCreatureDirection _dir = eCreatureDirection::PK_DOWN;
 	Flipbook* _idleFlipbook[eCreatureDirection::End] = {};
 	Flipbook* _attackFlipbook[eCreatureDirection::End] = {};
 	Flipbook* _moveFlipbook[eCreatureDirection::End] = {};
