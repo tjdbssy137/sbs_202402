@@ -20,8 +20,7 @@ void Game2048Controller::Update()
 		if (Input->GetKeyDown(KeyCode::Down))
 		{
 			//numberBlock->ChangeDirectionState(NumberBlockDirState::Down);
-			// 네 칸이 모두 같은 숫자면 삭제 됨.
-			// 초반 [3][2] 좌표에 있는 2가 제대로 안 움직이는 문제.
+			// 한 줄(4개)이 모두 같은 숫자면 합쳐지지 않고 전부 삭제 됨. -> 왤까..
 			this->SetPressKeyState(PressKey::Down);
 		}
 		else if (Input->GetKeyDown(KeyCode::Up))
@@ -341,4 +340,16 @@ void Game2048Controller::CheckCreateNumberBlock()
 		_checkCreateNumberBlock = true;
 	}
 
+}
+
+int** Game2048Controller::ReverseArray(int inputArray[][4], int rows)
+{
+	int** temp = new int* [rows];
+	for (int i = 0; i < rows; i++) {
+		temp[i] = new int[4];
+		for (int j = 0; j < 4; j++) {
+			temp[i][j] = inputArray[j][i];
+		}
+	}
+	return temp;
 }

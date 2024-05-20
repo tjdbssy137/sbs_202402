@@ -56,6 +56,8 @@ void CircleCollider::Release()
 
 bool CircleCollider::CheckCollision(Collider* other)
 {
+	if (Super::CheckCollision(other) == false) return false;
+
 	switch (other->GetColliderType())
 	{
 	case ColliderType::Circle:

@@ -11,9 +11,12 @@ void Scene::Init()
 }
 void Scene::Render(HDC hdc) 
 {
-	for(Actor* actor : _actors)
+	for (const vector<Actor*> actors : _actors)
 	{
-		actor->Render(hdc);
+		for (Actor* actor : actors)
+		{
+			actor->Render(hdc);
+		}
 	}
 	for (UI* ui : _uis)
 	{
@@ -22,9 +25,12 @@ void Scene::Render(HDC hdc)
 }
 void Scene::Update()
 {
-	for (Actor* actor : _actors)
+	for (const vector<Actor*> actors : _actors)
 	{
-		actor->Update();
+		for (Actor* actor : actors)
+		{
+			actor->Update();
+		}
 	}
 	for (UI* ui : _uis)
 	{
@@ -33,12 +39,15 @@ void Scene::Update()
 }
 void Scene::Release()
 {
-	for (Actor* actor : _actors)
+	for (vector<Actor*>& actors : _actors)
 	{
-		actor->Release();
-		SAFE_DELETE(actor);
+		for (Actor* actor : actors)
+		{
+			actor->Release();
+			SAFE_DELETE(actor);
+		}
+		actors.clear();
 	}
-	_actors.clear();
 
 	for (UI* ui : _uis)
 	{
@@ -54,19 +63,21 @@ void Scene::SpawnActor(Actor* actor)
 {
 	if (actor == nullptr) return;
 	//actor->Init();
-	_actors.push_back(actor);
-
+	_actors[actor->GetLayerInt()].push_back(actor);
+	//actor의 레이어가 object면 object로 들어갈 거고, background면 background로 들어가게 끔
 }
 void Scene::DespawnActor(Actor* actor)
 {
 	if (actor == nullptr) return;
 	//삭제할 객체 찾기
-	auto findIt = find(_actors.begin(), _actors.end(), actor);
-	if (findIt != _actors.end())
+	vector<Actor*>& actors = _actors[actor->GetLayerInt()];// 지우는 것엔 &를 붙여주어야 함
+	
+	auto findIt = find(actors.begin(), actors.end(), actor);
+	if (findIt != actors.end())
 	{
 		(*findIt)->Release();
 		Actor* deleteActor = (*findIt);
 		SAFE_DELETE(deleteActor);
-		_actors.erase(findIt);
+		actors.erase(findIt);
 	}
 }

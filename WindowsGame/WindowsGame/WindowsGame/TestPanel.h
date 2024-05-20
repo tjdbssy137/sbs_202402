@@ -8,5 +8,7 @@ public:
 	virtual void Render(HDC hdc);
 	virtual void Update();
 	virtual void Release();
+public:
+	void OnClick_GoToDev1Scene();
 };
 

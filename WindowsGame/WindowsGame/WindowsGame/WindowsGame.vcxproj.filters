@@ -430,6 +430,9 @@
     <ClCompile Include="Day33.cpp">
       <Filter>999.Comments</Filter>
     </ClCompile>
+    <ClCompile Include="Day34.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Day16.cpp">

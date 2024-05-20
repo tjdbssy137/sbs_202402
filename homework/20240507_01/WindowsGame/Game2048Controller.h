@@ -36,8 +36,16 @@ public:
 	void NumberBlockToZero();
 
 	void SetPressKeyState(PressKey state);
-	// 배열의 가로 세로를 전환시켜주는 게 필요
+	// 배열의 가로 세로를 <임시>전환시켜주는 게 필요
 
+	int** ReverseArray(int inputArr[][4], int rows);
+
+
+	// 연출 중인지, 게임 중인지를 체크
+	// 연출 중이라면 키 버튼 안 눌림.
+	// 연출시에 껍데기를 만들어서 이동.
+	// 이동이 다 되었다면 껍데기 삭제
+	// 게임 재개
 private:
 	vector<NumberBlockActor*> _numberBlocks;
 	int _blocksInfo[4][4] = {};

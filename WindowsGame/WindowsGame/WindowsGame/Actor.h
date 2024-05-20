@@ -7,7 +7,9 @@ protected:
 	CenterRect _body = {};
 	string _name;
 	vector<Component*> _components;
+
 	bool _isEnable = true;
+	LayerType _layer = LayerType::Object;
 public:
 	//Getter, Setter
 	CenterRect GetBody() { return _body; }
@@ -27,6 +29,10 @@ public:
 
 	bool GetEnable() { return _isEnable; }
 	void SetEnable(bool isEnable) { _isEnable = isEnable; }
+
+	LayerType GetLayer() { return _layer; }
+	void SetLayer(LayerType layer) { _layer = layer; }
+	int GetLayerInt() { return static_cast<int>(_layer); }
 
 public:
 	//Unity
