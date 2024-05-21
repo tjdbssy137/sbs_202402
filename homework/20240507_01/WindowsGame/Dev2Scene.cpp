@@ -8,6 +8,7 @@ void Dev2Scene::Init()
 {
 	Super::Init();
 	RoadResource();
+	
 	for (int i = 0; i < 4; i++)//INSTINATE_MAX
 	{
 		for (int j = 0; j < 4; j++)
@@ -19,7 +20,16 @@ void Dev2Scene::Init()
 			SpawnActor(_numberBlocks.back());
 		}
 	}
-
+	/*
+	for (int j = 0; j < 2; j++)
+	{
+		NumberBlockActor* numberBlock = new NumberBlockActor();
+		numberBlock->Init();
+		numberBlock->SetPos(Vector2(-200 + j * 100, -200));
+		_blockTest.push_back(numberBlock);
+		SpawnActor(_blockTest.back());
+	}
+	*/
 	{
 		_game2048Controller = new Game2048Controller();
 		_game2048Controller->Init(_numberBlocks);
@@ -34,6 +44,28 @@ void Dev2Scene::Update()
 {
 	Super::Update();
 	_game2048Controller->Update();
+	/*
+	if (Input->GetKeyDown(KeyCode::Down))
+	{
+		_blockTest[0]->ChangeDirectionState(NumberBlockDirState::Down);
+		_blockTest[1]->ChangeDirectionState(NumberBlockDirState::Down);
+	}
+	else if (Input->GetKeyDown(KeyCode::Up))
+	{
+		_blockTest[0]->ChangeDirectionState(NumberBlockDirState::Up);
+		_blockTest[1]->ChangeDirectionState(NumberBlockDirState::Up);
+	}
+	else if (Input->GetKeyDown(KeyCode::Left))
+	{
+		_blockTest[0]->ChangeDirectionState(NumberBlockDirState::Left);
+		_blockTest[1]->ChangeDirectionState(NumberBlockDirState::Left);
+	}
+	else if (Input->GetKeyDown(KeyCode::Right))
+	{
+		_blockTest[0]->ChangeDirectionState(NumberBlockDirState::Right);
+		_blockTest[1]->ChangeDirectionState(NumberBlockDirState::Right);
+	}
+	*/
 }
 void Dev2Scene::Release()
 {

@@ -36,7 +36,6 @@ void CameraComponent::Update()
 		Vector2 startPos = CurrentScene->GetCameraPos();
 		Vector2 endPos = owner->GetPos();
 
-
 		// 둘의 위치가 같다
 		if (false == ((_endPos - endPos).Length() <= EPSILON))
 		{

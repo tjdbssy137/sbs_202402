@@ -32,6 +32,9 @@ private:
 	int _number = 0;
 	NumberBlockDirState _directionState = NumberBlockDirState::None;
 	Vector2 _direction = Vector2::Zero();
-	float _speed = 0;
+
+	Vector2 _startPos = Vector2::Zero();
+	float _sumTime = 0;
+	float _speed = 10;
 };
 

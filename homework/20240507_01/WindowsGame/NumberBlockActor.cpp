@@ -5,19 +5,17 @@ void NumberBlockActor::Init()
 {
 	Super::Init();
 	this->SetName("NumberBlock");
-	this->SetSprite(nullptr);
-
-	_speed = 300;
+	this->SetSprite(nullptr);//Resource->GetSprite(L"S_Number_2")
+	_speed = 10;
 }
 void NumberBlockActor::Render(HDC hdc)
 {
 	Super::Render(hdc);
-
 }
 void NumberBlockActor::Update()
 {
 	Super::Update();
-	//this->SlideActor();
+	this->SlideActor();
 }
 void NumberBlockActor::Release()
 {
@@ -26,31 +24,40 @@ void NumberBlockActor::Release()
 
 void NumberBlockActor::SlideActor()
 {
-	this->SetPos(GetPos() + _direction * _speed * Time->GetDeltaTime());
-	
-	//´Ù¸¥ block°ú ´êÀ¸¸é ¸ØÃã
+	if (_directionState == NumberBlockDirState::Down) //down
+	{
+		Vector2 endPos = Vector2(_startPos.x, _startPos.y + 100);
+		_sumTime += Time->GetDeltaTime() * _speed;
+		float clampSumTime = clamp<float>(_sumTime, 0.0f, 1.0f);
+		Vector2 newBlockPos = Vector2::Lerp(_startPos, endPos, clampSumTime);
+		this->SetPos(newBlockPos);
+	}
+	else if (_directionState == NumberBlockDirState::Up) //up
+	{
+		Vector2 endPos = Vector2(_startPos.x, _startPos.y - 100);
 
-	//³¡¿¡ ´êÀ¸¸é ¸ØÃã
-	if (this->GetPos().x <= -201)
-	{
-		this->SetPos(Vector2(-200, this->GetPos().y));
-		this->ChangeDirectionState(NumberBlockDirState::None);
+		_sumTime += Time->GetDeltaTime() * _speed;
+		float clampSumTime = clamp<float>(_sumTime, 0.0f, 1.0f);
+		Vector2 newBlockPos = Vector2::Lerp(_startPos, endPos, clampSumTime);
+		this->SetPos(newBlockPos);
 	}
-	else if (101 <= this->GetPos().x)
+	else if ( _directionState == NumberBlockDirState::Left) //left
 	{
-		this->SetPos(Vector2(100, this->GetPos().y));
-		this->ChangeDirectionState(NumberBlockDirState::None);
-	}
+		Vector2 endPos = Vector2(_startPos.x - 100, _startPos.y);
 
-	if (this->GetPos().y <= -201)
-	{
-		this->SetPos(Vector2(this->GetPos().x, -200));
-		this->ChangeDirectionState(NumberBlockDirState::None);
+		_sumTime += Time->GetDeltaTime() * _speed;
+		float clampSumTime = clamp<float>(_sumTime, 0.0f, 1.0f);
+		Vector2 newBlockPos = Vector2::Lerp(_startPos, endPos, clampSumTime);
+		this->SetPos(newBlockPos);
 	}
-	else if (101 <= this->GetPos().y)
+	else if (_directionState == NumberBlockDirState::Right) //right
 	{
-		this->SetPos(Vector2(this->GetPos().x, 100));
-		this->ChangeDirectionState(NumberBlockDirState::None);
+		Vector2 endPos = Vector2(_startPos.x + 100, _startPos.y);
+		
+		_sumTime += Time->GetDeltaTime() * _speed;
+		float clampSumTime = clamp<float>(_sumTime, 0.0f, 1.0f);
+		Vector2 newBlockPos = Vector2::Lerp(_startPos, endPos, clampSumTime);
+		this->SetPos(newBlockPos);
 	}
 }
 
@@ -99,6 +106,9 @@ void NumberBlockActor::ChangeImage(int sum)
 
 void NumberBlockActor::ChangeDirectionState(NumberBlockDirState directionState)
 {
+	_startPos = this->GetPos();
+	_sumTime = 0.0f;
+	_directionState = directionState;
 	switch (directionState)
 	{
 	case NumberBlockDirState::Down:

@@ -7,7 +7,6 @@
 void Game2048Controller::Init(vector<NumberBlockActor*> numberBlocks)
 {
 	_numberBlocks = numberBlocks;
-	_time = 0.6f;
 	//위치 초기화
 	NumberBlockToZero();
 	InitIsFull();
@@ -22,6 +21,7 @@ void Game2048Controller::Update()
 		{
 			//numberBlock->ChangeDirectionState(NumberBlockDirState::Down);
 			// 한 줄(4개)이 모두 같은 숫자면 합쳐지지 않고 전부 삭제 됨. -> 왤까..
+			// 2번 키를 누를 때 동안 안 보임.
 			this->SetPressKeyState(PressKey::PK_DOWN);
 		}
 		else if (Input->GetKeyDown(KeyCode::Up))
@@ -47,6 +47,9 @@ void Game2048Controller::Update()
 		if (_time <= 0)
 		{
 			this->SetGame2048State(GS_RELEASE);
+			this->SumNumberBlocks();
+			this->CheckCreateNumberBlock();
+			this->CreateNumberBlock();
 		}
 	}
 }
@@ -84,41 +87,38 @@ void Game2048Controller::SetGame2048State(Game2048State gameState)
 	{
 	case GS_RELEASE:
 	{
-		for (NumberBlockActor* _tempNumberBlock : _tempNumberBlocks)
+		if (0 < _tempNumberBlocks.size())
 		{
-			CurrentScene->DespawnActor(_tempNumberBlock);
+			for (NumberBlockActor* _tempNumberBlock : _tempNumberBlocks)
+			{
+				CurrentScene->DespawnActor(_tempNumberBlock);
+			}
 		}
 	}
 		break;
 	case GS_ANIMATION:
 	{
+		_time = RELEASE_TIME;
+		//잠시 원본 블럭을 지움
+		for (NumberBlockActor* _numberBlock : _numberBlocks)
+		{
+			_numberBlock->ChangeImage(0);
+		}
+		
+		//임시 애니메이션 블럭 생성 및 이동
 		for (int i = 0; i < 16; i++)
 		{
-			NumberBlockActor* numberBlock = new NumberBlockActor();
-			numberBlock->Init();
-			numberBlock->SetPos(Vector2(-200 + (i / 4) * 100, -200 + (i % 4) * 100));
-			numberBlock->SetNumber(_numberBlocks[i]->GetNumber());
-			_tempNumberBlocks.push_back(numberBlock);
-			CurrentScene->SpawnActor(_tempNumberBlocks.back());
-		}
-
-		for (NumberBlockActor* _tempNumberBlock : _tempNumberBlocks)
-		{
-			if (_state == PK_DOWN)
+			if (_blocksInfo[i / 4][i % 4] != 0)
 			{
-				_tempNumberBlock->ChangeDirectionState(NumberBlockDirState::Down);
-			}
-			else if (_state == PK_UP)
-			{
-				_tempNumberBlock->ChangeDirectionState(NumberBlockDirState::Up);
-			}
-			else if (_state == PK_LEFT)
-			{
-				_tempNumberBlock->ChangeDirectionState(NumberBlockDirState::Left);
-			}
-			else if (_state == PK_RIGHT)
-			{
-				_tempNumberBlock->ChangeDirectionState(NumberBlockDirState::Right);
+				int posX = (i / 4) * 100 - 200;
+				int posY = (i % 4) * 100 - 200;
+				NumberBlockActor* numberBlock = new NumberBlockActor();
+				numberBlock->Init();
+				numberBlock->SetPos(Vector2(posX, posY));
+				numberBlock->ChangeImage(_blocksInfo[i / 4][i % 4]);
+				_tempNumberBlocks.push_back(numberBlock);
+				CurrentScene->SpawnActor(_tempNumberBlocks.back());
+				// 이동만 구현하면 됨
 			}
 		}
 		
@@ -132,25 +132,22 @@ void Game2048Controller::SetGame2048State(Game2048State gameState)
 void Game2048Controller::SetPressKeyState(PressKey state)
 {
 	_state = state;
-	//SetGame2048State(GS_ANIMATION);
+	this->SetGame2048State(GS_ANIMATION);
 	switch (state)
 	{
 	case PK_DOWN: 
 	{
 		this->MoveRight();
-
 	}
 		break;
 	case PK_UP:
 	{
 		this->MoveLeft();
-
 	}
 		break;
 	case PK_LEFT:
 	{
 		this->MoveUp();
-	
 	}
 		break;
 	case PK_RIGHT:
@@ -161,10 +158,8 @@ void Game2048Controller::SetPressKeyState(PressKey state)
 	default:
 		break;
 	}
+	cout << "SetPressKeyState" << endl;
 	this->SubtractTenThousand();
-	this->SumNumberBlocks();
-	this->CheckCreateNumberBlock();
-	this->CreateNumberBlock();
 }
 
 void Game2048Controller::MoveDown()
@@ -198,16 +193,6 @@ void Game2048Controller::MoveDown()
 				_blocksInfo[i][j] += _blocksInfo[i - 1][j];
 				_blocksInfo[i][j] += 10000;
 				_blocksInfo[i - 1][j] = 0;
-				/*
-				for (int k = i; 0 < k; k--)
-				{
-					if (_blocksInfo[k - 1][j] == 0)
-					{
-						_blocksInfo[k][j] = _blocksInfo[k - 1][j];
-						_blocksInfo[k - 1][j] = 0;
-					}
-				}
-				*/
 			}
 		}
 	}

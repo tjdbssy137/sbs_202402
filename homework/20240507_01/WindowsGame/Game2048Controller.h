@@ -1,4 +1,5 @@
 #pragma once
+#define RELEASE_TIME 0.5f
 class NumberBlockActor;
 
 enum PressKey
@@ -54,8 +55,10 @@ public:
 	// 연출시에 껍데기를 만들어서 이동.
 	// 이동이 다 되었다면 껍데기 삭제
 	// 게임 재개
-
-	// 이동하는 거 뿐만 아니라 각자 이동하는 한계가 있음..
+	
+	// 좌표를 보내주고 좌표 찍은대로 이동.
+	// 이동후 잠시 삭제 됐다가
+	// 합쳐진 숫자로 생성
 private:
 	vector<NumberBlockActor*> _numberBlocks;
 	vector<NumberBlockActor*> _tempNumberBlocks;

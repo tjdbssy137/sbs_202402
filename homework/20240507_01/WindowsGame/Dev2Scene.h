@@ -16,6 +16,7 @@ public:
 	void RoadResource();
 private:
 	vector<NumberBlockActor*> _numberBlocks;
+	vector<NumberBlockActor*> _blockTest;
 	Game2048Controller* _game2048Controller = nullptr;
 };
 
