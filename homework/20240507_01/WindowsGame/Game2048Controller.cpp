@@ -194,15 +194,17 @@ void Game2048Controller::MoveDown()
 						{
 							_blocksInfo[k][j] = _blocksInfo[k - 1][j];
 							_blocksInfo[k - 1][j] = 0;
-							_tempNumberBlocks[k / 4 + j % 4]->AddMoveCount();
-							//SetMoveCount();
+							_tempNumberBlocks[(i * 4 + j % 4) - 4]->AddMoveCount();//이동하는 값을 추적해봐야겠음
+							// 이동 후에 저 블록을 책임져주는 코드가 없음...
+							// 좌표제이기 때문..
+							// 한칸 이동할 때마다 좌표와 이미지 매치를 바로바로 해줄거 아니면 이거 좀 문제가 있음
 						}
 						else if(_blocksInfo[k][j] == _blocksInfo[k - 1][j])
 						{
 							_blocksInfo[k][j] += _blocksInfo[k - 1][j];
 							_blocksInfo[k][j] += 10000;
 							_blocksInfo[k - 1][j] = 0;
-							_tempNumberBlocks[k / 4 + j % 4]->AddMoveCount();
+							_tempNumberBlocks[(i * 4 + j % 4) - 4]->AddMoveCount();
 						}
 					}
 				}
@@ -212,7 +214,7 @@ void Game2048Controller::MoveDown()
 				_blocksInfo[i][j] += _blocksInfo[i - 1][j];
 				_blocksInfo[i][j] += 10000;
 				_blocksInfo[i - 1][j] = 0;
-				_tempNumberBlocks[i / 4 + j % 4]->AddMoveCount();
+				_tempNumberBlocks[(i * 4 + j % 4) - 4]->AddMoveCount();
 			}
 		}
 	}
@@ -233,14 +235,14 @@ void Game2048Controller::MoveUp()
 						{
 							_blocksInfo[k][j] = _blocksInfo[k + 1][j];
 							_blocksInfo[k + 1][j] = 0;
-							_tempNumberBlocks[k / 4 + j % 4]->AddMoveCount();
+							_tempNumberBlocks[(i * 4 + j % 4) + 4]->AddMoveCount();
 						}
 						else if (_blocksInfo[k][j] == _blocksInfo[k + 1][j])
 						{
 							_blocksInfo[k][j] += _blocksInfo[k + 1][j];
 							_blocksInfo[k][j] += 10000;
 							_blocksInfo[k + 1][j] = 0;
-							_tempNumberBlocks[k / 4 + j % 4]->AddMoveCount();
+							_tempNumberBlocks[(i * 4 + j % 4) + 4]->AddMoveCount();
 						}
 					}
 				}
@@ -250,7 +252,7 @@ void Game2048Controller::MoveUp()
 				_blocksInfo[i][j] += _blocksInfo[i + 1][j];
 				_blocksInfo[i][j] += 10000;
 				_blocksInfo[i + 1][j] = 0;
-				_tempNumberBlocks[i / 4 + j % 4]->AddMoveCount();
+				_tempNumberBlocks[(i * 4 + j % 4) + 4]->AddMoveCount();
 			}
 		}
 	}
@@ -271,14 +273,14 @@ void Game2048Controller::MoveLeft()
 						{
 							_blocksInfo[i][k] = _blocksInfo[i][k + 1];
 							_blocksInfo[i][k + 1] = 0;
-							_tempNumberBlocks[k / 4 + j % 4]->AddMoveCount();
+							_tempNumberBlocks[(i * 4 + j % 4) + 1]->AddMoveCount();
 						}
 						else if (_blocksInfo[i][k] == _blocksInfo[i][k + 1])
 						{
 							_blocksInfo[i][k] += _blocksInfo[i][k + 1];
 							_blocksInfo[i][k] += 10000;
 							_blocksInfo[i][k + 1] = 0;
-							_tempNumberBlocks[k / 4 + j % 4]->AddMoveCount();
+							_tempNumberBlocks[(i * 4 + j % 4) + 1]->AddMoveCount();
 						}
 					}
 				}
@@ -288,7 +290,7 @@ void Game2048Controller::MoveLeft()
 				_blocksInfo[i][j] += _blocksInfo[i][j + 1];
 				_blocksInfo[i][j] += 10000;
 				_blocksInfo[i][j + 1] = 0;
-				_tempNumberBlocks[i / 4 + j % 4]->AddMoveCount();
+				_tempNumberBlocks[(i * 4 + j % 4) + 1]->AddMoveCount();
 			}
 		}
 	}
@@ -309,14 +311,14 @@ void Game2048Controller::MoveRight()
 						{
 							_blocksInfo[i][k] = _blocksInfo[i][k - 1];
 							_blocksInfo[i][k - 1] = 0;
-							_tempNumberBlocks[k / 4 + j % 4]->AddMoveCount();
+							_tempNumberBlocks[(i * 4 + j % 4) - 1]->AddMoveCount();
 						}
 						else if (_blocksInfo[i][k] == _blocksInfo[i][k - 1])
 						{
 							_blocksInfo[i][k] += _blocksInfo[i][k - 1];
 							_blocksInfo[i][k] += 10000;
 							_blocksInfo[i][k - 1] = 0;
-							_tempNumberBlocks[k / 4 + j % 4]->AddMoveCount();
+							_tempNumberBlocks[(i * 4 + j % 4) - 1]->AddMoveCount();
 						}
 					}
 				}
@@ -326,7 +328,7 @@ void Game2048Controller::MoveRight()
 				_blocksInfo[i][j] += _blocksInfo[i][j - 1];
 				_blocksInfo[i][j] += 10000;
 				_blocksInfo[i][j - 1] = 0;
-				_tempNumberBlocks[i / 4 + j % 4]->AddMoveCount();
+				_tempNumberBlocks[(i * 4 + j % 4) - 1]->AddMoveCount();
 			}
 		}
 	}

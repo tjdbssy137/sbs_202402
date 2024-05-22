@@ -202,6 +202,8 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestPanel.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Tilemap.h" />
+    <ClInclude Include="TilemapActor.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="UI.h" />
@@ -281,7 +283,12 @@
     <ClCompile Include="Day33.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Day34.cpp" />
+    <ClCompile Include="Day34.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Day35.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Dev1Scene.cpp" />
     <ClCompile Include="Dev2Scene.cpp" />
     <ClInclude Include="Enums.h" />
@@ -317,6 +324,8 @@
     <ClCompile Include="SpriteActor.cpp" />
     <ClCompile Include="TestPanel.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Tilemap.cpp" />
+    <ClCompile Include="TilemapActor.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UserCharacterController.cpp" />

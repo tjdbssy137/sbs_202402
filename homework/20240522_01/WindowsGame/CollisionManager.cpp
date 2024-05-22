@@ -12,7 +12,7 @@ void CollisionManager::Update()
 {
 	// 실질적인 충돌체크 처리
 	// 모든 Collider을 한번씩 비교. (CheckCollision함수 사용)
-	//충돌되었으면
+	// 충돌되었으면
 	//		충돌 Map 안에 없으면
 	//			충돌 Map에 넣어준다
 	//			충돌되었다고 Actor에게 알림.

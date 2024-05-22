@@ -50,6 +50,8 @@ void BoxCollider::Release()
 
 bool BoxCollider::CheckCollision(Collider* other)
 {
+	if (Super::CheckCollision(other) == false) return false;//부모의 CheckCollision을 가서 CheckCollision을 해도 되는 지 확인
+
 	switch (other->GetColliderType())
 	{
 	case ColliderType::Circle:

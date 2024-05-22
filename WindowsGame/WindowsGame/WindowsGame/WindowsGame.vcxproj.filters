@@ -220,6 +220,12 @@
     <ClInclude Include="Button.h">
       <Filter>06.UI</Filter>
     </ClInclude>
+    <ClInclude Include="TilemapActor.h">
+      <Filter>03.Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tilemap.h">
+      <Filter>05. Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -432,6 +438,15 @@
     </ClCompile>
     <ClCompile Include="Day34.cpp">
       <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Day35.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapActor.cpp">
+      <Filter>03.Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Tilemap.cpp">
+      <Filter>05. Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

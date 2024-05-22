@@ -33,7 +33,6 @@ void NumberBlockActor::SlideActor()
 		float clampSumTime = clamp<float>(_sumTime, 0.0f, 1.0f);
 		Vector2 newBlockPos = Vector2::Lerp(_startPos, endPos, clampSumTime);
 		this->SetPos(newBlockPos);
-		//_moveCount초기화필요, 근데 하면 아예 안됨
 	}
 	else if (_directionState == NumberBlockDirState::Up) //up
 	{

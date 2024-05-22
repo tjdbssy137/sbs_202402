@@ -5,6 +5,7 @@
 #include "Sprite.h"
 #include "Flipbook.h"
 #include "Sound.h"
+#include "Tilemap.h"
 void ResourceManager::Init()
 {
 	_resources.clear();
@@ -109,4 +110,22 @@ Sound* ResourceManager::GetSound(const wstring& key)
 #else
 	return nullptr;
 #endif
+}
+
+Tilemap* ResourceManager::GetTilemap(const wstring& key)
+{
+	return dynamic_cast<Tilemap*>(_resources[key]);
+
+}
+Tilemap* ResourceManager::LoadTilemap(const wstring& key, const wstring& path)
+{
+	if (_resources.contains(key))
+	{
+		return GetTilemap(key);
+	}
+	Tilemap* tilemap = new Tilemap();
+	tilemap->LoadFile(path);
+	_resources[key] = tilemap;
+
+	return tilemap;
 }

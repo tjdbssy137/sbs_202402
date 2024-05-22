@@ -75,6 +75,6 @@ private:
 	// 애니메이션 횟수
 	
 private:
-	float _time = 0;
+	float _time = 1;
 };
 

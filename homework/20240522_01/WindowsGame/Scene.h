@@ -3,9 +3,9 @@ class Actor; // 전방선언
 class UI;
 class Scene
 {
-
 protected:
-	vector<Actor*> _actors;
+	//_acotrs[LayerType::Background] => vector<Actor*>
+	vector<Actor*> _actors[static_cast<int>(LayerType::End)];
 
 	Vector2 _cameraPosition = {};
 

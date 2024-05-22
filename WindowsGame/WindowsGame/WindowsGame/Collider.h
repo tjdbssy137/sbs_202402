@@ -32,7 +32,7 @@ public: // Layer üũ
 	void ResetCollisionFlag() { _collisionFlag = 0; }
 
 	CollisionLayerType GetCollisionLayer() { return _collisionLayer; }
-	void SetCollisonLayer(CollisionLayerType collisionLayer) { _collisionLayer = collisionLayer; }
+	void SetCollisionLayer(CollisionLayerType collisionLayer) { _collisionLayer = collisionLayer; }
 public:
 	Collider(ColliderType colliderType) { _colliderType = colliderType; }
 	virtual ~Collider() {}

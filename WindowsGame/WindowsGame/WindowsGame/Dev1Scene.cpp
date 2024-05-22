@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Dev1Scene.h"
 #include "BoxCollider.h"
+#include "CircleCollider.h"
 #include "CreatureActor.h"
 #include "MonsterActor.h"
 #include "UserCharacterController.h"
@@ -8,6 +9,7 @@
 #include "CameraComponent.h"
 #include "SpriteActor.h"
 #include "Sprite.h"
+#include "TilemapActor.h"
 
 void Dev1Scene::Init()
 {
@@ -37,7 +39,15 @@ void Dev1Scene::Init()
 			component->Init();
 			_creature->AddComponent(component);
 		}
-
+		{
+			CircleCollider* component = new CircleCollider();
+			component->SetCollision(Vector2::Zero(), 25);
+			component->Init();
+			component->SetCollisionLayer(CollisionLayerType::CLT_CREATURE);
+			component->ResetCollisionFlag();
+			component->AddCollisionFlagLayer(CollisionLayerType::CLT_ITEM);
+			_creature->AddComponent(component);
+		}
 		_creature->Init();
 		_creature->SetFlipbook(Resource->GetFlipbook(L"FB_CharacterDown_Idle"));
 
@@ -45,14 +55,45 @@ void Dev1Scene::Init()
 	}
 	{
 		_monster = new MonsterActor();
-		_monster->SetPos(Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2 - 60));
 		_monster->SetName("Monster");
-		
-		_monster->Init();
+		{
+			BoxCollider* component = new BoxCollider();
+			component->SetCollision(Shape::MakeCenterRect(0, 0, 30, 30));
+			component->Init();
+			component->SetCollisionLayer(CollisionLayerType::CLT_ITEM);
+			component->ResetCollisionFlag();
+			component->AddCollisionFlagLayer(CollisionLayerType::CLT_CREATURE);
+			_monster->AddComponent(component);
+		}
 		_monster->SetFlipbook(Resource->GetFlipbook(L"FB_Monster_Down_Idle"));
-
+		_monster->SetPos(Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2 - 60));
+		_monster->Init();
 		SpawnActor(_monster);
 	}
+
+	{
+		_monster = new MonsterActor();
+		_monster->SetName("Monster2");
+		{//수업 다시 참고하기.. 모르겠음
+			CircleCollider* component = new CircleCollider();
+			component->SetCollision(Vector2::Zero(), 25);
+			component->Init();
+			component->SetCollisionLayer(CollisionLayerType::CLT_DEFAULT);
+			component->ResetCollisionFlag();
+			_monster->AddComponent(component);
+		}
+		_monster->SetFlipbook(Resource->GetFlipbook(L"FB_Monster_Down_Idle"));
+		_monster->SetPos(Vector2(WIN_SIZE_X / 2 + 100, WIN_SIZE_Y / 2 - 60));
+		_monster->Init();
+		SpawnActor(_monster);
+	}
+
+	{
+		TilemapActor* actor = new TilemapActor();
+		actor->Init();
+		this->SpawnActor(actor);
+	}
+
 	/*
 	{
 		_userCharacterController = new UserCharacterController();
