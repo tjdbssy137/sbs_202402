@@ -7,6 +7,7 @@ void NumberBlockActor::Init()
 	this->SetName("NumberBlock");
 	this->SetSprite(nullptr);//Resource->GetSprite(L"S_Number_2")
 	_speed = 10;
+	_moveCount = 0;
 }
 void NumberBlockActor::Render(HDC hdc)
 {
@@ -24,18 +25,19 @@ void NumberBlockActor::Release()
 
 void NumberBlockActor::SlideActor()
 {
+	// 가장자리 일 경우 애니메이션 안 움직이는 거 필요
 	if (_directionState == NumberBlockDirState::Down) //down
 	{
-		Vector2 endPos = Vector2(_startPos.x, _startPos.y + 100);
+		Vector2 endPos = Vector2(_startPos.x, _startPos.y + 100 * GetMoveCount());
 		_sumTime += Time->GetDeltaTime() * _speed;
 		float clampSumTime = clamp<float>(_sumTime, 0.0f, 1.0f);
 		Vector2 newBlockPos = Vector2::Lerp(_startPos, endPos, clampSumTime);
 		this->SetPos(newBlockPos);
+		//_moveCount초기화필요, 근데 하면 아예 안됨
 	}
 	else if (_directionState == NumberBlockDirState::Up) //up
 	{
-		Vector2 endPos = Vector2(_startPos.x, _startPos.y - 100);
-
+		Vector2 endPos = Vector2(_startPos.x, _startPos.y - 100 * GetMoveCount());
 		_sumTime += Time->GetDeltaTime() * _speed;
 		float clampSumTime = clamp<float>(_sumTime, 0.0f, 1.0f);
 		Vector2 newBlockPos = Vector2::Lerp(_startPos, endPos, clampSumTime);
@@ -43,7 +45,7 @@ void NumberBlockActor::SlideActor()
 	}
 	else if ( _directionState == NumberBlockDirState::Left) //left
 	{
-		Vector2 endPos = Vector2(_startPos.x - 100, _startPos.y);
+		Vector2 endPos = Vector2(_startPos.x - 100 * GetMoveCount(), _startPos.y);
 
 		_sumTime += Time->GetDeltaTime() * _speed;
 		float clampSumTime = clamp<float>(_sumTime, 0.0f, 1.0f);
@@ -52,8 +54,7 @@ void NumberBlockActor::SlideActor()
 	}
 	else if (_directionState == NumberBlockDirState::Right) //right
 	{
-		Vector2 endPos = Vector2(_startPos.x + 100, _startPos.y);
-		
+		Vector2 endPos = Vector2(_startPos.x + 100 * GetMoveCount(), _startPos.y);
 		_sumTime += Time->GetDeltaTime() * _speed;
 		float clampSumTime = clamp<float>(_sumTime, 0.0f, 1.0f);
 		Vector2 newBlockPos = Vector2::Lerp(_startPos, endPos, clampSumTime);

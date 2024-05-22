@@ -64,12 +64,16 @@ private:
 	vector<NumberBlockActor*> _tempNumberBlocks;
 	int _blocksInfo[4][4] = {};
 
+	// 새로운 블럭 생성&생성해도 되는지 체크
 	bool _checkCreateNumberBlock = false;
 	bool _isClick = true;
 
+	// 게임 상태
 	PressKey _state = PressKey::PK_END;
 	Game2048State _gameState = Game2048State::GS_RELEASE;
 
+	// 애니메이션 횟수
+	
 private:
 	float _time = 0;
 };

@@ -28,6 +28,10 @@ public:
 	int GetNumber() { return _number; }
 	void SetNumber(int number) { _number = number; }
 
+	int GetMoveCount() { return _moveCount; }
+	void AddMoveCount() { _moveCount++; }
+	void SetMoveCount(int moveCount) { _moveCount = moveCount; }
+
 private:
 	int _number = 0;
 	NumberBlockDirState _directionState = NumberBlockDirState::None;
@@ -36,5 +40,7 @@ private:
 	Vector2 _startPos = Vector2::Zero();
 	float _sumTime = 0;
 	float _speed = 10;
+
+	int _moveCount = 0;
 };
 
