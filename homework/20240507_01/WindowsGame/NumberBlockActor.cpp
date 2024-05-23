@@ -32,6 +32,8 @@ void NumberBlockActor::SlideActor()
 		_sumTime += Time->GetDeltaTime() * _speed;
 		float clampSumTime = clamp<float>(_sumTime, 0.0f, 1.0f);
 		Vector2 newBlockPos = Vector2::Lerp(_startPos, endPos, clampSumTime);
+		newBlockPos.x = clamp<float>(newBlockPos.x, -200, 100);
+		newBlockPos.y = clamp<float>(newBlockPos.y, -200, 100);
 		this->SetPos(newBlockPos);
 	}
 	else if (_directionState == NumberBlockDirState::Up) //up
@@ -40,6 +42,8 @@ void NumberBlockActor::SlideActor()
 		_sumTime += Time->GetDeltaTime() * _speed;
 		float clampSumTime = clamp<float>(_sumTime, 0.0f, 1.0f);
 		Vector2 newBlockPos = Vector2::Lerp(_startPos, endPos, clampSumTime);
+		newBlockPos.x = clamp<float>(newBlockPos.x, -200, 100);
+		newBlockPos.y = clamp<float>(newBlockPos.y, -200, 100); 
 		this->SetPos(newBlockPos);
 	}
 	else if ( _directionState == NumberBlockDirState::Left) //left
@@ -49,6 +53,8 @@ void NumberBlockActor::SlideActor()
 		_sumTime += Time->GetDeltaTime() * _speed;
 		float clampSumTime = clamp<float>(_sumTime, 0.0f, 1.0f);
 		Vector2 newBlockPos = Vector2::Lerp(_startPos, endPos, clampSumTime);
+		newBlockPos.x = clamp<float>(newBlockPos.x, -200, 100);
+		newBlockPos.y = clamp<float>(newBlockPos.y, -200, 100);
 		this->SetPos(newBlockPos);
 	}
 	else if (_directionState == NumberBlockDirState::Right) //right
@@ -57,6 +63,8 @@ void NumberBlockActor::SlideActor()
 		_sumTime += Time->GetDeltaTime() * _speed;
 		float clampSumTime = clamp<float>(_sumTime, 0.0f, 1.0f);
 		Vector2 newBlockPos = Vector2::Lerp(_startPos, endPos, clampSumTime);
+		newBlockPos.x = clamp<float>(newBlockPos.x, -200, 100);
+		newBlockPos.y = clamp<float>(newBlockPos.y, -200, 100);
 		this->SetPos(newBlockPos);
 	}
 }

@@ -10,6 +10,14 @@ void Game2048Controller::Init(vector<NumberBlockActor*> numberBlocks)
 	//위치 초기화
 	NumberBlockToZero();
 	InitIsFull();
+
+	for (int i = 0; i < 16; i++)
+	{
+		NumberBlockActor* tempBlock = new NumberBlockActor();
+		tempBlock->Init();
+		_tempNumberBlocks.push_back(tempBlock);
+		CurrentScene->SpawnActor(_tempNumberBlocks.back());
+	}
 }
 void Game2048Controller::Update()
 {	
@@ -46,10 +54,11 @@ void Game2048Controller::Update()
 		_time -= Time->GetDeltaTime();
 		if (_time <= 0)
 		{
-			this->SetGame2048State(GS_RELEASE);
 			this->SumNumberBlocks();
 			this->CheckCreateNumberBlock();
 			this->CreateNumberBlock();
+			this->SetGame2048State(GS_RELEASE);
+
 		}
 	}
 }
@@ -68,6 +77,17 @@ void Game2048Controller::InitIsFull()
 
 void Game2048Controller::NumberBlockToZero()
 {
+
+	_numberBlocks[3]->SetNumber(4);
+	_numberBlocks[3]->ChangeImage(_numberBlocks[3]->GetNumber());
+	
+	_numberBlocks[11]->SetNumber(4);
+	_numberBlocks[11]->ChangeImage(_numberBlocks[11]->GetNumber());
+	_numberBlocks[13]->SetNumber(4);
+	_numberBlocks[13]->ChangeImage(_numberBlocks[13]->GetNumber());
+	// 처음에는 무조건 잘 됨
+	/*
+
 	for (int i = 0; i < 2; i++)
 	{
 		int random = Random->GetRandomInt(0, 15);
@@ -78,6 +98,7 @@ void Game2048Controller::NumberBlockToZero()
 		_numberBlocks[random]->SetNumber(2);
 		_numberBlocks[random]->ChangeImage(_numberBlocks[random]->GetNumber());
 	}
+	*/
 }
 void Game2048Controller::SetGame2048State(Game2048State gameState)
 {
@@ -87,13 +108,10 @@ void Game2048Controller::SetGame2048State(Game2048State gameState)
 	{
 	case GS_RELEASE:
 	{
-		if (0 < _tempNumberBlocks.size())
+		for (NumberBlockActor* _tempNumberBlock : _tempNumberBlocks)
 		{
-			for (NumberBlockActor* _tempNumberBlock : _tempNumberBlocks)
-			{
-				_tempNumberBlock->SetMoveCount(0);
-				CurrentScene->DespawnActor(_tempNumberBlock);//근데 moveCount를 초기화 할 필요 없이 어차피 지워짐
-			}
+			_tempNumberBlock->SetMoveCount(0);
+			_tempNumberBlock->ChangeImage(0);
 		}
 	}
 		break;
@@ -110,17 +128,20 @@ void Game2048Controller::SetGame2048State(Game2048State gameState)
 		for (int i = 0; i < 16; i++)
 		{
 			//if (_blocksInfo[i / 4][i % 4] != 0)
-			{
+			{			
 				int posX = (i / 4) * 100 - 200;
 				int posY = (i % 4) * 100 - 200;
-				NumberBlockActor* numberBlock = new NumberBlockActor();
-				numberBlock->Init();
-				numberBlock->SetPos(Vector2(posX, posY));
-				numberBlock->ChangeImage(_blocksInfo[i / 4][i % 4]);
-				_tempNumberBlocks.push_back(numberBlock);
-				CurrentScene->SpawnActor(_tempNumberBlocks.back());
+				_tempNumberBlocks[i]->SetPos(Vector2(posX, posY));
+				_tempNumberBlocks[i]->SetNumber(_numberBlocks[i]->GetNumber());
+				_tempNumberBlocks[i]->ChangeImage(_numberBlocks[i]->GetNumber());
 				// 이동만 구현하면 됨
 			}
+		}
+
+		cout << "\n_tempNumberBlocks" << endl;
+		for (int i = 0; i < 16; i++)
+		{
+			cout << _tempNumberBlocks[i]->GetNumber() << " ";
 		}
 	}
 		break;
@@ -174,8 +195,8 @@ void Game2048Controller::SetPressKeyState(PressKey state)
 	default:
 		break;
 	}
-	cout << "SetPressKeyState" << endl;
 	this->SubtractTenThousand();
+	
 }
 
 void Game2048Controller::MoveDown()
@@ -384,6 +405,17 @@ void Game2048Controller::CreateNumberBlock()
 		_checkCreateNumberBlock = false;
 	}
 
+
+	cout << "\n_numberBlocks" << endl;
+	for (int i = 0; i < 16; i++)
+	{
+		cout << _numberBlocks[i]->GetNumber() << " ";
+	}
+	cout << "\n_blocksInfo" << endl;
+	for (int i = 0; i < 16; i++)
+	{
+		cout << _blocksInfo[i / 4][i % 4] << " ";
+	}
 }
 void Game2048Controller::CheckCreateNumberBlock()
 {
