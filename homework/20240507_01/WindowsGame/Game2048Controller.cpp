@@ -23,28 +23,24 @@ void Game2048Controller::Update()
 {	
 	if(_gameState == GS_RELEASE)
 	{
-		//왜인지 상하좌우 반전 -> 배열의 방향이 0 1 2 3 이 아니라 0 4 8 12 일지도??
+		//왜인지 상하좌우 반전 -> 배열의 방향이 0 1 2 3 이 아니라 0 4 8 12 임
 		//									 4 5 6 8		  1 5 8 13
 		if (Input->GetKeyDown(KeyCode::Down))
 		{
-			//numberBlock->ChangeDirectionState(NumberBlockDirState::Down);
 			// 한 줄(4개)이 모두 같은 숫자면 합쳐지지 않고 전부 삭제 됨. -> 왤까..
 			// 2번 키를 누를 때 동안 안 보임.
 			this->SetPressKeyState(PressKey::PK_DOWN);
 		}
 		else if (Input->GetKeyDown(KeyCode::Up))
 		{
-			//numberBlock->ChangeDirectionState(NumberBlockDirState::Up);
 			this->SetPressKeyState(PressKey::PK_UP);
 		}
 		else if (Input->GetKeyDown(KeyCode::Left))
 		{
-			//numberBlock->ChangeDirectionState(NumberBlockDirState::Left);
 			this->SetPressKeyState(PressKey::PK_LEFT);
 		}
 		else if (Input->GetKeyDown(KeyCode::Right))
 		{
-			//numberBlock->ChangeDirectionState(NumberBlockDirState::Right);
 			this->SetPressKeyState(PressKey::PK_RIGHT);
 		}
 	}
@@ -58,7 +54,6 @@ void Game2048Controller::Update()
 			this->CheckCreateNumberBlock();
 			this->CreateNumberBlock();
 			this->SetGame2048State(GS_RELEASE);
-
 		}
 	}
 }
@@ -78,26 +73,25 @@ void Game2048Controller::InitIsFull()
 void Game2048Controller::NumberBlockToZero()
 {
 
-	_numberBlocks[3]->SetNumber(4);
-	_numberBlocks[3]->ChangeImage(_numberBlocks[3]->GetNumber());
-	
-	_numberBlocks[11]->SetNumber(4);
-	_numberBlocks[11]->ChangeImage(_numberBlocks[11]->GetNumber());
-	_numberBlocks[13]->SetNumber(4);
-	_numberBlocks[13]->ChangeImage(_numberBlocks[13]->GetNumber());
-	// 처음에는 무조건 잘 됨
-	/*
-
 	for (int i = 0; i < 2; i++)
 	{
 		int random = Random->GetRandomInt(0, 15);
-		while(_numberBlocks[random]->GetNumber() != 0)//빈자리 찾기
+		while (_numberBlocks[random]->GetNumber() != 0)//빈자리 찾기
 		{
 			random = Random->GetRandomInt(0, 15);
 		}
 		_numberBlocks[random]->SetNumber(2);
 		_numberBlocks[random]->ChangeImage(_numberBlocks[random]->GetNumber());
 	}
+	/*
+	_numberBlocks[3]->SetNumber(4);
+	_numberBlocks[3]->ChangeImage(_numberBlocks[3]->GetNumber());
+
+	_numberBlocks[11]->SetNumber(4);
+	_numberBlocks[11]->ChangeImage(_numberBlocks[11]->GetNumber());
+	_numberBlocks[13]->SetNumber(4);
+	_numberBlocks[13]->ChangeImage(_numberBlocks[13]->GetNumber());
+	// 처음에는 무조건 잘 됨 -> Temp를 update에서 init해서 생겼던 문제 같음. 그래서 처음엔 잘되고 그 이후로 꼬인듯???
 	*/
 }
 void Game2048Controller::SetGame2048State(Game2048State gameState)
@@ -127,14 +121,12 @@ void Game2048Controller::SetGame2048State(Game2048State gameState)
 		//임시 애니메이션 블럭 생성 및 이동
 		for (int i = 0; i < 16; i++)
 		{
-			//if (_blocksInfo[i / 4][i % 4] != 0)
 			{			
 				int posX = (i / 4) * 100 - 200;
 				int posY = (i % 4) * 100 - 200;
 				_tempNumberBlocks[i]->SetPos(Vector2(posX, posY));
 				_tempNumberBlocks[i]->SetNumber(_numberBlocks[i]->GetNumber());
 				_tempNumberBlocks[i]->ChangeImage(_numberBlocks[i]->GetNumber());
-				// 이동만 구현하면 됨
 			}
 		}
 
@@ -145,6 +137,11 @@ void Game2048Controller::SetGame2048State(Game2048State gameState)
 		}
 	}
 		break;
+	case GS_END:
+	{
+		GET_SINGLE(SceneManager)->ChangeScene(SceneType::Dev2Scene);
+		break;
+	}
 	default:
 		break;
 	}
@@ -215,10 +212,7 @@ void Game2048Controller::MoveDown()
 						{
 							_blocksInfo[k][j] = _blocksInfo[k - 1][j];
 							_blocksInfo[k - 1][j] = 0;
-							_tempNumberBlocks[(i * 4 + j % 4) - 4]->AddMoveCount();//이동하는 값을 추적해봐야겠음
-							// 이동 후에 저 블록을 책임져주는 코드가 없음...
-							// 좌표제이기 때문..
-							// 한칸 이동할 때마다 좌표와 이미지 매치를 바로바로 해줄거 아니면 이거 좀 문제가 있음
+							_tempNumberBlocks[(i * 4 + j % 4) - 4]->AddMoveCount();
 						}
 						else if(_blocksInfo[k][j] == _blocksInfo[k - 1][j])
 						{
@@ -431,8 +425,9 @@ void Game2048Controller::CheckCreateNumberBlock()
 	}
 	if (count == 16)
 	{
-		_checkCreateNumberBlock = false;
 		//game over
+		_checkCreateNumberBlock = false;
+		SetGame2048State(GS_END);
 	}
 	else
 	{

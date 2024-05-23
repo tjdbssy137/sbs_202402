@@ -208,6 +208,9 @@
     <ClInclude Include="Game2048Controller.h">
       <Filter>03.Objects\Game2048</Filter>
     </ClInclude>
+    <ClInclude Include="Game2048Scene.h">
+      <Filter>02.Scene\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -399,6 +402,9 @@
     </ClCompile>
     <ClCompile Include="Game2048Controller.cpp">
       <Filter>03.Objects\Game2048</Filter>
+    </ClCompile>
+    <ClCompile Include="Game2048Scene.cpp">
+      <Filter>02.Scene\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

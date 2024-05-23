@@ -176,6 +176,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game2048Controller.h" />
+    <ClInclude Include="Game2048Scene.h" />
     <ClInclude Include="HammerActor.h" />
     <ClInclude Include="MonsterActor.h" />
     <ClInclude Include="NumberBlockActor.h" />
@@ -275,6 +276,7 @@
     <ClCompile Include="FlipbookActor.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game2048Controller.cpp" />
+    <ClCompile Include="Game2048Scene.cpp" />
     <ClCompile Include="HammerActor.cpp" />
     <ClCompile Include="MonsterActor.cpp" />
     <ClCompile Include="NumberBlockActor.cpp" />

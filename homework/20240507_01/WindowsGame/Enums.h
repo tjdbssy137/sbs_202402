@@ -11,6 +11,7 @@ enum class SceneType // 18일차 강의 초반에 enum 설명 있음
 
 	InGameScene,
 	MoleGameScene,
+	Game2048Scene,
 };
 
 enum class ColliderType

@@ -1,5 +1,7 @@
 #pragma once
 #define RELEASE_TIME 0.5f
+#define MAX_BLOCK_COUNT 16
+
 class NumberBlockActor;
 
 enum PressKey
@@ -19,7 +21,6 @@ enum Game2048State
 };
 
 
-#define MAX_BLOCK_COUNT 16
 class Game2048Controller
 {
 public:
@@ -60,9 +61,9 @@ public:
 	// 이동후 잠시 삭제 됐다가
 	// 합쳐진 숫자로 생성
 private:
-	vector<NumberBlockActor*> _numberBlocks;
-	vector<NumberBlockActor*> _tempNumberBlocks;
-	int _blocksInfo[4][4] = {};
+	vector<NumberBlockActor*> _numberBlocks; // 블록
+	vector<NumberBlockActor*> _tempNumberBlocks; // 애니메이션 이동용 블럭
+	int _blocksInfo[4][4] = {}; // 블록 좌표 및 값
 
 	// 새로운 블럭 생성&생성해도 되는지 체크
 	bool _checkCreateNumberBlock = false;
@@ -71,10 +72,9 @@ private:
 	// 게임 상태
 	PressKey _state = PressKey::PK_END;
 	Game2048State _gameState = Game2048State::GS_RELEASE;
-
-	// 애니메이션 횟수
 	
 private:
-	float _time = 1;
+	float _time = 0.0f; // 게임 상태가 변경되는 시간
+	int _gameScore = 0; // 게임 점수
 };
 
