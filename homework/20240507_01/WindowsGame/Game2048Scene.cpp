@@ -9,6 +9,15 @@ void Game2048Scene::Init()
 	Super::Init();
 	RoadResource();
 
+
+	{
+		SpriteActor* background = new SpriteActor();
+		background->Init();
+		background->SetPos(Vector2(-50, -50));
+		background->SetSprite(Resource->GetSprite(L"S_2048BackGound"));
+		SpawnActor(background);
+	}
+
 	for (int i = 0; i < 4; i++)//INSTINATE_MAX
 	{
 		for (int j = 0; j < 4; j++)
@@ -20,6 +29,7 @@ void Game2048Scene::Init()
 			SpawnActor(_numberBlocks.back());
 		}
 	}
+
 	{
 		_game2048Controller = new Game2048Controller();
 		_game2048Controller->Init(_numberBlocks);
@@ -29,6 +39,10 @@ void Game2048Scene::Render(HDC hdc) {
 	Super::Render(hdc);
 	wstring str = L"2048";
 	::TextOut(hdc, 0, 45, str.c_str(), str.length());
+
+	wstring gameScore = format(L"Score : {0}", _game2048Controller->GetGameScore());
+	::TextOut(hdc, 0, 65, gameScore.c_str(), gameScore.length());
+
 }
 void Game2048Scene::Update()
 {
@@ -55,4 +69,7 @@ void Game2048Scene::RoadResource()
 	Resource->CreateSprite(L"S_Number_512", Resource->GetTexture(L"T_2048"), 0, 200, 100, 100);
 	Resource->CreateSprite(L"S_Number_1024", Resource->GetTexture(L"T_2048"), 100, 200, 100, 100);
 	Resource->CreateSprite(L"S_Number_2048", Resource->GetTexture(L"T_2048"), 300, 200, 100, 100);
+
+	Resource->LoadTexture(L"T_2048BackGound", L"2048/IMAGE2048_Background.bmp");
+	Resource->CreateSprite(L"S_2048BackGound", Resource->GetTexture(L"T_2048BackGound"));
 }

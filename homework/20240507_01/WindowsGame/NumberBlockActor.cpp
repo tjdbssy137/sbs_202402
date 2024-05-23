@@ -5,7 +5,7 @@ void NumberBlockActor::Init()
 {
 	Super::Init();
 	this->SetName("NumberBlock");
-	this->SetSprite(nullptr);//Resource->GetSprite(L"S_Number_2")
+	this->SetSprite(nullptr);
 	_speed = 10;
 	_moveCount = 0;
 }
@@ -25,7 +25,6 @@ void NumberBlockActor::Release()
 
 void NumberBlockActor::SlideActor()
 {
-	// 가장자리 일 경우 애니메이션 안 움직이는 거 필요
 	if (_directionState == NumberBlockDirState::Down) //down
 	{
 		Vector2 endPos = Vector2(_startPos.x, _startPos.y + 100 * GetMoveCount());

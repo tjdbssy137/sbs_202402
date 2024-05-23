@@ -1,7 +1,7 @@
 #pragma once
 #include "ResourceBase.h"
 
-class Tile
+struct Tile
 {
 	// 추후에 타일에 대한 정보가 추가되면, 여기에 값을 추가해주면 됨
 	int value = 0;

@@ -28,7 +28,8 @@ void Game2048Controller::Update()
 		if (Input->GetKeyDown(KeyCode::Down))
 		{
 			// 한 줄(4개)이 모두 같은 숫자면 합쳐지지 않고 전부 삭제 됨. -> 왤까..
-			// 2번 키를 누를 때 동안 안 보임.
+			// 네개가 합쳐지면서 전부 10000을 갖게 되고 그래서 또 합쳐짐. 2222->88이 아니라 16이 됨
+			// 2번 키를 누를 때 동안 안 보임. -> 20000을 뺼 수 없어서 10000을 2턴 동안 빼기 때문임
 			this->SetPressKeyState(PressKey::PK_DOWN);
 		}
 		else if (Input->GetKeyDown(KeyCode::Up))
@@ -72,7 +73,6 @@ void Game2048Controller::InitIsFull()
 
 void Game2048Controller::NumberBlockToZero()
 {
-
 	for (int i = 0; i < 2; i++)
 	{
 		int random = Random->GetRandomInt(0, 15);
@@ -86,7 +86,6 @@ void Game2048Controller::NumberBlockToZero()
 	/*
 	_numberBlocks[3]->SetNumber(4);
 	_numberBlocks[3]->ChangeImage(_numberBlocks[3]->GetNumber());
-
 	_numberBlocks[11]->SetNumber(4);
 	_numberBlocks[11]->ChangeImage(_numberBlocks[11]->GetNumber());
 	_numberBlocks[13]->SetNumber(4);
@@ -155,7 +154,7 @@ void Game2048Controller::SetPressKeyState(PressKey state)
 	{
 	case PK_DOWN: 
 	{
-		this->MoveRight();
+		this->MoveDown();
 		for (NumberBlockActor* _tempBlock : _tempNumberBlocks)
 		{
 			_tempBlock->ChangeDirectionState(NumberBlockDirState::Down);
@@ -164,7 +163,7 @@ void Game2048Controller::SetPressKeyState(PressKey state)
 		break;
 	case PK_UP:
 	{
-		this->MoveLeft();
+		this->MoveUp();
 		for (NumberBlockActor* _tempBlock : _tempNumberBlocks)
 		{
 			_tempBlock->ChangeDirectionState(NumberBlockDirState::Up);
@@ -173,7 +172,7 @@ void Game2048Controller::SetPressKeyState(PressKey state)
 		break;
 	case PK_LEFT:
 	{
-		this->MoveUp();
+		this->MoveLeft();
 		for (NumberBlockActor* _tempBlock : _tempNumberBlocks)
 		{
 			_tempBlock->ChangeDirectionState(NumberBlockDirState::Left);
@@ -182,7 +181,7 @@ void Game2048Controller::SetPressKeyState(PressKey state)
 		break;
 	case PK_RIGHT:
 	{
-		this->MoveDown();
+		this->MoveRight();
 		for (NumberBlockActor* _tempBlock : _tempNumberBlocks)
 		{
 			_tempBlock->ChangeDirectionState(NumberBlockDirState::Right);
@@ -196,7 +195,7 @@ void Game2048Controller::SetPressKeyState(PressKey state)
 	
 }
 
-void Game2048Controller::MoveDown()
+void Game2048Controller::MoveRight()
 {
 	for (int i = 3; 0 < i; i--)
 	{
@@ -212,13 +211,16 @@ void Game2048Controller::MoveDown()
 						{
 							_blocksInfo[k][j] = _blocksInfo[k - 1][j];
 							_blocksInfo[k - 1][j] = 0;
+							_isMove = true;
 							_tempNumberBlocks[(i * 4 + j % 4) - 4]->AddMoveCount();
 						}
 						else if(_blocksInfo[k][j] == _blocksInfo[k - 1][j])
 						{
 							_blocksInfo[k][j] += _blocksInfo[k - 1][j];
-							_blocksInfo[k][j] += 10000;
+							_gameScore += _blocksInfo[k][j]; // 점수
+							_blocksInfo[k][j] += 20000;
 							_blocksInfo[k - 1][j] = 0;
+							_isMove = true; // 이동했는지
 							_tempNumberBlocks[(i * 4 + j % 4) - 4]->AddMoveCount();
 						}
 					}
@@ -227,14 +229,16 @@ void Game2048Controller::MoveDown()
 			else if (_blocksInfo[i][j] == _blocksInfo[i - 1][j])
 			{
 				_blocksInfo[i][j] += _blocksInfo[i - 1][j];
+				_gameScore += _blocksInfo[i][j];
 				_blocksInfo[i][j] += 10000;
 				_blocksInfo[i - 1][j] = 0;
+				_isMove = true;
 				_tempNumberBlocks[(i * 4 + j % 4) - 4]->AddMoveCount();
 			}
 		}
 	}
 }
-void Game2048Controller::MoveUp()
+void Game2048Controller::MoveLeft()
 {
 	for (int i = 0; i < 3; i++)
 	{
@@ -250,13 +254,16 @@ void Game2048Controller::MoveUp()
 						{
 							_blocksInfo[k][j] = _blocksInfo[k + 1][j];
 							_blocksInfo[k + 1][j] = 0;
+							_isMove = true;
 							_tempNumberBlocks[(i * 4 + j % 4) + 4]->AddMoveCount();
 						}
 						else if (_blocksInfo[k][j] == _blocksInfo[k + 1][j])
 						{
 							_blocksInfo[k][j] += _blocksInfo[k + 1][j];
-							_blocksInfo[k][j] += 10000;
+							_gameScore += _blocksInfo[k][j];
+							_blocksInfo[k][j] += 20000;
 							_blocksInfo[k + 1][j] = 0;
+							_isMove = true;
 							_tempNumberBlocks[(i * 4 + j % 4) + 4]->AddMoveCount();
 						}
 					}
@@ -265,14 +272,16 @@ void Game2048Controller::MoveUp()
 			else if (_blocksInfo[i][j] == _blocksInfo[i + 1][j])
 			{
 				_blocksInfo[i][j] += _blocksInfo[i + 1][j];
+				_gameScore += _blocksInfo[i][j];
 				_blocksInfo[i][j] += 10000;
 				_blocksInfo[i + 1][j] = 0;
+				_isMove = true;
 				_tempNumberBlocks[(i * 4 + j % 4) + 4]->AddMoveCount();
 			}
 		}
 	}
 }
-void Game2048Controller::MoveLeft()
+void Game2048Controller::MoveUp()
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -288,13 +297,16 @@ void Game2048Controller::MoveLeft()
 						{
 							_blocksInfo[i][k] = _blocksInfo[i][k + 1];
 							_blocksInfo[i][k + 1] = 0;
+							_isMove = true;
 							_tempNumberBlocks[(i * 4 + j % 4) + 1]->AddMoveCount();
 						}
 						else if (_blocksInfo[i][k] == _blocksInfo[i][k + 1])
 						{
 							_blocksInfo[i][k] += _blocksInfo[i][k + 1];
-							_blocksInfo[i][k] += 10000;
+							_gameScore += _blocksInfo[i][k];
+							_blocksInfo[i][k] += 20000;
 							_blocksInfo[i][k + 1] = 0;
+							_isMove = true;
 							_tempNumberBlocks[(i * 4 + j % 4) + 1]->AddMoveCount();
 						}
 					}
@@ -303,14 +315,16 @@ void Game2048Controller::MoveLeft()
 			else if (_blocksInfo[i][j] == _blocksInfo[i][j + 1])
 			{
 				_blocksInfo[i][j] += _blocksInfo[i][j + 1];
+				_gameScore += _blocksInfo[i][j];
 				_blocksInfo[i][j] += 10000;
 				_blocksInfo[i][j + 1] = 0;
+				_isMove = true;
 				_tempNumberBlocks[(i * 4 + j % 4) + 1]->AddMoveCount();
 			}
 		}
 	}
 }
-void Game2048Controller::MoveRight()
+void Game2048Controller::MoveDown()
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -326,13 +340,16 @@ void Game2048Controller::MoveRight()
 						{
 							_blocksInfo[i][k] = _blocksInfo[i][k - 1];
 							_blocksInfo[i][k - 1] = 0;
+							_isMove = true;
 							_tempNumberBlocks[(i * 4 + j % 4) - 1]->AddMoveCount();
 						}
 						else if (_blocksInfo[i][k] == _blocksInfo[i][k - 1])
 						{
 							_blocksInfo[i][k] += _blocksInfo[i][k - 1];
-							_blocksInfo[i][k] += 10000;
+							_gameScore += _blocksInfo[i][k];
+							_blocksInfo[i][k] += 20000;
 							_blocksInfo[i][k - 1] = 0;
+							_isMove = true;
 							_tempNumberBlocks[(i * 4 + j % 4) - 1]->AddMoveCount();
 						}
 					}
@@ -341,8 +358,10 @@ void Game2048Controller::MoveRight()
 			else if (_blocksInfo[i][j] == _blocksInfo[i][j - 1])
 			{
 				_blocksInfo[i][j] += _blocksInfo[i][j - 1];
+				_gameScore += _blocksInfo[i][j];
 				_blocksInfo[i][j] += 10000;
 				_blocksInfo[i][j - 1] = 0;
+				_isMove = true;
 				_tempNumberBlocks[(i * 4 + j % 4) - 1]->AddMoveCount();
 			}
 		}
@@ -355,7 +374,7 @@ void Game2048Controller::SubtractTenThousand()
 	{
 		if (10000 < _blocksInfo[i / 4][i % 4])
 		{
-			_blocksInfo[i / 4][i % 4] -= 10000;
+			_blocksInfo[i / 4][i % 4] %= 10000;
 		}
 	}
 }
@@ -397,8 +416,8 @@ void Game2048Controller::CreateNumberBlock()
 		break;
 		}
 		_checkCreateNumberBlock = false;
+		_isMove = false;
 	}
-
 
 	cout << "\n_numberBlocks" << endl;
 	for (int i = 0; i < 16; i++)
@@ -426,14 +445,15 @@ void Game2048Controller::CheckCreateNumberBlock()
 	if (count == 16)
 	{
 		//game over
+		//합쳐질게 있어도 잘못 움직이면 틀려서 여기로 옴..
+		//합쳐질게 있는지 없는지 판단하는 건 어려울듯
 		_checkCreateNumberBlock = false;
 		SetGame2048State(GS_END);
 	}
-	else
+	else if (_isMove == true && count < 16)
 	{
 		_checkCreateNumberBlock = true;
 	}
-
 }
 
 int** Game2048Controller::ReverseArray(int inputArray[][4], int rows)

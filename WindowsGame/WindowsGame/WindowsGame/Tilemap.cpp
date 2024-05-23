@@ -10,6 +10,8 @@ void Tilemap::LoadFile(const wstring& path)
 
 	for (int y = 0; y < _mapSize.y; y++)
 	{
+		wstring line;
+		ifs >> line;
 		for (int x = 0; x < _mapSize.x; x++)
 		{
 			_tiles[y][x].value = line[x] - L'0';
