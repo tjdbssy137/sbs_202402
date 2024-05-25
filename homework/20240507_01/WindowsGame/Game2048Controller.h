@@ -4,20 +4,20 @@
 
 class NumberBlockActor;
 
-enum PressKey
+enum class PressKey
 {
-	PK_DOWN,
-	PK_UP,
-	PK_LEFT,
-	PK_RIGHT,
-	PK_END
+	Down,
+	Up,
+	Left,
+	Right,
+	None
 };
 
-enum Game2048State
+enum class Game2048State
 {
-	GS_RELEASE,
-	GS_ANIMATION,
-	GS_END
+	Release,
+	Animation,
+	None
 };
 
 
@@ -69,8 +69,8 @@ private:
 	bool _isClick = true;
 
 	// 게임 상태
-	PressKey _state = PressKey::PK_END;
-	Game2048State _gameState = Game2048State::GS_RELEASE;
+	PressKey _state = PressKey::None;
+	Game2048State _gameState = Game2048State::Release;
 
 	// 움직였는지 판단
 	bool _isMove = false;
