@@ -64,8 +64,8 @@ using namespace std;
 //		## Windows Size ##
 //===========================================
 
-#define WIN_SIZE_X 850//1280
-#define WIN_SIZE_Y 567//720
+#define WIN_SIZE_X 1280
+#define WIN_SIZE_Y 900
 
 //===========================================
 //		## 전역 변수 선언 ##

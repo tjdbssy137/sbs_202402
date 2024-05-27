@@ -14,6 +14,7 @@ enum class KeyCode
 	A = 'A',
 	S = 'S',
 	D = 'D',
+	L = 'L',
 
 	Control = VK_CONTROL,
 };

@@ -6,6 +6,7 @@
 #include "Flipbook.h"
 #include "Sound.h"
 #include "Tilemap.h"
+
 void ResourceManager::Init()
 {
 	_resources.clear();
@@ -112,20 +113,36 @@ Sound* ResourceManager::GetSound(const wstring& key)
 #endif
 }
 
-Tilemap* ResourceManager::GetTilemap(const wstring& key)
+Tilemap* ResourceManager::GetTileMap(const wstring& key)
 {
 	return dynamic_cast<Tilemap*>(_resources[key]);
 
 }
-Tilemap* ResourceManager::LoadTilemap(const wstring& key, const wstring& path)
+Tilemap* ResourceManager::LoadTileMap(const wstring& key, const wstring& path)
 {
 	if (_resources.contains(key))
 	{
-		return GetTilemap(key);
+		return GetTileMap(key);
 	}
 	Tilemap* tilemap = new Tilemap();
 	tilemap->LoadFile(path);
 	_resources[key] = tilemap;
 
 	return tilemap;
+}
+
+Tilemap* ResourceManager::CreateTileMap(const wstring& key, Vector2Int mapSize, int tileSize, vector<vector<Tile>> tiles)
+{
+	if (_resources.contains(key))
+	{
+		return GetTileMap(key);
+	}
+
+	Tilemap* tileMap = new Tilemap();
+	tileMap->SetMapSize(mapSize);
+	tileMap->SetTileSize(tileSize);
+	tileMap->SetTiles(tiles);
+	_resources[key] = tileMap;
+
+	return tileMap;
 }

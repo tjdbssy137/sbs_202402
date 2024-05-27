@@ -53,6 +53,9 @@
     <Filter Include="06.UI\Game">
       <UniqueIdentifier>{073e21f8-d590-4f76-8659-54f8920de014}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.Objects\TilemapGame">
+      <UniqueIdentifier>{af05ec9f-2ced-4c3a-b168-350760efd2a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -225,6 +228,9 @@
     </ClInclude>
     <ClInclude Include="Tilemap.h">
       <Filter>05. Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="MapToolTilemapActor.h">
+      <Filter>03.Objects\TilemapGame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -447,6 +453,12 @@
     </ClCompile>
     <ClCompile Include="Tilemap.cpp">
       <Filter>05. Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Day36.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="MapToolTilemapActor.cpp">
+      <Filter>03.Objects\TilemapGame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

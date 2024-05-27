@@ -2,14 +2,91 @@
 #include "Dev2Scene.h"
 #include "TestPanel.h"
 #include "Flipbook.h"
+#include "TilemapActor.h"
+#include "Tilemap.h"
+#include "MapToolTilemapActor.h"
 
 void Dev2Scene::Init()
 {
 	LoadResource();
+	for (int i = 0; i <= 12; i++)
+	{
+		{
+			wchar_t keyName[128];
+			swprintf_s(keyName, L"T_Pocket%d", i);
+
+			wchar_t valueName[128];
+			swprintf_s(valueName, L"TileStudy/pocket_%d.bmp", i);
+
+			Resource->LoadTexture(keyName, valueName);
+		}
+
+		{
+			wchar_t keyName[128];
+			swprintf_s(keyName, L"S_Pocket%d", i);
+
+			wchar_t textureKeyName[128];
+			swprintf_s(textureKeyName, L"T_Pocket%d", i);
+
+			Resource->CreateSprite(keyName, Resource->GetTexture(textureKeyName));
+		}
+	}
+
+	int array[100] = {
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		7, 7, 2, 3, 3, 3, 4, 7, 7, 8,
+		7, 2, 5, 3, 3, 3, 6, 4, 7, 8,
+		7, 5, 5, 3, 3, 3, 6, 6, 7, 8,
+		7, 5, 5, 3, 3, 3, 6, 6, 7, 8,
+		7, 5, 9, 0, 0, 0, 11, 6, 7, 8,
+		7, 9, 0, 0, 0, 0, 0, 11, 7, 8,
+		7, 7, 1, 1, 7, 7, 7, 1, 7, 8,
+		7, 7, 1, 7, 7, 7, 7, 1, 7, 8,
+		7, 7, 1, 7, 7, 7, 7, 1, 7, 8
+	};
+
+	{
+		Vector2Int mapSize = Vector2Int(10, 10);
+		vector<vector<Tile>> tiles;
+		int i = 0;
+		for (int height = 0; height < mapSize.y; height++)
+		{
+			vector<Tile> tilesDummy;
+			for (int width = 0; width < mapSize.x; width++)
+			{
+				Tile tile;
+				tile.value = array[i];
+				tilesDummy.push_back(tile);
+				i++;
+			}
+			tiles.push_back(tilesDummy);
+		}
+		Resource->CreateTileMap(L"TM_Test", mapSize, 88, tiles);
+	}
+
+	{
+		MapToolTilemapActor* actor = new MapToolTilemapActor();
+		actor->SetTileMap(Resource->GetTileMap(L"TM_Test"));
+		{
+			vector<Sprite*> sprites;
+			for (int i = 0; i <= 12; i++)
+			{
+				wchar_t keyName[128];
+				swprintf_s(keyName, L"S_Pocket%d", i);
+				sprites.push_back(Resource->GetSprite(keyName));
+			}
+			actor->SetTileSprites(sprites);
+		}
+		actor->Init();
+		this->SpawnActor(actor);
+	}
+
+	/*
 	{
 		TestPanel* testPanel = new TestPanel();
 		_uis.push_back(testPanel);
 	}
+	*/
 	Super::Init();
 }
 void Dev2Scene::Render(HDC hdc) {

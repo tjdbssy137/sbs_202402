@@ -3,6 +3,7 @@ class ResourceBase;
 class Texture;
 class Sprite;
 class Tilemap;
+class Tile;
 class Flipbook;
 struct FlipbookInfo;
 class Sound;
@@ -27,8 +28,9 @@ public:
 	Sound* GetSound(const wstring& key);
 	Sound* LoadSound(const wstring& key, const wstring& path);
 
-	Tilemap* GetTilemap(const wstring& key);
-	Tilemap* LoadTilemap(const wstring& key, const wstring& path);
+	Tilemap* GetTileMap(const wstring& key);
+	Tilemap* LoadTileMap(const wstring& key, const wstring& path);
+	Tilemap* CreateTileMap(const wstring& key, Vector2Int mapSize, int tileSize, vector<vector<Tile>> tiles);
 private:
 	wstring _resourcePath;
 	map<wstring, ResourceBase*> _resources;
