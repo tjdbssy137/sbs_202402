@@ -1,6 +1,8 @@
 #pragma once
 #include "Scene.h"
 
+class MapToolController;
+class CreatureController;
 class Panel;
 class Dev2Scene : public Scene
 {
@@ -14,6 +16,7 @@ public:
 	void LoadResource();
 
 private:
-	Panel* panel = nullptr;
+	//Panel* panel = nullptr;
+	MapToolController* _mapToolController = nullptr;
+	CreatureController* _creatureController = nullptr;
 };
-

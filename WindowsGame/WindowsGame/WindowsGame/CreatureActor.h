@@ -38,7 +38,7 @@ public:
 	Vector2 GetVelocity() { return _velocity; }
 
 	void ChangeDirection(eCreatureDirection dir);
-	void UpdateInput();
+
 public:
 	void SetIsAttackInput(bool isAttackInput) { _isAttackInput = isAttackInput; }
 	bool GetIsAttackInput() { return _isAttackInput; }

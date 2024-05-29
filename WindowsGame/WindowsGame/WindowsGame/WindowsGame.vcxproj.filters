@@ -232,6 +232,12 @@
     <ClInclude Include="MapToolTilemapActor.h">
       <Filter>03.Objects\TilemapGame</Filter>
     </ClInclude>
+    <ClInclude Include="MapToolController.h">
+      <Filter>03.Objects\TilemapGame</Filter>
+    </ClInclude>
+    <ClInclude Include="CreatureController.h">
+      <Filter>03.Objects\Zelda</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -459,6 +465,15 @@
     </ClCompile>
     <ClCompile Include="MapToolTilemapActor.cpp">
       <Filter>03.Objects\TilemapGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Day37.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="MapToolController.cpp">
+      <Filter>03.Objects\TilemapGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CreatureController.cpp">
+      <Filter>03.Objects\Zelda</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

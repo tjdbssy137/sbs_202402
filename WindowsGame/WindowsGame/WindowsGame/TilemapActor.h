@@ -16,6 +16,7 @@ public:
 	Tilemap* GetTileMap() { return _tilemap; }
 	void SetTileMap(Tilemap* tilemap) { _tilemap = tilemap; }
 	void SetTileSprites(vector<Sprite*> sprites) { _sprites = sprites; }
+	vector<Sprite*>& GetTileSprites() { return _sprites; }
 
 protected:
 	Tilemap* _tilemap = nullptr;

@@ -1,0 +1,463 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="00.MainGame">
+      <UniqueIdentifier>{16eeb066-6835-4e77-ab71-51faa2a56940}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Managers">
+      <UniqueIdentifier>{67553a7c-d79b-4d46-b6d0-92cbb0211ce4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.Utils">
+      <UniqueIdentifier>{3e8c1370-f658-4c97-9daf-fd20246c9123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="999.Comments">
+      <UniqueIdentifier>{a453a446-5a59-49b6-aee5-5a9fefa45660}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Scenes">
+      <UniqueIdentifier>{5881474c-1b3d-4bfa-91b8-bb71e44e0631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Scenes\Game">
+      <UniqueIdentifier>{ccb59179-03f0-4f2a-a69b-a1656b22ab8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.Utils\Types">
+      <UniqueIdentifier>{1ad87a52-8343-4253-b776-ac78049c6171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.Objects">
+      <UniqueIdentifier>{1fc27eb3-273f-4301-9fe1-a468e5175b64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Components">
+      <UniqueIdentifier>{46d3be31-c571-49e9-a41d-19a5cc07685c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Components\Collider">
+      <UniqueIdentifier>{67858766-9787-49c6-890e-0509e31a72e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.Objects\Game">
+      <UniqueIdentifier>{3c247667-f2ea-42cf-9434-b2edf826e13c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.Resources">
+      <UniqueIdentifier>{5255e3b5-988d-4f51-8a09-9c6777e6d094}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.UI">
+      <UniqueIdentifier>{3ad5c69a-32e0-4bad-a17b-4c0f96fcc10f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06.UI\Game">
+      <UniqueIdentifier>{581ed19b-1fb5-4c9c-ad7d-3194f38817e6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsGame.h">
+      <Filter>00.MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonFunction.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>00.MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>01.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>01.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>01.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>02.Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Dev1Scene.h">
+      <Filter>02.Scenes\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Dev2Scene.h">
+      <Filter>02.Scenes\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>99.Utils\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>99.Utils\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="CenterRect.h">
+      <Filter>99.Utils\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>03.Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>04.Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>04.Components\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>04.Components\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>01.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerActor.h">
+      <Filter>03.Objects\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="PaddleActor.h">
+      <Filter>03.Objects\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="BallActor.h">
+      <Filter>03.Objects\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickActor.h">
+      <Filter>03.Objects\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>03.Objects\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="InGameScene.h">
+      <Filter>02.Scenes\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceBase.h">
+      <Filter>05.Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>01.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2Int.h">
+      <Filter>99.Utils\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>05.Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>05.Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteActor.h">
+      <Filter>03.Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomManager.h">
+      <Filter>01.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="MoleGameScene.h">
+      <Filter>02.Scenes\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="MoleActor.h">
+      <Filter>03.Objects\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="HammerActor.h">
+      <Filter>03.Objects\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHammerController.h">
+      <Filter>03.Objects\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Flipbook.h">
+      <Filter>05.Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="FlipbookActor.h">
+      <Filter>03.Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CreatureActor.h">
+      <Filter>03.Objects\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>04.Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>05.Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>01.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="DefineContents.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleCollider.h">
+      <Filter>04.Components\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>06.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>06.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>06.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TestPanel.h">
+      <Filter>06.UI\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>06.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TilemapActor.h">
+      <Filter>03.Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Tilemap.h">
+      <Filter>05.Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="MapToolTilemapActor.h">
+      <Filter>03.Objects\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="MapToolController.h">
+      <Filter>03.Objects\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CreatureController.h">
+      <Filter>03.Objects\Game</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="WindowsGame.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="WindowsGame.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="WindowsGame.cpp">
+      <Filter>00.MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>99.Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="CommonFunction.cpp">
+      <Filter>99.Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Day17.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>00.MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>01.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Day18.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>01.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Day19.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>01.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>02.Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Dev1Scene.cpp">
+      <Filter>02.Scenes\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Dev2Scene.cpp">
+      <Filter>02.Scenes\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>99.Utils\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="CenterRect.cpp">
+      <Filter>99.Utils\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Day20.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Day21.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>03.Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>04.Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>04.Components\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>04.Components\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>01.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerActor.cpp">
+      <Filter>03.Objects\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Day22.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="PaddleActor.cpp">
+      <Filter>03.Objects\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="BallActor.cpp">
+      <Filter>03.Objects\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickActor.cpp">
+      <Filter>03.Objects\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>03.Objects\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="InGameScene.cpp">
+      <Filter>02.Scenes\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Day23.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceBase.cpp">
+      <Filter>05.Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>01.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2Int.cpp">
+      <Filter>99.Utils\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>05.Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Day24.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>05.Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteActor.cpp">
+      <Filter>03.Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomManager.cpp">
+      <Filter>01.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Day25.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="MoleGameScene.cpp">
+      <Filter>02.Scenes\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="MoleActor.cpp">
+      <Filter>03.Objects\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Day26.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="HammerActor.cpp">
+      <Filter>03.Objects\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHammerController.cpp">
+      <Filter>03.Objects\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Flipbook.cpp">
+      <Filter>05.Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="FlipbookActor.cpp">
+      <Filter>03.Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Day27.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Day28.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="CreatureActor.cpp">
+      <Filter>03.Objects\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Day29.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>04.Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Day30.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>05.Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>01.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleCollider.cpp">
+      <Filter>04.Components\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Day31.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>06.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>06.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>06.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TestPanel.cpp">
+      <Filter>06.UI\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Day32.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>06.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Day33.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Day34.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Day35.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapActor.cpp">
+      <Filter>03.Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Tilemap.cpp">
+      <Filter>05.Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Day36.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="MapToolTilemapActor.cpp">
+      <Filter>03.Objects\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Day37.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="MapToolController.cpp">
+      <Filter>03.Objects\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CreatureController.cpp">
+      <Filter>03.Objects\Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Day16.cpp">
+      <Filter>999.Comments</Filter>
+    </None>
+  </ItemGroup>
+</Project>

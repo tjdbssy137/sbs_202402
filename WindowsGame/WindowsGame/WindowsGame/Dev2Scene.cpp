@@ -1,11 +1,21 @@
 #include "pch.h"
 #include "Dev2Scene.h"
-#include "TestPanel.h"
+#include "PlayerActor.h"
+#include "BoxCollider.h"
+#include "SpriteActor.h"
+#include "FlipbookActor.h"
 #include "Flipbook.h"
+#include "CreatureActor.h"
+#include "CameraComponent.h"
+#include "Texture.h"
+#include "Sprite.h"
+#include "CircleCollider.h"
+#include "TestPanel.h"
 #include "TilemapActor.h"
 #include "Tilemap.h"
 #include "MapToolTilemapActor.h"
-
+#include "MapToolController.h"
+#include "CreatureController.h"
 void Dev2Scene::Init()
 {
 	LoadResource();
@@ -32,38 +42,25 @@ void Dev2Scene::Init()
 		}
 	}
 
-	int array[100] = {
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		7, 7, 2, 3, 3, 3, 4, 7, 7, 8,
-		7, 2, 5, 3, 3, 3, 6, 4, 7, 8,
-		7, 5, 5, 3, 3, 3, 6, 6, 7, 8,
-		7, 5, 5, 3, 3, 3, 6, 6, 7, 8,
-		7, 5, 9, 0, 0, 0, 11, 6, 7, 8,
-		7, 9, 0, 0, 0, 0, 0, 11, 7, 8,
-		7, 7, 1, 1, 7, 7, 7, 1, 7, 8,
-		7, 7, 1, 7, 7, 7, 7, 1, 7, 8,
-		7, 7, 1, 7, 7, 7, 7, 1, 7, 8
-	};
-
 	{
 		Vector2Int mapSize = Vector2Int(10, 10);
 		vector<vector<Tile>> tiles;
-		int i = 0;
 		for (int height = 0; height < mapSize.y; height++)
 		{
 			vector<Tile> tilesDummy;
 			for (int width = 0; width < mapSize.x; width++)
 			{
 				Tile tile;
-				tile.value = array[i];
+				tile.value = 0;
 				tilesDummy.push_back(tile);
-				i++;
 			}
 			tiles.push_back(tilesDummy);
 		}
+
 		Resource->CreateTileMap(L"TM_Test", mapSize, 88, tiles);
 	}
 
+	_mapToolController = new MapToolController();
 	{
 		MapToolTilemapActor* actor = new MapToolTilemapActor();
 		actor->SetTileMap(Resource->GetTileMap(L"TM_Test"));
@@ -77,9 +74,37 @@ void Dev2Scene::Init()
 			}
 			actor->SetTileSprites(sprites);
 		}
+		actor->SetLayer(LayerType::Background);
+		actor->Init();
+
+		_mapToolController->SetLink(actor);
+
+		this->SpawnActor(actor);
+	}
+
+	_creatureController = new CreatureController();
+
+	{
+		CreatureActor* actor = new CreatureActor();
+		actor->SetLayer(LayerType::Character);
+		actor->SetName("Player");
+
+		actor->SetBody(Shape::MakeCenterRect(300, 300, 0 , 0));
+		actor->Init();
+		_creatureController->SetLink(actor);
+		this->SpawnActor(actor);
+	}
+
+	{
+		CreatureActor* actor = new CreatureActor();
+		actor->SetLayer(LayerType::Character);
+		actor->SetName("Friend");
+		actor->SetBody(Shape::MakeCenterRect(500, 300, 0, 0));
 		actor->Init();
 		this->SpawnActor(actor);
 	}
+
+	this->SetCameraPos(Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2));
 
 	/*
 	{
@@ -87,6 +112,7 @@ void Dev2Scene::Init()
 		_uis.push_back(testPanel);
 	}
 	*/
+
 	Super::Init();
 }
 void Dev2Scene::Render(HDC hdc) {
@@ -98,7 +124,9 @@ void Dev2Scene::Render(HDC hdc) {
 void Dev2Scene::Update()
 {
 	Super::Update();
-
+	_mapToolController->Update();
+	_creatureController->Update();
+	
 }
 void Dev2Scene::Release()
 {

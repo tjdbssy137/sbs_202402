@@ -168,6 +168,7 @@
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="CreatureActor.h" />
+    <ClInclude Include="CreatureController.h" />
     <ClInclude Include="DefineContents.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="Dev1Scene.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="HammerActor.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="MapToolController.h" />
     <ClInclude Include="MapToolTilemapActor.h" />
     <ClInclude Include="MonsterActor.h" />
     <ClInclude Include="Panel.h" />
@@ -215,6 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CreatureController.cpp" />
     <ClCompile Include="Day31.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -293,6 +296,9 @@
     <ClCompile Include="Day36.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Day37.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Dev1Scene.cpp" />
     <ClCompile Include="Dev2Scene.cpp" />
     <ClInclude Include="Enums.h" />
@@ -301,6 +307,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HammerActor.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="MapToolController.cpp" />
     <ClCompile Include="MapToolTilemapActor.cpp" />
     <ClCompile Include="MonsterActor.cpp" />
     <ClCompile Include="Panel.cpp" />

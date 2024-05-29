@@ -29,8 +29,7 @@ void CreatureActor::Init()
 	_attackCollisionPos[eCreatureDirection::Left] = CenterRect(Vector2(-60, 0), 40, 20);
 	_attackCollisionPos[eCreatureDirection::Right] = CenterRect(Vector2(60, 0), 40, 20);
 
-	collider = new BoxCollider();
-	collider->SetCollision(Shape::MakeCenterRect(0, 0, 0, 0));
+	this->SetState(_state);
 }
 void CreatureActor::Render(HDC hdc)
 {
@@ -39,21 +38,6 @@ void CreatureActor::Render(HDC hdc)
 void CreatureActor::Update()
 {
 	Super::Update();
-
-	if (0.0f < _invokeTime)
-	{
-		_invokeTime -= Time->GetDeltaTime();
-		if (_invokeTime <= 0.0f)
-		{
-			collider->SetEnable(false);
-			collider->SetCollision(Shape::MakeCenterRect(0, 0, 0, 0));
-			//enable을 만든다, component에서 Enable을 만들고, CollisionManager을 들어가서 충돌 처리 조건을 수정
-			//BoxCollider들어가서 콜라이더 위치 조정 잊지 않고 하기
-			this->SetState(CreatureState::Idle);
-		}
-	}
-	// TODO : // Comment 작성
-	UpdateInput();
 
 	// XXX : <- 이슈 위험
 	switch (_state)
@@ -117,64 +101,18 @@ void CreatureActor::ChangeDirection(eCreatureDirection dir)
 	if (_dir == dir) return;
 
 	_dir = dir;
-}
-
-void CreatureActor::UpdateInput()
-{
-	this->SetIsAttackInput(false);
-	Vector2 newVelocity = this->GetVelocity();
-	bool isMoveKeyInput = false;
-
-	if (Input->GetKey(KeyCode::Left))
+	switch (_state)
 	{
-		isMoveKeyInput = true;
-		ChangeDirection(eCreatureDirection::Left);
-		newVelocity.x -= Time->GetDeltaTime() * 1.0f; // 1초만에 변함.
-		newVelocity.x = clamp(newVelocity.x, -1.0f, 1.0f); // newVelocity.x의 범위를 -1.0f ~ 1.0f로 한정시킨다.
-		newVelocity.y = 0;
-		SetVelocity(newVelocity);
+	case CreatureState::Idle:
+		this->SetFlipbook(_idleFlipbook[_dir]);
+		break;
+	case CreatureState::Move:
+		this->SetFlipbook(_moveFlipbook[_dir]);
+		break;
+	case CreatureState::Attack:
+		this->SetFlipbook(_attackFlipbook[_dir]);
+		break;
 	}
-
-	else if (Input->GetKey(KeyCode::Right))
-	{
-		isMoveKeyInput = true;
-		ChangeDirection(eCreatureDirection::Right);
-		newVelocity.x += Time->GetDeltaTime() * 1.0f; // 1초만에 변함.
-		newVelocity.x = clamp(newVelocity.x, -1.0f, 1.0f);
-		newVelocity.y = 0;
-		SetVelocity(newVelocity);
-	}
-
-	else if (Input->GetKey(KeyCode::Up))
-	{
-		isMoveKeyInput = true;
-		ChangeDirection(eCreatureDirection::Up);
-		newVelocity.y -= Time->GetDeltaTime() * 1.0f; // 0.5초만에 변함.
-		newVelocity.y = clamp(newVelocity.y, -1.0f, 1.0f);
-		newVelocity.x = 0;
-		SetVelocity(newVelocity);
-	}
-
-	else if (Input->GetKey(KeyCode::Down))
-	{
-		isMoveKeyInput = true;
-		ChangeDirection(eCreatureDirection::Down);
-		newVelocity.y += Time->GetDeltaTime() * 1.0f; // 0.5초만에 변함.
-		newVelocity.y = clamp(newVelocity.y, -1.0f, 1.0f);
-		newVelocity.x = 0;
-		SetVelocity(newVelocity);
-	}
-
-	if (Input->GetKeyDown(KeyCode::Space))
-	{
-		this->SetIsAttackInput(true);
-	}
-
-	if (isMoveKeyInput == false)
-	{
-		newVelocity = { 0,0 };
-	}
-	this->SetVelocity(newVelocity);
 }
 
 void CreatureActor::UpdateMove()
