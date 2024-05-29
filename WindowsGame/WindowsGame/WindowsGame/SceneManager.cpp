@@ -47,8 +47,6 @@ void SceneManager::Update()
 		break;
 	case SceneType::InGameScene:
 		newScene = new InGameScene();
-	case SceneType::MoleGameScene:
-		newScene = new MoleGameScene();
 	default:
 		break;
 	}

@@ -20,6 +20,7 @@ void CreatureActor::Init()
 	_attackFlipbook[eCreatureDirection::LEFT] = Resource->GetFlipbook(L"FB_PlayerLeftAttack");
 	_attackFlipbook[eCreatureDirection::RIGHT] = Resource->GetFlipbook(L"FB_PlayerRightAttack");
 
+
 	this->SetState(_state);
 }
 void CreatureActor::Render(HDC hdc)
@@ -93,7 +94,7 @@ void CreatureActor::UpdateIdle()
 	{
 		this->SetState(CreatureState::Attack);
 	}
-	else if (EPSILON < _velocity.Length())
+	else if (EPSILON < _velocity.Length())//isMoveKeyInput를 받아도 되긴함
 	{
 		SetState(CreatureState::Move);
 	}
@@ -105,17 +106,17 @@ void CreatureActor::UpdateMove()
 		SetState(CreatureState::Idle);
 	}
 
-
 	if (EPSILON < _velocity.Length())
 	{
 		//움직인다.
-		Vector2 newPos = this->GetPos();
+		/*Vector2 newPos = this->GetPos();
 		newPos += _velocity * 300 * Time->GetDeltaTime();
-		this->SetPos(newPos);
+		this->SetPos(newPos);*/
+		this->SetPos(_dirNewPos);
 	}
 }
 
 void CreatureActor::UpdateAttack()
 {
-
+	
 }

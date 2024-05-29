@@ -6,29 +6,30 @@ void CreatureActor::Init()
 {
 	Super::Init();
 	// IDLE
-	_idleFlipbook[eCreatureDirection::Down] = Resource->GetFlipbook(L"FB_CharacterDown_Idle");
-	_idleFlipbook[eCreatureDirection::Up] = Resource->GetFlipbook(L"FB_CharacterUp_Idle");
-	_idleFlipbook[eCreatureDirection::Left] = Resource->GetFlipbook(L"FB_CharacterLeft_Idle");
-	_idleFlipbook[eCreatureDirection::Right] = Resource->GetFlipbook(L"FB_CharacterRight_Idle");
+	_idleFlipbook[eCreatureDirection::DOWN] = Resource->GetFlipbook(L"FB_CharacterDown_Idle");
+	_idleFlipbook[eCreatureDirection::UP] = Resource->GetFlipbook(L"FB_CharacterUp_Idle");
+	_idleFlipbook[eCreatureDirection::LEFT] = Resource->GetFlipbook(L"FB_CharacterLeft_Idle");
+	_idleFlipbook[eCreatureDirection::RIGHT] = Resource->GetFlipbook(L"FB_CharacterRight_Idle");
 
 	// MOVE
-	_moveFlipbook[eCreatureDirection::Down] = Resource->GetFlipbook(L"FB_CharacterDown_Move");
-	_moveFlipbook[eCreatureDirection::Up] = Resource->GetFlipbook(L"FB_CharacterUp_Move");
-	_moveFlipbook[eCreatureDirection::Left] = Resource->GetFlipbook(L"FB_CharacterLeft_Move");
-	_moveFlipbook[eCreatureDirection::Right] = Resource->GetFlipbook(L"FB_CharacterRight_Move");
+	_moveFlipbook[eCreatureDirection::DOWN] = Resource->GetFlipbook(L"FB_CharacterDown_Move");
+	_moveFlipbook[eCreatureDirection::UP] = Resource->GetFlipbook(L"FB_CharacterUp_Move");
+	_moveFlipbook[eCreatureDirection::LEFT] = Resource->GetFlipbook(L"FB_CharacterLeft_Move");
+	_moveFlipbook[eCreatureDirection::RIGHT] = Resource->GetFlipbook(L"FB_CharacterRight_Move");
 
 	// ATTACK
-	_attackFlipbook[eCreatureDirection::Down] = Resource->GetFlipbook(L"FB_CharacterDown_Attack");
-	_attackFlipbook[eCreatureDirection::Up] = Resource->GetFlipbook(L"FB_CharacterUp_Attack");
-	_attackFlipbook[eCreatureDirection::Left] = Resource->GetFlipbook(L"FB_CharacterLeft_Attack");
-	_attackFlipbook[eCreatureDirection::Right] = Resource->GetFlipbook(L"FB_CharacterRight_Attack");
+	_attackFlipbook[eCreatureDirection::DOWN] = Resource->GetFlipbook(L"FB_CharacterDown_Attack");
+	_attackFlipbook[eCreatureDirection::UP] = Resource->GetFlipbook(L"FB_CharacterUp_Attack");
+	_attackFlipbook[eCreatureDirection::LEFT] = Resource->GetFlipbook(L"FB_CharacterLeft_Attack");
+	_attackFlipbook[eCreatureDirection::RIGHT] = Resource->GetFlipbook(L"FB_CharacterRight_Attack");
 
 	// ATTACK COLLISON POS
-	_attackCollisionPos[eCreatureDirection::Down] = CenterRect(Vector2(0, 60), 20, 40);
-	_attackCollisionPos[eCreatureDirection::Up] = CenterRect(Vector2(0, -60), 20, 40);
-	_attackCollisionPos[eCreatureDirection::Left] = CenterRect(Vector2(-60, 0), 40, 20);
-	_attackCollisionPos[eCreatureDirection::Right] = CenterRect(Vector2(60, 0), 40, 20);
+	_attackCollisionPos[eCreatureDirection::DOWN] = CenterRect(Vector2(0, 60), 20, 40);
+	_attackCollisionPos[eCreatureDirection::UP] = CenterRect(Vector2(0, -60), 20, 40);
+	_attackCollisionPos[eCreatureDirection::LEFT] = CenterRect(Vector2(-60, 0), 40, 20);
+	_attackCollisionPos[eCreatureDirection::RIGHT] = CenterRect(Vector2(60, 0), 40, 20);
 
+	//cout << "_state : " << static_cast<int>(this->GetState()) << endl;
 	this->SetState(_state);
 }
 void CreatureActor::Render(HDC hdc)
@@ -72,7 +73,7 @@ void CreatureActor::Release()
 void CreatureActor::SetState(CreatureState state)
 {
 	//FSM 유한상태머신
-	if (_state == state) return;
+	//if (_state == state) return; << 이거 있으면 움직이지 않는 이상 Creature가 안 보임 --
 
 	_state = state;
 
@@ -124,9 +125,10 @@ void CreatureActor::UpdateMove()
 
 	if (EPSILON < _velocity.Length())
 	{
-		Vector2 newPos = this->GetPos();
+		/*Vector2 newPos = this->GetPos();
 		newPos += _velocity * 200 * Time->GetDeltaTime();
-		this->SetPos(newPos);
+		this->SetPos(newPos);*/
+		this->SetPos(_dirNewPos);
 	}
 }
 

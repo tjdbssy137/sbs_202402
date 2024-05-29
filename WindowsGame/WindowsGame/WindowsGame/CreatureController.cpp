@@ -5,62 +5,71 @@
 void CreatureController::SetLink(CreatureActor* actor)
 {
 	assert(actor != nullptr);
+
 	_actor = actor;
 }
 void CreatureController::Update()
 {
 	_actor->SetIsAttackInput(false);
-	Vector2 newVelocity = _actor->GetVelocity();
+	Vector2 newVelocity = _actor->GetVelocity(); // 이동중임을 판단, 사실 isMoveKeyInput을 쓰기만 해도 될듯
 	bool isMoveKeyInput = false;
-	
-	if (Input->GetKey(KeyCode::Left))
-	{
-		isMoveKeyInput = true;
-		_actor->ChangeDirection(eCreatureDirection::Left);
-		newVelocity.x -= 88;//Time->GetDeltaTime() * 1.0f; // 1초만에 변함.
-		// tileMap size 만큼 이동
-		newVelocity.x = clamp(newVelocity.x, -1.0f, 1.0f); // newVelocity.x의 범위를 -1.0f ~ 1.0f로 한정시킨다.
-		newVelocity.y = 0;
-		_actor->SetVelocity(newVelocity);
-	}
 
-	else if (Input->GetKey(KeyCode::Right))
-	{
-		isMoveKeyInput = true;
-		_actor->ChangeDirection(eCreatureDirection::Right);
-		newVelocity.x += 88;//Time->GetDeltaTime() * 1.0f; // 1초만에 변함.
-		newVelocity.x = clamp(newVelocity.x, -1.0f, 1.0f);
-		newVelocity.y = 0;
-		_actor->SetVelocity(newVelocity);
-	}
+	Vector2 newPos = _actor->GetPos(); // 이동 위치 및 방향
 
-	else if (Input->GetKey(KeyCode::Up))
+
+	if (Input->GetKey(KeyCode::Up))
 	{
 		isMoveKeyInput = true;
-		_actor->ChangeDirection(eCreatureDirection::Up);
-		newVelocity.y -= 88; //Time->GetDeltaTime() * 1.0f; // 0.5초만에 변함.
+		_actor->ChangeDirection(eCreatureDirection::UP);
+		newVelocity.y -= Time->GetDeltaTime() * 10.0f;
 		newVelocity.y = clamp(newVelocity.y, -1.0f, 1.0f);
-		newVelocity.x = 0;
-		_actor->SetVelocity(newVelocity);
+		newPos.y -= 88;
 	}
-
 	else if (Input->GetKey(KeyCode::Down))
 	{
 		isMoveKeyInput = true;
-		_actor->ChangeDirection(eCreatureDirection::Down);
-		newVelocity.y += 88; //Time->GetDeltaTime() * 1.0f; // 0.5초만에 변함.
+		_actor->ChangeDirection(eCreatureDirection::DOWN);
+		newVelocity.y += Time->GetDeltaTime() * 10.0f;
 		newVelocity.y = clamp(newVelocity.y, -1.0f, 1.0f);
-		newVelocity.x = 0;
-		_actor->SetVelocity(newVelocity);
+		newPos.y += 88;
 	}
+	else if (Input->GetKey(KeyCode::Left))
+	{
+		isMoveKeyInput = true;
+		_actor->ChangeDirection(eCreatureDirection::LEFT);
+		newVelocity.x -= Time->GetDeltaTime() * 10.0f;
+		newVelocity.x = clamp(newVelocity.x, -1.0f, 1.0f);
+		newPos.x -= 88;
+	}
+	else if (Input->GetKey(KeyCode::Right))
+	{
+		isMoveKeyInput = true;
+		_actor->ChangeDirection(eCreatureDirection::RIGHT);
+		newVelocity.x += Time->GetDeltaTime() * 10.0f;
+		newVelocity.x = clamp(newVelocity.x, -1.0f, 1.0f);
+		newPos.x += 88;
+	}
+
 
 	if (Input->GetKeyDown(KeyCode::Space))
 	{
 		_actor->SetIsAttackInput(true);
 	}
+
 	if (isMoveKeyInput == false)
 	{
-		newVelocity = { 0,0 };
+		newVelocity = { 0, 0 };
+		_actor->SetVelocity(newVelocity);
 	}
-	_actor->SetVelocity(newVelocity);
+
+	if (isMoveKeyInput == true) // 이동중일시에만
+	{
+		_trueTime -= Time->GetDeltaTime();
+		if (_trueTime <= 0) // 0.135초라는 딜레이를 갖고
+		{
+			_actor->SetVelocity(newVelocity); // 이동을 하며
+			_actor->SetDirNewPos(newPos); // 이동 방향은 이러하다
+			_trueTime = 0.135f;
+		}
+	}
 }

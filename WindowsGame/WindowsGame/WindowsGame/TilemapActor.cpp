@@ -46,9 +46,9 @@ void TilemapActor::Render(HDC hdc)
 	endY = (bottom - this->_body.pos.y) / tileSize;
 	endY = min(endY + 1, mapSize.y);
 
-	for (int y = startY; y < endY; y++) // for (int y = startY; y < endY; y++) 일 경우엔 아래쪽 가장자리가 썰려서 보임
+	for (int y = startY; y < endY; y++)
 	{
-		for (int x = startX; x < endX; x++) //for (int x = startX; x < endX; x++) 일 경우엔 오른쪽 가장자리가 썰려서 보임
+		for (int x = startX; x < endX; x++)
 		{
 			if (_sprites.size() <= tiles[y][x].value)
 				continue;

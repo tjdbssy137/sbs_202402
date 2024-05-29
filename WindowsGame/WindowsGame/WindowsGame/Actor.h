@@ -18,7 +18,7 @@ public:
 	void SetPos(Vector2 pos) { _body.pos = pos; }
 	Vector2 GetPos() { return _body.pos; }
 
-	void SetWidth(float width) {_body.width = width;}
+	void SetWidth(float width) { _body.width = width; }
 	float GetWidth() { return _body.width; }
 
 	void SetHeight(float height) { _body.height = height; }

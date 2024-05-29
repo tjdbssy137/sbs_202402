@@ -9,8 +9,6 @@
 #include "CameraComponent.h"
 #include "SpriteActor.h"
 #include "Sprite.h"
-#include "TilemapActor.h"
-
 void Dev1Scene::Init()
 {
 	Super::Init();
@@ -18,7 +16,7 @@ void Dev1Scene::Init()
 
 	Resource->LoadSound(L"BGM_Dev1Scene", L"Sounds/SoundStudy/BGM.wav");
 	GET_SINGLE(SoundManager)->Play(L"BGM_Dev1Scene", true);
-	
+
 	SpriteActor* background = nullptr;
 	{
 		background = new SpriteActor();
@@ -86,12 +84,6 @@ void Dev1Scene::Init()
 		_monster->SetPos(Vector2(WIN_SIZE_X / 2 + 100, WIN_SIZE_Y / 2 - 60));
 		_monster->Init();
 		SpawnActor(_monster);
-	}
-
-	{
-		TilemapActor* actor = new TilemapActor();
-		actor->Init();
-		this->SpawnActor(actor);
 	}
 
 	/*
