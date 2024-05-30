@@ -14,9 +14,10 @@ public:
 	virtual void Release() override;
 public:
 	void LoadResource();
-
+	int GetTileSize() { return _tileSize; }
 private:
 	//Panel* panel = nullptr;
 	MapToolController* _mapToolController = nullptr;
 	CreatureController* _creatureController = nullptr;
+	int _tileSize = 88;
 };

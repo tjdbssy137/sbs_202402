@@ -20,7 +20,7 @@
 void Dev2Scene::Init()
 {
 	LoadResource();
-
+	_tileSize = 88;
 	{
 		for (int i = 0; i <= 12; i++)
 		{
@@ -62,7 +62,7 @@ void Dev2Scene::Init()
 			tiles.push_back(tilesDummy);
 		}
 
-		Resource->CreateTileMap(L"TM_Test", mapSize, 88, tiles);
+		Resource->CreateTileMap(L"TM_Test", mapSize, _tileSize, tiles);
 	}
 
 	_mapToolController = new MapToolController();

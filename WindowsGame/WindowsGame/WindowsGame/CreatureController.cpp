@@ -1,12 +1,14 @@
 #include "pch.h"
 #include "CreatureController.h"
 #include "CreatureActor.h"
-
+#include "Dev2Scene.h"
 void CreatureController::SetLink(CreatureActor* actor)
 {
 	assert(actor != nullptr);
 
 	_actor = actor;
+
+	_currentScene = dynamic_cast<Dev2Scene*>(GET_SINGLE(SceneManager)->GetCurrentScene());
 }
 void CreatureController::Update()
 {
@@ -15,15 +17,14 @@ void CreatureController::Update()
 	bool isMoveKeyInput = false;
 
 	Vector2 newPos = _actor->GetPos(); // 이동 위치 및 방향
-
-
+	int tileSize = _currentScene->GetTileSize();
 	if (Input->GetKey(KeyCode::Up))
 	{
 		isMoveKeyInput = true;
 		_actor->ChangeDirection(eCreatureDirection::UP);
 		newVelocity.y -= Time->GetDeltaTime() * 10.0f;
 		newVelocity.y = clamp(newVelocity.y, -1.0f, 1.0f);
-		newPos.y -= 88;
+		newPos.y -= tileSize;
 	}
 	else if (Input->GetKey(KeyCode::Down))
 	{
@@ -31,7 +32,7 @@ void CreatureController::Update()
 		_actor->ChangeDirection(eCreatureDirection::DOWN);
 		newVelocity.y += Time->GetDeltaTime() * 10.0f;
 		newVelocity.y = clamp(newVelocity.y, -1.0f, 1.0f);
-		newPos.y += 88;
+		newPos.y += tileSize;
 	}
 	else if (Input->GetKey(KeyCode::Left))
 	{
@@ -39,7 +40,7 @@ void CreatureController::Update()
 		_actor->ChangeDirection(eCreatureDirection::LEFT);
 		newVelocity.x -= Time->GetDeltaTime() * 10.0f;
 		newVelocity.x = clamp(newVelocity.x, -1.0f, 1.0f);
-		newPos.x -= 88;
+		newPos.x -= tileSize;
 	}
 	else if (Input->GetKey(KeyCode::Right))
 	{
@@ -47,7 +48,7 @@ void CreatureController::Update()
 		_actor->ChangeDirection(eCreatureDirection::RIGHT);
 		newVelocity.x += Time->GetDeltaTime() * 10.0f;
 		newVelocity.x = clamp(newVelocity.x, -1.0f, 1.0f);
-		newPos.x += 88;
+		newPos.x += tileSize;
 	}
 
 
