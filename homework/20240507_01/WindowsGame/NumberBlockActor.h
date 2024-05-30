@@ -35,7 +35,6 @@ public:
 private:
 	int _number = 0;
 	NumberBlockDirState _directionState = NumberBlockDirState::None;
-	Vector2 _direction = Vector2::Zero();
 
 	Vector2 _startPos = Vector2::Zero();
 	float _sumTime = 0;

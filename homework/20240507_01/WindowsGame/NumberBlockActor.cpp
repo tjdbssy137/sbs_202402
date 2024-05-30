@@ -116,26 +116,4 @@ void NumberBlockActor::ChangeDirectionState(NumberBlockDirState directionState)
 	_startPos = this->GetPos();
 	_sumTime = 0.0f;
 	_directionState = directionState;
-	switch (directionState)
-	{
-	case NumberBlockDirState::Down:
-		_direction = Vector2::Down();
-		break;
-
-	case NumberBlockDirState::Up:
-		_direction = Vector2::Up();
-		break;
-
-	case NumberBlockDirState::Left:
-		_direction = Vector2::Left();
-		break;
-
-	case NumberBlockDirState::Right:
-		_direction = Vector2::Right();
-		break;
-	case NumberBlockDirState::None:
-		_direction = Vector2::Zero();
-		break;
-	}
 }
-
