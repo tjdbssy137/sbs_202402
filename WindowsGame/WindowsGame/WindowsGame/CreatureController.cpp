@@ -1,76 +1,112 @@
 #include "pch.h"
 #include "CreatureController.h"
 #include "CreatureActor.h"
-#include "Dev2Scene.h"
+#include "TilemapScene.h"
+
 void CreatureController::SetLink(CreatureActor* actor)
 {
 	assert(actor != nullptr);
 
 	_actor = actor;
-
-	_currentScene = dynamic_cast<Dev2Scene*>(GET_SINGLE(SceneManager)->GetCurrentScene());
 }
 void CreatureController::Update()
 {
 	_actor->SetIsAttackInput(false);
-	Vector2 newVelocity = _actor->GetVelocity(); // 이동중임을 판단, 사실 isMoveKeyInput을 쓰기만 해도 될듯
-	bool isMoveKeyInput = false;
 
-	Vector2 newPos = _actor->GetPos(); // 이동 위치 및 방향
-	int tileSize = _currentScene->GetTileSize();
+	//Udate문은 매프레임 들어옴 -> Update 최상위 if문은 매프레임 비교됨 
+	// -> 최대한 이벤트 빈도가 적은 내용으로 적는 것이 좋음
 	if (Input->GetKey(KeyCode::Up))
 	{
-		isMoveKeyInput = true;
-		_actor->ChangeDirection(eCreatureDirection::UP);
-		newVelocity.y -= Time->GetDeltaTime() * 10.0f;
-		newVelocity.y = clamp(newVelocity.y, -1.0f, 1.0f);
-		newPos.y -= tileSize;
-	}
-	else if (Input->GetKey(KeyCode::Down))
-	{
-		isMoveKeyInput = true;
-		_actor->ChangeDirection(eCreatureDirection::DOWN);
-		newVelocity.y += Time->GetDeltaTime() * 10.0f;
-		newVelocity.y = clamp(newVelocity.y, -1.0f, 1.0f);
-		newPos.y += tileSize;
+		if (_actor->CanMove())
+		{
+			Vector2Int cellPos = _actor->GetCellPos();
+			cellPos.y -= 1;
+
+			TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
+			assert(scene != nullptr);
+			if (scene == nullptr)
+			{
+				return;
+			}
+
+			if (scene->CanGo(_actor, cellPos))
+			{
+				_actor->SetCellPos(cellPos);
+				_actor->SetState(CreatureState::Move);
+			}
+			_actor->ChangeDirection(eCreatureDirection::UP);
+		}
 	}
 	else if (Input->GetKey(KeyCode::Left))
 	{
-		isMoveKeyInput = true;
-		_actor->ChangeDirection(eCreatureDirection::LEFT);
-		newVelocity.x -= Time->GetDeltaTime() * 10.0f;
-		newVelocity.x = clamp(newVelocity.x, -1.0f, 1.0f);
-		newPos.x -= tileSize;
+		if (_actor->CanMove())
+		{
+			Vector2Int cellPos = _actor->GetCellPos();
+			cellPos.x -= 1;
+
+			TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
+			assert(scene != nullptr);
+			if (scene == nullptr)
+			{
+				return;
+			}
+
+			if (scene->CanGo(_actor, cellPos))
+			{
+				_actor->SetCellPos(cellPos);
+				_actor->SetState(CreatureState::Move);
+			}
+			_actor->ChangeDirection(eCreatureDirection::LEFT);
+		}
 	}
 	else if (Input->GetKey(KeyCode::Right))
 	{
-		isMoveKeyInput = true;
-		_actor->ChangeDirection(eCreatureDirection::RIGHT);
-		newVelocity.x += Time->GetDeltaTime() * 10.0f;
-		newVelocity.x = clamp(newVelocity.x, -1.0f, 1.0f);
-		newPos.x += tileSize;
-	}
+		if (_actor->CanMove())
+		{
+			Vector2Int cellPos = _actor->GetCellPos();
+			cellPos.x += 1;
 
+			TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
+			assert(scene != nullptr);
+			if (scene == nullptr)
+			{
+				return;
+			}
+
+			if (scene->CanGo(_actor, cellPos))
+			{
+				_actor->SetCellPos(cellPos);
+				_actor->SetState(CreatureState::Move);
+			}
+			_actor->ChangeDirection(eCreatureDirection::RIGHT);
+		}
+	}
+	else if (Input->GetKey(KeyCode::Down))
+	{
+		if (_actor->CanMove())
+		{
+			Vector2Int cellPos = _actor->GetCellPos();
+			cellPos.y += 1;
+
+			TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
+			assert(scene != nullptr);
+			if (scene == nullptr)
+			{
+				return;
+			}
+
+			if (scene->CanGo(_actor, cellPos))
+			{
+				_actor->SetCellPos(cellPos);
+				_actor->SetState(CreatureState::Move);
+			}
+			_actor->ChangeDirection(eCreatureDirection::DOWN);
+		}
+	}
 
 	if (Input->GetKeyDown(KeyCode::Space))
 	{
 		_actor->SetIsAttackInput(true);
 	}
 
-	if (isMoveKeyInput == false)
-	{
-		newVelocity = { 0, 0 };
-		_actor->SetVelocity(newVelocity);
-	}
-
-	if (isMoveKeyInput == true) // 이동중일시에만
-	{
-		_trueTime -= Time->GetDeltaTime();
-		if (_trueTime <= 0) // 0.135초라는 딜레이를 갖고
-		{
-			_actor->SetVelocity(newVelocity); // 이동을 하며
-			_actor->SetDirNewPos(newPos); // 이동 방향은 이러하다
-			_trueTime = 0.135f;
-		}
-	}
 }

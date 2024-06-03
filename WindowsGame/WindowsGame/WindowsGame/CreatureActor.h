@@ -1,5 +1,6 @@
 #pragma once
 #include "FlipbookActor.h"
+#include "ITilemapActor.h"
 class BoxCollider;
 class Flipbook;
 
@@ -20,7 +21,7 @@ enum class CreatureState
 	Idle
 };
 
-class CreatureActor : public FlipbookActor
+class CreatureActor : public FlipbookActor, public ITilemapActor
 {
 public:
 	using Super = FlipbookActor;
@@ -29,6 +30,10 @@ public:
 	virtual void Render(HDC hdc) override;
 	virtual void Update() override;
 	virtual void Release() override;
+
+public: // 상속받은 인터페이스의 함수를 만들지 않으면 오류가 남.
+	virtual void SetCellPos(Vector2Int cellPos, bool teleport = false) override;
+	virtual Vector2Int GetCellPos() override;
 
 public:
 	void SetState(CreatureState state);
@@ -42,6 +47,12 @@ public:
 
 	void ChangeDirection(eCreatureDirection dir);
 
+	void SetDestPos(Vector2 destPos) { _destPos = destPos; }
+	Vector2 GetDestPos() { return _destPos; }
+
+public:
+	bool HasRechedDest();
+	bool CanMove();
 public:
 	void SetIsAttackInput(bool isAttackInput) { _isAttackInput = isAttackInput; }
 	bool GetIsAttackInput() { return _isAttackInput; }
@@ -49,7 +60,7 @@ public:
 	void UpdateMove();
 	void UpdateAttack();
 	void UpdateIdle();
-
+	
 
 private:
 	CreatureState _state = CreatureState::Idle;
@@ -66,4 +77,8 @@ private:
 	Vector2 _velocity = {};
 	Vector2 _dirNewPos = {};
 	bool _isAttackInput = false;
+
+private:
+	Vector2 _destPos = {};
+	Vector2Int _cellPos = {};
 };

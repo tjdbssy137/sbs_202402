@@ -1,10 +1,11 @@
 #pragma once
-#include "Scene.h"
+#include "TilemapScene.h" // 얘가 이미 Scene을 상속 받고 있음
 
 class MapToolController;
 class CreatureController;
 class Panel;
-class Dev2Scene : public Scene
+class TilemapActor;
+class Dev2Scene : public TilemapScene
 {
 	using Super = Scene;
 public:
@@ -14,10 +15,14 @@ public:
 	virtual void Release() override;
 public:
 	void LoadResource();
-	int GetTileSize() { return _tileSize; }
+
+public:
+	virtual Vector2 GetTilemapPos(Vector2Int cellPos) override;
+	virtual bool CanGo(Actor* actor, Vector2Int cellPos) override;
+
 private:
 	//Panel* panel = nullptr;
+	TilemapActor* _tilemapActor = nullptr;
 	MapToolController* _mapToolController = nullptr;
 	CreatureController* _creatureController = nullptr;
-	int _tileSize = 88;
 };

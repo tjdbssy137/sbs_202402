@@ -20,7 +20,6 @@
 void Dev2Scene::Init()
 {
 	LoadResource();
-	_tileSize = 88;
 	{
 		for (int i = 0; i <= 12; i++)
 		{
@@ -62,7 +61,7 @@ void Dev2Scene::Init()
 			tiles.push_back(tilesDummy);
 		}
 
-		Resource->CreateTileMap(L"TM_Test", mapSize, _tileSize, tiles);
+		Resource->CreateTileMap(L"TM_Test", mapSize, 88, tiles);
 	}
 
 	_mapToolController = new MapToolController();
@@ -88,6 +87,7 @@ void Dev2Scene::Init()
 		_mapToolController->SetLink(actor);
 
 		this->SpawnActor(actor);
+		_tilemapActor = actor;
 	}
 
 
@@ -101,6 +101,7 @@ void Dev2Scene::Init()
 		actor->Init();
 		_creatureController->SetLink(actor);
 		this->SpawnActor(actor);
+		actor->SetCellPos({ 7,3 }, true);
 	}
 
 	{
@@ -110,6 +111,7 @@ void Dev2Scene::Init()
 		actor->SetPos(Vector2(486, 300));
 		actor->Init();
 		this->SpawnActor(actor);
+		actor->SetCellPos({ 2,0 }, true);
 	}
 
 
@@ -256,4 +258,61 @@ void Dev2Scene::LoadResource()
 	//  ## UI
 	//----------------------------------
 
+}
+
+Vector2 Dev2Scene::GetTilemapPos(Vector2Int cellPos)
+{
+	assert(_tilemapActor != nullptr); // 유효성 검사
+	if (_tilemapActor == nullptr)
+	{
+		return Vector2::Zero();
+	}
+
+	Tilemap* tilemap = _tilemapActor->GetTileMap();
+	assert(tilemap != nullptr);
+	if (tilemap == nullptr)
+	{
+		return Vector2::Zero();
+	}
+
+	int tileSize = tilemap->GetTileSize();
+	Vector2 pos = _tilemapActor->GetPos();
+
+	Vector2 rv;
+	rv.x = pos.x + cellPos.x * tileSize + (tileSize / 2);
+	rv.y = pos.y + cellPos.y * tileSize + (tileSize / 2);
+	return rv;
+}
+
+bool Dev2Scene::CanGo(Actor* actor, Vector2Int cellPos)
+{
+	assert(actor != nullptr);
+	if (actor == nullptr)
+	{
+		return false;
+	}
+	assert(_tilemapActor != nullptr);
+	if (_tilemapActor == nullptr)
+	{
+		return false;
+	}
+
+	Tilemap* tilemap = _tilemapActor->GetTileMap();
+	assert(tilemap != nullptr);
+	if (tilemap == nullptr)
+	{
+		return false;
+	}
+
+	Tile* tile = tilemap->GetTileAt(cellPos);
+	if (tile == nullptr)
+	{
+		return false;
+	}
+	// 위에는 전부 유효성 검사 
+	if (tile->value == 0)
+	{
+		return true;
+	}
+	return false;
 }

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CreatureActor.h"
 #include "BoxCollider.h"
+#include "Dev2Scene.h"
 
 void CreatureActor::Init()
 {
@@ -118,17 +119,33 @@ void CreatureActor::ChangeDirection(eCreatureDirection dir)
 
 void CreatureActor::UpdateMove()
 {
-	if (_velocity.Length() < EPSILON)
-	{
-		SetState(CreatureState::Idle);
-	}
+	// _destPos랑 비교해서 움직이게 끔
+	// 현재 내 포지션이 _destPos와 다르면 내 dir 방향으로 계속 움직인다.
 
-	if (EPSILON < _velocity.Length())
+	if (HasRechedDest())
 	{
-		/*Vector2 newPos = this->GetPos();
-		newPos += _velocity * 200 * Time->GetDeltaTime();
-		this->SetPos(newPos);*/
-		this->SetPos(_dirNewPos);
+		this->SetState(CreatureState::Idle);
+		this->SetPos(_destPos);// 10픽셀 이하로 하면 포지션에서 어긋나니까 다시 조정
+	}
+	else
+	{
+		switch (_dir)
+		{
+		case eCreatureDirection::DOWN:
+			_body.pos.y += 400 * Time->GetDeltaTime();
+			break;
+		case eCreatureDirection::UP:
+			_body.pos.y -= 400 * Time->GetDeltaTime();
+			break;
+		case eCreatureDirection::LEFT:
+			_body.pos.x -= 400 * Time->GetDeltaTime();
+			break;
+		case eCreatureDirection::RIGHT:
+			_body.pos.x += 400 * Time->GetDeltaTime();
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -155,4 +172,54 @@ void CreatureActor::UpdateAttack()
 	collider->SetEnable(true);
 	collider->SetCollision(_attackCollisionPos[_dir]);
 	this->AddComponent(collider);
+}
+
+void CreatureActor::SetCellPos(Vector2Int cellPos, bool teleport)
+{
+	_cellPos = cellPos;
+	//_destPos를 정확하게 짚어줄 것
+	// 현재 맵에 있는 Tilemap을 불러와서 해당 셀에 있는 
+	// _destPos = Tile 좌표를 가져온다.
+
+	TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
+
+	if (scene == nullptr)
+	{
+		return;
+	}
+	// 이론상 씬에 타일맵이 있기에 값을 가져올 수 있어야 함.
+	// 특정 클래스나 Actor에서 씬에 있거나 어딘가에 있는 무언가를 들고와야하는 상황이 되게 자주 발생
+	// 그때 못 가져오면 개발이 불가능.
+	Vector2 destPos = scene->GetTilemapPos(cellPos);
+	_destPos = destPos;
+
+	// 자연스럽게 이동해서 저 포지션으로 갈것인지, 순간이동 시켜서 1프레임만(즉시)에 이동시킬 것이냐.
+	if (teleport)
+	{
+		this->SetPos(_destPos);
+	}
+}
+Vector2Int CreatureActor::GetCellPos()
+{
+	return _cellPos;
+}
+bool CreatureActor::HasRechedDest()
+{
+	//_destPos와 내 위치의 길이 < 10px보다 작다.
+	return (_destPos - this->GetPos()).Length() < 10.0f;
+}
+
+bool CreatureActor::CanMove()
+{
+	if (this->_state == CreatureState::Attack)
+	{
+		return false;
+	}
+
+	if (this->_state == CreatureState::Move)
+	{
+		return false;
+	}
+
+	return true;
 }

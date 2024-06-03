@@ -56,6 +56,9 @@
     <Filter Include="03.Objects\TilemapGame">
       <UniqueIdentifier>{af05ec9f-2ced-4c3a-b168-350760efd2a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="07.Interfaces">
+      <UniqueIdentifier>{933cccd1-0a1f-4efc-a84e-d845d6898917}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -238,6 +241,10 @@
     <ClInclude Include="CreatureController.h">
       <Filter>03.Objects\Zelda</Filter>
     </ClInclude>
+    <ClInclude Include="ITilemapActor.h">
+      <Filter>07.Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="TilemapScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -475,6 +482,13 @@
     <ClCompile Include="CreatureController.cpp">
       <Filter>03.Objects\Zelda</Filter>
     </ClCompile>
+    <ClCompile Include="Day38.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="ITilemapActor.cpp">
+      <Filter>07.Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Day16.cpp">
