@@ -9,7 +9,6 @@ void Game2048Scene::Init()
 	Super::Init();
 	RoadResource();
 
-
 	{
 		SpriteActor* background = new SpriteActor();
 		background->Init();
