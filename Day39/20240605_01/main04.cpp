@@ -158,8 +158,83 @@ void Dijikstra(int start)
 	}
 }
 
+struct AStarNode {
+	int Cost; // g(n): 시작 노드부터 현재 노드까지의 실제 비용
+	int Heuristic; // h(n): 현재 노드부터 목표 노드까지의 추정 비용
+	int Vertex;
+
+	// 우선순위 큐에서 더 작은 f(n) 값을 가진 노드를 우선적으로 처리하도록 함
+	bool operator>(const AStarNode& other) const {
+		return (Cost + Heuristic) > (other.Cost + other.Heuristic);
+	}
+};
+
+// 휴리스틱 함수 (간단한 예시로, 실제로는 목표 노드까지의 거리에 기반한 값을 반환해야 함)
+int Heuristic(int current, int goal) {
+	// 여기서는 간단히 절대값 차이를 반환
+	return abs(goal - current);
+};
+
+void AStar(int start, int goal, const vector<vector<int>>& edges) {
+	priority_queue<AStarNode, vector<AStarNode>, greater<AStarNode>> queue;
+
+	vector<int> best(edges.size(), INT_MAX);
+	vector<int> parent(edges.size(), -1);
+
+	queue.push(AStarNode{ 0, Heuristic(start, goal), start });
+	best[start] = 0;
+	parent[start] = start;
+
+	while (!queue.empty()) {
+		AStarNode node = queue.top();
+		queue.pop();
+
+		int here = node.Vertex;
+		int cost = node.Cost;
+
+		if (here == goal) {
+			cout << "목표 노드 " << goal << " 에 도달했습니다." << endl;
+			break; // 목표 노드에 도달했으면 종료
+		}
+
+		if (best[here] < cost) {
+			continue; // 더 짧은 경로를 뒤늦게 찾은 경우 스킵
+		}
+		cout << here << "방문" << endl;
+
+		for (int i = 0; i < edges[here].size(); i++) {
+			if (edges[here][i] == -1) {
+				continue; // 연결되어 있지 않으면 Continue
+			}
+
+			int nextCost = best[here] + edges[here][i];
+			if (best[i] <= nextCost) {
+				continue; // 더 좋은 경로를 과거에 찾았다면 스킵
+			}
+
+			best[i] = nextCost;
+			parent[i] = here;
+			queue.push(AStarNode{ nextCost, Heuristic(i, goal), i });
+		}
+	}
+}
+
+// edges 배열과 기타 필요한 세부사항은 이 코드의 범위를 벗어나므로, 
+// 실제 사용 시에는 그래프의 구조와 목표 노드를 적절히 설정해야 합니다.
+
+
 void main()
 {
-	CreateGraph();
-	Dijikstra(0);
+	//CreateGraph();
+	//Dijikstra(0);
+
+	vector<vector<int>> edges = {
+		{-1, 4, -1, -1, -1, -1},
+		{4, -1, 2, -1, -1, -1},
+		{-1, 2, -1, 3, -1, -1},
+		{-1, -1, 3, -1, 2, 3},
+		{-1, -1, -1, 2, -1, 1},
+		{-1, -1, -1, 3, 1, -1}
+	};
+	AStar(0, 5, edges);
 }

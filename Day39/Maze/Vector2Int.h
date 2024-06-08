@@ -11,7 +11,7 @@ struct Vector2Int
 	void operator+=(const Vector2Int& other);
 	void operator-=(const Vector2Int& other);
 	void operator*=(int32 value);
-
+	float Length();
 	bool operator==(const Vector2Int& other);
 	bool operator!=(const Vector2Int& other);
 };

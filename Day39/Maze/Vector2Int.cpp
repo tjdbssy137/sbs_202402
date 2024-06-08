@@ -36,6 +36,11 @@ void Vector2Int::operator*=(int32 value)
 	this->y *= value;
 }
 
+float Vector2Int::Length()
+{
+	return sqrtf(this->x * this->x + this->y * this->y);
+}
+
 bool Vector2Int::operator==(const Vector2Int& other)
 {
 	return this->x == other.x && this->y == other.y;

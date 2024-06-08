@@ -83,11 +83,10 @@ void Player::CalculatePath_RightHand()
 	}
 }
 
-void Player::CalculatePath_BFS() // 배열 초과 문제
+void Player::CalculatePath_BFS()
 {
 	queue<Vector2Int> queue;
 	queue.push(_pos);
-
 
 	int size = _board->GetSize();
 	vector<vector<bool>> visited(size, vector<bool>(size, false));
@@ -121,7 +120,7 @@ void Player::CalculatePath_BFS() // 배열 초과 문제
 		{
 			Vector2Int nextPos = current + dir[i];
 			// 다음지점이 갈 수 있는 지점이면,
-			if (this->CanGo(nextPos) && visited[current.y][current.x] == 0)
+			if (this->CanGo(nextPos) && visited[nextPos.y][nextPos.x] == 0)
 			{
 				// nextPos는 curren로부터 왔습니다.
 				parent[nextPos.y][nextPos.x] = current;
@@ -151,5 +150,65 @@ void Player::CalculatePath_BFS() // 배열 초과 문제
 		Vector2Int temp = _path[i];
 		_path[i] = _path[_path.size() - 1 - i];
 		_path[_path.size() - 1 - i] = temp;
+	}
+}
+
+void Player::CalculatePath_Astar()
+{
+	Vector2Int start = _board->GetEnterPos();
+	Vector2Int goal = _board->GetExitPos();
+
+	priority_queue<AStarNode, vector<AStarNode>, greater<AStarNode>> queue;
+
+	int size = _board->GetSize();
+	vector<vector<int>> best(size, vector<int>(size, INT_MAX));
+	vector<vector<Vector2Int>> parent(size, vector<Vector2Int>(size, Vector2Int(-1, -1)));
+
+	//vector<Vector2Int> best(_board->GetSize(), Vector2Int(-1, -1)); // vector<Vector2Int> best(_path.size(), INT_MAX);
+	//vector<Vector2Int> parent(_board->GetSize(), Vector2Int(-1, -1)); // vector<Vector2Int> parent(_path.size(), -1);
+
+	int Heuristic = (abs(start.y - goal.y) + abs(start.x - goal.x)) * 10;
+	queue.push(AStarNode{ 0, Heuristic, start });
+	best[start.y][start.x] = 0;
+	parent[start.y][start.x] = start;
+
+	Vector2Int current = start;
+	while (false == queue.empty())
+	{
+		AStarNode node = queue.top();
+		queue.pop();
+		//방문했다 
+
+		int cost = node.Cost;
+		current = node.Vertex;
+		int H = (abs(current.y - goal.y) + abs(current.x - goal.x)) * 10;
+
+		best[current.y][current.x] = 0;
+
+		if (current == _board->GetExitPos())
+		{
+			//갈수있다/없다.
+			break;
+		}
+
+		Vector2Int dir[4] =
+		{
+			Vector2Int(0, -1), //Up
+			Vector2Int(1, 0), // Right
+			Vector2Int(0, 1), //Down
+			Vector2Int(-1, 0), //Left
+		};
+
+		for (int i = 0; i < 4; i++)
+		{
+			Vector2Int nextPos = current + dir[i];
+			// 다음지점이 갈 수 있는 지점이면,
+			if (this->CanGo(nextPos) && best[nextPos.y][nextPos.x] == 0)
+			{
+				// nextPos는 curren로부터 왔습니다.
+				parent[nextPos.y][nextPos.x] = current;
+				queue.push(AStarNode{ i, , nextPos});
+			}
+		}
 	}
 }
