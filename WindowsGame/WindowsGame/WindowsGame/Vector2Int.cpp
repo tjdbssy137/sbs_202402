@@ -55,3 +55,13 @@ int32 Vector2Int::Dot(Vector2Int other)
 {
 	return x * other.x + y * other.y;
 }
+
+bool Vector2Int::operator==(const Vector2Int& other)
+{
+	return this->x == other.x && this->y == other.y;
+}
+
+bool Vector2Int::operator!=(const Vector2Int& other)
+{
+	return this->x != other.x || this->y != other.y;
+}

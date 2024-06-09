@@ -6,10 +6,25 @@ struct AStarNode
 	int Heuristic; // h(n): 현재 노드부터 목표 노드까지의 추정 비용
 	Vector2Int Vertex;
 
-	// 우선순위 큐에서 더 작은 f(n) 값을 가진 노드를 우선적으로 처리하도록 함
 	bool operator>(const AStarNode& other) const
 	{
 		return (Cost + Heuristic) > (other.Cost + other.Heuristic);
+	}
+};
+
+struct DijikstraNode
+{
+	int Cost;
+	Vector2Int Vertex;
+
+	bool operator<(const DijikstraNode& other) const // const 뒤에나오는 값의 수정, 변경이 불가
+	{
+		return Cost < other.Cost;
+	}
+
+	bool operator>(const DijikstraNode& other) const // const 뒤에나오는 값의 수정, 변경이 불가
+	{
+		return Cost > other.Cost;
 	}
 };
 
@@ -26,7 +41,7 @@ public:
 	void CalculatePath_RightHand();
 	void CalculatePath_BFS();
 	void CalculatePath_Astar();
-
+	void CalculatePath_Dijikstra();
 private:
 	Vector2Int _pos;
 	Board* _board = nullptr;

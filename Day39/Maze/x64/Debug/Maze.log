@@ -1,20 +1,2 @@
-﻿  pch.cpp
-  Board.cpp
-  ConsoleHelper.cpp
-  Maze.cpp
-  Player.cpp
-D:\GitHub\sbs_202402\Day39\Maze\ConsoleHelper.cpp(7,16): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-  (소스 파일 '/ConsoleHelper.cpp'을(를) 컴파일하는 중)
-  
-D:\GitHub\sbs_202402\Day39\Maze\ConsoleHelper.cpp(7,19): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-  (소스 파일 '/ConsoleHelper.cpp'을(를) 컴파일하는 중)
-  
-D:\GitHub\sbs_202402\Day39\Maze\Maze.cpp(8,15): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Maze.cpp'을(를) 컴파일하는 중)
-  
-  Vector2Int.cpp
-D:\GitHub\sbs_202402\Day39\Maze\Vector2Int.cpp(41,33): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Vector2Int.cpp'을(를) 컴파일하는 중)
-  
-  코드를 생성하고 있습니다...
+﻿  Player.cpp
   Maze.vcxproj -> D:\GitHub\sbs_202402\Day39\x64\Debug\Maze.exe

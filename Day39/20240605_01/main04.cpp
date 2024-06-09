@@ -169,7 +169,6 @@ struct AStarNode {
 	}
 };
 
-// 휴리스틱 함수 (간단한 예시로, 실제로는 목표 노드까지의 거리에 기반한 값을 반환해야 함)
 int Heuristic(int current, int goal) {
 	// 여기서는 간단히 절대값 차이를 반환
 	return abs(goal - current);
@@ -219,16 +218,12 @@ void AStar(int start, int goal, const vector<vector<int>>& edges) {
 	}
 }
 
-// edges 배열과 기타 필요한 세부사항은 이 코드의 범위를 벗어나므로, 
-// 실제 사용 시에는 그래프의 구조와 목표 노드를 적절히 설정해야 합니다.
-
-
 void main()
 {
-	//CreateGraph();
-	//Dijikstra(0);
+	CreateGraph();
+	Dijikstra(0);
 
-	vector<vector<int>> edges = {
+	/*vector<vector<int>> edges = {
 		{-1, 4, -1, -1, -1, -1},
 		{4, -1, 2, -1, -1, -1},
 		{-1, 2, -1, 3, -1, -1},
@@ -236,5 +231,5 @@ void main()
 		{-1, -1, -1, 2, -1, 1},
 		{-1, -1, -1, 3, 1, -1}
 	};
-	AStar(0, 5, edges);
+	AStar(0, 5, edges);*/
 }

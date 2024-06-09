@@ -50,3 +50,11 @@ bool Vector2Int::operator!=(const Vector2Int& other)
 {
 	return this->x != other.x || this->y != other.y;
 }
+bool Vector2Int::operator<=(const Vector2Int& other)
+{
+	return this->x <= other.x && this->y <= other.y;
+}
+bool Vector2Int::operator>=(const Vector2Int& other)
+{
+	return other.x <= this->x && other.y <= this->y;
+}

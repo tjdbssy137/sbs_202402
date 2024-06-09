@@ -14,5 +14,7 @@ struct Vector2Int
 	float Length();
 	bool operator==(const Vector2Int& other);
 	bool operator!=(const Vector2Int& other);
+	bool operator<=(const Vector2Int& other);
+	bool operator>=(const Vector2Int& other);
 };
 

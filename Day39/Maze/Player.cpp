@@ -8,8 +8,10 @@ void Player::Init(Board* board)
 
 	_pos = _board->GetEnterPos();
 
-	//this->CalculatePath_RightHand();
-	this->CalculatePath_BFS();
+	//this->CalculatePath_RightHand();// BFS랑 길이 달라짐?
+	//this->CalculatePath_BFS();
+	//this->CalculatePath_Dijikstra();// BFS랑 길이 달라짐?
+	this->CalculatePath_Astar(); // BFS랑 길이 달라짐?
 }
 
 void Player::Update()
@@ -153,44 +155,42 @@ void Player::CalculatePath_BFS()
 	}
 }
 
-void Player::CalculatePath_Astar()
+void Player::CalculatePath_Dijikstra()
 {
-	Vector2Int start = _board->GetEnterPos();
-	Vector2Int goal = _board->GetExitPos();
-
-	priority_queue<AStarNode, vector<AStarNode>, greater<AStarNode>> queue;
+	Vector2Int start = _pos;
+	priority_queue<DijikstraNode, vector<DijikstraNode>, greater<DijikstraNode>> queue;
 
 	int size = _board->GetSize();
-	vector<vector<int>> best(size, vector<int>(size, INT_MAX));
+	// 각 인덱스로 가기위한 best 코스트
+	vector<vector<int>> best(size, vector<int>(size, INT_MAX)); // 0을 넣어주면 안 됨.
 	vector<vector<Vector2Int>> parent(size, vector<Vector2Int>(size, Vector2Int(-1, -1)));
-
-	//vector<Vector2Int> best(_board->GetSize(), Vector2Int(-1, -1)); // vector<Vector2Int> best(_path.size(), INT_MAX);
-	//vector<Vector2Int> parent(_board->GetSize(), Vector2Int(-1, -1)); // vector<Vector2Int> parent(_path.size(), -1);
-
-	int Heuristic = (abs(start.y - goal.y) + abs(start.x - goal.x)) * 10;
-	queue.push(AStarNode{ 0, Heuristic, start });
+	
+	queue.push(DijikstraNode{0, start});
 	best[start.y][start.x] = 0;
 	parent[start.y][start.x] = start;
 
-	Vector2Int current = start;
+	Vector2Int here = start;
 	while (false == queue.empty())
 	{
-		AStarNode node = queue.top();
+		DijikstraNode node = queue.top();
 		queue.pop();
-		//방문했다 
 
+		//빙의 시작
 		int cost = node.Cost;
-		current = node.Vertex;
-		int H = (abs(current.y - goal.y) + abs(current.x - goal.x)) * 10;
+		here = node.Vertex;
 
-		best[current.y][current.x] = 0;
-
-		if (current == _board->GetExitPos())
+		if (here == _board->GetExitPos())
 		{
 			//갈수있다/없다.
 			break;
 		}
 
+		if (best[here.y][here.x] < cost)
+		{
+			continue;
+		}
+		
+		// 네 방향(상, 하, 좌, 우)으로 이동
 		Vector2Int dir[4] =
 		{
 			Vector2Int(0, -1), //Up
@@ -201,14 +201,137 @@ void Player::CalculatePath_Astar()
 
 		for (int i = 0; i < 4; i++)
 		{
-			Vector2Int nextPos = current + dir[i];
-			// 다음지점이 갈 수 있는 지점이면,
-			if (this->CanGo(nextPos) && best[nextPos.y][nextPos.x] == 0)
+			Vector2Int nextPos = here + dir[i];
+			
+			// 연결되어 있지 않으면 Continue
+			if (nextPos == Vector2Int{ -1, -1 })
 			{
-				// nextPos는 curren로부터 왔습니다.
-				parent[nextPos.y][nextPos.x] = current;
-				queue.push(AStarNode{ i, , nextPos});
+				continue;
+			}
+			if (this->CanGo(nextPos))
+			{
+				//더 좋은 경로를 과거에 찾았다면 스킵
+				int nextCost = best[here.y][here.x] + 100;
+				if (best[nextPos.y][nextPos.x] <= nextCost)
+				{
+					continue;
+				}
+				// 지금까지 찾은 경로중에서 최선의 수치
+				best[nextPos.y][nextPos.x] = nextCost;
+				parent[nextPos.y][nextPos.x] = here;
+				queue.push(DijikstraNode{nextCost, nextPos});
 			}
 		}
+	}
+	
+	//_path에 담아보기
+	// --> 목적지부터 역으로 담으면 된다.
+
+	Vector2Int pos = _board->GetExitPos();
+	while (true)
+	{
+		_path.push_back(pos);
+		if (pos == _board->GetEnterPos())
+		{
+			break;
+		}
+		pos = parent[pos.y][pos.x];
+	}
+
+	// 백터 뒤집기
+	for (int i = 0; i < _path.size() / 2; i++) 	// 배열의 절반
+	{
+		// 스왑
+		Vector2Int temp = _path[i];
+		_path[i] = _path[_path.size() - 1 - i];
+		_path[_path.size() - 1 - i] = temp;
+	}
+}
+
+void Player::CalculatePath_Astar()
+{
+	Vector2Int start = _pos;
+	Vector2Int goal = _board->GetExitPos();
+
+	priority_queue<AStarNode, vector<AStarNode>, greater<AStarNode>> queue;
+
+	int size = _board->GetSize();
+
+	vector<vector<int>> best(size, vector<int>(size, INT_MAX));
+	vector<vector<Vector2Int>> parent(size, vector<Vector2Int>(size, Vector2Int(-1, -1)));
+
+	int heuristic = (abs(start.y - goal.y) + abs(start.x - goal.x)) * 10;
+	queue.push(AStarNode{0, heuristic, start});
+	best[start.y][start.x] = 0;
+	parent[start.y][start.x] = start;
+
+	Vector2Int here = start;
+	while (!queue.empty())
+	{
+		AStarNode node = queue.top();
+		queue.pop();
+		//방문했다 
+
+		int cost = node.Cost;
+		here = node.Vertex;
+
+		if (here == goal)
+		{
+			break;
+		}
+
+		if (best[here.y][here.x] < cost)
+		{
+			continue;
+		}
+
+		// 네 방향(상, 하, 좌, 우)으로 이동
+		Vector2Int dir[4] =
+		{
+			Vector2Int(0, -1), //Up
+			Vector2Int(1, 0), // Right
+			Vector2Int(0, 1), //Down
+			Vector2Int(-1, 0), //Left
+		};
+
+		for (int i = 0; i < 4; i++)
+		{
+			Vector2Int nextPos = here + dir[i];
+			if (this->CanGo(nextPos)) // 갈수있는곳만가기
+			{
+				int nextCost = best[here.y][here.x] + 10;
+				// 더 좋은 경로를 과거에 찾았다면 스킵
+				if (best[nextPos.y][nextPos.x] <= nextCost)
+				{
+					continue;
+				}
+
+				best[nextPos.y][nextPos.x] = nextCost;
+				parent[nextPos.y][nextPos.x] = here;
+				int heuristic = (abs(nextPos.y - goal.y) + abs(nextPos.x - goal.x)) * 10;
+				queue.push(AStarNode{ nextCost, heuristic, nextPos });
+			}
+		}
+	}
+	//_path에 담아보기
+	// --> 목적지부터 역으로 담으면 된다.
+	Vector2Int pos = _board->GetExitPos();
+	while (true)
+	{
+		_path.push_back(pos);
+		if (pos == _board->GetEnterPos())
+		{
+			break;
+		}
+		pos = parent[pos.y][pos.x];
+	}
+
+	// 백터 뒤집기
+	for (int i = 0; i < _path.size() / 2; i++) 	// 배열의 절반
+	{
+		// 스왑
+		Vector2Int temp = _path[i];
+		_path[i] = _path[_path.size() - 1 - i];
+		_path[_path.size() - 1 - i] = temp;
 	}
 }

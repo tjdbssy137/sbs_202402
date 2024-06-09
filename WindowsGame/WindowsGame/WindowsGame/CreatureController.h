@@ -10,5 +10,9 @@ private:
 public:
 	void SetLink(CreatureActor* actor);
 	void Update();
-
+public:
+	void Calculate_BFS();
+private:
+	Vector2Int _start = {};
+	Vector2Int _goal = {};
 };
