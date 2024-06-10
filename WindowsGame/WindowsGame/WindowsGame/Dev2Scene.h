@@ -5,6 +5,7 @@ class MapToolController;
 class CreatureController;
 class Panel;
 class TilemapActor;
+class Tilemap;
 class Dev2Scene : public TilemapScene
 {
 	using Super = Scene;
@@ -18,8 +19,11 @@ public:
 
 public:
 	virtual Vector2 GetTilemapPos(Vector2Int cellPos) override;
+	virtual Tilemap* GetTilemap() override;
+	virtual TilemapActor* GetTilemapActor() override;
 	virtual bool CanGo(Actor* actor, Vector2Int cellPos) override;
-
+public:
+	MapToolController* GetMapToolController() { return _mapToolController;	}
 private:
 	//Panel* panel = nullptr;
 	TilemapActor* _tilemapActor = nullptr;

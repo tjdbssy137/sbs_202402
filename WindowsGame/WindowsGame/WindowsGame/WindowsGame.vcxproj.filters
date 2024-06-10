@@ -489,6 +489,9 @@
       <Filter>07.Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="TilemapScene.cpp" />
+    <ClCompile Include="Day41.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Day16.cpp">

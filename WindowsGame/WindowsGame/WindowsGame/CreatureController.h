@@ -11,7 +11,7 @@ public:
 	void SetLink(CreatureActor* actor);
 	void Update();
 public:
-	void Calculate_BFS();
+	vector<Vector2Int> Calculator_Astar(Vector2Int startPos, Vector2Int endPos);
 private:
 	Vector2Int _start = {};
 	Vector2Int _goal = {};

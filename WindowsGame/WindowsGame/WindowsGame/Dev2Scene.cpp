@@ -101,7 +101,7 @@ void Dev2Scene::Init()
 		actor->Init();
 		_creatureController->SetLink(actor);
 		this->SpawnActor(actor);
-		actor->SetCellPos({ 7,3 }, true);
+		actor->SetCellPos({ 0, 0 }, true);
 	}
 
 	{
@@ -315,4 +315,31 @@ bool Dev2Scene::CanGo(Actor* actor, Vector2Int cellPos)
 		return true;
 	}
 	return false;
+}
+
+Tilemap* Dev2Scene::GetTilemap()
+{
+	assert(_tilemapActor != nullptr);
+	if (_tilemapActor == nullptr)
+	{
+		return nullptr;
+	}
+
+	Tilemap* tilemap = _tilemapActor->GetTileMap();
+	assert(tilemap != nullptr);
+	if (tilemap == nullptr)
+	{
+		return nullptr;
+	}
+	return tilemap;
+}
+
+TilemapActor* Dev2Scene::GetTilemapActor()
+{
+	assert(_tilemapActor != nullptr);
+	if (_tilemapActor == nullptr)
+	{
+		return nullptr;
+	}
+	return _tilemapActor;
 }

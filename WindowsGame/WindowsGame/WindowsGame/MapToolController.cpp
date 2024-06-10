@@ -43,11 +43,6 @@ void MapToolController::Update()
 			tile->value++;
 			tile->value %= spriteSize;
 			//++를 계속 하다보면 저장해둔 Sprite의 개수를 넘어갈 수도 있기 때문에 방지하기 위한 코드
-			_goal = { x, y };//해당 타일이 null 아니다
-		}
-		else if(tile == nullptr)
-		{
-			_goal = {-1, -1};
 		}
 	}
 

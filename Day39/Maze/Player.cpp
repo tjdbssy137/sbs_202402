@@ -8,10 +8,10 @@ void Player::Init(Board* board)
 
 	_pos = _board->GetEnterPos();
 
-	//this->CalculatePath_RightHand();// BFS랑 길이 달라짐?
+	//this->CalculatePath_RightHand();
 	//this->CalculatePath_BFS();
-	//this->CalculatePath_Dijikstra();// BFS랑 길이 달라짐?
-	this->CalculatePath_Astar(); // BFS랑 길이 달라짐?
+	//this->CalculatePath_Dijikstra();
+	this->CalculatePath_Astar(); 
 }
 
 void Player::Update()
@@ -248,7 +248,7 @@ void Player::CalculatePath_Dijikstra()
 	}
 }
 
-void Player::CalculatePath_Astar()
+void Player::CalculatePath_MY_Astar()
 {
 	Vector2Int start = _pos;
 	Vector2Int goal = _board->GetExitPos();
@@ -315,6 +315,113 @@ void Player::CalculatePath_Astar()
 	}
 	//_path에 담아보기
 	// --> 목적지부터 역으로 담으면 된다.
+	Vector2Int pos = _board->GetExitPos();
+	while (true)
+	{
+		_path.push_back(pos);
+		if (pos == _board->GetEnterPos())
+		{
+			break;
+		}
+		pos = parent[pos.y][pos.x];
+	}
+
+	// 백터 뒤집기
+	for (int i = 0; i < _path.size() / 2; i++) 	// 배열의 절반
+	{
+		// 스왑
+		Vector2Int temp = _path[i];
+		_path[i] = _path[_path.size() - 1 - i];
+		_path[_path.size() - 1 - i] = temp;
+	}
+}
+
+
+struct PQNode
+{
+	int Cost;
+	Vector2Int Vertex;
+
+	int G;
+
+	bool operator<(const PQNode& other) const
+	{
+		return Cost < other.Cost;
+	}
+	bool operator>(const PQNode& other) const
+	{
+		return Cost > other.Cost;
+	}
+};
+
+void Player::CalculatePath_Astar() // 수업에서 짠것
+{
+	// less 더 큰게 루트로 옴
+	// greater 더 작응ㄴ 게 루트로 옴
+	priority_queue<PQNode, vector<PQNode>, greater<PQNode>> queue;
+	
+	Vector2Int dest = _board->GetExitPos();
+	PQNode node;
+	node.Vertex = _pos;
+	node.G = 0;
+	node.Cost = node.G + (dest - _pos).Length();
+	queue.push(node);
+
+	int size = _board->GetSize();
+	vector<vector<bool>> visited(size, vector<bool>(size, false));
+
+	// parent[y][x] = pos (xy는 pos에 의해 발견된 곳)
+	vector<vector<Vector2Int>> parent(size, vector<Vector2Int>(size, Vector2Int(-1, -1)));
+
+	parent[_pos.y][_pos.x] = _pos;
+	while (false == queue.empty())
+	{
+		PQNode current = queue.top();
+		queue.pop();
+		//방문했다 체크
+		visited[current.Vertex.y][current.Vertex.x] = true;
+
+		if (current.Vertex == _board->GetExitPos())
+		{
+			//갈수있다/없다.
+			break;
+		}
+
+		Vector2Int dir[4] =
+		{
+			Vector2Int(0, -1), //Up
+			Vector2Int(1, 0), // Right
+			Vector2Int(0, 1), //Down
+			Vector2Int(-1, 0), //Left
+		};
+
+		int moveCost[4] =
+		{
+			1,
+			1,
+			1,
+			1
+		};
+		for (int i = 0; i < 4; i++)
+		{
+			Vector2Int nextPos = current.Vertex + dir[i];
+			// 다음지점이 갈 수 있는 지점이면,
+			if (this->CanGo(nextPos) && visited[nextPos.y][nextPos.x] == 0)
+			{
+				// nextPos는 curren로부터 왔습니다.
+				parent[nextPos.y][nextPos.x] = current.Vertex;
+				PQNode newNode;
+				newNode.Vertex = nextPos;
+				newNode.G = current.G + moveCost[i];
+				newNode.Cost = newNode.G + (dest - _pos).Length();
+				queue.push(newNode);
+			}
+		}
+	}
+
+	//_path에 담아보기
+	// --> 목적지부터 역으로 담으면 된다.
+
 	Vector2Int pos = _board->GetExitPos();
 	while (true)
 	{

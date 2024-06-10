@@ -129,38 +129,60 @@ void CreatureActor::UpdateMove()
 	}
 	else
 	{
-		switch (_dir)
+		Vector2 dirVec = _destPos - this->GetPos();
+		dirVec = dirVec.Normalize();
+		_body.pos += dirVec * 450 * Time->GetDeltaTime();
+
+		// 상하좌우에 따라 캐릭터 방향을 돌려줌.
+		float upDotValue = dirVec.Dot(Vector2::Up());
+		float rightDotValue = dirVec.Dot(Vector2::Right());
+		float downDotValue = dirVec.Dot(Vector2::Down());
+		float leftDotValue = dirVec.Dot(Vector2::Left());
+		float cos45 = cos(Deg2Rad(45));
+		if (cos45 < upDotValue)
 		{
-		case eCreatureDirection::DOWN:
-			_body.pos.y += 400 * Time->GetDeltaTime();
-			break;
-		case eCreatureDirection::UP:
-			_body.pos.y -= 400 * Time->GetDeltaTime();
-			break;
-		case eCreatureDirection::LEFT:
-			_body.pos.x -= 400 * Time->GetDeltaTime();
-			break;
-		case eCreatureDirection::RIGHT:
-			_body.pos.x += 400 * Time->GetDeltaTime();
-			break;
-		default:
-			break;
+			this->ChangeDirection(eCreatureDirection::UP);
+		}
+		if (cos45 < rightDotValue)
+		{
+			this->ChangeDirection(eCreatureDirection::RIGHT);
+		}
+		if (cos45 < downDotValue)
+		{
+			this->ChangeDirection(eCreatureDirection::DOWN);
+		}
+		if (cos45 < leftDotValue)
+		{
+			this->ChangeDirection(eCreatureDirection::LEFT);
 		}
 	}
 }
 
 void CreatureActor::UpdateIdle()
 {
+	if(_pathIndex != _path.size())
+	{
+		Vector2Int cellPos = _path[_pathIndex++];
+
+		TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
+		assert(scene != nullptr);
+		if (scene == nullptr)
+		{
+			return;
+		}
+
+		if (scene->CanGo(this, cellPos))
+		{
+			this->SetCellPos(cellPos);
+			this->SetState(CreatureState::Move);
+		}
+	}
+
 	//Idle 때만 공격 가능.
-	if (this->_isAttackInput == true)
+	else if (this->_isAttackInput == true)
 	{
 		this->SetState(CreatureState::Attack);
 	}
-	else if (EPSILON < _velocity.Length())
-	{
-		SetState(CreatureState::Move);
-	}
-
 }
 
 void CreatureActor::UpdateAttack()
@@ -222,4 +244,16 @@ bool CreatureActor::CanMove()
 	}
 
 	return true;
+}
+
+void CreatureActor::SetPath(vector<Vector2Int> path)
+{
+	_path = path;
+	_pathIndex = 0;
+
+	// _path[0] 지점으로 텔레포트
+	if (0 < _path.size())
+	{
+		//this->SetCellPos(_path[0], true);
+	}
 }

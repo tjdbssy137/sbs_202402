@@ -57,6 +57,11 @@ public:
 	void SetIsAttackInput(bool isAttackInput) { _isAttackInput = isAttackInput; }
 	bool GetIsAttackInput() { return _isAttackInput; }
 
+public: // Astar 관련
+	void SetPath(vector<Vector2Int> path);
+
+
+public:
 	void UpdateMove();
 	void UpdateAttack();
 	void UpdateIdle();
@@ -81,4 +86,7 @@ private:
 private:
 	Vector2 _destPos = {};
 	Vector2Int _cellPos = {};
+private:// Astar 관련
+	vector<Vector2Int> _path = {};
+	int _pathIndex = 0;
 };

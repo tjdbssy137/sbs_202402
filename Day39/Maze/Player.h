@@ -40,6 +40,7 @@ public:
 	bool CanGo(Vector2Int pos);
 	void CalculatePath_RightHand();
 	void CalculatePath_BFS();
+	void CalculatePath_MY_Astar();
 	void CalculatePath_Astar();
 	void CalculatePath_Dijikstra();
 private:

@@ -2,7 +2,12 @@
 #include "CreatureController.h"
 #include "CreatureActor.h"
 #include "TilemapScene.h"
+#include "Tilemap.h"
+#include "TilemapActor.h"
+#include "MapToolController.h"
+#include "Dev2Scene.h"
 #include <queue>
+
 void CreatureController::SetLink(CreatureActor* actor)
 {
 	assert(actor != nullptr);
@@ -110,30 +115,88 @@ void CreatureController::Update()
 		_actor->SetIsAttackInput(true);
 	}
 
+	if (Input->GetKeyDown(KeyCode::RightMouse))
+	{
+		
+		TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
+		assert(scene != nullptr);
+		if (scene == nullptr)
+		{
+			return;
+		}
+		TilemapActor* tilemapActor = scene->GetTilemapActor();
+		assert(tilemapActor != nullptr);
+		if (tilemapActor == nullptr)
+		{
+			return;
+		}
+
+		vector<Vector2Int> path = Calculator_Astar(_actor->GetCellPos(), 
+			tilemapActor->GetTileIndexByPos(Input->GetMousePos()));
+		_actor->SetPath(path);
+	}
+
 }
-void CreatureController::Calculate_BFS()
+struct AstarNode
 {
-	queue<Vector2Int> queue;
-	_start.x = (_actor->GetPos().x - static_cast<int>(pos.x)) / tileSize;
-	_start.y = (_actor->GetPos().y - static_cast<int>(pos.y)) / tileSize;
-	queue.push(_start);
+	int Cost;
+	Vector2Int Vertex;
+	int G;
 
-	int size = 100; // tile 개수
+	bool operator<(const AstarNode& other)const
+	{
+		return Cost < other.Cost;
+	}
 
-	vector<vector<bool>> visited(size, vector<bool>(size, false));
+	bool operator>(const AstarNode& other)const
+	{
+		return Cost > other.Cost;
+	}
+};
+
+
+vector<Vector2Int> CreatureController::Calculator_Astar(Vector2Int startPos, Vector2Int endPos)
+{
+	vector<Vector2Int> result;
+	TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
+	assert(scene != nullptr);
+	if (scene == nullptr)
+	{
+		return result;
+	}
+
+	Tilemap* tilemap = scene->GetTilemap();
+	assert(tilemap != nullptr);
+	if (tilemap == nullptr)
+	{
+		return result;
+	}
+	
+	priority_queue<PQNode, vector<PQNode>, greater<PQNode>> queue;
+
+	Vector2Int dest = endPos;
+	PQNode node;
+	node.Vertex = startPos;
+	node.G = 0;
+	node.Cost = node.G + (dest - startPos).Length();
+	queue.push(node);
+
+	
+	Vector2Int mapSize = tilemap->GetMapSize();
+	vector<vector<bool>> visited(mapSize.y, vector<bool>(mapSize.x, false));
 
 	// parent[y][x] = pos (xy는 pos에 의해 발견된 곳)
-	vector<vector<Vector2Int>> parent(size, vector<Vector2Int>(size, Vector2Int(-1, -1)));
+	vector<vector<Vector2Int>> parent(mapSize.y, vector<Vector2Int>(mapSize.x, Vector2Int(-1, -1)));
 
-	parent[_start.y][_start.x] = _start;
+	parent[startPos.y][startPos.x] = startPos;
 	while (false == queue.empty())
 	{
-		Vector2Int current = queue.front();
+		PQNode current = queue.top();
 		queue.pop();
 		//방문했다 체크
-		visited[current.y][current.x] = true;
+		visited[current.Vertex.y][current.Vertex.x] = true;
 
-		if (current == _goal)
+		if (current.Vertex == endPos)
 		{
 			//갈수있다/없다.
 			break;
@@ -147,18 +210,50 @@ void CreatureController::Calculate_BFS()
 			Vector2Int(-1, 0), //Left
 		};
 
+		int moveCost[4] =
+		{
+			1,
+			1,
+			1,
+			1
+		};
 		for (int i = 0; i < 4; i++)
 		{
-			Vector2Int nextPos = current + dir[i];
+			Vector2Int nextPos = current.Vertex + dir[i];
 			// 다음지점이 갈 수 있는 지점이면,
-			if (_goal != Vector2Int{ -1, -1 } && visited[nextPos.y][nextPos.x] == 0)
+			if (scene->CanGo(_actor, nextPos) && visited[nextPos.y][nextPos.x] == 0)
 			{
 				// nextPos는 curren로부터 왔습니다.
-				parent[nextPos.y][nextPos.x] = current;
-				queue.push(nextPos);
+				parent[nextPos.y][nextPos.x] = current.Vertex;
+				PQNode newNode;
+				newNode.Vertex = nextPos;
+				newNode.G = current.G + moveCost[i];
+				newNode.Cost = newNode.G + (dest - nextPos).Length();
+				queue.push(newNode);
 			}
 		}
 	}
-	// 좌표를 역행해서
-	// 캐릭터 이동
+
+	Vector2Int pos = endPos;
+	vector<Vector2Int> path = {};
+	while (true)
+	{
+		path.push_back(pos);
+		if (pos == startPos)
+		{
+			break;
+		}
+		pos = parent[pos.y][pos.x];
+	}
+
+	// 백터 뒤집기
+	for (int i = 0; i < path.size() / 2; i++) 	// 배열의 절반
+	{
+		// 스왑
+		Vector2Int temp = path[i];
+		path[i] = path[path.size() - 1 - i];
+		path[path.size() - 1 - i] = temp;
+	}
+	result = path;
+	return result;
 }

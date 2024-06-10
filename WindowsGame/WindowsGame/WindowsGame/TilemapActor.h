@@ -18,6 +18,8 @@ public:
 	void SetTileSprites(vector<Sprite*> sprites) { _sprites = sprites; }
 	vector<Sprite*>& GetTileSprites() { return _sprites; }
 
+	Vector2Int GetTileIndexByPos(Vector2 checkPos);
+
 protected:
 	Tilemap* _tilemap = nullptr;
 	vector<Sprite*> _sprites;
