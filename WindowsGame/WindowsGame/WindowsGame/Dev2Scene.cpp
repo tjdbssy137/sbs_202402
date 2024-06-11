@@ -310,7 +310,7 @@ bool Dev2Scene::CanGo(Actor* actor, Vector2Int cellPos)
 		return false;
 	}
 	// 위에는 전부 유효성 검사 
-	if (tile->value == 0)
+	if (tile->value == 0) // 타일이 0일때만 이동 가능
 	{
 		return true;
 	}

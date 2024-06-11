@@ -181,25 +181,32 @@ vector<Vector2Int> CreatureController::Calculator_Astar(Vector2Int startPos, Vec
 	node.Cost = node.G + (dest - startPos).Length();
 	queue.push(node);
 
-	
 	Vector2Int mapSize = tilemap->GetMapSize();
 	vector<vector<bool>> visited(mapSize.y, vector<bool>(mapSize.x, false));
 
 	// parent[y][x] = pos (xy는 pos에 의해 발견된 곳)
+	vector<vector<int>> best(mapSize.y, vector<int>(mapSize.x, INT_MAX));
 	vector<vector<Vector2Int>> parent(mapSize.y, vector<Vector2Int>(mapSize.x, Vector2Int(-1, -1)));
 
 	parent[startPos.y][startPos.x] = startPos;
+	best[startPos.y][startPos.x] = node.Cost;
 	while (false == queue.empty())
 	{
 		PQNode current = queue.top();
 		queue.pop();
 		//방문했다 체크
+
 		visited[current.Vertex.y][current.Vertex.x] = true;
 
 		if (current.Vertex == endPos)
 		{
 			//갈수있다/없다.
 			break;
+		}
+
+		if (best[current.Vertex.y][current.Vertex.x] < current.Cost)
+		{
+			continue;
 		}
 
 		Vector2Int dir[4] =
@@ -224,16 +231,24 @@ vector<Vector2Int> CreatureController::Calculator_Astar(Vector2Int startPos, Vec
 			if (scene->CanGo(_actor, nextPos) && visited[nextPos.y][nextPos.x] == 0)
 			{
 				// nextPos는 curren로부터 왔습니다.
-				parent[nextPos.y][nextPos.x] = current.Vertex;
 				PQNode newNode;
 				newNode.Vertex = nextPos;
-				newNode.G = current.G + moveCost[i];
-				newNode.Cost = newNode.G + (dest - nextPos).Length();
+				newNode.G = current.G + moveCost[i]; 
+				newNode.Cost = newNode.G + (dest - nextPos).Length(); 
+				
+				int nextCost = best[current.Vertex.y][current.Vertex.x] + newNode.Cost;
+				if (best[nextPos.y][nextPos.x] <= nextCost)
+				{
+					continue;
+				}
+				best[nextPos.y][nextPos.x] = nextCost;
+				parent[nextPos.y][nextPos.x] = current.Vertex; // parent는 경로를 연결함.
 				queue.push(newNode);
 			}
 		}
 	}
-
+	//parent는 2차원 벡터여서 1차원 벡터로 전환이 필요함
+	// 벡터에 반대 방향으로 넣기 때문에 벡터를 뒤집어야함.
 	Vector2Int pos = endPos;
 	vector<Vector2Int> path = {};
 	while (true)
