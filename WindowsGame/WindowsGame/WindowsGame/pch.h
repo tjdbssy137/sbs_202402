@@ -14,6 +14,14 @@
 #pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
 
 //===========================================
+//		## RapidJson 라이브러리 ##
+//===========================================
+#include <rapidjson/document.h>
+#include <rapidjson/writer.h>
+#include <rapidjson/stringbuffer.h>
+using namespace rapidjson;
+
+//===========================================
 //		## C++ 관련 함수 ##
 //===========================================
 #include <iostream>
@@ -49,6 +57,10 @@
 //===========================================
 using namespace std;
 
+//===========================================
+//		## 게임 데이터 ##
+//===========================================
+#include "Data.h"
 
 //===========================================
 //		## 싱글톤 ##
@@ -60,6 +72,7 @@ using namespace std;
 #include "ResourceManager.h"
 #include "RandomManager.h"
 #include "SoundManager.h"
+#include "DataManager.h"
 
 //===========================================
 //		## Windows Size ##

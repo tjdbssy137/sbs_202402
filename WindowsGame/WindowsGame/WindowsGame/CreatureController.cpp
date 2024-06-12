@@ -185,11 +185,9 @@ vector<Vector2Int> CreatureController::Calculator_Astar(Vector2Int startPos, Vec
 	vector<vector<bool>> visited(mapSize.y, vector<bool>(mapSize.x, false));
 
 	// parent[y][x] = pos (xy는 pos에 의해 발견된 곳)
-	vector<vector<int>> best(mapSize.y, vector<int>(mapSize.x, INT_MAX));
 	vector<vector<Vector2Int>> parent(mapSize.y, vector<Vector2Int>(mapSize.x, Vector2Int(-1, -1)));
 
 	parent[startPos.y][startPos.x] = startPos;
-	best[startPos.y][startPos.x] = node.Cost;
 	while (false == queue.empty())
 	{
 		PQNode current = queue.top();
@@ -202,11 +200,6 @@ vector<Vector2Int> CreatureController::Calculator_Astar(Vector2Int startPos, Vec
 		{
 			//갈수있다/없다.
 			break;
-		}
-
-		if (best[current.Vertex.y][current.Vertex.x] < current.Cost)
-		{
-			continue;
 		}
 
 		Vector2Int dir[4] =
@@ -235,13 +228,6 @@ vector<Vector2Int> CreatureController::Calculator_Astar(Vector2Int startPos, Vec
 				newNode.Vertex = nextPos;
 				newNode.G = current.G + moveCost[i]; 
 				newNode.Cost = newNode.G + (dest - nextPos).Length(); 
-				
-				int nextCost = best[current.Vertex.y][current.Vertex.x] + newNode.Cost;
-				if (best[nextPos.y][nextPos.x] <= nextCost)
-				{
-					continue;
-				}
-				best[nextPos.y][nextPos.x] = nextCost;
 				parent[nextPos.y][nextPos.x] = current.Vertex; // parent는 경로를 연결함.
 				queue.push(newNode);
 			}

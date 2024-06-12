@@ -59,6 +59,18 @@
     <Filter Include="07.Interfaces">
       <UniqueIdentifier>{933cccd1-0a1f-4efc-a84e-d845d6898917}</UniqueIdentifier>
     </Filter>
+    <Filter Include="998. Json">
+      <UniqueIdentifier>{578ff51b-e38f-4be0-a8cb-22c5df636aa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Managers\Game">
+      <UniqueIdentifier>{7b98813b-485e-494e-b9d9-629b279ef3c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Datas">
+      <UniqueIdentifier>{767ec50a-f9d8-4a55-a379-4e9d7a464df2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Datas\Game">
+      <UniqueIdentifier>{00a8690b-03b8-471e-a583-1ec9af5a150f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -244,7 +256,15 @@
     <ClInclude Include="ITilemapActor.h">
       <Filter>07.Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="TilemapScene.h" />
+    <ClInclude Include="DataManager.h">
+      <Filter>01.Managers\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TilemapScene.h">
+      <Filter>02.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Data.h">
+      <Filter>08. Datas\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -488,14 +508,31 @@
     <ClCompile Include="ITilemapActor.cpp">
       <Filter>07.Interfaces</Filter>
     </ClCompile>
-    <ClCompile Include="TilemapScene.cpp" />
     <ClCompile Include="Day41.cpp">
       <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="Day42.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>01.Managers\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapScene.cpp">
+      <Filter>02.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Data.cpp">
+      <Filter>08. Datas\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Day16.cpp">
       <Filter>999.Comments</Filter>
+    </None>
+    <None Include="example1.json">
+      <Filter>998. Json</Filter>
+    </None>
+    <None Include="MonsterData.json">
+      <Filter>998. Json</Filter>
     </None>
   </ItemGroup>
 </Project>

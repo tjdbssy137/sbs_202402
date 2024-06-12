@@ -22,6 +22,7 @@ struct PQNode
 
 	int G;
 
+	// dijikstra처럼 best노드가 없어도 여기 아래서 Cost비교를 알아서 해줌. 그게 우선순위큐의 장점임.
 	bool operator<(const PQNode& other) const
 	{
 		return Cost < other.Cost;

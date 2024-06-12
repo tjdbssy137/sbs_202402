@@ -10,6 +10,7 @@ Game::~Game()
 {
 	GET_SINGLE(ResourceManager)->Release();
 	GET_SINGLE(SoundManager)->Release();
+	Datas->Release();
 }
 
 
@@ -32,7 +33,8 @@ void Game::Init(HWND hwnd)
 	Input->Init(_hwnd);
 	GET_SINGLE(SceneManager)->Init();
 	GET_SINGLE(CollisionManager)->Init();
-	GET_SINGLE(ResourceManager)->Init();
+	GET_SINGLE(ResourceManager)->Init();	
+	Datas->Init();
 
 	GET_SINGLE(SoundManager)->Init();
 
