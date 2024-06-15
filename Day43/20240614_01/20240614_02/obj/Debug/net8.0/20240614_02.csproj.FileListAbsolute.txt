@@ -1,0 +1,15 @@
+D:\GitHub\sbs_202402\Day43\20240614_01\20240614_02\bin\Debug\net8.0\20240614_02.exe
+D:\GitHub\sbs_202402\Day43\20240614_01\20240614_02\bin\Debug\net8.0\20240614_02.deps.json
+D:\GitHub\sbs_202402\Day43\20240614_01\20240614_02\bin\Debug\net8.0\20240614_02.runtimeconfig.json
+D:\GitHub\sbs_202402\Day43\20240614_01\20240614_02\bin\Debug\net8.0\20240614_02.dll
+D:\GitHub\sbs_202402\Day43\20240614_01\20240614_02\bin\Debug\net8.0\20240614_02.pdb
+D:\GitHub\sbs_202402\Day43\20240614_01\20240614_02\obj\Debug\net8.0\20240614_02.GeneratedMSBuildEditorConfig.editorconfig
+D:\GitHub\sbs_202402\Day43\20240614_01\20240614_02\obj\Debug\net8.0\20240614_02.AssemblyInfoInputs.cache
+D:\GitHub\sbs_202402\Day43\20240614_01\20240614_02\obj\Debug\net8.0\20240614_02.AssemblyInfo.cs
+D:\GitHub\sbs_202402\Day43\20240614_01\20240614_02\obj\Debug\net8.0\20240614_02.csproj.CoreCompileInputs.cache
+D:\GitHub\sbs_202402\Day43\20240614_01\20240614_02\obj\Debug\net8.0\20240614_02.sourcelink.json
+D:\GitHub\sbs_202402\Day43\20240614_01\20240614_02\obj\Debug\net8.0\20240614_02.dll
+D:\GitHub\sbs_202402\Day43\20240614_01\20240614_02\obj\Debug\net8.0\refint\20240614_02.dll
+D:\GitHub\sbs_202402\Day43\20240614_01\20240614_02\obj\Debug\net8.0\20240614_02.pdb
+D:\GitHub\sbs_202402\Day43\20240614_01\20240614_02\obj\Debug\net8.0\20240614_02.genruntimeconfig.cache
+D:\GitHub\sbs_202402\Day43\20240614_01\20240614_02\obj\Debug\net8.0\ref\20240614_02.dll
