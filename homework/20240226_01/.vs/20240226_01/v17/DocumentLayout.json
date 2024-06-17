@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240226_01\\",
+  "WorkspaceRootPath": "C:\\Users\\user\\Documents\\GitHub\\sbs_202402\\homework\\20240226_01\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{11F7E053-1F2D-4C77-96B5-DAC93D737037}|20240226_01\\20240226_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240226_01\\20240226_01\\ass02.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{11F7E053-1F2D-4C77-96B5-DAC93D737037}|20240226_01\\20240226_01.vcxproj|C:\\Users\\user\\Documents\\GitHub\\sbs_202402\\homework\\20240226_01\\20240226_01\\ass02.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{11F7E053-1F2D-4C77-96B5-DAC93D737037}|20240226_01\\20240226_01.vcxproj|solutionrelative:20240226_01\\ass02.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{11F7E053-1F2D-4C77-96B5-DAC93D737037}|20240226_01\\20240226_01.vcxproj|C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240226_01\\20240226_01\\ass01.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{11F7E053-1F2D-4C77-96B5-DAC93D737037}|20240226_01\\20240226_01.vcxproj|C:\\Users\\user\\Documents\\GitHub\\sbs_202402\\homework\\20240226_01\\20240226_01\\ass01.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{11F7E053-1F2D-4C77-96B5-DAC93D737037}|20240226_01\\20240226_01.vcxproj|solutionrelative:20240226_01\\ass01.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -24,24 +24,23 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "ass01.cpp",
-              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240226_01\\20240226_01\\ass01.cpp",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\sbs_202402\\homework\\20240226_01\\20240226_01\\ass01.cpp",
               "RelativeDocumentMoniker": "20240226_01\\ass01.cpp",
-              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240226_01\\20240226_01\\ass01.cpp",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\sbs_202402\\homework\\20240226_01\\20240226_01\\ass01.cpp",
               "RelativeToolTip": "20240226_01\\ass01.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-02-28T10:12:36.931Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-28T10:12:36.931Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "ass02.cpp",
-              "DocumentMoniker": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240226_01\\20240226_01\\ass02.cpp",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\GitHub\\sbs_202402\\homework\\20240226_01\\20240226_01\\ass02.cpp",
               "RelativeDocumentMoniker": "20240226_01\\ass02.cpp",
-              "ToolTip": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\sbs_202402\\homework\\20240226_01\\20240226_01\\ass02.cpp",
+              "ToolTip": "C:\\Users\\user\\Documents\\GitHub\\sbs_202402\\homework\\20240226_01\\20240226_01\\ass02.cpp",
               "RelativeToolTip": "20240226_01\\ass02.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAGkAAAABAAAA",
+              "ViewState": "AQIAADAAAAAAAAAAAAAAAGkAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-02-28T10:12:36.765Z",
               "EditorCaption": ""
