@@ -1,0 +1,15 @@
+C:\Users\user\Documents\GitHub\sbs_202402\Day43\20240614_01\20240619_02\bin\Debug\net8.0\20240619_02.exe
+C:\Users\user\Documents\GitHub\sbs_202402\Day43\20240614_01\20240619_02\bin\Debug\net8.0\20240619_02.deps.json
+C:\Users\user\Documents\GitHub\sbs_202402\Day43\20240614_01\20240619_02\bin\Debug\net8.0\20240619_02.runtimeconfig.json
+C:\Users\user\Documents\GitHub\sbs_202402\Day43\20240614_01\20240619_02\bin\Debug\net8.0\20240619_02.dll
+C:\Users\user\Documents\GitHub\sbs_202402\Day43\20240614_01\20240619_02\bin\Debug\net8.0\20240619_02.pdb
+C:\Users\user\Documents\GitHub\sbs_202402\Day43\20240614_01\20240619_02\obj\Debug\net8.0\20240619_02.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Documents\GitHub\sbs_202402\Day43\20240614_01\20240619_02\obj\Debug\net8.0\20240619_02.AssemblyInfoInputs.cache
+C:\Users\user\Documents\GitHub\sbs_202402\Day43\20240614_01\20240619_02\obj\Debug\net8.0\20240619_02.AssemblyInfo.cs
+C:\Users\user\Documents\GitHub\sbs_202402\Day43\20240614_01\20240619_02\obj\Debug\net8.0\20240619_02.csproj.CoreCompileInputs.cache
+C:\Users\user\Documents\GitHub\sbs_202402\Day43\20240614_01\20240619_02\obj\Debug\net8.0\20240619_02.sourcelink.json
+C:\Users\user\Documents\GitHub\sbs_202402\Day43\20240614_01\20240619_02\obj\Debug\net8.0\20240619_02.dll
+C:\Users\user\Documents\GitHub\sbs_202402\Day43\20240614_01\20240619_02\obj\Debug\net8.0\refint\20240619_02.dll
+C:\Users\user\Documents\GitHub\sbs_202402\Day43\20240614_01\20240619_02\obj\Debug\net8.0\20240619_02.pdb
+C:\Users\user\Documents\GitHub\sbs_202402\Day43\20240614_01\20240619_02\obj\Debug\net8.0\20240619_02.genruntimeconfig.cache
+C:\Users\user\Documents\GitHub\sbs_202402\Day43\20240614_01\20240619_02\obj\Debug\net8.0\ref\20240619_02.dll

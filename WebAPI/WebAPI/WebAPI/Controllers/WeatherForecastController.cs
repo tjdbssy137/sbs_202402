@@ -1,0 +1,37 @@
+using Microsoft.AspNetCore.Mvc;
+
+namespace WebAPI.Controllers
+{
+    // Controller 안의 함수는
+    // Client가 요청할 수 있는 라우트가 된다.
+
+    [ApiController]
+    [Route("[controller]")]
+    public class WeatherForecastController : ControllerBase
+    {
+        private static readonly string[] Summaries = new[]
+        {
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+        };
+
+        private readonly ILogger<WeatherForecastController> _logger;
+
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        {
+            _logger = logger;
+        }
+        
+        // 요청 온 것을 처리하는 코드
+        [HttpGet(Name = "GetWeatherForecast")]
+        public IEnumerable<WeatherForecast> Get()
+        {
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+                TemperatureC = Random.Shared.Next(-20, 55),
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            })
+            .ToArray();
+        }
+    }
+}
