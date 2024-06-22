@@ -44,6 +44,27 @@ void MapToolController::Update()
 			tile->value %= spriteSize;
 			//++를 계속 하다보면 저장해둔 Sprite의 개수를 넘어갈 수도 있기 때문에 방지하기 위한 코드
 		}
-	}
 
+		
+	}
+	if (Input->GetKeyDown(KeyCode::RightMouse))
+	{
+		int x = 0;
+		int y = 0;
+		Tilemap* tileMap = _mapToolActor->GetTileMap();
+		int tileSize = tileMap->GetTileSize();
+
+		Vector2Int mousePos = Input->GetMousePos();
+
+		Vector2 pos = _mapToolActor->GetBody().pos;
+		int spriteSize = _mapToolActor->GetTileSprites().size();
+		x = (mousePos.x - static_cast<int>(pos.x)) / tileSize;
+		y = (mousePos.y - static_cast<int>(pos.y)) / tileSize;
+
+		Tile* tile = tileMap->GetTileAt({ x, y });
+		if (tile)
+		{
+			tile->value = 0;
+		}
+	}
 }

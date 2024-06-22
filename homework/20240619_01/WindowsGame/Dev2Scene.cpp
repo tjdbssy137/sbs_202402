@@ -21,24 +21,24 @@ void Dev2Scene::Init()
 {
 	LoadResource();
 	{
-		for (int i = 0; i <= 12; i++)
+		for (int i = 6; i <= 67; i++)
 		{
 			{
 				wchar_t keyName[128];
-				swprintf_s(keyName, L"T_Pocket%d", i);
+				swprintf_s(keyName, L"T_BeachTileset%d", i);
 
 				wchar_t valueName[128];
-				swprintf_s(valueName, L"TileStudy/pocket_%d.bmp", i);
+				swprintf_s(valueName, L"BeachTileset/BeachTileset_%d.bmp", i);
 
 				Resource->LoadTexture(keyName, valueName);
 			}
 
 			{
 				wchar_t keyName[128];
-				swprintf_s(keyName, L"S_Pocket%d", i);
+				swprintf_s(keyName, L"S_BeachTileset%d", i);
 
 				wchar_t textureKeyName[128];
-				swprintf_s(textureKeyName, L"T_Pocket%d", i);
+				swprintf_s(textureKeyName, L"T_BeachTileset%d", i);
 
 				Resource->CreateSprite(keyName, Resource->GetTexture(textureKeyName));
 			}
@@ -47,7 +47,7 @@ void Dev2Scene::Init()
 	}
 
 	{
-		Vector2Int mapSize = Vector2Int(10, 10);
+		Vector2Int mapSize = Vector2Int(55, 26);
 		vector<vector<Tile>> tiles;
 		for (int height = 0; height < mapSize.y; height++)
 		{
@@ -61,7 +61,7 @@ void Dev2Scene::Init()
 			tiles.push_back(tilesDummy);
 		}
 
-		Resource->CreateTileMap(L"TM_Test", mapSize, 88, tiles);
+		Resource->CreateTileMap(L"TM_Test", mapSize, 32, tiles);
 	}
 
 	_mapToolController = new MapToolController();
@@ -71,10 +71,10 @@ void Dev2Scene::Init()
 		actor->SetTileMap(Resource->GetTileMap(L"TM_Test"));
 		{
 			vector<Sprite*> sprites;
-			for (int i = 0; i <= 12; i++)
+			for (int i = 6; i <= 67; i++)
 			{
 				wchar_t keyName[128];
-				swprintf_s(keyName, L"S_Pocket%d", i);
+				swprintf_s(keyName, L"S_BeachTileset%d", i);
 				sprites.push_back(Resource->GetSprite(keyName));
 			}
 
@@ -90,31 +90,6 @@ void Dev2Scene::Init()
 		_tilemapActor = actor;
 	}
 
-
-	_creatureController = new CreatureController();
-
-	{
-		CreatureActor* actor = new CreatureActor();
-		actor->SetLayer(LayerType::Character);
-		actor->SetName("Player");
-		actor->SetPos(Vector2(396, 300));
-		actor->Init();
-		_creatureController->SetLink(actor);
-		this->SpawnActor(actor);
-		actor->SetCellPos({ 0, 0 }, true);
-	}
-
-	{
-		CreatureActor* actor = new CreatureActor();
-		actor->SetLayer(LayerType::Character);
-		actor->SetName("Friend");
-		actor->SetPos(Vector2(486, 300));
-		actor->Init();
-		this->SpawnActor(actor);
-		actor->SetCellPos({ 2,0 }, true);
-	}
-
-
 	this->SetCameraPos(Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2));
 
 	Super::Init();
@@ -124,7 +99,7 @@ void Dev2Scene::Render(HDC hdc)
 {
 	Super::Render(hdc);
 
-	wstring str = L"Dev1Scene";
+	wstring str = L"Beach";
 	::TextOut(hdc, 0, 45, str.c_str(), str.length());
 
 }
@@ -133,38 +108,7 @@ void Dev2Scene::Update()
 	Super::Update();
 
 	_mapToolController->Update();
-	_creatureController->Update();
-
-	if (Input->GetKeyDown(KeyCode::L))
-	{
-		const char* json = "{\"project\":\"rapidjson\",\"stars\":10}";
-		Document d;
-		d.Parse(json);
-
-		// 2. Modify it by DOM.
-		{
-			Value& s = d["stars"];
-			s.SetInt(s.GetInt() + 1);
-		}
-
-		{
-			//d["project"].SetString("SBS_ACADEMY");
-			Value& s = d["project"];
-			s.SetString("SBS_ACADEMY");
-		}
-
-		// 3. Stringify the DOM
-		StringBuffer buffer;
-		Writer<StringBuffer> writer(buffer);
-		d.Accept(writer);
-
-		// Output {"project":"rapidjson","stars":11}
-		std::cout << buffer.GetString() << std::endl;
-
-		// 라이브러리를 사용
-		// - 예제 코드를 원하는대로 수정할 수 있으면 사용할 수 있는 것.
-
-	}
+	//_creatureController->Update();
 }
 void Dev2Scene::Release()
 {
@@ -341,7 +285,7 @@ bool Dev2Scene::CanGo(Actor* actor, Vector2Int cellPos)
 		return false;
 	}
 	// 위에는 전부 유효성 검사 
-	if (tile->value == 0) // 타일이 0일때만 이동 가능
+	if (tile->value == 0) // 51이 물
 	{
 		return true;
 	}

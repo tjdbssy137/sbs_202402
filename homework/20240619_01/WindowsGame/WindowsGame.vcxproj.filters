@@ -136,9 +136,6 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>01.Managers</Filter>
     </ClInclude>
-    <ClInclude Include="InGameScene.h">
-      <Filter>02.Scene\Game</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceBase.h">
       <Filter>05. Resources</Filter>
     </ClInclude>
@@ -315,9 +312,6 @@
     </ClCompile>
     <ClCompile Include="Day22.cpp">
       <Filter>999.Comments</Filter>
-    </ClCompile>
-    <ClCompile Include="InGameScene.cpp">
-      <Filter>02.Scene\Game</Filter>
     </ClCompile>
     <ClCompile Include="Day23.cpp">
       <Filter>999.Comments</Filter>
