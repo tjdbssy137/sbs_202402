@@ -90,6 +90,13 @@ void Dev2Scene::Init()
 		_tilemapActor = actor;
 	}
 
+	{
+		CreatureActor* _boat = new CreatureActor();
+		_boat->SetLayer(LayerType::Character);
+		_boat->Init();
+		this->SpawnActor(_boat);
+		_boat->SetCellPos({ 20, 25 }, true);
+	}
 	this->SetCameraPos(Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2));
 
 	Super::Init();
@@ -117,6 +124,21 @@ void Dev2Scene::Release()
 
 void Dev2Scene::LoadResource()
 {
+	//EnemyShip1
+	{
+		Resource->LoadTexture(L"T_EnemyShip", L"FlipbookTest/EnemyShip1.bmp", RGB(255, 0, 255));
+		FlipbookInfo _downInfo = {};
+		_downInfo.start = 0;
+		_downInfo.end = 2;
+		_downInfo.line = 0;
+		_downInfo.size = Vector2Int(32, 32);
+		_downInfo.duration = 1.0f;
+		_downInfo.loop = true;
+		_downInfo.texture = Resource->GetTexture(L"T_EnemyShip");
+
+		Resource->CreateFlipbook(L"FB_T_EnemyShipDown", _downInfo);
+	}
+
 	//----------------------------------
 	//  ## Background
 	//----------------------------------

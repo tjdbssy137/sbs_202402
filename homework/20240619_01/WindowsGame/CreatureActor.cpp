@@ -7,7 +7,7 @@ void CreatureActor::Init()
 {
 	Super::Init();
 	// IDLE
-	_idleFlipbook[eCreatureDirection::DOWN] = Resource->GetFlipbook(L"FB_CharacterDown_Idle");
+	_idleFlipbook[eCreatureDirection::DOWN] = (Resource->GetFlipbook(L"FB_T_EnemyShipDown"));
 	_idleFlipbook[eCreatureDirection::UP] = Resource->GetFlipbook(L"FB_CharacterUp_Idle");
 	_idleFlipbook[eCreatureDirection::LEFT] = Resource->GetFlipbook(L"FB_CharacterLeft_Idle");
 	_idleFlipbook[eCreatureDirection::RIGHT] = Resource->GetFlipbook(L"FB_CharacterRight_Idle");
