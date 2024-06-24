@@ -89,13 +89,14 @@ void Dev2Scene::Init()
 		this->SpawnActor(actor);
 		_tilemapActor = actor;
 	}
-
+	_creatureController = new CreatureController();
 	{
-		CreatureActor* _boat = new CreatureActor();
-		_boat->SetLayer(LayerType::Character);
-		_boat->Init();
-		this->SpawnActor(_boat);
-		_boat->SetCellPos({ 20, 25 }, true);
+		CreatureActor* boat = new CreatureActor();
+		boat->SetLayer(LayerType::Character);
+		boat->Init();
+		_creatureController->SetLink(boat);
+		this->SpawnActor(boat);
+		boat->SetCellPos({ 20, 10 }, true);
 	}
 	this->SetCameraPos(Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2));
 
@@ -115,7 +116,7 @@ void Dev2Scene::Update()
 	Super::Update();
 
 	_mapToolController->Update();
-	//_creatureController->Update();
+	_creatureController->Update();
 }
 void Dev2Scene::Release()
 {
@@ -124,128 +125,112 @@ void Dev2Scene::Release()
 
 void Dev2Scene::LoadResource()
 {
-	//EnemyShip1
-	{
-		Resource->LoadTexture(L"T_EnemyShip", L"FlipbookTest/EnemyShip1.bmp", RGB(255, 0, 255));
-		FlipbookInfo _downInfo = {};
-		_downInfo.start = 0;
-		_downInfo.end = 2;
-		_downInfo.line = 0;
-		_downInfo.size = Vector2Int(32, 32);
-		_downInfo.duration = 1.0f;
-		_downInfo.loop = true;
-		_downInfo.texture = Resource->GetTexture(L"T_EnemyShip");
-
-		Resource->CreateFlipbook(L"FB_T_EnemyShipDown", _downInfo);
-	}
-
-	//----------------------------------
-	//  ## Background
-	//----------------------------------
-	{
-		Texture* texture = Resource->LoadTexture(L"T_Background"
-			, L"CameraStudy/backround_supermario.bmp");
-		Resource->CreateSprite(L"S_Background", texture);
-	}
-
-
 	// -------------------------------------
 	// 
-	//			CREATURE RESOURCE
+	//			BOAT RESOURCE
 	// 
 	// ------------------------------------- 
-	// PlayerDown
+	//direction
+	wstring direction[8] = {L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight"};
+	//EnemyBoat1
 	{
-		Resource->LoadTexture(L"T_Character", L"FlipbookTest/PlayerDown.bmp", RGB(128, 128, 128));
-		FlipbookInfo _downInfo = {};
-		_downInfo.start = 0;
-		_downInfo.end = 9;
-		_downInfo.line = 0;
-		_downInfo.size = Vector2Int(200, 200);
-		_downInfo.duration = 1.0f;
-		_downInfo.loop = true;
-		_downInfo.texture = Resource->GetTexture(L"T_Character");
+		Resource->LoadTexture(L"T_EnemyBoat1", L"FlipbookTest/enemyBoat1.bmp", RGB(255, 0, 255));
+		FlipbookInfo info_enemyBoat1 = {};
+		info_enemyBoat1.start = 0;
+		info_enemyBoat1.end = 2;
+		info_enemyBoat1.line = 0;
+		info_enemyBoat1.size = Vector2Int(32, 32);
+		info_enemyBoat1.duration = 1.0f;
+		info_enemyBoat1.loop = true;
+		info_enemyBoat1.texture = Resource->GetTexture(L"T_EnemyBoat1");
 
-		Resource->CreateFlipbook(L"FB_CharacterDown_Idle", _downInfo);
+		for (int i = 0; i < 8; i++)
+		{
+			wstring fullName = L"FB_EnemyBoat1_" + direction[i];
+			info_enemyBoat1.line = i;
+			Resource->CreateFlipbook(fullName, info_enemyBoat1);
+		}
+	}
+	
+	//EnemyBoat2
+	{
+		Resource->LoadTexture(L"T_EnemyBoat2", L"FlipbookTest/enemyBoat2.bmp", RGB(255, 0, 255));
+		FlipbookInfo info_enemyBoat2 = {};
+		info_enemyBoat2.start = 0;
+		info_enemyBoat2.end = 2;
+		info_enemyBoat2.line = 0;
+		info_enemyBoat2.size = Vector2Int(32, 32);
+		info_enemyBoat2.duration = 1.0f;
+		info_enemyBoat2.loop = true;
+		info_enemyBoat2.texture = Resource->GetTexture(L"T_EnemyBoat2");
 
-		_downInfo.line = 1;
-		Resource->CreateFlipbook(L"FB_CharacterDown_Move", _downInfo);
-
-		_downInfo.line = 3;
-		_downInfo.end = 7;
-		_downInfo.loop = false;
-		Resource->CreateFlipbook(L"FB_CharacterDown_Attack", _downInfo);
+		for (int i = 0; i < 8; i++)
+		{
+			wstring fullName = L"FB_EnemyBoat2_" + direction[i];
+			info_enemyBoat2.line = i;
+			Resource->CreateFlipbook(fullName, info_enemyBoat2);
+		}
 	}
 
-	// PlayerUp
+	//EnemyShip1
 	{
-		Resource->LoadTexture(L"T_Character2", L"FlipbookTest/PlayerUp.bmp", RGB(128, 128, 128));
-		FlipbookInfo _upInfo = {};
-		_upInfo.start = 0;
-		_upInfo.end = 9;
-		_upInfo.line = 0;
-		_upInfo.size = Vector2Int(200, 200);
-		_upInfo.duration = 1.0f;
-		_upInfo.loop = true;
-		_upInfo.texture = Resource->GetTexture(L"T_Character2");
+		Resource->LoadTexture(L"T_EnemyShip1", L"FlipbookTest/enemyShip1.bmp", RGB(255, 0, 255));
+		FlipbookInfo info_enemyship1 = {};
+		info_enemyship1.start = 0;
+		info_enemyship1.end = 2;
+		info_enemyship1.line = 0;
+		info_enemyship1.size = Vector2Int(32, 32);
+		info_enemyship1.duration = 1.0f;
+		info_enemyship1.loop = true;
+		info_enemyship1.texture = Resource->GetTexture(L"T_EnemyShip1");
 
-		Resource->CreateFlipbook(L"FB_CharacterUp_Idle", _upInfo);
-
-		_upInfo.line = 1;
-		Resource->CreateFlipbook(L"FB_CharacterUp_Move", _upInfo);
-
-		_upInfo.line = 3;
-		_upInfo.end = 7;
-		_upInfo.loop = false;
-		Resource->CreateFlipbook(L"FB_CharacterUp_Attack", _upInfo);
+		for (int i = 0; i < 8; i++)
+		{
+			wstring fullName = L"FB_EnemyShip1_" + direction[i];
+			info_enemyship1.line = i;
+			Resource->CreateFlipbook(fullName, info_enemyship1);
+		}
 	}
 
-	// PlayerLeft
+	//EnemyShip2
 	{
-		Resource->LoadTexture(L"T_Character3", L"FlipbookTest/PlayerLeft.bmp", RGB(128, 128, 128));
-		FlipbookInfo _leftInfo = {};
-		_leftInfo.start = 0;
-		_leftInfo.end = 9;
-		_leftInfo.line = 0;
-		_leftInfo.size = Vector2Int(200, 200);
-		_leftInfo.duration = 1.0f;
-		_leftInfo.loop = true;
-		_leftInfo.texture = Resource->GetTexture(L"T_Character3");
+		Resource->LoadTexture(L"T_EnemyShip2", L"FlipbookTest/enemyShip2.bmp", RGB(255, 0, 255));
+		FlipbookInfo info_enemyship2 = {};
+		info_enemyship2.start = 0;
+		info_enemyship2.end = 2;
+		info_enemyship2.line = 0;
+		info_enemyship2.size = Vector2Int(32, 32);
+		info_enemyship2.duration = 1.0f;
+		info_enemyship2.loop = true;
+		info_enemyship2.texture = Resource->GetTexture(L"T_EnemyShip2");
 
-		Resource->CreateFlipbook(L"FB_CharacterLeft_Idle", _leftInfo);
-
-		_leftInfo.line = 1;
-		Resource->CreateFlipbook(L"FB_CharacterLeft_Move", _leftInfo);
-
-		_leftInfo.line = 3;
-		_leftInfo.end = 7;
-		_leftInfo.loop = false;
-		Resource->CreateFlipbook(L"FB_CharacterLeft_Attack", _leftInfo);
+		for (int i = 0; i < 8; i++)
+		{
+			wstring fullName = L"FB_EnemyShip2_" + direction[i];
+			info_enemyship2.line = i;
+			Resource->CreateFlipbook(fullName, info_enemyship2);
+		}
 	}
 
-	// PlayerRight
+	//EnemyShip3
 	{
-		Resource->LoadTexture(L"T_Character4", L"FlipbookTest/PlayerRight.bmp", RGB(128, 128, 128));
-		FlipbookInfo _rightInfo = {};
-		_rightInfo.start = 0;
-		_rightInfo.end = 9;
-		_rightInfo.line = 0;
-		_rightInfo.size = Vector2Int(200, 200);
-		_rightInfo.duration = 1.0f;
-		_rightInfo.loop = true;
-		_rightInfo.texture = Resource->GetTexture(L"T_Character4");
+		Resource->LoadTexture(L"T_EnemyShip3", L"FlipbookTest/enemyShip3.bmp", RGB(255, 0, 255));
+		FlipbookInfo info_enemyship3 = {};
+		info_enemyship3.start = 0;
+		info_enemyship3.end = 2;
+		info_enemyship3.line = 0;
+		info_enemyship3.size = Vector2Int(32, 32);
+		info_enemyship3.duration = 1.0f;
+		info_enemyship3.loop = true;
+		info_enemyship3.texture = Resource->GetTexture(L"T_EnemyShip3");
 
-		Resource->CreateFlipbook(L"FB_CharacterRight_Idle", _rightInfo);
-
-		_rightInfo.line = 1;
-		Resource->CreateFlipbook(L"FB_CharacterRight_Move", _rightInfo);
-
-		_rightInfo.line = 3;
-		_rightInfo.end = 7;
-		_rightInfo.loop = false;
-		Resource->CreateFlipbook(L"FB_CharacterRight_Attack", _rightInfo);
+		for (int i = 0; i < 8; i++)
+		{
+			wstring fullName = L"FB_EnemyShip3_" + direction[i];
+			info_enemyship3.line = i;
+			Resource->CreateFlipbook(fullName, info_enemyship3);
+		}
 	}
-
 	//----------------------------------
 	//  ## Sound
 	//----------------------------------
@@ -307,7 +292,7 @@ bool Dev2Scene::CanGo(Actor* actor, Vector2Int cellPos)
 		return false;
 	}
 	// 위에는 전부 유효성 검사 
-	if (tile->value == 0) // 51이 물
+	if (tile->value == 51) // 51이 물
 	{
 		return true;
 	}

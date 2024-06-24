@@ -7,16 +7,18 @@ class Flipbook;
 enum eCreatureDirection
 {
 	DOWN,
-	UP,
 	LEFT,
 	RIGHT,
-
+	UP,
+	DOWN_LEFT,
+	DOWN_RIGHT,
+	UP_LEFT,
+	UP_RIGHT,
 	END
 };
 
 enum class CreatureState
 {
-	Attack,
 	Move,
 	Idle
 };
@@ -63,18 +65,12 @@ public: // Astar ฐüทร
 
 public:
 	void UpdateMove();
-	void UpdateAttack();
 	void UpdateIdle();
-	
 
 private:
-	CreatureState _state = CreatureState::Idle;
+	CreatureState _state = CreatureState::Move;
 	eCreatureDirection _dir = eCreatureDirection::DOWN;
-	Flipbook* _idleFlipbook[eCreatureDirection::END] = {};
 	Flipbook* _moveFlipbook[eCreatureDirection::END] = {};
-	Flipbook* _attackFlipbook[eCreatureDirection::END] = {};
-
-	CenterRect _attackCollisionPos[eCreatureDirection::END] = {};
 
 	BoxCollider* collider = nullptr;
 private:

@@ -69,6 +69,22 @@ struct Vector2
 	{
 		return Vector2(-1, 0);
 	}
+	inline static Vector2 UpNRight()
+	{
+		return Vector2(1, -1);
+	}
+	inline static Vector2 DownNRight()
+	{
+		return Vector2(1, 1);
+	}
+	inline static Vector2 UpNLeft()
+	{
+		return Vector2(-1, -1);
+	}
+	inline static Vector2 DownNLeft()
+	{
+		return Vector2(-1, 1);
+	}
 
 	inline static Vector2 Lerp(Vector2 start, Vector2 end, float t)
 	{

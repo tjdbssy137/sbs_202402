@@ -17,107 +17,11 @@ void CreatureController::SetLink(CreatureActor* actor)
 }
 void CreatureController::Update()
 {
-	_actor->SetIsAttackInput(false);
-
 	//Udate문은 매프레임 들어옴 -> Update 최상위 if문은 매프레임 비교됨 
 	// -> 최대한 이벤트 빈도가 적은 내용으로 적는 것이 좋음
-	if (Input->GetKey(KeyCode::Up))
-	{
-		if (_actor->CanMove())
-		{
-			Vector2Int cellPos = _actor->GetCellPos();
-			cellPos.y -= 1;
-
-			TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
-			assert(scene != nullptr);
-			if (scene == nullptr)
-			{
-				return;
-			}
-
-			if (scene->CanGo(_actor, cellPos))
-			{
-				_actor->SetCellPos(cellPos);
-				_actor->SetState(CreatureState::Move);
-			}
-			_actor->ChangeDirection(eCreatureDirection::UP);
-		}
-	}
-	else if (Input->GetKey(KeyCode::Left))
-	{
-		if (_actor->CanMove())
-		{
-			Vector2Int cellPos = _actor->GetCellPos();
-			cellPos.x -= 1;
-
-			TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
-			assert(scene != nullptr);
-			if (scene == nullptr)
-			{
-				return;
-			}
-
-			if (scene->CanGo(_actor, cellPos))
-			{
-				_actor->SetCellPos(cellPos);
-				_actor->SetState(CreatureState::Move);
-			}
-			_actor->ChangeDirection(eCreatureDirection::LEFT);
-		}
-	}
-	else if (Input->GetKey(KeyCode::Right))
-	{
-		if (_actor->CanMove())
-		{
-			Vector2Int cellPos = _actor->GetCellPos();
-			cellPos.x += 1;
-
-			TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
-			assert(scene != nullptr);
-			if (scene == nullptr)
-			{
-				return;
-			}
-
-			if (scene->CanGo(_actor, cellPos))
-			{
-				_actor->SetCellPos(cellPos);
-				_actor->SetState(CreatureState::Move);
-			}
-			_actor->ChangeDirection(eCreatureDirection::RIGHT);
-		}
-	}
-	else if (Input->GetKey(KeyCode::Down))
-	{
-		if (_actor->CanMove())
-		{
-			Vector2Int cellPos = _actor->GetCellPos();
-			cellPos.y += 1;
-
-			TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
-			assert(scene != nullptr);
-			if (scene == nullptr)
-			{
-				return;
-			}
-
-			if (scene->CanGo(_actor, cellPos))
-			{
-				_actor->SetCellPos(cellPos);
-				_actor->SetState(CreatureState::Move);
-			}
-			_actor->ChangeDirection(eCreatureDirection::DOWN);
-		}
-	}
-
-	if (Input->GetKeyDown(KeyCode::Space))
-	{
-		_actor->SetIsAttackInput(true);
-	}
-
+	
 	if (Input->GetKeyDown(KeyCode::RightMouse))
 	{
-		
 		TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
 		assert(scene != nullptr);
 		if (scene == nullptr)
@@ -215,14 +119,18 @@ vector<Vector2Int> CreatureController::Calculator_Astar(Vector2Int startPos, Vec
 			Vector2Int(-1, 1), //Down&Left
 		};
 
-		int moveCost[4] =
+		int moveCost[8] = // 직선으로 가면 빠른걸 지그재그로 감
 		{
+			1,
+			1,
+			1,
+			1,
 			1,
 			1,
 			1,
 			1
 		};
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 8; i++)
 		{
 			Vector2Int nextPos = current.Vertex + dir[i];
 			// 다음지점이 갈 수 있는 지점이면,

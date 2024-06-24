@@ -7,28 +7,12 @@ void CreatureActor::Init()
 {
 	Super::Init();
 	// IDLE
-	_idleFlipbook[eCreatureDirection::DOWN] = (Resource->GetFlipbook(L"FB_T_EnemyShipDown"));
-	_idleFlipbook[eCreatureDirection::UP] = Resource->GetFlipbook(L"FB_CharacterUp_Idle");
-	_idleFlipbook[eCreatureDirection::LEFT] = Resource->GetFlipbook(L"FB_CharacterLeft_Idle");
-	_idleFlipbook[eCreatureDirection::RIGHT] = Resource->GetFlipbook(L"FB_CharacterRight_Idle");
-
-	// MOVE
-	_moveFlipbook[eCreatureDirection::DOWN] = Resource->GetFlipbook(L"FB_CharacterDown_Move");
-	_moveFlipbook[eCreatureDirection::UP] = Resource->GetFlipbook(L"FB_CharacterUp_Move");
-	_moveFlipbook[eCreatureDirection::LEFT] = Resource->GetFlipbook(L"FB_CharacterLeft_Move");
-	_moveFlipbook[eCreatureDirection::RIGHT] = Resource->GetFlipbook(L"FB_CharacterRight_Move");
-
-	// ATTACK
-	_attackFlipbook[eCreatureDirection::DOWN] = Resource->GetFlipbook(L"FB_CharacterDown_Attack");
-	_attackFlipbook[eCreatureDirection::UP] = Resource->GetFlipbook(L"FB_CharacterUp_Attack");
-	_attackFlipbook[eCreatureDirection::LEFT] = Resource->GetFlipbook(L"FB_CharacterLeft_Attack");
-	_attackFlipbook[eCreatureDirection::RIGHT] = Resource->GetFlipbook(L"FB_CharacterRight_Attack");
-
-	// ATTACK COLLISON POS
-	_attackCollisionPos[eCreatureDirection::DOWN] = CenterRect(Vector2(0, 60), 20, 40);
-	_attackCollisionPos[eCreatureDirection::UP] = CenterRect(Vector2(0, -60), 20, 40);
-	_attackCollisionPos[eCreatureDirection::LEFT] = CenterRect(Vector2(-60, 0), 40, 20);
-	_attackCollisionPos[eCreatureDirection::RIGHT] = CenterRect(Vector2(60, 0), 40, 20);
+	wstring direction[eCreatureDirection::END] 
+		= { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
+	for (int i = 0; i < eCreatureDirection::END; i++)
+	{
+		_moveFlipbook[i] = Resource->GetFlipbook(L"FB_EnemyBoat1_" + direction[i]);
+	}
 
 	//cout << "_state : " << static_cast<int>(this->GetState()) << endl;
 	this->SetState(_state);
@@ -44,9 +28,6 @@ void CreatureActor::Update()
 	// XXX : <- 이슈 위험
 	switch (_state)
 	{
-	case CreatureState::Attack:
-		UpdateAttack();
-		break;
 	case CreatureState::Move:
 		UpdateMove();
 		break;
@@ -80,16 +61,10 @@ void CreatureActor::SetState(CreatureState state)
 
 	switch (_state)
 	{
-	case CreatureState::Idle:
-		this->SetFlipbook(_idleFlipbook[_dir]);
-		break;
-	case CreatureState::Attack:
-		this->SetFlipbook(_attackFlipbook[_dir]);
-		_invokeTime = 1.05f;
-		break;
 	case CreatureState::Move:
 		this->SetFlipbook(_moveFlipbook[_dir]);
-
+	case CreatureState::Idle:
+		this->SetFlipbook(_moveFlipbook[_dir]);
 		break;
 	default:
 		break;
@@ -105,15 +80,30 @@ void CreatureActor::ChangeDirection(eCreatureDirection dir)
 	_dir = dir;
 	switch (_state)
 	{
-	case CreatureState::Idle:
-		this->SetFlipbook(_idleFlipbook[_dir]);
-		break;
 	case CreatureState::Move:
 		this->SetFlipbook(_moveFlipbook[_dir]);
 		break;
-	case CreatureState::Attack:
-		this->SetFlipbook(_attackFlipbook[_dir]);
-		break;
+	}
+}
+
+void CreatureActor::UpdateIdle()
+{
+	if (_pathIndex != _path.size())
+	{
+		Vector2Int cellPos = _path[_pathIndex++];
+
+		TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
+		assert(scene != nullptr);
+		if (scene == nullptr)
+		{
+			return;
+		}
+
+		if (scene->CanGo(this, cellPos))
+		{
+			this->SetCellPos(cellPos);
+			this->SetState(CreatureState::Move);
+		}
 	}
 }
 
@@ -131,69 +121,63 @@ void CreatureActor::UpdateMove()
 	{
 		Vector2 dirVec = _destPos - this->GetPos();
 		dirVec = dirVec.Normalize();
-		_body.pos += dirVec * 450 * Time->GetDeltaTime();
+		_body.pos += dirVec * 250 * Time->GetDeltaTime();
 
 		// 상하좌우에 따라 캐릭터 방향을 돌려줌.
-		float upDotValue = dirVec.Dot(Vector2::Up());
-		float rightDotValue = dirVec.Dot(Vector2::Right());
-		float downDotValue = dirVec.Dot(Vector2::Down());
-		float leftDotValue = dirVec.Dot(Vector2::Left());
+		Vector2 directions[8] = {
+			Vector2::Up(),            // UP
+			Vector2::Right(),         // RIGHT
+			Vector2::Down(),          // DOWN
+			Vector2::Left(),          // LEFT
+			Vector2::UpNLeft(), // UP_RIGHT
+			Vector2::UpNRight(), // DOWN_RIGHT
+			Vector2::DownNLeft(), // DOWN_LEFT
+			Vector2::DownNRight()  // UP_LEFT
+		};
+
+		// 도트 제품 계산
+		float dotValues[8];
+		for (int i = 0; i < 8; i++) {
+			dotValues[i] = dirVec.Dot(directions[i]);
+		}
+
+		// 최대 도트 제품 값 찾기
+		int maxIndex = 0;
 		float cos45 = cos(Deg2Rad(45));
-		if (cos45 < upDotValue)
-		{
+		for (int i = 0; i < 8; i++) {
+			if (cos45 < dotValues[i]) {
+				maxIndex = i;
+			}
+		}
+
+		// 방향 전환
+		switch (maxIndex) {
+		case 0:
 			this->ChangeDirection(eCreatureDirection::UP);
-		}
-		if (cos45 < rightDotValue)
-		{
+			break;
+		case 1:
 			this->ChangeDirection(eCreatureDirection::RIGHT);
-		}
-		if (cos45 < downDotValue)
-		{
+			break;
+		case 2:
 			this->ChangeDirection(eCreatureDirection::DOWN);
-		}
-		if (cos45 < leftDotValue)
-		{
+			break;
+		case 3:
 			this->ChangeDirection(eCreatureDirection::LEFT);
+			break;
+		case 4:
+			this->ChangeDirection(eCreatureDirection::UP_LEFT);
+			break;
+		case 5:
+			this->ChangeDirection(eCreatureDirection::UP_RIGHT);
+			break;
+		case 6:
+			this->ChangeDirection(eCreatureDirection::DOWN_LEFT);
+			break;
+		case 7:
+			this->ChangeDirection(eCreatureDirection::DOWN_RIGHT);
+			break;
 		}
 	}
-}
-
-void CreatureActor::UpdateIdle()
-{
-	if(_pathIndex != _path.size())
-	{
-		Vector2Int cellPos = _path[_pathIndex++];
-
-		TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
-		assert(scene != nullptr);
-		if (scene == nullptr)
-		{
-			return;
-		}
-
-		if (scene->CanGo(this, cellPos))
-		{
-			this->SetCellPos(cellPos);
-			this->SetState(CreatureState::Move);
-		}
-	}
-
-	//Idle 때만 공격 가능.
-	else if (this->_isAttackInput == true)
-	{
-		this->SetState(CreatureState::Attack);
-	}
-}
-
-void CreatureActor::UpdateAttack()
-{
-	if (collider == nullptr)
-	{
-		collider = new BoxCollider();
-	}
-	collider->SetEnable(true);
-	collider->SetCollision(_attackCollisionPos[_dir]);
-	this->AddComponent(collider);
 }
 
 void CreatureActor::SetCellPos(Vector2Int cellPos, bool teleport)
@@ -233,11 +217,6 @@ bool CreatureActor::HasRechedDest()
 
 bool CreatureActor::CanMove()
 {
-	if (this->_state == CreatureState::Attack)
-	{
-		return false;
-	}
-
 	if (this->_state == CreatureState::Move)
 	{
 		return false;

@@ -13,16 +13,6 @@ void UserCharacterController::Init(CreatureActor* creature, MonsterActor* monste
 void UserCharacterController::Update()
 {
 	_monster->LookAtPlayer(_creature->GetPos());
-	/*
-	if (_monster->GetMonsterHp() < 0)
-	{
-		_monster->SetState(MonsterState::Die);
-	}
-	*/
-	if (_creature->GetState() == CreatureState::Attack)
-	{
-		PlayerAttackMonster();
-	}
 }
 
 void UserCharacterController::PlayerAttackMonster()

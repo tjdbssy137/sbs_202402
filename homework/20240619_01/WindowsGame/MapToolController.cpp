@@ -47,7 +47,7 @@ void MapToolController::Update()
 
 		
 	}
-	if (Input->GetKeyDown(KeyCode::RightMouse))
+	/*if (Input->GetKeyDown(KeyCode::RightMouse))
 	{
 		int x = 0;
 		int y = 0;
@@ -66,5 +66,5 @@ void MapToolController::Update()
 		{
 			tile->value = 0;
 		}
-	}
+	}*/
 }
