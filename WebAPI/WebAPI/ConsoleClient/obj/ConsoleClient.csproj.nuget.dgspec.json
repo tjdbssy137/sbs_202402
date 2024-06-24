@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\WebAPI\\WebAPI.csproj": {}
+    "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\ConsoleClient\\ConsoleClient.csproj": {}
   },
   "projects": {
-    "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\WebAPI\\WebAPI.csproj": {
+    "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\ConsoleClient\\ConsoleClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\WebAPI\\WebAPI.csproj",
-        "projectName": "WebAPI",
-        "projectPath": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\WebAPI\\WebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\ConsoleClient\\ConsoleClient.csproj",
+        "projectName": "ConsoleClient",
+        "projectPath": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\ConsoleClient\\ConsoleClient.csproj",
         "packagesPath": "C:\\Users\\NewITest\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\WebAPI\\obj\\",
+        "outputPath": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\ConsoleClient\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\NewITest\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -44,16 +44,6 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "dependencies": {
-            "IdentityServer4": {
-              "target": "Package",
-              "version": "[4.1.2, )"
-            },
-            "Swashbuckle.AspNetCore": {
-              "target": "Package",
-              "version": "[6.4.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -66,9 +56,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

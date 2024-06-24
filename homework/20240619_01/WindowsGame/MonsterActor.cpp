@@ -100,7 +100,7 @@ void MonsterActor::OnTriggerEnter(Collider* collider, Collider* other)
 	}	
 }
 
-void MonsterActor::LookAtPlayer(Vector2 playerPos)
+void MonsterActor::LookAtPlayer(Vector2 playerPos) // 이거 내가 설치하는 구조물에 들어가서 적을 봐야함
 {
 	// player을 바라보기
 	if (playerPos.x <= this->GetPos().x) // 플레이어가 좌측에 있을 경우

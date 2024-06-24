@@ -202,12 +202,17 @@ vector<Vector2Int> CreatureController::Calculator_Astar(Vector2Int startPos, Vec
 			break;
 		}
 
-		Vector2Int dir[4] =
+		Vector2Int dir[8] =
 		{
 			Vector2Int(0, -1), //Up
 			Vector2Int(1, 0), // Right
 			Vector2Int(0, 1), //Down
 			Vector2Int(-1, 0), //Left
+
+			Vector2Int(1, -1), //Up&Right
+			Vector2Int(-1, -1), // Up&Left
+			Vector2Int(1, 1), //Down&Right
+			Vector2Int(-1, 1), //Down&Left
 		};
 
 		int moveCost[4] =

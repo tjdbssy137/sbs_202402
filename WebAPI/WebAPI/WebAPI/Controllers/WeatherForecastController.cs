@@ -9,11 +9,7 @@ namespace WebAPI.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
+       
         private readonly ILogger<WeatherForecastController> _logger;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
@@ -22,16 +18,15 @@ namespace WebAPI.Controllers
         }
         
         // 요청 온 것을 처리하는 코드
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet("Test")]
+        public List<int> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            List<int> values = new List<int>();
+            for(int i = 0; i < 10; i++) 
             {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+                values.Add(i);
+            }
+            return values;
         }
     }
 }

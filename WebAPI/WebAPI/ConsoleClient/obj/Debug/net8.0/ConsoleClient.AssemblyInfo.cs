@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("WebAPI")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("ConsoleClient")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0d781a7e91921684ccb9d5c1f58c1cf833fc69cc")]
-[assembly: System.Reflection.AssemblyProductAttribute("WebAPI")]
-[assembly: System.Reflection.AssemblyTitleAttribute("WebAPI")]
+[assembly: System.Reflection.AssemblyProductAttribute("ConsoleClient")]
+[assembly: System.Reflection.AssemblyTitleAttribute("ConsoleClient")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // MSBuild WriteCodeFragment 클래스에서 생성되었습니다.
