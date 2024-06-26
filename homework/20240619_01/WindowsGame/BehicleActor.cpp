@@ -82,7 +82,7 @@ void BehicleActor::LookAtTarget() // target을 바라보기
 	Vector2 dirVec = _targetPos - this->GetPos();
 	dirVec = dirVec.Normalize();
 	
-	Vector2 direction[8] =
+	Vector2 directions[eBehicleDirection::END] =
 	{
 		Vector2::Up(),				// UP
 		Vector2::Right(),			// RIGHT
@@ -94,13 +94,17 @@ void BehicleActor::LookAtTarget() // target을 바라보기
 		Vector2::DownNRight()		// UP_LEFT
 	};
 
-	int targetDir = 0;
+	float dotValues[eBehicleDirection::END];
+	for (int i = 0; i < eBehicleDirection::END; i++) {
+		dotValues[i] = dirVec.Dot(directions[i]);
+	}
 
-	for (int dir = 0; dir < eBehicleDirection::END; dir++)
-	{
-		if (dirVec == direction[dir])
-		{
-			targetDir = dir;
+	// 최대 값 찾기
+	int targetDir = 0;
+	float cos45 = cos(Deg2Rad(45));
+	for (int i = 0; i < eBehicleDirection::END; i++) {
+		if (cos45 < dotValues[i]) {
+			targetDir = i;
 		}
 	}
 
