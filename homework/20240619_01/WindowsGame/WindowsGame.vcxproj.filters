@@ -65,6 +65,9 @@
     <Filter Include="08. Datas\Game">
       <UniqueIdentifier>{00a8690b-03b8-471e-a583-1ec9af5a150f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.Objects\TowerDefense">
+      <UniqueIdentifier>{2fb9743f-9061-45ab-9133-a13cae578f82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -229,6 +232,13 @@
     <ClInclude Include="Data.h">
       <Filter>08. Datas\Game</Filter>
     </ClInclude>
+    <ClInclude Include="BoatActor.h">
+      <Filter>03.Objects\TowerDefense</Filter>
+    </ClInclude>
+    <ClInclude Include="BoatController.h">
+      <Filter>03.Objects\TowerDefense</Filter>
+    </ClInclude>
+    <ClInclude Include="BehicleActor.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -456,6 +466,15 @@
     </ClCompile>
     <ClCompile Include="Data.cpp">
       <Filter>08. Datas\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="BoatActor.cpp">
+      <Filter>03.Objects\TowerDefense</Filter>
+    </ClCompile>
+    <ClCompile Include="BoatController.cpp">
+      <Filter>03.Objects\TowerDefense</Filter>
+    </ClCompile>
+    <ClCompile Include="BehicleActor.cpp">
+      <Filter>03.Objects\TowerDefense</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

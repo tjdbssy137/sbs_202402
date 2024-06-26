@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "CreatureController.h"
-#include "CreatureActor.h"
+#include "BoatController.h"
+#include "BoatActor.h"
 #include "TilemapScene.h"
 #include "Tilemap.h"
 #include "TilemapActor.h"
@@ -8,18 +8,18 @@
 #include "Dev2Scene.h"
 #include <queue>
 
-void CreatureController::SetLink(CreatureActor* actor)
+void BoatController::SetLink(BoatActor* actor)
 {
 	assert(actor != nullptr);
 
 	_actor = actor;
 
 }
-void CreatureController::Update()
+void BoatController::Update()
 {
 	//Udate문은 매프레임 들어옴 -> Update 최상위 if문은 매프레임 비교됨 
 	// -> 최대한 이벤트 빈도가 적은 내용으로 적는 것이 좋음
-	
+
 	if (Input->GetKeyDown(KeyCode::RightMouse))
 	{
 		TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
@@ -35,7 +35,7 @@ void CreatureController::Update()
 			return;
 		}
 
-		vector<Vector2Int> path = Calculator_Astar(_actor->GetCellPos(), 
+		vector<Vector2Int> path = Calculator_Astar(_actor->GetCellPos(),
 			tilemapActor->GetTileIndexByPos(Input->GetMousePos()));
 		_actor->SetPath(path);
 	}
@@ -59,7 +59,7 @@ struct AstarNode
 };
 
 
-vector<Vector2Int> CreatureController::Calculator_Astar(Vector2Int startPos, Vector2Int endPos)
+vector<Vector2Int> BoatController::Calculator_Astar(Vector2Int startPos, Vector2Int endPos)
 {
 	vector<Vector2Int> result;
 	TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
@@ -75,7 +75,7 @@ vector<Vector2Int> CreatureController::Calculator_Astar(Vector2Int startPos, Vec
 	{
 		return result;
 	}
-	
+
 	priority_queue<PQNode, vector<PQNode>, greater<PQNode>> queue;
 
 	Vector2Int dest = endPos;
@@ -115,7 +115,7 @@ vector<Vector2Int> CreatureController::Calculator_Astar(Vector2Int startPos, Vec
 
 		};
 
-		int moveCost[4] = // 직선으로 가면 빠른걸 지그재그로 감
+		int moveCost[4] =
 		{
 			1,
 			1,
@@ -131,8 +131,8 @@ vector<Vector2Int> CreatureController::Calculator_Astar(Vector2Int startPos, Vec
 				// nextPos는 curren로부터 왔습니다.
 				PQNode newNode;
 				newNode.Vertex = nextPos;
-				newNode.G = current.G + moveCost[i]; 
-				newNode.Cost = newNode.G + (dest - nextPos).Length(); 
+				newNode.G = current.G + moveCost[i];
+				newNode.Cost = newNode.G + (dest - nextPos).Length();
 				parent[nextPos.y][nextPos.x] = current.Vertex; // parent는 경로를 연결함.
 				queue.push(newNode);
 			}

@@ -1,4 +1,3 @@
-#pragma once
 #include "FlipbookActor.h"
 #include "ITilemapActor.h"
 class BoxCollider;
@@ -23,7 +22,7 @@ enum class BoatState
 	Idle
 };
 
-class CreatureActor : public FlipbookActor, public ITilemapActor
+class BoatActor : public FlipbookActor, public ITilemapActor
 {
 public:
 	using Super = FlipbookActor;
@@ -41,12 +40,6 @@ public:
 	void SetState(BoatState state);
 	BoatState GetState() { return _state; }
 
-	void SetVelocity(Vector2 velocity) { _velocity = velocity; }
-	Vector2 GetVelocity() { return _velocity; }
-
-	void SetDirNewPos(Vector2 dirNewPos) { _dirNewPos = dirNewPos; }
-	Vector2 GetDirNewPos() { return _dirNewPos; }
-
 	void ChangeDirection(eBoatDirection dir);
 
 	void SetDestPos(Vector2 destPos) { _destPos = destPos; }
@@ -56,8 +49,11 @@ public:
 	bool HasRechedDest();
 	bool CanMove();
 public:
-	void SetIsAttackInput(bool isAttackInput) { _isAttackInput = isAttackInput; }
-	bool GetIsAttackInput() { return _isAttackInput; }
+	void SetBoatSpeed(int boatSpeed) { _boatSpeed = boatSpeed; }
+	int GetBoatSpeed() { return _boatSpeed; }
+
+	void SetBoatType(wstring boatType) { _boatType = boatType; }
+	wstring GetBoatType() { return _boatType; }
 
 public: // Astar 관련
 	void SetPath(vector<Vector2Int> path);
@@ -73,11 +69,10 @@ private:
 	Flipbook* _moveFlipbook[eBoatDirection::END] = {};
 
 	BoxCollider* collider = nullptr;
-private:
-	float _invokeTime = 0;
-	Vector2 _velocity = {};
-	Vector2 _dirNewPos = {};
-	bool _isAttackInput = false;
+
+private: // scene 에서 정리
+	int _boatSpeed = 100;
+	wstring _boatType = L"FB_EnemyBoat1_";
 
 private:
 	Vector2 _destPos = {};

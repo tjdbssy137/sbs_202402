@@ -1,27 +1,26 @@
 #include "pch.h"
-#include "CreatureActor.h"
+#include "BoatActor.h"
 #include "BoxCollider.h"
 #include "Dev2Scene.h"
 
-void CreatureActor::Init()
+void BoatActor::Init()
 {
 	Super::Init();
-	// IDLE
-	wstring direction[eBoatDirection::END] 
+	//wprintf(GetBoatType().c_str());
+	wstring direction[eBoatDirection::END]
 		= { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
 	for (int i = 0; i < eBoatDirection::END; i++)
 	{
-		_moveFlipbook[i] = Resource->GetFlipbook(L"FB_EnemyBoat1_" + direction[i]);
+		_moveFlipbook[i] = Resource->GetFlipbook(GetBoatType() + direction[i]);
 	}
 
-	//cout << "_state : " << static_cast<int>(this->GetState()) << endl;
 	this->SetState(_state);
 }
-void CreatureActor::Render(HDC hdc)
+void BoatActor::Render(HDC hdc)
 {
 	Super::Render(hdc);
 }
-void CreatureActor::Update()
+void BoatActor::Update()
 {
 	Super::Update();
 
@@ -37,32 +36,23 @@ void CreatureActor::Update()
 	default:
 		break;
 	}
-
-	// _velocity
-	// 0부터 키를 누르고 있으면 점점 전체 속도가 증가함. 최대 1까지
-
-	// Input에 따라서 이동속도벡터(velocity)를 제어한다
-	// state가 최종 판단을 해준다
-	// velocity가 0이면, Idle
-	// 그렇지 않으면 Move 상태로 바꿔준다.
 }
 
-void CreatureActor::Release()
+void BoatActor::Release()
 {
 	Super::Release();
 }
 
-void CreatureActor::SetState(BoatState state)
+void BoatActor::SetState(BoatState state)
 {
 	//FSM 유한상태머신
-	//if (_state == state) return; << 이거 있으면 움직이지 않는 이상 Creature가 안 보임 --
 
 	_state = state;
 
 	this->SetFlipbook(_moveFlipbook[_dir]);
 }
 
-void CreatureActor::ChangeDirection(eBoatDirection dir)
+void BoatActor::ChangeDirection(eBoatDirection dir)
 {
 	// 만약에 방향이 바뀌면, setFlipbook을 해준다/
 
@@ -72,7 +62,7 @@ void CreatureActor::ChangeDirection(eBoatDirection dir)
 	this->SetFlipbook(_moveFlipbook[_dir]);
 }
 
-void CreatureActor::UpdateIdle()
+void BoatActor::UpdateIdle()
 {
 	if (_pathIndex != _path.size())
 	{
@@ -93,7 +83,7 @@ void CreatureActor::UpdateIdle()
 	}
 }
 
-void CreatureActor::UpdateMove()
+void BoatActor::UpdateMove()
 {
 	// _destPos랑 비교해서 움직이게 끔
 	// 현재 내 포지션이 _destPos와 다르면 내 dir 방향으로 계속 움직인다.
@@ -107,7 +97,7 @@ void CreatureActor::UpdateMove()
 	{
 		Vector2 dirVec = _destPos - this->GetPos();
 		dirVec = dirVec.Normalize();
-		_body.pos += dirVec * 100 * Time->GetDeltaTime();
+		_body.pos += dirVec * _boatSpeed * Time->GetDeltaTime();
 
 		// 상하좌우에 따라 캐릭터 방향을 돌려줌.
 		Vector2 directions[4] = {
@@ -115,10 +105,6 @@ void CreatureActor::UpdateMove()
 			Vector2::Right(),         // RIGHT
 			Vector2::Down(),          // DOWN
 			Vector2::Left()          // LEFT
-			//Vector2::UpNLeft(), // UP_RIGHT
-			//Vector2::UpNRight(), // DOWN_RIGHT
-			//Vector2::DownNLeft(), // DOWN_LEFT
-			//Vector2::DownNRight()  // UP_LEFT
 		};
 
 		float dotValues[4];
@@ -149,23 +135,13 @@ void CreatureActor::UpdateMove()
 		case 3:
 			this->ChangeDirection(eBoatDirection::LEFT);
 			break;
-		/*case 4:
-			this->ChangeDirection(eCreatureDirection::UP_LEFT);
+		default:
 			break;
-		case 5:
-			this->ChangeDirection(eCreatureDirection::UP_RIGHT);
-			break;
-		case 6:
-			this->ChangeDirection(eCreatureDirection::DOWN_LEFT);
-			break;
-		case 7:
-			this->ChangeDirection(eCreatureDirection::DOWN_RIGHT);
-			break;*/
 		}
 	}
 }
 
-void CreatureActor::SetCellPos(Vector2Int cellPos, bool teleport)
+void BoatActor::SetCellPos(Vector2Int cellPos, bool teleport)
 {
 	_cellPos = cellPos;
 	//_destPos를 정확하게 짚어줄 것
@@ -190,17 +166,17 @@ void CreatureActor::SetCellPos(Vector2Int cellPos, bool teleport)
 		this->SetPos(_destPos);
 	}
 }
-Vector2Int CreatureActor::GetCellPos()
+Vector2Int BoatActor::GetCellPos()
 {
 	return _cellPos;
 }
-bool CreatureActor::HasRechedDest()
+bool BoatActor::HasRechedDest()
 {
 	//_destPos와 내 위치의 길이 < 10px보다 작다.
 	return (_destPos - this->GetPos()).Length() < 10.0f;
 }
 
-bool CreatureActor::CanMove()
+bool BoatActor::CanMove()
 {
 	if (this->_state == BoatState::Move)
 	{
@@ -210,14 +186,8 @@ bool CreatureActor::CanMove()
 	return true;
 }
 
-void CreatureActor::SetPath(vector<Vector2Int> path)
+void BoatActor::SetPath(vector<Vector2Int> path)
 {
 	_path = path;
 	_pathIndex = 0;
-
-	// _path[0] 지점으로 텔레포트
-	if (0 < _path.size())
-	{
-		//this->SetCellPos(_path[0], true);
-	}
 }

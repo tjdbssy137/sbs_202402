@@ -2,7 +2,7 @@
 #include "TilemapScene.h" // 얘가 이미 Scene을 상속 받고 있음
 
 class MapToolController;
-class CreatureController;
+class BoatController;
 class Panel;
 class TilemapActor;
 class Tilemap;
@@ -28,5 +28,5 @@ private:
 	//Panel* panel = nullptr;
 	TilemapActor* _tilemapActor = nullptr;
 	MapToolController* _mapToolController = nullptr;
-	CreatureController* _creatureController = nullptr;
+	BoatController* _boatController = nullptr;
 };
