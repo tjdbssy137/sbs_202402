@@ -75,3 +75,6 @@ C:\Users\NewITest\Documents\GitHub\sbs_202402\WebAPI\WebAPI\WebAPI\bin\Debug\net
 C:\Users\NewITest\Documents\GitHub\sbs_202402\WebAPI\WebAPI\WebAPI\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\NewITest\Documents\GitHub\sbs_202402\WebAPI\WebAPI\WebAPI\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\NewITest\Documents\GitHub\sbs_202402\WebAPI\WebAPI\WebAPI\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\NewITest\Documents\GitHub\sbs_202402\WebAPI\WebAPI\WebAPI\bin\Debug\net8.0\System.Net.Http.Formatting.dll
+C:\Users\NewITest\Documents\GitHub\sbs_202402\WebAPI\WebAPI\WebAPI\bin\Debug\net8.0\System.Web.Http.dll
+C:\Users\NewITest\Documents\GitHub\sbs_202402\WebAPI\WebAPI\WebAPI\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
