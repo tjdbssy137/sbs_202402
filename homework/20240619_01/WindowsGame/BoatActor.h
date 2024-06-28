@@ -1,7 +1,7 @@
 #pragma once
 #include "FlipbookActor.h"
 #include "ITilemapActor.h"
-class BoxCollider;
+class CircleCollider;
 class Flipbook;
 
 enum class BoatState
@@ -56,7 +56,7 @@ private:
 	eDirection _dir = eDirection::DOWN;
 	Flipbook* _moveFlipbook[eDirection::END] = {};
 
-	BoxCollider* collider = nullptr;
+	CircleCollider* collider = nullptr;
 
 private: // scene 에서 정리
 	int _boatSpeed = 100;

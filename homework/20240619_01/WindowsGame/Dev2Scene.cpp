@@ -105,13 +105,12 @@ void Dev2Scene::Init()
 	{
 		BehicleActor* behicle = new BehicleActor();
 		behicle->SetLayer(LayerType::Character);
-		//behicle->SetBehicleType(L"FB_Submarine_");
+		behicle->SetBehicleType(L"FB_Submarine_");
 		behicle->Init();
 		_behicleController->SetLink(behicle);
 		this->SpawnActor(behicle);
 		behicle->SetCellPos({ 15, 20 }, true);
 	}
-
 
 	_redBlockController = new RedBlockController();
 	{
@@ -121,6 +120,13 @@ void Dev2Scene::Init()
 		_redBlockController->SetLink(redBlock);
 		this->SpawnActor(redBlock);
 		redBlock->SetCellPos({ 1, 1 }, true);
+	}
+	{//µµÂøÁöÁ¡
+		SpriteActor* actor = new SpriteActor();
+		actor->SetLayer(LayerType::Object);
+		actor->SetSprite(Resource->GetSprite(L"S_BeachTileset_2"));
+		this->SpawnActor(actor);
+		actor->SetPos({ 5 * 31, 4 * 30 });
 	}
 
 
@@ -451,8 +457,13 @@ void Dev2Scene::LoadResource()
 	//----------------------------------
 	//  ## Sprite
 	//----------------------------------
-	Texture* texture = Resource->LoadTexture(L"T_RedTile", L"UIStudy/RedTile.bmp");
+	Texture* texture = Resource->LoadTexture(L"T_RedTile", L"UIStudy/RedTile.bmp", RGB(255, 0, 255));
 	Resource->CreateSprite(L"S_RedTile", texture);
+
+	Texture* texture2 = Resource->LoadTexture(L"T_BeachTileset_2", L"BeachTileset/BeachTileset_2.bmp", RGB(255, 0, 255));
+	Resource->CreateSprite(L"S_BeachTileset_2", texture2);
+
+
 
 	//----------------------------------
 	//  ## Sound

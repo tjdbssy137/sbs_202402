@@ -5,7 +5,7 @@
 void RedBlockActor::Init()
 {
 	Super::Init();
-	this->SetSprite(Resource->GetSprite(L"S_RedTile"));
+	//this->SetSprite(Resource->GetSprite(L"S_RedTile"));
 }
 void RedBlockActor::Render(HDC hdc)
 {

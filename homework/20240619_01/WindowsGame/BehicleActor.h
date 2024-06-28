@@ -2,6 +2,7 @@
 #include "FlipbookActor.h"
 #include "ITilemapActor.h"
 class Flipbook; 
+class CircleCollider;
 
 enum class BehicleState
 {
@@ -22,6 +23,7 @@ public:
 public: // 상속받은 인터페이스의 함수를 만들지 않으면 오류가 남.
 	virtual void SetCellPos(Vector2Int cellPos, bool teleport = false) override;
 	virtual Vector2Int GetCellPos() override;
+	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
 
 public:
 	void SetState(BehicleState state);
@@ -30,8 +32,8 @@ public:
 	void ChangeDirection(eDirection dir);
 
 public:
-	void SetBoatSpeed(int behicleSpeed) { _behicleShotSpeed = behicleSpeed; }
-	int GetBoatSpeed() { return _behicleShotSpeed; }
+	void SetShotSpeed(int behicleSpeed) { _behicleShotSpeed = behicleSpeed; }
+	int GetShotSpeed() { return _behicleShotSpeed; }
 
 	void SetBehicleType(wstring behicleType) { _behicleType = behicleType; }
 	wstring GetBehicleType() { return _behicleType; }
@@ -55,7 +57,9 @@ private: // scene 에서 정리
 private:
 	Vector2 _destPos = {};
 	Vector2Int _cellPos = {};
-
 	Vector2 _targetPos = {};
 
+private:
+	CircleCollider* collider = nullptr;
+	float _time = 1.0f;
 };

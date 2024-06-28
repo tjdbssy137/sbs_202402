@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "BehicleActor.h"
 #include "Dev2Scene.h"
-
+#include "CircleCollider.h"
+#include "BoatActor.h"
 void BehicleActor::Init()
 {
 	Super::Init();
@@ -14,6 +15,10 @@ void BehicleActor::Init()
 	}
 
 	this->SetState(_state);
+
+	collider = new CircleCollider();
+	collider->SetCollision(Vector2::Zero(), 50);
+	this->AddComponent(collider);
 }
 void BehicleActor::Render(HDC hdc)
 {
@@ -70,10 +75,26 @@ void BehicleActor::UpdateAttack()
 {
 	Vector2 dirVec = _targetPos - this->GetPos();
 	dirVec = dirVec.Normalize();
+	cout << "공격" << endl;
+	_state = BehicleState::Idle;
 	// 1초에 한번씩 공격할말을 결정
 	// 공격하기로 결정했을 때 내 바운더리 안에 있으면 공격.
 	// 만약 적이 너무 많이 오면 순서를..
 
+}
+
+void BehicleActor::OnTriggerEnter(Collider* collider, Collider* other)
+{
+	Super::OnTriggerEnter(collider, other);
+	BoatActor* enemy = dynamic_cast<BoatActor*>(other->GetOwner());
+	if (enemy == nullptr)
+	{
+		return;
+	}
+	else
+	{
+		_state = BehicleState::Attack;
+	}
 }
 
 void BehicleActor::LookAtTarget() // target을 바라보기

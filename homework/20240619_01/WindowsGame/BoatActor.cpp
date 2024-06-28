@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "BoatActor.h"
-#include "BoxCollider.h"
+#include "CircleCollider.h"
 #include "Dev2Scene.h"
 
 void BoatActor::Init()
@@ -15,6 +15,10 @@ void BoatActor::Init()
 	}
 
 	this->SetState(_state);
+
+	collider = new CircleCollider();
+	collider->SetCollision(Vector2::Zero(), 10);
+	this->AddComponent(collider);
 }
 void BoatActor::Render(HDC hdc)
 {

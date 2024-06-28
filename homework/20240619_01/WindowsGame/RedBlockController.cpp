@@ -4,6 +4,7 @@
 #include "TilemapScene.h"
 #include "Tilemap.h"
 #include "TilemapActor.h"
+#include "Dev2Scene.h"
 
 void RedBlockController::SetLink(RedBlockActor* block)
 {
@@ -13,25 +14,66 @@ void RedBlockController::SetLink(RedBlockActor* block)
 
 void RedBlockController::Update()
 {
-	//if (Input->GetKeyDown(KeyCode::LeftMouse))
+	if (Input->GetKeyDown(KeyCode::A))
 	{
-		TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
-		assert(scene != nullptr);
-		if (scene == nullptr)
+		_block->SetSprite(Resource->GetSprite(L"S_RedTile"));
+		_mouseState = MouseState::Move;
+	}
+
+	if (Input->GetKeyDown(KeyCode::D))
+	{
+		_block->SetSprite(nullptr);
+		_mouseState = MouseState::Nothing;
+	}
+
+	switch (_mouseState)
+	{
+	case MouseState::Move:
+		CanInstallBehicle();
+		break;
+	case MouseState::Click:
+		break;
+	case MouseState::Nothing:
+		break;
+	default:
+		break;
+	}
+}
+void RedBlockController::CanInstallBehicle()
+{
+	TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
+	assert(scene != nullptr);
+	if (scene == nullptr)
+	{
+		return;
+	}
+	TilemapActor* tilemapActor = scene->GetTilemapActor();
+	assert(tilemapActor != nullptr);
+	if (tilemapActor == nullptr)
+	{
+		return;
+	}
+	Vector2Int pos = tilemapActor->GetTileIndexByPos(Input->GetMousePos());
+	//cout << "pos.x : " << pos.x << "	pos.y : " << pos.y << endl;
+	//int x = pos.x; // ÀÌ¹Ì 32¸¦ °öÇØÁÖ°í ÀÖÀ½! ±×·¡¼­ ¾ÈÇØÁàµµ µÊ.
+	//int y = pos.y;
+	//cout << "x : " << x << "	y : " << y << endl;
+	_block->SetCellPos(pos, true);
+
+	if (Input->GetKeyDown(KeyCode::LeftMouse))
+	{
+		Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
+		Tilemap* tilemap = tilemapActor->GetTileMap();
+		assert(tilemap != nullptr);
+		
+		Tile* tile = tilemap->GetTileAt(pos);
+		if (tile->value == 4 || (14 <= tile->value && tile->value <= 45))
 		{
-			return;
+			cout << "°Ç¼³ µÊ" << endl;
 		}
-		TilemapActor* tilemapActor = scene->GetTilemapActor();
-		assert(tilemapActor != nullptr);
-		if (tilemapActor == nullptr)
+		else
 		{
-			return;
+			cout << "°Ç¼³ ¾È µÊ" << endl;
 		}
-		Vector2Int pos = tilemapActor->GetTileIndexByPos(Input->GetMousePos());
-		//cout << "pos.x : " << pos.x << "	pos.y : " << pos.y << endl;
-		//int x = pos.x; // ÀÌ¹Ì 32¸¦ °öÇØÁÖ°í ÀÖÀ½! ±×·¡¼­ ¾ÈÇØÁàµµ µÊ.
-		//int y = pos.y;
-		//cout << "x : " << x << "	y : " << y << endl;
-		_block->SetCellPos(pos, true);
 	}
 }
