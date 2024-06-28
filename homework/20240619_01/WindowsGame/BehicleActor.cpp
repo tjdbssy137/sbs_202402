@@ -70,7 +70,9 @@ void BehicleActor::UpdateAttack()
 {
 	Vector2 dirVec = _targetPos - this->GetPos();
 	dirVec = dirVec.Normalize();
-	
+	// 1초에 한번씩 공격할말을 결정
+	// 공격하기로 결정했을 때 내 바운더리 안에 있으면 공격.
+	// 만약 적이 너무 많이 오면 순서를..
 
 }
 

@@ -13,7 +13,7 @@ void RedBlockController::SetLink(RedBlockActor* block)
 
 void RedBlockController::Update()
 {
-	if (Input->GetKeyDown(KeyCode::LeftMouse))
+	//if (Input->GetKeyDown(KeyCode::LeftMouse))
 	{
 		TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
 		assert(scene != nullptr);
@@ -29,10 +29,9 @@ void RedBlockController::Update()
 		}
 		Vector2Int pos = tilemapActor->GetTileIndexByPos(Input->GetMousePos());
 		//cout << "pos.x : " << pos.x << "	pos.y : " << pos.y << endl;
-		int x = pos.x * 32;
-		int y = pos.y * 32;
+		//int x = pos.x; // 이미 32를 곱해주고 있음! 그래서 안해줘도 됨.
+		//int y = pos.y;
 		//cout << "x : " << x << "	y : " << y << endl;
-
-		_block->SetCellPos({ x, y }, true);
+		_block->SetCellPos(pos, true);
 	}
 }
