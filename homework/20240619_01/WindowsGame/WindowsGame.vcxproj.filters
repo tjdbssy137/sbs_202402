@@ -238,7 +238,16 @@
     <ClInclude Include="BoatController.h">
       <Filter>03.Objects\TowerDefense</Filter>
     </ClInclude>
-    <ClInclude Include="BehicleActor.h" />
+    <ClInclude Include="BehicleActor.h">
+      <Filter>03.Objects\TowerDefense</Filter>
+    </ClInclude>
+    <ClInclude Include="BehicleController.h">
+      <Filter>03.Objects\TowerDefense</Filter>
+    </ClInclude>
+    <ClInclude Include="RedBlockActor.h">
+      <Filter>03.Objects\TowerDefense</Filter>
+    </ClInclude>
+    <ClInclude Include="RedBlockController.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -476,6 +485,13 @@
     <ClCompile Include="BehicleActor.cpp">
       <Filter>03.Objects\TowerDefense</Filter>
     </ClCompile>
+    <ClCompile Include="BehicleController.cpp">
+      <Filter>03.Objects\TowerDefense</Filter>
+    </ClCompile>
+    <ClCompile Include="RedBlockActor.cpp">
+      <Filter>03.Objects\TowerDefense</Filter>
+    </ClCompile>
+    <ClCompile Include="RedBlockController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Day16.cpp">

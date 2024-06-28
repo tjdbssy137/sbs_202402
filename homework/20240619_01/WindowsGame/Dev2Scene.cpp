@@ -1,11 +1,11 @@
 #include "pch.h"
 #include "Dev2Scene.h"
-#include "PlayerActor.h"
 #include "BoxCollider.h"
 #include "SpriteActor.h"
 #include "FlipbookActor.h"
 #include "Flipbook.h"
 #include "BoatActor.h"
+#include "BehicleActor.h"
 #include "CameraComponent.h"
 #include "Texture.h"
 #include "Sprite.h"
@@ -16,7 +16,9 @@
 #include "MapToolTilemapActor.h"
 #include "MapToolController.h"
 #include "BoatController.h"
-
+#include "BehicleController.h"
+#include "RedBlockActor.h"
+#include "RedBlockController.h"
 void Dev2Scene::Init()
 {
 	LoadResource();
@@ -65,7 +67,6 @@ void Dev2Scene::Init()
 	}
 
 	_mapToolController = new MapToolController();
-
 	{
 		MapToolTilemapActor* actor = new MapToolTilemapActor();
 		actor->SetTileMap(Resource->GetTileMap(L"TM_Test"));
@@ -100,6 +101,28 @@ void Dev2Scene::Init()
 		this->SpawnActor(boat);
 		boat->SetCellPos({ 20, 10 }, true);
 	}
+	_behicleController = new BehicleController();
+	{
+		BehicleActor* behicle = new BehicleActor();
+		behicle->SetLayer(LayerType::Character);
+		//behicle->SetBehicleType(L"FB_Submarine_");
+		behicle->Init();
+		_behicleController->SetLink(behicle);
+		this->SpawnActor(behicle);
+		behicle->SetCellPos({ 15, 20 }, true);
+	}
+
+
+	_redBlockController = new RedBlockController();
+	{
+		RedBlockActor* redBlock = new RedBlockActor();
+		redBlock->SetLayer(LayerType::Object);
+		redBlock->Init();
+		_redBlockController->SetLink(redBlock);
+		this->SpawnActor(redBlock);
+		redBlock->SetCellPos({ 1, 1 }, true);
+	}
+
 
 	// behicle을 여러개 생성해두고? 마우스 좌표로 비히클 위치를 지정해주는 클래스를 새로 만들어야할 듯.
 	// 마우스를 가져다 대면 빨간색의 작은 타일이 생기고 그곳을 누르면 설치.. (panel이 마우스를 따라다니며 어떤 걸 설치할 지 메뉴)
@@ -123,6 +146,8 @@ void Dev2Scene::Update()
 
 	_mapToolController->Update();
 	_boatController->Update();
+	//_behicleController->Update();
+	_redBlockController->Update();
 }
 void Dev2Scene::Release()
 {
@@ -237,6 +262,198 @@ void Dev2Scene::LoadResource()
 			Resource->CreateFlipbook(fullName, info_enemyship3);
 		}
 	}
+
+	// -------------------------------------
+	// 
+	//			BEHICLE RESOURCE
+	// 
+	// ------------------------------------- 
+	//DrillTank1
+	{
+		Resource->LoadTexture(L"T_DrillTank1", L"FlipbookTest/drillTank1.bmp", RGB(255, 0, 255));
+		FlipbookInfo info_drillTank1 = {};
+		info_drillTank1.start = 0;
+		info_drillTank1.end = 2;
+		info_drillTank1.line = 0;
+		info_drillTank1.size = Vector2Int(32, 32);
+		info_drillTank1.duration = 0.6f;
+		info_drillTank1.loop = true;
+		info_drillTank1.texture = Resource->GetTexture(L"T_DrillTank1");
+
+		for (int i = 0; i < 8; i++)
+		{
+			wstring fullName = L"FB_DrillTank1_" + direction[i];
+			info_drillTank1.line = i;
+			Resource->CreateFlipbook(fullName, info_drillTank1);
+		}
+	}
+
+	//DrillTank2
+	{
+		Resource->LoadTexture(L"T_DrillTank2", L"FlipbookTest/drillTank2.bmp", RGB(255, 0, 255));
+		FlipbookInfo info_drillTank2 = {};
+		info_drillTank2.start = 0;
+		info_drillTank2.end = 2;
+		info_drillTank2.line = 0;
+		info_drillTank2.size = Vector2Int(32, 32);
+		info_drillTank2.duration = 0.6f;
+		info_drillTank2.loop = true;
+		info_drillTank2.texture = Resource->GetTexture(L"T_DrillTank2");
+
+		for (int i = 0; i < 8; i++)
+		{
+			wstring fullName = L"FB_DrillTank2_" + direction[i];
+			info_drillTank2.line = i;
+			Resource->CreateFlipbook(fullName, info_drillTank2);
+		}
+	}
+
+	//DrillTank3
+	{
+		Resource->LoadTexture(L"T_DrillTank3", L"FlipbookTest/drillTank3.bmp", RGB(255, 0, 255));
+		FlipbookInfo info_drillTank3 = {};
+		info_drillTank3.start = 0;
+		info_drillTank3.end = 2;
+		info_drillTank3.line = 0;
+		info_drillTank3.size = Vector2Int(32, 32);
+		info_drillTank3.duration = 0.6f;
+		info_drillTank3.loop = true;
+		info_drillTank3.texture = Resource->GetTexture(L"T_DrillTank3");
+
+		for (int i = 0; i < 8; i++)
+		{
+			wstring fullName = L"FB_DrillTank3_" + direction[i];
+			info_drillTank3.line = i;
+			Resource->CreateFlipbook(fullName, info_drillTank3);
+		}
+	}
+
+	//Tank1
+	{
+		Resource->LoadTexture(L"T_Tank1", L"FlipbookTest/tank1.bmp", RGB(255, 0, 255));
+		FlipbookInfo info_tank1 = {};
+		info_tank1.start = 0;
+		info_tank1.end = 2;
+		info_tank1.line = 0;
+		info_tank1.size = Vector2Int(32, 32);
+		info_tank1.duration = 0.6f;
+		info_tank1.loop = true;
+		info_tank1.texture = Resource->GetTexture(L"T_Tank1");
+
+		for (int i = 0; i < 8; i++)
+		{
+			wstring fullName = L"FB_Tank1_" + direction[i];
+			info_tank1.line = i;
+			Resource->CreateFlipbook(fullName, info_tank1);
+		}
+	}
+
+	//Tank2
+	{
+		Resource->LoadTexture(L"T_Tank2", L"FlipbookTest/tank2.bmp", RGB(255, 0, 255));
+		FlipbookInfo info_tank2 = {};
+		info_tank2.start = 0;
+		info_tank2.end = 2;
+		info_tank2.line = 0;
+		info_tank2.size = Vector2Int(32, 32);
+		info_tank2.duration = 0.6f;
+		info_tank2.loop = true;
+		info_tank2.texture = Resource->GetTexture(L"T_Tank2");
+
+		for (int i = 0; i < 8; i++)
+		{
+			wstring fullName = L"FB_Tank2_" + direction[i];
+			info_tank2.line = i;
+			Resource->CreateFlipbook(fullName, info_tank2);
+		}
+	}
+
+	//Tank3
+	{
+		Resource->LoadTexture(L"T_Tank3", L"FlipbookTest/tank3.bmp", RGB(255, 0, 255));
+		FlipbookInfo info_tank3 = {};
+		info_tank3.start = 0;
+		info_tank3.end = 2;
+		info_tank3.line = 0;
+		info_tank3.size = Vector2Int(32, 32);
+		info_tank3.duration = 0.6f;
+		info_tank3.loop = true;
+		info_tank3.texture = Resource->GetTexture(L"T_Tank3");
+
+		for (int i = 0; i < 8; i++)
+		{
+			wstring fullName = L"FB_Tank3_" + direction[i];
+			info_tank3.line = i;
+			Resource->CreateFlipbook(fullName, info_tank3);
+		}
+	}
+
+	//Balloon1
+	{
+		Resource->LoadTexture(L"T_Balloon1", L"FlipbookTest/balloon1.bmp", RGB(255, 0, 255));
+		FlipbookInfo info_balloon1 = {};
+		info_balloon1.start = 0;
+		info_balloon1.end = 2;
+		info_balloon1.line = 0;
+		info_balloon1.size = Vector2Int(32, 32);
+		info_balloon1.duration = 0.6f;
+		info_balloon1.loop = true;
+		info_balloon1.texture = Resource->GetTexture(L"T_Balloon1");
+
+		for (int i = 0; i < 8; i++)
+		{
+			wstring fullName = L"FB_Balloon1_" + direction[i];
+			info_balloon1.line = i;
+			Resource->CreateFlipbook(fullName, info_balloon1);
+		}
+	}
+
+	//Balloon2
+	{
+		Resource->LoadTexture(L"T_Balloon2", L"FlipbookTest/balloon2.bmp", RGB(255, 0, 255));
+		FlipbookInfo info_balloon2 = {};
+		info_balloon2.start = 0;
+		info_balloon2.end = 2;
+		info_balloon2.line = 0;
+		info_balloon2.size = Vector2Int(32, 32);
+		info_balloon2.duration = 0.6f;
+		info_balloon2.loop = true;
+		info_balloon2.texture = Resource->GetTexture(L"T_Balloon2");
+
+		for (int i = 0; i < 8; i++)
+		{
+			wstring fullName = L"FB_Balloon2_" + direction[i];
+			info_balloon2.line = i;
+			Resource->CreateFlipbook(fullName, info_balloon2);
+		}
+	}
+
+	//Submarine
+	{
+		Resource->LoadTexture(L"T_Submarine", L"FlipbookTest/submarine.bmp", RGB(255, 0, 255));
+		FlipbookInfo info_submarine = {};
+		info_submarine.start = 0;
+		info_submarine.end = 2;
+		info_submarine.line = 0;
+		info_submarine.size = Vector2Int(32, 32);
+		info_submarine.duration = 0.6f;
+		info_submarine.loop = true;
+		info_submarine.texture = Resource->GetTexture(L"T_Submarine");
+
+		for (int i = 0; i < 8; i++)
+		{
+			wstring fullName = L"FB_Submarine_" + direction[i];
+			info_submarine.line = i;
+			Resource->CreateFlipbook(fullName, info_submarine);
+		}
+	}
+
+	//----------------------------------
+	//  ## Sprite
+	//----------------------------------
+	Texture* texture = Resource->LoadTexture(L"T_RedTile", L"UIStudy/RedTile.bmp");
+	Resource->CreateSprite(L"S_RedTile", texture);
+
 	//----------------------------------
 	//  ## Sound
 	//----------------------------------

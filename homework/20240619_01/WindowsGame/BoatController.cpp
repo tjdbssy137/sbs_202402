@@ -8,11 +8,11 @@
 #include "Dev2Scene.h"
 #include <queue>
 
-void BoatController::SetLink(BoatActor* actor)
+void BoatController::SetLink(BoatActor* boat)
 {
-	assert(actor != nullptr);
+	assert(boat != nullptr);
 
-	_actor = actor;
+	_boat = boat;
 
 }
 void BoatController::Update()
@@ -35,9 +35,9 @@ void BoatController::Update()
 			return;
 		}
 
-		vector<Vector2Int> path = Calculator_Astar(_actor->GetCellPos(),
+		vector<Vector2Int> path = Calculator_Astar(_boat->GetCellPos(),
 			tilemapActor->GetTileIndexByPos(Input->GetMousePos()));
-		_actor->SetPath(path);
+		_boat->SetPath(path);
 	}
 
 }
@@ -126,7 +126,7 @@ vector<Vector2Int> BoatController::Calculator_Astar(Vector2Int startPos, Vector2
 		{
 			Vector2Int nextPos = current.Vertex + dir[i];
 			// 다음지점이 갈 수 있는 지점이면,
-			if (scene->CanGo(_actor, nextPos) && visited[nextPos.y][nextPos.x] == 0)
+			if (scene->CanGo(_boat, nextPos) && visited[nextPos.y][nextPos.x] == 0)
 			{
 				// nextPos는 curren로부터 왔습니다.
 				PQNode newNode;

@@ -45,3 +45,16 @@ enum class MoleGameState
 	Wait,
 	Play
 };
+
+enum eDirection
+{
+	DOWN,
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN_LEFT,
+	DOWN_RIGHT,
+	UP_LEFT,
+	UP_RIGHT,
+	END
+};

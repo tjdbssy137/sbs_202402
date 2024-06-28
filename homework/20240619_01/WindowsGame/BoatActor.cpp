@@ -7,9 +7,9 @@ void BoatActor::Init()
 {
 	Super::Init();
 	//wprintf(GetBoatType().c_str());
-	wstring direction[eBoatDirection::END]
+	wstring direction[eDirection::END]
 		= { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
-	for (int i = 0; i < eBoatDirection::END; i++)
+	for (int i = 0; i < eDirection::END; i++)
 	{
 		_moveFlipbook[i] = Resource->GetFlipbook(GetBoatType() + direction[i]);
 	}
@@ -52,7 +52,7 @@ void BoatActor::SetState(BoatState state)
 	this->SetFlipbook(_moveFlipbook[_dir]);
 }
 
-void BoatActor::ChangeDirection(eBoatDirection dir)
+void BoatActor::ChangeDirection(eDirection dir)
 {
 	// 만약에 방향이 바뀌면, setFlipbook을 해준다/
 
@@ -124,16 +124,16 @@ void BoatActor::UpdateMove()
 		// 방향 전환
 		switch (maxIndex) {
 		case 0:
-			this->ChangeDirection(eBoatDirection::UP);
+			this->ChangeDirection(eDirection::UP);
 			break;
 		case 1:
-			this->ChangeDirection(eBoatDirection::RIGHT);
+			this->ChangeDirection(eDirection::RIGHT);
 			break;
 		case 2:
-			this->ChangeDirection(eBoatDirection::DOWN);
+			this->ChangeDirection(eDirection::DOWN);
 			break;
 		case 3:
-			this->ChangeDirection(eBoatDirection::LEFT);
+			this->ChangeDirection(eDirection::LEFT);
 			break;
 		default:
 			break;

@@ -1,20 +1,8 @@
+#pragma once
 #include "FlipbookActor.h"
 #include "ITilemapActor.h"
 class BoxCollider;
 class Flipbook;
-
-enum eBoatDirection
-{
-	DOWN,
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN_LEFT,
-	DOWN_RIGHT,
-	UP_LEFT,
-	UP_RIGHT,
-	END
-};
 
 enum class BoatState
 {
@@ -40,7 +28,7 @@ public:
 	void SetState(BoatState state);
 	BoatState GetState() { return _state; }
 
-	void ChangeDirection(eBoatDirection dir);
+	void ChangeDirection(eDirection dir);
 
 	void SetDestPos(Vector2 destPos) { _destPos = destPos; }
 	Vector2 GetDestPos() { return _destPos; }
@@ -65,8 +53,8 @@ public:
 
 private:
 	BoatState _state = BoatState::Move;
-	eBoatDirection _dir = eBoatDirection::DOWN;
-	Flipbook* _moveFlipbook[eBoatDirection::END] = {};
+	eDirection _dir = eDirection::DOWN;
+	Flipbook* _moveFlipbook[eDirection::END] = {};
 
 	BoxCollider* collider = nullptr;
 

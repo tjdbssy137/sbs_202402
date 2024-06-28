@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="BehicleActor.h" />
+    <ClInclude Include="BehicleController.h" />
     <ClInclude Include="BoatActor.h" />
     <ClInclude Include="BoatController.h" />
     <ClInclude Include="BoxCollider.h" />
@@ -172,8 +173,12 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="CreatureActor.h" />
-    <ClInclude Include="CreatureController.h" />
+    <ClInclude Include="CreatureActor.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="CreatureController.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Data.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="DefineContents.h" />
@@ -193,6 +198,8 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="RandomManager.h" />
+    <ClInclude Include="RedBlockActor.h" />
+    <ClInclude Include="RedBlockController.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ResourceBase.h" />
@@ -218,10 +225,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BehicleActor.cpp" />
+    <ClCompile Include="BehicleController.cpp" />
     <ClCompile Include="BoatActor.cpp" />
     <ClCompile Include="BoatController.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="CreatureController.cpp" />
+    <ClCompile Include="CreatureController.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="Day31.cpp">
@@ -236,7 +246,9 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="CommonFunction.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="CreatureActor.cpp" />
+    <ClCompile Include="CreatureActor.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Day17.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -332,6 +344,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="RandomManager.cpp" />
+    <ClCompile Include="RedBlockActor.cpp" />
+    <ClCompile Include="RedBlockController.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ResourceBase.cpp" />
     <ClCompile Include="Scene.cpp" />

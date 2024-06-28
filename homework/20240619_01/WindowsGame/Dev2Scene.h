@@ -6,6 +6,8 @@ class BoatController;
 class Panel;
 class TilemapActor;
 class Tilemap;
+class BehicleController;
+class RedBlockController;
 class Dev2Scene : public TilemapScene
 {
 	using Super = Scene;
@@ -29,4 +31,6 @@ private:
 	TilemapActor* _tilemapActor = nullptr;
 	MapToolController* _mapToolController = nullptr;
 	BoatController* _boatController = nullptr;
+	BehicleController* _behicleController = nullptr;
+	RedBlockController* _redBlockController = nullptr;
 };

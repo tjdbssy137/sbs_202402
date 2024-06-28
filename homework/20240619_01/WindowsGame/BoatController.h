@@ -4,11 +4,10 @@ class Dev2Scene;
 class BoatController
 {
 private:
-	BoatActor* _actor = nullptr;
-	float _trueTime = 0.135f;
+	BoatActor* _boat = nullptr;
 	Dev2Scene* _currentScene = nullptr;
 public:
-	void SetLink(BoatActor* actor);
+	void SetLink(BoatActor* boat);
 	void Update();
 public:
 	vector<Vector2Int> Calculator_Astar(Vector2Int startPos, Vector2Int endPos);
