@@ -190,6 +190,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="InstallBehicle.h" />
     <ClInclude Include="ITilemapActor.h" />
     <ClInclude Include="MapToolController.h" />
     <ClInclude Include="MapToolTilemapActor.h" />
@@ -331,6 +332,7 @@
     <ClCompile Include="FlipbookActor.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="InstallBehicle.cpp" />
     <ClCompile Include="ITilemapActor.cpp" />
     <ClCompile Include="MapToolController.cpp" />
     <ClCompile Include="MapToolTilemapActor.cpp" />

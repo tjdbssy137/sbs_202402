@@ -14,11 +14,6 @@ void RedBlockActor::Render(HDC hdc)
 void RedBlockActor::Update()
 {
 	Super::Update();
-	if (Input->GetKeyDown(KeyCode::LeftMouse))
-	{
-		//´À¸²?
-		//cout << this->GetCellPos().x << ", " << this->GetCellPos().y << endl;
-	}
 }
 void RedBlockActor::Release()
 {

@@ -7,7 +7,8 @@ class Flipbook;
 enum class BoatState
 {
 	Move,
-	Idle
+	Idle,
+	Goal
 };
 
 class BoatActor : public FlipbookActor, public ITilemapActor
@@ -46,7 +47,6 @@ public:
 public: // Astar 관련
 	void SetPath(vector<Vector2Int> path);
 
-
 public:
 	void UpdateMove();
 	void UpdateIdle();
@@ -68,4 +68,7 @@ private:
 private:// Astar 관련
 	vector<Vector2Int> _path = {};
 	int _pathIndex = 0;
+
+private:
+	float _HP = 100.0f;
 };

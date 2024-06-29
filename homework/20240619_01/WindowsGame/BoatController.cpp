@@ -20,7 +20,9 @@ void BoatController::Update()
 	//Udate문은 매프레임 들어옴 -> Update 최상위 if문은 매프레임 비교됨 
 	// -> 최대한 이벤트 빈도가 적은 내용으로 적는 것이 좋음
 
-	if (Input->GetKeyDown(KeyCode::RightMouse))
+	if (_boat->GetState() == BoatState::Move) 
+		//	_boat->GetState() == BoatState::Move
+		//	Input->GetKeyDown(KeyCode::RightMouse)
 	{
 		TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
 		assert(scene != nullptr);
@@ -36,11 +38,23 @@ void BoatController::Update()
 		}
 
 		vector<Vector2Int> path = Calculator_Astar(_boat->GetCellPos(),
-			tilemapActor->GetTileIndexByPos(Input->GetMousePos()));
-		_boat->SetPath(path);
-	}
+			tilemapActor->GetTileIndexByPos({5*32, 3*32}));
 
+		_boat->SetPath(path);
+
+		Arrive();
+	}
 }
+
+void BoatController::Arrive()
+{
+	if (_boat->GetCellPos() == Vector2Int{ 5, 3 })
+	{
+		cout << "도착" << endl;
+		//_boat->SetState(BoatState::Goal);
+	}
+}
+
 struct AstarNode
 {
 	int Cost;

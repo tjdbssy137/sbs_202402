@@ -6,6 +6,7 @@ enum class MouseState
 	Click,
 	Nothing
 };
+
 class RedBlockController
 {
 private:
@@ -15,8 +16,10 @@ public:
 	void Update();
 public:
 	void CanInstallBehicle();
+	void DoInstallBehicle();
 
 private:
 	MouseState _mouseState = MouseState::Nothing;
+	Vector2Int _pos = {};
 };
 

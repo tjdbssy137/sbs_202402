@@ -5,6 +5,7 @@
 #include "Tilemap.h"
 #include "TilemapActor.h"
 #include "MapToolController.h"
+#include "Dev2Scene.h"
 #include <queue>
 
 void BehicleController::SetLink(BehicleActor* behicle)

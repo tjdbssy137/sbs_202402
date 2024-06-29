@@ -16,9 +16,11 @@ void BehicleActor::Init()
 
 	this->SetState(_state);
 
-	collider = new CircleCollider();
+	/*collider = new CircleCollider();
 	collider->SetCollision(Vector2::Zero(), 50);
-	this->AddComponent(collider);
+	collider->Init();
+	collider->SetCollisionLayer(CollisionLayerType::CLT_CREATURE); // 다시 공부
+	this->AddComponent(collider);*/
 }
 void BehicleActor::Render(HDC hdc)
 {

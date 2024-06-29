@@ -5,6 +5,7 @@
 #include "Tilemap.h"
 #include "TilemapActor.h"
 #include "Dev2Scene.h"
+#include "InstallBehicle.h"
 
 void RedBlockController::SetLink(RedBlockActor* block)
 {
@@ -22,7 +23,6 @@ void RedBlockController::Update()
 
 	if (Input->GetKeyDown(KeyCode::D))
 	{
-		_block->SetSprite(nullptr);
 		_mouseState = MouseState::Nothing;
 	}
 
@@ -32,12 +32,21 @@ void RedBlockController::Update()
 		CanInstallBehicle();
 		break;
 	case MouseState::Click:
+		DoInstallBehicle();
 		break;
 	case MouseState::Nothing:
+		_block->SetSprite(nullptr);
 		break;
 	default:
 		break;
 	}
+}
+void RedBlockController::DoInstallBehicle()
+{
+	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
+	InstallBehicle* installBehicle = dev2Scene->GetInstallBehicle();
+	installBehicle->InstallBehicleFunc(_pos);
+	_mouseState = MouseState::Nothing;
 }
 void RedBlockController::CanInstallBehicle()
 {
@@ -62,7 +71,6 @@ void RedBlockController::CanInstallBehicle()
 
 	if (Input->GetKeyDown(KeyCode::LeftMouse))
 	{
-		Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
 		Tilemap* tilemap = tilemapActor->GetTileMap();
 		assert(tilemap != nullptr);
 		
@@ -70,6 +78,8 @@ void RedBlockController::CanInstallBehicle()
 		if (tile->value == 4 || (14 <= tile->value && tile->value <= 45))
 		{
 			cout << "°Ç¼³ µÊ" << endl;
+			_pos = pos;
+			_mouseState = MouseState::Click;
 		}
 		else
 		{

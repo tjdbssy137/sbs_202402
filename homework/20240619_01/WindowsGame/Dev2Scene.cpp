@@ -19,6 +19,8 @@
 #include "BehicleController.h"
 #include "RedBlockActor.h"
 #include "RedBlockController.h"
+#include "InstallBehicle.h"
+
 void Dev2Scene::Init()
 {
 	LoadResource();
@@ -62,7 +64,6 @@ void Dev2Scene::Init()
 			}
 			tiles.push_back(tilesDummy);
 		}
-
 		Resource->CreateTileMap(L"TM_Test", mapSize, 32, tiles);
 	}
 
@@ -99,17 +100,30 @@ void Dev2Scene::Init()
 		boat->Init();
 		_boatController->SetLink(boat);
 		this->SpawnActor(boat);
-		boat->SetCellPos({ 20, 10 }, true);
+		boat->SetCellPos({ 54, 25 }, true);
 	}
-	_behicleController = new BehicleController();
+
+	for (int i = 0; i < _max; i++)
 	{
-		BehicleActor* behicle = new BehicleActor();
-		behicle->SetLayer(LayerType::Character);
-		behicle->SetBehicleType(L"FB_Submarine_");
-		behicle->Init();
-		_behicleController->SetLink(behicle);
-		this->SpawnActor(behicle);
-		behicle->SetCellPos({ 15, 20 }, true);
+		BehicleController* behicleController = new BehicleController();
+		_behicleControllers.push_back(behicleController);
+		{
+			BehicleActor* behicle = new BehicleActor();
+			behicle->SetLayer(LayerType::Character);
+			behicle->SetBehicleType(L"FB_Submarine_");
+			behicle->Init();
+			_behicleControllers[i]->SetLink(behicle);
+			this->SpawnActor(behicle);
+			behicle->SetCellPos({ 15, 20 }, true);
+			_behicles.push_back(behicle);
+		}
+	}
+
+
+	{
+		_installBehicle = new InstallBehicle();
+		_installBehicle->Init();
+		this->SpawnActor(_installBehicle);
 	}
 
 	_redBlockController = new RedBlockController();
@@ -152,7 +166,10 @@ void Dev2Scene::Update()
 
 	_mapToolController->Update();
 	_boatController->Update();
-	//_behicleController->Update();
+	for (int i = 0; i < _max; i++)
+	{
+		_behicleControllers[i]->Update(); //ÀÌ·¡µµ ±¦Âú³ª..
+	}
 	_redBlockController->Update();
 }
 void Dev2Scene::Release()
