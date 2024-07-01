@@ -55,7 +55,7 @@ public:
 	void UpdateIdle();
 
 public:
-	void UpdateHPImage();
+	void UpdateHPImage(float deal);
 
 private:
 	BoatState _state = BoatState::Move;
@@ -76,6 +76,9 @@ private:// Astar ฐüทร
 	int _pathIndex = 0;
 
 private:
-	int _HP = 10;
-	Sprite* _sprite = nullptr;
+	float _HP = 100.0f;
+	float _getDamage = 0;
+	Sprite* _hpBackground = nullptr;
+	Sprite* _bpBar = nullptr;
+
 };

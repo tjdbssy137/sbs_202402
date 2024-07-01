@@ -48,6 +48,14 @@
             {
                 Console.WriteLine("오라 작용");
             }
+
+            List<UserSkill> userSkills = new List<UserSkill>()
+            {
+                new UserSkill {Key = 0, UserKey = 0, SkillKey = 1},
+                new UserSkill {Key = 1, UserKey = 1, SkillKey = 1},
+                new UserSkill {Key = 2, UserKey = 1, SkillKey = 2}
+            };
+
             // items.Min(), items.Max()
             // items.Take(N) (몇개만 가져오겠다)
             // items.Skip(N) (몇개를 스킵하겠다)
@@ -91,6 +99,19 @@
             foreach (var uc in userChampions2)
             {
                 Console.WriteLine($"{uc.ChampionName} : {uc.Level}");
+            }
+            
+            // GroupBy - 특정 요소를 하나 받아서 ,Group으로 묶어줌
+            //          특정 요소 : Key, Value(본체) : 특정 요소를 가지고 있는 List
+            var list = userSkills.GroupBy(u => u.UserKey).ToList();
+            foreach(var userSkill in list)
+            {
+                Console.WriteLine($"{userSkill.Key} 스킬 : ");
+                //userSkill -> list
+                foreach(var skill in userSkill)
+                {
+                    Console.WriteLine($"{skill.Key}");
+                }
             }
         }
     }

@@ -13,14 +13,17 @@ void BehicleActor::Init()
 	{
 		_idleFlipbook[i] = Resource->GetFlipbook(GetBehicleType() + direction[i]);
 	}
-
+	this->SetName("behicle_site");
 	this->SetState(_state);
 
-	/*collider = new CircleCollider();
-	collider->SetCollision(Vector2::Zero(), 50);
+	collider = new CircleCollider();
+	collider->SetCollision(Vector2::Zero(), 200);
 	collider->Init();
-	collider->SetCollisionLayer(CollisionLayerType::CLT_CREATURE); // 다시 공부
-	this->AddComponent(collider);*/
+	collider->SetCollisionLayer(CollisionLayerType::CLT_CREATURE);
+	collider->ResetCollisionFlag();
+	collider->AddCollisionFlagLayer(CollisionLayerType::CLT_CREATURE); // 충돌할 레이어
+
+	this->AddComponent(collider);
 }
 void BehicleActor::Render(HDC hdc)
 {
@@ -79,6 +82,16 @@ void BehicleActor::UpdateAttack()
 	dirVec = dirVec.Normalize();
 	cout << "공격" << endl;
 	_state = BehicleState::Idle;
+
+	//static uint64 lastTick = ::GetTickCount64();;
+	//uint64 currentTick = ::GetTickCount64();
+
+	//if (currentTick - lastTick > 1000)
+	//{
+	//	//공격을실행할거다.
+	//	for (모든에너미)
+	//		Collision::CircleInCircle();
+	//}
 	// 1초에 한번씩 공격할말을 결정
 	// 공격하기로 결정했을 때 내 바운더리 안에 있으면 공격.
 	// 만약 적이 너무 많이 오면 순서를..
@@ -88,15 +101,14 @@ void BehicleActor::UpdateAttack()
 void BehicleActor::OnTriggerEnter(Collider* collider, Collider* other)
 {
 	Super::OnTriggerEnter(collider, other);
-	BoatActor* enemy = dynamic_cast<BoatActor*>(other->GetOwner());
-	if (enemy == nullptr)
-	{
-		return;
-	}
-	else
+	
+	if(other->GetOwner()->GetName() == "enemy")
 	{
 		_state = BehicleState::Attack;
+		//초마다 총알 쏘기
 	}
+
+
 }
 
 void BehicleActor::LookAtTarget() // target을 바라보기

@@ -474,20 +474,20 @@ void Dev2Scene::LoadResource()
 	//----------------------------------
 	//  ## Sprite
 	//----------------------------------
-	Texture* texture = Resource->LoadTexture(L"T_RedTile", L"UIStudy/RedTile.bmp", RGB(255, 0, 255));
-	Resource->CreateSprite(L"S_RedTile", texture);
+	Texture* redTile = Resource->LoadTexture(L"T_RedTile", L"UIStudy/RedTile.bmp", RGB(255, 0, 255));
+	Resource->CreateSprite(L"S_RedTile", redTile);
 
-	Texture* texture2 = Resource->LoadTexture(L"T_BeachTileset_2", L"BeachTileset/BeachTileset_2.bmp", RGB(255, 0, 255));
-	Resource->CreateSprite(L"S_BeachTileset_2", texture2);
+	Texture* dock = Resource->LoadTexture(L"T_BeachTileset_2", L"BeachTileset/BeachTileset_2.bmp", RGB(255, 0, 255));
+	Resource->CreateSprite(L"S_BeachTileset_2", dock);
 
-	{
-		Resource->LoadTexture(L"T_EnemyHP", L"FlipbookTest/enemyHP.bmp");
-		for (int i = 0; i < 10; i++)
-		{
-			wstring fullName = L"S_Number_" + i;
-			Resource->CreateSprite(fullName, Resource->GetTexture(L"T_EnemyHP"), 0, 5 * i, 32, 5);
-		}
-	}
+	Texture* hpBackground = Resource->LoadTexture(L"T_HP_Background", L"UIStudy/HP_Background.bmp");
+	Resource->CreateSprite(L"S_HP_Background", hpBackground);
+
+	Texture* hpBar = Resource->LoadTexture(L"T_HP_Bar", L"UIStudy/HP_Bar.bmp", RGB(255, 0, 255));
+	Resource->CreateSprite(L"S_HP_Bar", hpBar);
+	
+	Texture* bullet = Resource->LoadTexture(L"T_Bullet", L"UIStudy/Bullet.bmp", RGB(255, 0, 255));
+	Resource->CreateSprite(L"S_Bullet", hpBar);
 
 
 	//----------------------------------

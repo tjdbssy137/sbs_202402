@@ -43,6 +43,6 @@ private:
 	InstallBehicle* _installBehicle = nullptr;
 
 private:
-	int _max = 30;
+	int _max = 4;
 
 };

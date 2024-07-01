@@ -50,4 +50,13 @@ namespace _20240628_02
         public int UserKey { get; set; } = 0;
         public int SkillKey { get; set; } = 0;
     }
+
+    public class UserChapion
+    {
+        public Champion championInfo { get; set; }
+        public int Level { get; set; } = 0;
+        public List<Skill> skills { get; set; }
+        public List<Item> items { get; set; }
+    }
+
 }

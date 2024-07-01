@@ -38,6 +38,9 @@ public:
 	void SetBehicleType(wstring behicleType) { _behicleType = behicleType; }
 	wstring GetBehicleType() { return _behicleType; }
 
+	void SetBehicleDamage(float deal) { _damage = deal; }
+	float GetBehicleDamage() { return _damage; }
+
 public:
 	void UpdateAttack();
 	void UpdateIdle();
@@ -62,4 +65,5 @@ private:
 private:
 	CircleCollider* collider = nullptr;
 	float _time = 1.0f;
+	float _damage = 10;
 };
