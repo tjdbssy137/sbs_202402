@@ -20,7 +20,7 @@ void BoatController::Update()
 	//Udate문은 매프레임 들어옴 -> Update 최상위 if문은 매프레임 비교됨 
 	// -> 최대한 이벤트 빈도가 적은 내용으로 적는 것이 좋음
 
-	if (_boat->GetState() == BoatState::Move) 
+	if (Input->GetKeyDown(KeyCode::RightMouse))
 		//	_boat->GetState() == BoatState::Move
 		//	Input->GetKeyDown(KeyCode::RightMouse)
 	{

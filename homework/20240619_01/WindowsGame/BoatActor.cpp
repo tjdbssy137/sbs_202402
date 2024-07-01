@@ -2,10 +2,10 @@
 #include "BoatActor.h"
 #include "CircleCollider.h"
 #include "Dev2Scene.h"
-
+#include "SpriteActor.h"
+#include "Sprite.h"
 void BoatActor::Init()
 {
-	Super::Init();
 	//wprintf(GetBoatType().c_str());
 	wstring direction[eDirection::END]
 		= { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
@@ -19,10 +19,39 @@ void BoatActor::Init()
 	collider = new CircleCollider();
 	collider->SetCollision(Vector2::Zero(), 10);
 	this->AddComponent(collider);
+
+	// HP
+	_sprite = Resource->GetSprite(L"S_Number_0"); // HP 체력바
+
+	Super::Init();
 }
 void BoatActor::Render(HDC hdc)
 {
-	Super::Render(hdc);
+	Super::Render(hdc); // Enemy Render
+
+	// 여기부터 Sprite Render
+	if (_sprite == nullptr) return;
+
+	Vector2Int size = _sprite->GetSize();
+	
+	Vector2Int cameraPos = CurrentScene->GetCameraPos();
+	Vector2Int ScreenSizeHalf = Vector2Int(WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
+	Vector2Int renderPos = Vector2Int(
+		static_cast<int>(_body.pos.x - size.x / 2 - cameraPos.x + ScreenSizeHalf.x),
+		static_cast<int>(_body.pos.y - size.y / 2 - cameraPos.y + ScreenSizeHalf.y)
+	);
+	::TransparentBlt(hdc,
+		renderPos.x,
+		renderPos.y,
+		size.x,
+		size.y,
+		_sprite->GetDC(),
+		_sprite->GetPos().x,
+		_sprite->GetPos().y,
+		size.x,
+		size.y,
+		_sprite->GetTransparent()//투명색
+	);
 }
 void BoatActor::Update()
 {
@@ -36,6 +65,11 @@ void BoatActor::Update()
 		break;
 	case BoatState::Idle:
 		UpdateIdle();
+		break;
+	case BoatState::Attacked:
+		UpdateHPImage();
+		break;
+	case BoatState::Goal:
 		break;
 	default:
 		break;
@@ -64,6 +98,49 @@ void BoatActor::ChangeDirection(eDirection dir)
 
 	_dir = dir;
 	this->SetFlipbook(_moveFlipbook[_dir]);
+}
+
+void BoatActor::UpdateHPImage()
+{
+	_HP--;
+	// 피해량 비율을 계산하기
+	switch (_HP)
+	{
+	case 10:
+		_sprite = Resource->GetSprite(L"S_Number_0");
+		//_HPSprite->SetSprite(nullptr);
+		break;
+	case 9:
+		_sprite = (Resource->GetSprite(L"S_Number_1"));
+		break;
+	case 8:
+		_sprite = (Resource->GetSprite(L"S_Number_2"));
+		break;
+	case 7:
+		_sprite = (Resource->GetSprite(L"S_Number_3"));
+		break;
+	case 6:
+		_sprite = (Resource->GetSprite(L"S_Number_4"));
+		break;
+	case 5:
+		_sprite = (Resource->GetSprite(L"S_Number_5"));
+		break;
+	case 4:
+		_sprite = (Resource->GetSprite(L"S_Number_6"));
+		break;
+	case 3:
+		_sprite = (Resource->GetSprite(L"S_Number_7"));
+		break;
+	case 2:
+		_sprite = (Resource->GetSprite(L"S_Number_8"));
+		break;
+	case 1:
+		_sprite = (Resource->GetSprite(L"S_Number_9"));
+		break;
+	default:
+		break;
+	}
+	_state = BoatState::Idle;
 }
 
 void BoatActor::UpdateIdle()
@@ -142,6 +219,15 @@ void BoatActor::UpdateMove()
 		default:
 			break;
 		}
+	}
+}
+
+void BoatActor::OnTriggerEnter(Collider* collider, Collider* other)
+{
+	Super::OnTriggerEnter(collider, other);
+	if (other->GetOwner()->GetName() == "bullet")
+	{
+		_state = BoatState::Attacked;
 	}
 }
 

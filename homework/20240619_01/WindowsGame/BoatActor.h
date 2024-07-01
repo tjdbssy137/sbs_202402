@@ -3,12 +3,14 @@
 #include "ITilemapActor.h"
 class CircleCollider;
 class Flipbook;
+class Sprite;
 
 enum class BoatState
 {
 	Move,
 	Idle,
-	Goal
+	Goal,
+	Attacked
 };
 
 class BoatActor : public FlipbookActor, public ITilemapActor
@@ -24,6 +26,7 @@ public:
 public: // 상속받은 인터페이스의 함수를 만들지 않으면 오류가 남.
 	virtual void SetCellPos(Vector2Int cellPos, bool teleport = false) override;
 	virtual Vector2Int GetCellPos() override;
+	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
 
 public:
 	void SetState(BoatState state);
@@ -51,6 +54,9 @@ public:
 	void UpdateMove();
 	void UpdateIdle();
 
+public:
+	void UpdateHPImage();
+
 private:
 	BoatState _state = BoatState::Move;
 	eDirection _dir = eDirection::DOWN;
@@ -70,5 +76,6 @@ private:// Astar 관련
 	int _pathIndex = 0;
 
 private:
-	float _HP = 100.0f;
+	int _HP = 10;
+	Sprite* _sprite = nullptr;
 };

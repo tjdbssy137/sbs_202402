@@ -480,6 +480,14 @@ void Dev2Scene::LoadResource()
 	Texture* texture2 = Resource->LoadTexture(L"T_BeachTileset_2", L"BeachTileset/BeachTileset_2.bmp", RGB(255, 0, 255));
 	Resource->CreateSprite(L"S_BeachTileset_2", texture2);
 
+	{
+		Resource->LoadTexture(L"T_EnemyHP", L"FlipbookTest/enemyHP.bmp");
+		for (int i = 0; i < 10; i++)
+		{
+			wstring fullName = L"S_Number_" + i;
+			Resource->CreateSprite(fullName, Resource->GetTexture(L"T_EnemyHP"), 0, 5 * i, 32, 5);
+		}
+	}
 
 
 	//----------------------------------
