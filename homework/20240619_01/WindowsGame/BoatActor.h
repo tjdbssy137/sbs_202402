@@ -47,6 +47,8 @@ public:
 	void SetBoatType(wstring boatType) { _boatType = boatType; }
 	wstring GetBoatType() { return _boatType; }
 
+	CircleCollider* GetBoatCollider() { return collider; }
+
 public: // Astar ฐüทร
 	void SetPath(vector<Vector2Int> path);
 

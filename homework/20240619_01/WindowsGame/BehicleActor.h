@@ -23,7 +23,7 @@ public:
 public: // 상속받은 인터페이스의 함수를 만들지 않으면 오류가 남.
 	virtual void SetCellPos(Vector2Int cellPos, bool teleport = false) override;
 	virtual Vector2Int GetCellPos() override;
-	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
+	//virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
 
 public:
 	void SetState(BehicleState state);
@@ -32,8 +32,11 @@ public:
 	void ChangeDirection(eDirection dir);
 
 public:
-	void SetShotSpeed(int behicleSpeed) { _behicleShotSpeed = behicleSpeed; }
-	int GetShotSpeed() { return _behicleShotSpeed; }
+	void SetBulletSpeed(float behicleSpeed) { _behicleBulletSpeed = behicleSpeed; }
+	float GetBulletSpeed() { return _behicleBulletSpeed; }
+
+	void SetBulletDamage(float behicleBulletDamage) { _behicleBulletDamage = behicleBulletDamage; }
+	float GetBulletDamage() { return _behicleBulletDamage; }
 
 	void SetBehicleType(wstring behicleType) { _behicleType = behicleType; }
 	wstring GetBehicleType() { return _behicleType; }
@@ -54,7 +57,8 @@ private:
 	Flipbook* _idleFlipbook[8] = {};
 
 private: // scene 에서 정리
-	int _behicleShotSpeed = 200;
+	float _behicleBulletSpeed = 200;
+	float _behicleBulletDamage = 10;
 	wstring _behicleType = L"FB_Tank1_";
 
 private:

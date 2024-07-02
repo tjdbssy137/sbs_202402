@@ -91,16 +91,22 @@ void Dev2Scene::Init()
 		this->SpawnActor(actor);
 		_tilemapActor = actor;
 	}
-	_boatController = new BoatController();
+
+	for (int i = 0; i < _max; i++)
 	{
-		BoatActor* boat = new BoatActor();
-		boat->SetLayer(LayerType::Character);
-		boat->SetBoatSpeed(100);
-		//boat->SetBoatType(L"FB_EnemyShip3_");
-		boat->Init();
-		_boatController->SetLink(boat);
-		this->SpawnActor(boat);
-		boat->SetCellPos({ 54, 25 }, true);
+		BoatController* boatController = new BoatController();
+		_boatControllers.push_back(boatController);
+		{
+			BoatActor* boat = new BoatActor();
+			boat->SetLayer(LayerType::Character);
+			boat->SetBoatSpeed(100);
+			//boat->SetBoatType(L"FB_EnemyShip3_");
+			boat->Init();
+			_boatControllers[i]->SetLink(boat);
+			this->SpawnActor(boat);
+			boat->SetCellPos({ 54, 25 }, true);
+			_boats.push_back(boat);
+		}
 	}
 
 	for (int i = 0; i < _max; i++)
@@ -114,7 +120,7 @@ void Dev2Scene::Init()
 			behicle->Init();
 			_behicleControllers[i]->SetLink(behicle);
 			this->SpawnActor(behicle);
-			behicle->SetCellPos({ 15, 20 }, true);
+			behicle->SetPos({2000, 2000});
 			_behicles.push_back(behicle);
 		}
 	}
@@ -165,7 +171,10 @@ void Dev2Scene::Update()
 	Super::Update();
 
 	_mapToolController->Update();
-	_boatController->Update();
+	for (int i = 0; i < _max; i++)
+	{
+		_boatControllers[i]->Update();
+	}
 	for (int i = 0; i < _max; i++)
 	{
 		_behicleControllers[i]->Update(); //ÀÌ·¡µµ ±¦Âú³ª..

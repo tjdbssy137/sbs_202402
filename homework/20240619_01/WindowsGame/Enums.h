@@ -21,7 +21,8 @@ enum class LayerType
 enum CollisionLayerType : uint8 // :의 뜻. -> 이 enum은 최대 uint8까지만 수용하겠다.
 {
 	CLT_DEFAULT,
-	CLT_CREATURE,
+	CLT_ENEMY,
+	CLT_BEHICLE,
 	CLT_ITEM
 };
 

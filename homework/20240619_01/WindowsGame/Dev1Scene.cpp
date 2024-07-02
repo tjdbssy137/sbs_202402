@@ -41,7 +41,7 @@ void Dev1Scene::Init()
 			CircleCollider* component = new CircleCollider();
 			component->SetCollision(Vector2::Zero(), 25);
 			component->Init();
-			component->SetCollisionLayer(CollisionLayerType::CLT_CREATURE);
+			//component->SetCollisionLayer(CollisionLayerType::CLT_CREATURE);
 			component->ResetCollisionFlag();
 			component->AddCollisionFlagLayer(CollisionLayerType::CLT_ITEM);
 			_creature->AddComponent(component);
@@ -60,7 +60,7 @@ void Dev1Scene::Init()
 			component->Init();
 			component->SetCollisionLayer(CollisionLayerType::CLT_ITEM);
 			component->ResetCollisionFlag();
-			component->AddCollisionFlagLayer(CollisionLayerType::CLT_CREATURE);
+			//component->AddCollisionFlagLayer(CollisionLayerType::CLT_CREATURE);
 			_monster->AddComponent(component);
 		}
 		_monster->SetFlipbook(Resource->GetFlipbook(L"FB_Monster_Down_Idle"));

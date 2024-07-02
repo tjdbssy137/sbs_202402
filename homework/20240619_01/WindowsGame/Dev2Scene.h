@@ -10,6 +10,7 @@ class BehicleController;
 class RedBlockController;
 class InstallBehicle;
 class BehicleActor;
+class BoatActor;
 
 class Dev2Scene : public TilemapScene
 {
@@ -32,13 +33,18 @@ public:
 	RedBlockController* GetRedBlockController() { return _redBlockController; }
 	vector<BehicleActor*> GetBehicleActor(){ return _behicles; }
 	InstallBehicle* GetInstallBehicle() { return _installBehicle; }
+
+	vector<BoatActor*> GetBoatActor() { return _boats; }
+
 private:
 	//Panel* panel = nullptr;
 	TilemapActor* _tilemapActor = nullptr;
 	MapToolController* _mapToolController = nullptr;
-	BoatController* _boatController = nullptr;//vector<BoatController*> _boatController = {};
+	vector<BoatActor*> _boats = {};
+	vector<BoatController*> _boatControllers = {};
 	vector<BehicleActor*> _behicles = {};
 	vector<BehicleController*> _behicleControllers = {};
+
 	RedBlockController* _redBlockController = nullptr;
 	InstallBehicle* _installBehicle = nullptr;
 

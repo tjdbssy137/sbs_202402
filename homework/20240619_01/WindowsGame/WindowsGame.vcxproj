@@ -165,6 +165,7 @@
     <ClInclude Include="BoatActor.h" />
     <ClInclude Include="BoatController.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="BulletActor.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CenterRect.h" />
@@ -229,6 +230,7 @@
     <ClCompile Include="BehicleController.cpp" />
     <ClCompile Include="BoatActor.cpp" />
     <ClCompile Include="BoatController.cpp" />
+    <ClCompile Include="BulletActor.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CreatureController.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

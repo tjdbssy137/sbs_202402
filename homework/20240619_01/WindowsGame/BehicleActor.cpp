@@ -3,6 +3,7 @@
 #include "Dev2Scene.h"
 #include "CircleCollider.h"
 #include "BoatActor.h"
+#include "BulletActor.h"
 void BehicleActor::Init()
 {
 	Super::Init();
@@ -19,9 +20,9 @@ void BehicleActor::Init()
 	collider = new CircleCollider();
 	collider->SetCollision(Vector2::Zero(), 200);
 	collider->Init();
-	collider->SetCollisionLayer(CollisionLayerType::CLT_CREATURE);
+	collider->SetCollisionLayer(CollisionLayerType::CLT_BEHICLE);
 	collider->ResetCollisionFlag();
-	collider->AddCollisionFlagLayer(CollisionLayerType::CLT_CREATURE); // 충돌할 레이어
+	collider->AddCollisionFlagLayer(CollisionLayerType::CLT_ENEMY); // 충돌할 레이어
 
 	this->AddComponent(collider);
 }
@@ -73,104 +74,110 @@ void BehicleActor::ChangeDirection(eDirection dir)
 
 void BehicleActor::UpdateIdle()
 {
-	
+	Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
+	vector<BoatActor*> boats = dev2Scene->GetBoatActor();
+
+	static float lastTick = ::GetTickCount64();;
+	float currentTick = ::GetTickCount64();
+
+	if (currentTick - lastTick > 1000) // 1초에 한번씩 공격할말을 결정
+	{
+		//공격을실행할거다.
+		for (BoatActor* boat : boats)
+		{
+			if (Collision::CircleInCircle(this->GetPos(), collider->GetRadius(),
+				boat->GetPos(), boat->GetBoatCollider()->GetRadius()))
+			{
+				_targetPos = boat->GetPos();
+				_state = BehicleState::Attack;
+				//break;
+			}
+		};
+	}
+
+	// 1초에 한번씩 공격할말을 결정
+	// 공격하기로 결정했을 때 내 바운더리 안에 있으면 공격.
+	// 만약 적이 너무 많이 오면 순서를..
 }
 
 void BehicleActor::UpdateAttack()
 {
+	cout << "공격" << endl;
+
+	LookAtTarget();
+
 	Vector2 dirVec = _targetPos - this->GetPos();
 	dirVec = dirVec.Normalize();
-	cout << "공격" << endl;
+	cout << _targetPos.x  << ", " << _targetPos.y << endl;
+	BulletActor* bullet = new BulletActor();
+	bullet->SetLayer(LayerType::Object);
+	bullet->SetSprite(Resource->GetSprite(L"S_Bullet"));
+	Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
+	//bullet->Init(); // -> 이부분 떄문에 오류
+	dev2Scene->SpawnActor(bullet);
+	bullet->SetBulletDamage(_behicleBulletDamage);
+	bullet->SetBulletSpeed(_behicleBulletSpeed);
+	bullet->ShootingBullet(dirVec);
 	_state = BehicleState::Idle;
-
-	//static uint64 lastTick = ::GetTickCount64();;
-	//uint64 currentTick = ::GetTickCount64();
-
-	//if (currentTick - lastTick > 1000)
-	//{
-	//	//공격을실행할거다.
-	//	for (모든에너미)
-	//		Collision::CircleInCircle();
-	//}
-	// 1초에 한번씩 공격할말을 결정
-	// 공격하기로 결정했을 때 내 바운더리 안에 있으면 공격.
-	// 만약 적이 너무 많이 오면 순서를..
-
 }
 
-void BehicleActor::OnTriggerEnter(Collider* collider, Collider* other)
-{
-	Super::OnTriggerEnter(collider, other);
-	
-	if(other->GetOwner()->GetName() == "enemy")
-	{
-		_state = BehicleState::Attack;
-		//초마다 총알 쏘기
-	}
-
-
-}
+//void BehicleActor::OnTriggerEnter(Collider* collider, Collider* other)
 
 void BehicleActor::LookAtTarget() // target을 바라보기
 {
-	// target은 가장 가까운 거리에 있는 애 바라보는 걸로.
-	// 적들을 다 받아와서 적들과의 거리를 계산?
-	// 콜라이더 사용?
+	// target은 가장 가까운 거리에 있는 애 바라보는 걸로
+
 	Vector2 dirVec = _targetPos - this->GetPos();
 	dirVec = dirVec.Normalize();
 	
-	Vector2 directions[eDirection::END] =
-	{
-		Vector2::Up(),				// UP
-		Vector2::Right(),			// RIGHT
-		Vector2::Down(),			// DOWN
-		Vector2::Left(),			// LEFT
-		Vector2::UpNLeft(),			// UP_RIGHT
-		Vector2::UpNRight(),		// DOWN_RIGHT
-		Vector2::DownNLeft(),		// DOWN_LEFT
-		Vector2::DownNRight()		// UP_LEFT
-	};
+	float upDotValue = dirVec.Dot(Vector2::Up());
+	float rightDotValue = dirVec.Dot(Vector2::Right());
+	float downDotValue = dirVec.Dot(Vector2::Down());
+	float leftDotValue = dirVec.Dot(Vector2::Left());
+	float upRightDotValue = dirVec.Dot(Vector2::UpNRight());
+	float upLeftDotValue = dirVec.Dot(Vector2::UpNLeft());
+	float downRightDotValue = dirVec.Dot(Vector2::DownNRight());
+	float downLeftDotValue = dirVec.Dot(Vector2::DownNLeft());
 
-	float dotValues[eDirection::END];
-	for (int i = 0; i < eDirection::END; i++) {
-		dotValues[i] = dirVec.Dot(directions[i]);
+	float maxDotValue = upDotValue;
+	eDirection direction = eDirection::UP;
+
+	if (maxDotValue < rightDotValue) {
+		maxDotValue = rightDotValue;
+		direction = eDirection::RIGHT;
 	}
 
-	// 최대 값 찾기
-	int targetDir = 0;
-	float cos45 = cos(Deg2Rad(45));
-	for (int i = 0; i < eDirection::END; i++) {
-		if (cos45 < dotValues[i]) {
-			targetDir = i;
-		}
+	if (maxDotValue < downDotValue) {
+		maxDotValue = downDotValue;
+		direction = eDirection::DOWN;
 	}
 
-	switch (targetDir) {
-	case 0:
-		this->ChangeDirection(eDirection::UP);
-		break;
-	case 1:
-		this->ChangeDirection(eDirection::RIGHT);
-		break;
-	case 2:
-		this->ChangeDirection(eDirection::DOWN);
-		break;
-	case 3:
-		this->ChangeDirection(eDirection::LEFT);
-		break;
-	case 4:
-		this->ChangeDirection(eDirection::UP_LEFT);
-		break;
-	case 5:
-		this->ChangeDirection(eDirection::UP_RIGHT);
-		break;
-	case 6:
-		this->ChangeDirection(eDirection::DOWN_LEFT);
-		break;
-	case 7:
-		this->ChangeDirection(eDirection::DOWN_RIGHT);
-		break;
+	if (maxDotValue < leftDotValue) {
+		maxDotValue = leftDotValue;
+		direction = eDirection::LEFT;
 	}
+
+	if (maxDotValue < upRightDotValue) {
+		maxDotValue = upRightDotValue;
+		direction = eDirection::UP_RIGHT;
+	}
+
+	if (maxDotValue < upLeftDotValue) {
+		maxDotValue = upLeftDotValue;
+		direction = eDirection::UP_LEFT;
+	}
+
+	if (maxDotValue < downRightDotValue) {
+		maxDotValue = downRightDotValue;
+		direction = eDirection::DOWN_RIGHT;
+	}
+
+	if (maxDotValue < downLeftDotValue) {
+		maxDotValue = downLeftDotValue;
+		direction = eDirection::DOWN_LEFT;
+	}
+
+	this->ChangeDirection(direction);
 }
 void BehicleActor::SetCellPos(Vector2Int cellPos, bool teleport)
 {

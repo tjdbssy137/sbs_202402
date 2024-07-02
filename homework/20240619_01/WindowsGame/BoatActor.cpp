@@ -4,7 +4,7 @@
 #include "Dev2Scene.h"
 #include "SpriteActor.h"
 #include "Sprite.h"
-#include "BehicleActor.h"
+#include "BulletActor.h"
 void BoatActor::Init()
 {
 	//wprintf(GetBoatType().c_str());
@@ -20,8 +20,10 @@ void BoatActor::Init()
 	collider = new CircleCollider();
 	collider->SetCollision(Vector2::Zero(), 10);
 	collider->Init(); 
-	collider->SetCollisionLayer(CollisionLayerType::CLT_CREATURE); // 다시 공부
-	//collider->ResetCollisionFlag();
+	collider->SetCollisionLayer(CollisionLayerType::CLT_ENEMY); // 다시 공부
+	collider->ResetCollisionFlag();
+	collider->AddCollisionFlagLayer(CollisionLayerType::CLT_BEHICLE);
+	collider->AddCollisionFlagLayer(CollisionLayerType::CLT_ITEM);
 	this->AddComponent(collider);
 
 	// HP
@@ -136,6 +138,7 @@ void BoatActor::UpdateHPImage(float deal)
 	float tempHP = _HP - deal;
 	_HP = _HP + (tempHP - _HP) * 1; //0.65f
 	_state = BoatState::Move;
+	//속도 감속
 //	_HP = tempHP;
 }
 
@@ -221,17 +224,12 @@ void BoatActor::UpdateMove()
 void BoatActor::OnTriggerEnter(Collider* collider, Collider* other)
 {
 	Super::OnTriggerEnter(collider, other);
-	if (other->GetOwner()->GetName() == "behicle_site")//bullet
+	if (other->GetOwner()->GetName() == "bullet")//bullet
 	{
-		BehicleActor* behicleBullet = dynamic_cast<BehicleActor*>(other->GetOwner());
-		_getDamage = behicleBullet->GetBehicleDamage();
+		BulletActor* behicleBullet = dynamic_cast<BulletActor*>(other->GetOwner());
+		_getDamage = behicleBullet->GetBulletDamage();
 		UpdateHPImage(_getDamage);
-		_state = BoatState::Attacked;
-	}
-
-	if (other->GetOwner()->GetName() == "Enemy")
-	{//나랑 같은 팀은 무시하도록,,
-		return;
+		//_state = BoatState::Attacked;
 	}
 }
 
