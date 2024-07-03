@@ -3,7 +3,7 @@
 #include "ITilemapActor.h"
 class Flipbook; 
 class CircleCollider;
-
+class BoatActor;
 enum class BehicleState
 {
 	Attack,
@@ -57,7 +57,7 @@ private:
 	Flipbook* _idleFlipbook[8] = {};
 
 private: // scene 에서 정리
-	float _behicleBulletSpeed = 200;
+	float _behicleBulletSpeed = 400;
 	float _behicleBulletDamage = 10;
 	wstring _behicleType = L"FB_Tank1_";
 
@@ -70,4 +70,5 @@ private:
 	CircleCollider* collider = nullptr;
 	float _time = 1.0f;
 	float _damage = 10;
+	BoatActor* _targetBoat = nullptr;
 };

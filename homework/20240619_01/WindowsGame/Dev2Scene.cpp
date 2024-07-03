@@ -177,7 +177,7 @@ void Dev2Scene::Update()
 	}
 	for (int i = 0; i < _max; i++)
 	{
-		_behicleControllers[i]->Update(); //ÀÌ·¡µµ ±¦Âú³ª..
+		_behicleControllers[i]->Update();
 	}
 	_redBlockController->Update();
 }
@@ -496,7 +496,7 @@ void Dev2Scene::LoadResource()
 	Resource->CreateSprite(L"S_HP_Bar", hpBar);
 	
 	Texture* bullet = Resource->LoadTexture(L"T_Bullet", L"UIStudy/Bullet.bmp", RGB(255, 0, 255));
-	Resource->CreateSprite(L"S_Bullet", hpBar);
+	Resource->CreateSprite(L"S_Bullet", bullet);
 
 
 	//----------------------------------

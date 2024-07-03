@@ -20,30 +20,34 @@ void BoatController::Update()
 	//Udate문은 매프레임 들어옴 -> Update 최상위 if문은 매프레임 비교됨 
 	// -> 최대한 이벤트 빈도가 적은 내용으로 적는 것이 좋음
 
-	if (Input->GetKeyDown(KeyCode::RightMouse))
+	if (Input->GetKeyDown(KeyCode::RightMouse)) // 한 번만 실행해야하는데..
 		//	_boat->GetState() == BoatState::Move
 		//	Input->GetKeyDown(KeyCode::RightMouse)
 	{
-		TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
-		assert(scene != nullptr);
-		if (scene == nullptr)
-		{
-			return;
-		}
-		TilemapActor* tilemapActor = scene->GetTilemapActor();
-		assert(tilemapActor != nullptr);
-		if (tilemapActor == nullptr)
-		{
-			return;
-		}
-
-		vector<Vector2Int> path = Calculator_Astar(_boat->GetCellPos(),
-			tilemapActor->GetTileIndexByPos({5*32, 3*32}));
-
-		_boat->SetPath(path);
-
+		Depart(); // 얘를 그냥 init()에서?라기엔... 비활성화 시켜둘 경우도 있음.
 		Arrive();
 	}
+}
+
+void BoatController::Depart()
+{
+	TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
+	assert(scene != nullptr);
+	if (scene == nullptr)
+	{
+		return;
+	}
+	TilemapActor* tilemapActor = scene->GetTilemapActor();
+	assert(tilemapActor != nullptr);
+	if (tilemapActor == nullptr)
+	{
+		return;
+	}
+
+	vector<Vector2Int> path = Calculator_Astar(_boat->GetCellPos(),
+		tilemapActor->GetTileIndexByPos({ 5 * 32, 3 * 32 }));
+
+	_boat->SetPath(path);
 }
 
 void BoatController::Arrive()
@@ -51,7 +55,9 @@ void BoatController::Arrive()
 	if (_boat->GetCellPos() == Vector2Int{ 5, 3 })
 	{
 		cout << "도착" << endl;
-		//_boat->SetState(BoatState::Goal);
+		_boat->SetState(BoatState::Goal);
+		// 목적지에 도착하면 이 액터의 위치를 다시 시작 지점으로 재설정.
+		// 벡터에서 뺏던걸 다시 벡터 맨 뒤로 넣기. : 재사용을 위해
 	}
 }
 
@@ -101,6 +107,7 @@ vector<Vector2Int> BoatController::Calculator_Astar(Vector2Int startPos, Vector2
 
 	Vector2Int mapSize = tilemap->GetMapSize();
 	vector<vector<bool>> visited(mapSize.y, vector<bool>(mapSize.x, false));
+	vector<vector<float>> best(mapSize.y, vector<float>(mapSize.x, 999999));
 
 	// parent[y][x] = pos (xy는 pos에 의해 발견된 곳)
 	vector<vector<Vector2Int>> parent(mapSize.y, vector<Vector2Int>(mapSize.x, Vector2Int(-1, -1)));
@@ -147,7 +154,12 @@ vector<Vector2Int> BoatController::Calculator_Astar(Vector2Int startPos, Vector2
 				newNode.Vertex = nextPos;
 				newNode.G = current.G + moveCost[i];
 				newNode.Cost = newNode.G + (dest - nextPos).Length();
-				parent[nextPos.y][nextPos.x] = current.Vertex; // parent는 경로를 연결함.
+				// 
+				if (newNode.Cost < best[nextPos.y][nextPos.x])
+				{
+					parent[nextPos.y][nextPos.x] = current.Vertex; // parent는 경로를 연결함.
+					best[nextPos.y][nextPos.x] = newNode.Cost;
+				}
 				queue.push(newNode);
 			}
 		}

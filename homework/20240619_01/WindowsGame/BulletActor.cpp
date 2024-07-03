@@ -1,17 +1,19 @@
 #include "pch.h"
 #include "BulletActor.h"
 #include "CircleCollider.h"
+#include "Actor.h"
 void BulletActor::Init()
 {
 	Super::Init();
 	this->SetName("bullet");
 	this->SetSprite(Resource->GetSprite(L"S_Bullet"));
 	CircleCollider* collider = new CircleCollider();
-	collider->SetCollision(Vector2::Zero(), 32);
+	collider->SetCollision(Vector2::Zero(), 5);
 	collider->Init();
 	collider->SetCollisionLayer(CollisionLayerType::CLT_ITEM);
 	collider->ResetCollisionFlag();
 	collider->AddCollisionFlagLayer(CollisionLayerType::CLT_ENEMY);
+	this->AddComponent(collider);
 }
 void BulletActor::Render(HDC hdc)
 {
@@ -20,24 +22,23 @@ void BulletActor::Render(HDC hdc)
 void BulletActor::Update()
 {
 	Super::Update();
+	Update_Move();
 }
 void BulletActor::Release()
 {
 	Super::Release();
 }
-void BulletActor::ShootingBullet(Vector2 moveDir)
+void BulletActor::Update_Move()
 {
-	if (moveDir.Length() == 0.0f)
+	Vector2 dir = _targetBoat->GetPos() - this->GetPos();
+	dir = dir.Normalize();
+	_body.pos += dir * Time->GetDeltaTime() * _speed;
+}
+void BulletActor::ShootingBullet(Actor* targetBoat)
+{
+	if (targetBoat == nullptr)
 	{
 		return;
 	}
-	if (moveDir.y != 0)
-	{
-		moveDir.y = 0;
-		moveDir = moveDir.Normalize();
-	}
-
-	_body.pos += moveDir * Time->GetDeltaTime() * _speed;
-
-	// 몇초뒤에 위치 다시 설정
+	_targetBoat = targetBoat;
 }

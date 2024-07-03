@@ -17,10 +17,13 @@ public:
 	void SetBulletSpeed(float speed) { _speed = speed; }
 	float GetBulletSpeed() { return _speed; }
 public:
-	void ShootingBullet(Vector2 moveDir);
+	void ShootingBullet(Actor* targetBoat);
+	void Update_Move();
 
 private:
 	float _damage = 0;
 	float _speed = 0;
+	Vector2 _moveDir;
+	Actor* _targetBoat = nullptr;
 };
 

@@ -46,16 +46,6 @@ void BehicleActor::Update()
 	default:
 		break;
 	}
-
-	if (Input->GetKeyDown(KeyCode::W))
-	{
-		BulletActor* bullet = new BulletActor();
-		bullet->SetLayer(LayerType::Object);
-		bullet->Init(); // -> 이부분 추가 이후로 오류
-		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
-		dev2Scene->SpawnActor(bullet);
-		bullet->SetPos(this->GetPos());
-	}
 }
 
 void BehicleActor::Release()
@@ -87,23 +77,18 @@ void BehicleActor::UpdateIdle()
 	Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
 	vector<BoatActor*> boats = dev2Scene->GetBoatActor();
 
-	static float lastTick = ::GetTickCount64();;
-	float currentTick = ::GetTickCount64();
-
-	if (currentTick - lastTick > 1000) // 1초에 한번씩 공격할말을 결정
+	//공격을실행할거다.
+	for (BoatActor* boat : boats)
 	{
-		//공격을실행할거다.
-		for (BoatActor* boat : boats)
+		if (Collision::CircleInCircle(this->GetPos(), collider->GetRadius(),
+			boat->GetPos(), boat->GetBoatCollider()->GetRadius()))
 		{
-			if (Collision::CircleInCircle(this->GetPos(), collider->GetRadius(),
-				boat->GetPos(), boat->GetBoatCollider()->GetRadius()))
-			{
-				_targetPos = boat->GetPos();
-				_state = BehicleState::Attack;
-				//break;
-			}
-		};
-	}
+			_targetPos = boat->GetPos();
+			_targetBoat = boat;
+			_state = BehicleState::Attack;
+			//break;
+		}
+	};
 
 	// 1초에 한번씩 공격할말을 결정
 	// 공격하기로 결정했을 때 내 바운더리 안에 있으면 공격.
@@ -114,20 +99,28 @@ void BehicleActor::UpdateAttack()
 {
 	cout << "공격" << endl;
 
-	LookAtTarget();
+	static float lastTick = ::GetTickCount64();
+	float currentTick = ::GetTickCount64();
+	if (1000 < currentTick - lastTick) // 1초에 한번씩 공격할말을 결정
+	{
+		LookAtTarget();
 
-	Vector2 dirVec = _targetPos - this->GetPos();
-	dirVec = dirVec.Normalize();
-	cout << _targetPos.x  << ", " << _targetPos.y << endl;
-	BulletActor* bullet = new BulletActor();
-	bullet->SetLayer(LayerType::Object);
-	Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
-	//bullet->Init(); // -> 이부분 추가 이후로 오류
-	dev2Scene->SpawnActor(bullet);
-	bullet->SetBulletDamage(_behicleBulletDamage);
-	bullet->SetBulletSpeed(_behicleBulletSpeed);
-	bullet->ShootingBullet(dirVec);
-	_state = BehicleState::Idle;
+		/*Vector2 dirVec = _targetPos - this->GetPos();
+		dirVec = dirVec.Normalize();*/
+
+		BulletActor* bullet = new BulletActor();
+		bullet->SetLayer(LayerType::Object);
+		bullet->SetPos(this->GetPos());
+		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
+		bullet->Init(); // -> 이부분 추가 이후로 오류
+		dev2Scene->SpawnActor(bullet);
+		bullet->SetBulletDamage(_behicleBulletDamage);
+		bullet->SetBulletSpeed(_behicleBulletSpeed);
+		bullet->ShootingBullet(_targetBoat);
+
+		_state = BehicleState::Idle;
+		lastTick = currentTick;
+	}
 }
 
 //void BehicleActor::OnTriggerEnter(Collider* collider, Collider* other)
