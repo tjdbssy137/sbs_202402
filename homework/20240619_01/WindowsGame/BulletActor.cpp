@@ -5,6 +5,7 @@ void BulletActor::Init()
 {
 	Super::Init();
 	this->SetName("bullet");
+	this->SetSprite(Resource->GetSprite(L"S_Bullet"));
 	CircleCollider* collider = new CircleCollider();
 	collider->SetCollision(Vector2::Zero(), 32);
 	collider->Init();

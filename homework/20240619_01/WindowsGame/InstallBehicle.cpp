@@ -22,12 +22,12 @@ void InstallBehicle::Release()
 
 void InstallBehicle::InstallBehicleFunc(Vector2Int pos)
 {
-	/*if (pos == Vector2Int(-1, -1))
-	{
-		return;
-	}*/
 	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
 	vector<BehicleActor*> behicles = dev2Scene->GetBehicleActor();
+	if (behicles.size() == _index) // vector 범위 벗어나는 것 방지
+	{
+		_index = 0;
+	}
 	behicles[_index]->SetCellPos(pos, true);
 	_index++;
 }

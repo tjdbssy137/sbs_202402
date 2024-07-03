@@ -46,6 +46,16 @@ void BehicleActor::Update()
 	default:
 		break;
 	}
+
+	if (Input->GetKeyDown(KeyCode::W))
+	{
+		BulletActor* bullet = new BulletActor();
+		bullet->SetLayer(LayerType::Object);
+		bullet->Init(); // -> 이부분 추가 이후로 오류
+		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
+		dev2Scene->SpawnActor(bullet);
+		bullet->SetPos(this->GetPos());
+	}
 }
 
 void BehicleActor::Release()
@@ -111,9 +121,8 @@ void BehicleActor::UpdateAttack()
 	cout << _targetPos.x  << ", " << _targetPos.y << endl;
 	BulletActor* bullet = new BulletActor();
 	bullet->SetLayer(LayerType::Object);
-	bullet->SetSprite(Resource->GetSprite(L"S_Bullet"));
 	Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
-	//bullet->Init(); // -> 이부분 떄문에 오류
+	//bullet->Init(); // -> 이부분 추가 이후로 오류
 	dev2Scene->SpawnActor(bullet);
 	bullet->SetBulletDamage(_behicleBulletDamage);
 	bullet->SetBulletSpeed(_behicleBulletSpeed);
