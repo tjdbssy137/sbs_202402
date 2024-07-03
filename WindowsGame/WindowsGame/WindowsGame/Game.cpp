@@ -8,6 +8,7 @@ Game::Game()
 }
 Game::~Game()
 {
+	GET_SINGLE(GameEventManager)->Release();
 	GET_SINGLE(ResourceManager)->Release();
 	GET_SINGLE(SoundManager)->Release();
 	Datas->Release();
@@ -29,6 +30,7 @@ void Game::Init(HWND hwnd)
 
 
 	//½Ì±ÛÅæ ÃÊ±âÈ­
+	GET_SINGLE(GameEventManager)->Init();
 	Time->Init();
 	Input->Init(_hwnd);
 	GET_SINGLE(SceneManager)->Init();
@@ -38,14 +40,14 @@ void Game::Init(HWND hwnd)
 
 	GET_SINGLE(SoundManager)->Init();
 
-	GET_SINGLE(SceneManager)->ChangeScene(SceneType::Dev1Scene);
-
+	GET_SINGLE(SceneManager)->ChangeScene(SceneType::Dev2Scene);
 	//GET_SINGLE(SceneManager)->ChangeScene(SceneType::MoleGameScene);
 	//GET_SINGLE(SceneManager)->ChangeScene(SceneType::InGameScene);
 }
 void Game::Update()
 {
 	//½Ì±ÛÅæ ¾÷µ¥ÀÌÆ®
+	GET_SINGLE(GameEventManager)->Update();
 	Time->Update();
 	Input->Update();
 	GET_SINGLE(SceneManager)->Update();

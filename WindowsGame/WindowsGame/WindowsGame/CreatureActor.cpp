@@ -2,7 +2,8 @@
 #include "CreatureActor.h"
 #include "BoxCollider.h"
 #include "Dev2Scene.h"
-
+#include "GameEvent.h"
+#include "GameEvent_CreatureChangeDir.h"
 void CreatureActor::Init()
 {
 	Super::Init();
@@ -102,6 +103,15 @@ void CreatureActor::ChangeDirection(eCreatureDirection dir)
 
 	if (_dir == dir) return;
 
+	GameEvent_CreatureChangeDir* gameEvent = 
+		dynamic_cast<GameEvent_CreatureChangeDir*>(GET_SINGLE(GameEventManager)->GetEvent("PlayerChangeDir"));
+	if (gameEvent != nullptr)
+	{
+		gameEvent->FromDir = _dir;
+		gameEvent->ToDir = dir;
+		gameEvent->Invoke();
+	}
+	
 	_dir = dir;
 	switch (_state)
 	{

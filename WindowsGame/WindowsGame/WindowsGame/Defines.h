@@ -31,6 +31,7 @@ public:											\
 #define CurrentScene (GET_SINGLE(SceneManager)->GetCurrentScene())
 #define Random GET_SINGLE(RandomManager)
 #define Datas GET_SINGLE(DataManager)
+//#define GameEvent GET_SINGLE(GameEventManager)
 
 #define EPSILON 1e-6f //(0.000001)
 

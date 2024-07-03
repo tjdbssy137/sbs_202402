@@ -183,6 +183,9 @@
     <ClInclude Include="FlipbookActor.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameEvent.h" />
+    <ClInclude Include="GameEventManager.h" />
+    <ClInclude Include="GameEvent_CreatureChangeDir.h" />
     <ClInclude Include="HammerActor.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ITilemapActor.h" />
@@ -218,6 +221,7 @@
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="UISpriteNumber.h" />
     <ClInclude Include="UserCharacterController.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector2Int.h" />
@@ -318,12 +322,18 @@
     <ClCompile Include="Day42.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Day50.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Dev1Scene.cpp" />
     <ClCompile Include="Dev2Scene.cpp" />
     <ClInclude Include="Enums.h" />
     <ClCompile Include="Flipbook.cpp" />
     <ClCompile Include="FlipbookActor.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameEvent.cpp" />
+    <ClCompile Include="GameEventManager.cpp" />
+    <ClCompile Include="GameEvent_CreatureChangeDir.cpp" />
     <ClCompile Include="HammerActor.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ITilemapActor.cpp" />
@@ -361,6 +371,7 @@
     <ClCompile Include="TilemapScene.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UISpriteNumber.cpp" />
     <ClCompile Include="UserCharacterController.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector2Int.cpp" />

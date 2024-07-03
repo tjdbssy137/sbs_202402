@@ -26,4 +26,3 @@ private:
 	PlayerController* _playerController = nullptr;
 	GameState _gameState = GameState::None;
 };
-

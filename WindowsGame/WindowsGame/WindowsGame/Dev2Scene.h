@@ -6,6 +6,7 @@ class CreatureController;
 class Panel;
 class TilemapActor;
 class Tilemap;
+class GameEvent;
 class Dev2Scene : public TilemapScene
 {
 	using Super = Scene;
@@ -24,6 +25,9 @@ public:
 	virtual bool CanGo(Actor* actor, Vector2Int cellPos) override;
 public:
 	MapToolController* GetMapToolController() { return _mapToolController;	}
+
+public:
+	void WriteLog(GameEvent* gameEvent);
 private:
 	//Panel* panel = nullptr;
 	TilemapActor* _tilemapActor = nullptr;
