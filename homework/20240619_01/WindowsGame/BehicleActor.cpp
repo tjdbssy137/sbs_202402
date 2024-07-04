@@ -4,6 +4,8 @@
 #include "CircleCollider.h"
 #include "BoatActor.h"
 #include "BulletActor.h"
+#include "BulletActorController.h"
+
 void BehicleActor::Init()
 {
 	Super::Init();
@@ -25,6 +27,11 @@ void BehicleActor::Init()
 	collider->AddCollisionFlagLayer(CollisionLayerType::CLT_ENEMY); // 충돌할 레이어
 
 	this->AddComponent(collider);
+
+	{
+		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
+		_bulletActorController = dev2Scene->GetBulletActorController();
+	}
 }
 void BehicleActor::Render(HDC hdc)
 {
@@ -83,10 +90,9 @@ void BehicleActor::UpdateIdle()
 		if (Collision::CircleInCircle(this->GetPos(), collider->GetRadius(),
 			boat->GetPos(), boat->GetBoatCollider()->GetRadius()))
 		{
-			_targetPos = boat->GetPos();
+			// 왜 한 영역에 들어가면 걔 판정만 받는지? 여러 개의 공격을 받아야하는데
 			_targetBoat = boat;
 			_state = BehicleState::Attack;
-			//break;
 		}
 	};
 
@@ -97,39 +103,20 @@ void BehicleActor::UpdateIdle()
 
 void BehicleActor::UpdateAttack()
 {
-	cout << "공격" << endl;
-
+	LookAtTarget();
 	static float lastTick = ::GetTickCount64();
 	float currentTick = ::GetTickCount64();
-	if (1000 < currentTick - lastTick) // 1초에 한번씩 공격할말을 결정
+	if (_time < currentTick - lastTick) // 1초에 한번씩 공격할말을 결정
 	{
-		LookAtTarget();
-
-		/*Vector2 dirVec = _targetPos - this->GetPos();
-		dirVec = dirVec.Normalize();*/
-
-		BulletActor* bullet = new BulletActor();
-		bullet->SetLayer(LayerType::Object);
-		bullet->SetPos(this->GetPos());
-		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
-		bullet->Init(); // -> 이부분 추가 이후로 오류
-		dev2Scene->SpawnActor(bullet);
-		bullet->SetBulletDamage(_behicleBulletDamage);
-		bullet->SetBulletSpeed(_behicleBulletSpeed);
-		bullet->ShootingBullet(_targetBoat);
-
-		_state = BehicleState::Idle;
+		LoadBullet();
 		lastTick = currentTick;
 	}
 }
 
-//void BehicleActor::OnTriggerEnter(Collider* collider, Collider* other)
-
 void BehicleActor::LookAtTarget() // target을 바라보기
 {
 	// target은 가장 가까운 거리에 있는 애 바라보는 걸로
-
-	Vector2 dirVec = _targetPos - this->GetPos();
+	Vector2 dirVec = _targetBoat->GetPos() - this->GetPos();
 	dirVec = dirVec.Normalize();
 	
 	float upDotValue = dirVec.Dot(Vector2::Up());
@@ -180,6 +167,32 @@ void BehicleActor::LookAtTarget() // target을 바라보기
 	}
 
 	this->ChangeDirection(direction);
+}
+void BehicleActor::LoadBullet()
+{
+	if (_bulletActorController->BulletCount() < 30)
+	{
+		BulletActor* bullet = new BulletActor();
+		bullet->SetLayer(LayerType::Object);
+		bullet->SetPos(this->GetPos());
+		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
+		bullet->Init();
+		dev2Scene->SpawnActor(bullet);
+		bullet->SetBulletDamage(_behicleBulletDamage);
+		bullet->SetBulletSpeed(_behicleBulletSpeed);
+		bullet->SetATarget(_targetBoat);
+		_bulletActorController->PushBullet(bullet);
+	}
+	else
+	{
+		BulletActor* bullet = _bulletActorController->PopBullet();
+		bullet->SetPos(this->GetPos());
+		bullet->SetBulletDamage(_behicleBulletDamage);
+		bullet->SetBulletSpeed(_behicleBulletSpeed);
+		bullet->SetATarget(_targetBoat);
+	}
+	_state = BehicleState::Idle;
+
 }
 void BehicleActor::SetCellPos(Vector2Int cellPos, bool teleport)
 {

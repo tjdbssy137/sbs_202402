@@ -11,6 +11,8 @@ class RedBlockController;
 class InstallBehicle;
 class BehicleActor;
 class BoatActor;
+class BulletActorController;
+class GameWave;
 
 class Dev2Scene : public TilemapScene
 {
@@ -33,9 +35,8 @@ public:
 	RedBlockController* GetRedBlockController() { return _redBlockController; }
 	vector<BehicleActor*> GetBehicleActor(){ return _behicles; }
 	InstallBehicle* GetInstallBehicle() { return _installBehicle; }
-
 	vector<BoatActor*> GetBoatActor() { return _boats; }
-
+	BulletActorController* GetBulletActorController() { return _bulletActorController; }
 private:
 	//Panel* panel = nullptr;
 	TilemapActor* _tilemapActor = nullptr;
@@ -47,7 +48,8 @@ private:
 
 	RedBlockController* _redBlockController = nullptr;
 	InstallBehicle* _installBehicle = nullptr;
-
+	BulletActorController* _bulletActorController = nullptr;
+	GameWave* _gameWave = nullptr;
 private:
 	int _max = 4;
 

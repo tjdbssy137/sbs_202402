@@ -17,15 +17,18 @@ void BoatController::SetLink(BoatActor* boat)
 }
 void BoatController::Update()
 {
-	//Udate문은 매프레임 들어옴 -> Update 최상위 if문은 매프레임 비교됨 
-	// -> 최대한 이벤트 빈도가 적은 내용으로 적는 것이 좋음
-
-	if (Input->GetKeyDown(KeyCode::RightMouse)) // 한 번만 실행해야하는데..
-		//	_boat->GetState() == BoatState::Move
-		//	Input->GetKeyDown(KeyCode::RightMouse)
+	switch (_boat->GetState())
 	{
-		Depart(); // 얘를 그냥 init()에서?라기엔... 비활성화 시켜둘 경우도 있음.
-		Arrive();
+	case BoatState::Start:
+		this->Depart();
+		break;
+	case BoatState::Move:
+	{
+		this->Arrive();
+	}
+	break;
+	default:
+		break;
 	}
 }
 
@@ -48,6 +51,7 @@ void BoatController::Depart()
 		tilemapActor->GetTileIndexByPos({ 5 * 32, 3 * 32 }));
 
 	_boat->SetPath(path);
+	_boat->SetState(BoatState::Move);
 }
 
 void BoatController::Arrive()

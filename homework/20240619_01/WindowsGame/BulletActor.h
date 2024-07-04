@@ -1,5 +1,13 @@
 #pragma once
 #include "SpriteActor.h"
+class BoatActor;
+class BulletActorController;
+enum class BulletState
+{
+	Move,
+	Done
+};
+
 class BulletActor :  public SpriteActor
 {
 private:
@@ -16,14 +24,18 @@ public:
 
 	void SetBulletSpeed(float speed) { _speed = speed; }
 	float GetBulletSpeed() { return _speed; }
+
+	void SetBulletState(BulletState state) { _state = state; }
 public:
-	void ShootingBullet(Actor* targetBoat);
+	void SetATarget(BoatActor* targetBoat);
 	void Update_Move();
 
 private:
 	float _damage = 0;
 	float _speed = 0;
 	Vector2 _moveDir;
-	Actor* _targetBoat = nullptr;
+	BoatActor* _targetBoat = nullptr;
+	BulletState _state = BulletState::Done;
+	BulletActorController* _bulletActorController = nullptr;
 };
 

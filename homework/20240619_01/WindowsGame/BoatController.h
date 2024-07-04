@@ -14,6 +14,7 @@ public:
 	vector<Vector2Int> Calculator_Astar(Vector2Int startPos, Vector2Int endPos);
 	void Arrive();
 	void Depart();
+
 private:
 	Vector2Int _start = {};
 	Vector2Int _goal = {};

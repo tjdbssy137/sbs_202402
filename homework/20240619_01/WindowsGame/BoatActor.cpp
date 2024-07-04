@@ -5,16 +5,13 @@
 #include "SpriteActor.h"
 #include "Sprite.h"
 #include "BulletActor.h"
+#include "BulletActorController.h"
+
 void BoatActor::Init()
 {
 	//wprintf(GetBoatType().c_str());
-	wstring direction[eDirection::END]
-		= { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
-	for (int i = 0; i < eDirection::END; i++)
-	{
-		_moveFlipbook[i] = Resource->GetFlipbook(GetBoatType() + direction[i]);
-	}
-
+	
+	SetActiveBoat();
 	this->SetState(_state);
 	this->SetName("Enemy");
 	collider = new CircleCollider();
@@ -29,6 +26,12 @@ void BoatActor::Init()
 	// HP
 	_hpBackground = Resource->GetSprite(L"S_HP_Background"); // HP 체력바 배경
 	_bpBar = Resource->GetSprite(L"S_HP_Bar"); // HP 체력바
+
+	{
+		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
+		_bulletActorController = dev2Scene->GetBulletActorController();
+	}
+
 	Super::Init();
 }
 void BoatActor::Render(HDC hdc)
@@ -98,9 +101,12 @@ void BoatActor::Update()
 		UpdateIdle();
 		break;
 	case BoatState::Attacked:
-		
 		break;
 	case BoatState::Goal:
+		this->SetCellPos({ 54, 25 }, true);
+		break;
+	case BoatState::Die:
+		this->SetCellPos({ 54, 25 }, true);
 		break;
 	default:
 		break;
@@ -111,7 +117,7 @@ void BoatActor::Release()
 {
 	Super::Release();
 }
-
+/*
 void BoatActor::SetState(BoatState state)
 {
 	//FSM 유한상태머신
@@ -120,7 +126,16 @@ void BoatActor::SetState(BoatState state)
 
 	this->SetFlipbook(_moveFlipbook[_dir]);
 }
-
+*/
+void BoatActor::SetActiveBoat()
+{
+	wstring direction[eDirection::END]
+		= { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
+	for (int i = 0; i < eDirection::END; i++)
+	{
+		_moveFlipbook[i] = Resource->GetFlipbook(GetBoatType() + direction[i]);
+	}
+}
 void BoatActor::ChangeDirection(eDirection dir)
 {
 	// 만약에 방향이 바뀌면, setFlipbook을 해준다/
@@ -137,9 +152,10 @@ void BoatActor::UpdateHPImage(float deal)
 	// 피해량 비율을 계산하기
 	float tempHP = _HP - deal;
 	_HP = _HP + (tempHP - _HP) * 1; //0.65f
-	_state = BoatState::Move;
-	//속도 감속
-//	_HP = tempHP;
+	if (_HP <= 0)
+	{
+		_state = BoatState::Die;
+	}
 }
 
 void BoatActor::UpdateIdle()
@@ -227,8 +243,10 @@ void BoatActor::OnTriggerEnter(Collider* collider, Collider* other)
 	if (other->GetOwner()->GetName() == "bullet")//bullet
 	{
 		BulletActor* behicleBullet = dynamic_cast<BulletActor*>(other->GetOwner());
-		_getDamage = behicleBullet->GetBulletDamage();
-		UpdateHPImage(_getDamage);
+		float getDamage = behicleBullet->GetBulletDamage();
+		UpdateHPImage(getDamage);
+		behicleBullet->SetBulletState(BulletState::Done);
+		_bulletActorController->PushBullet(behicleBullet);
 		//_state = BoatState::Attacked;
 	}
 }

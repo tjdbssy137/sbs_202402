@@ -4,6 +4,7 @@
 class Flipbook; 
 class CircleCollider;
 class BoatActor;
+class BulletActorController;
 enum class BehicleState
 {
 	Attack,
@@ -23,7 +24,6 @@ public:
 public: // 상속받은 인터페이스의 함수를 만들지 않으면 오류가 남.
 	virtual void SetCellPos(Vector2Int cellPos, bool teleport = false) override;
 	virtual Vector2Int GetCellPos() override;
-	//virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
 
 public:
 	void SetState(BehicleState state);
@@ -50,6 +50,7 @@ public:
 
 public:
 	void LookAtTarget();
+	void LoadBullet();
 
 private:
 	BehicleState _state = BehicleState::Idle;
@@ -64,11 +65,12 @@ private: // scene 에서 정리
 private:
 	Vector2 _destPos = {};
 	Vector2Int _cellPos = {};
-	Vector2 _targetPos = {};
 
 private:
 	CircleCollider* collider = nullptr;
-	float _time = 1.0f;
+	float _time = 1000.0f;
 	float _damage = 10;
 	BoatActor* _targetBoat = nullptr;
+	BulletActorController* _bulletActorController = nullptr;
+
 };

@@ -7,7 +7,6 @@ private:
 public:
 	void SetLink(BehicleActor* behicle);
 	void Update();
-public:
-	void InstallBehicle();
+
 };
 

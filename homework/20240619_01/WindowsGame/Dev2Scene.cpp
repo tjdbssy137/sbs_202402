@@ -20,7 +20,8 @@
 #include "RedBlockActor.h"
 #include "RedBlockController.h"
 #include "InstallBehicle.h"
-
+#include "BulletActorController.h"
+#include "GameWave.h"
 void Dev2Scene::Init()
 {
 	LoadResource();
@@ -92,19 +93,23 @@ void Dev2Scene::Init()
 		_tilemapActor = actor;
 	}
 
-	for (int i = 0; i < _max; i++)
+	{
+		_bulletActorController = new BulletActorController();
+	}
+
+	for (int i = 0; i < 7; i++)
 	{
 		BoatController* boatController = new BoatController();
 		_boatControllers.push_back(boatController);
 		{
 			BoatActor* boat = new BoatActor();
 			boat->SetLayer(LayerType::Character);
-			boat->SetBoatSpeed(100);
-			//boat->SetBoatType(L"FB_EnemyShip3_");
+			boat->SetBoatSpeed(50);
+			boat->SetBoatType(L"FB_EnemyShip3_");
 			boat->Init();
 			_boatControllers[i]->SetLink(boat);
 			this->SpawnActor(boat);
-			boat->SetCellPos({ 54, 25 }, true);
+			boat->SetCellPos({ 54, 25 }, true); //boat->SetCellPos({ 25 + i, 13 }, true);
 			_boats.push_back(boat);
 		}
 	}
@@ -124,7 +129,6 @@ void Dev2Scene::Init()
 			_behicles.push_back(behicle);
 		}
 	}
-
 
 	{
 		_installBehicle = new InstallBehicle();
@@ -149,6 +153,8 @@ void Dev2Scene::Init()
 		actor->SetPos({ 5 * 31, 4 * 30 });
 	}
 
+	_gameWave = new GameWave();
+	_gameWave->SetLink(_boats);
 
 	// behicle을 여러개 생성해두고? 마우스 좌표로 비히클 위치를 지정해주는 클래스를 새로 만들어야할 듯.
 	// 마우스를 가져다 대면 빨간색의 작은 타일이 생기고 그곳을 누르면 설치.. (panel이 마우스를 따라다니며 어떤 걸 설치할 지 메뉴)
@@ -171,15 +177,21 @@ void Dev2Scene::Update()
 	Super::Update();
 
 	_mapToolController->Update();
-	for (int i = 0; i < _max; i++)
+	for (BoatController* boatController : _boatControllers)
 	{
-		_boatControllers[i]->Update();
+		boatController->Update();
 	}
-	for (int i = 0; i < _max; i++)
+	for (BehicleController* behicleController : _behicleControllers)
 	{
-		_behicleControllers[i]->Update();
+		behicleController->Update();
 	}
 	_redBlockController->Update();
+
+	_gameWave->Update();
+	if (Input->GetKeyDown(KeyCode::W))
+	{
+		_gameWave->SetGameWaveState(GameWaveState::Wave1);
+	}
 }
 void Dev2Scene::Release()
 {
@@ -419,7 +431,7 @@ void Dev2Scene::LoadResource()
 			Resource->CreateFlipbook(fullName, info_tank3);
 		}
 	}
-
+	/*
 	//Balloon1
 	{
 		Resource->LoadTexture(L"T_Balloon1", L"FlipbookTest/balloon1.bmp", RGB(255, 0, 255));
@@ -459,7 +471,7 @@ void Dev2Scene::LoadResource()
 			Resource->CreateFlipbook(fullName, info_balloon2);
 		}
 	}
-
+	*/
 	//Submarine
 	{
 		Resource->LoadTexture(L"T_Submarine", L"FlipbookTest/submarine.bmp", RGB(255, 0, 255));

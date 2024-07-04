@@ -166,6 +166,7 @@
     <ClInclude Include="BoatController.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="BulletActor.h" />
+    <ClInclude Include="BulletActorController.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CenterRect.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="FlipbookActor.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameWave.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="InstallBehicle.h" />
     <ClInclude Include="ITilemapActor.h" />
@@ -231,6 +233,7 @@
     <ClCompile Include="BoatActor.cpp" />
     <ClCompile Include="BoatController.cpp" />
     <ClCompile Include="BulletActor.cpp" />
+    <ClCompile Include="BulletActorController.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CreatureController.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -333,6 +336,7 @@
     <ClCompile Include="Flipbook.cpp" />
     <ClCompile Include="FlipbookActor.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameWave.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="InstallBehicle.cpp" />
     <ClCompile Include="ITilemapActor.cpp" />
