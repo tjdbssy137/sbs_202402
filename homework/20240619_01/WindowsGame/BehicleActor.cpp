@@ -8,30 +8,23 @@
 
 void BehicleActor::Init()
 {
-	Super::Init();
-
-	wstring direction[eDirection::END]
-		= { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
-	for (int i = 0; i < eDirection::END; i++)
-	{
-		_idleFlipbook[i] = Resource->GetFlipbook(GetBehicleType() + direction[i]);
-	}
-	this->SetName("behicle_site");
 	this->SetState(_state);
 
 	collider = new CircleCollider();
-	collider->SetCollision(Vector2::Zero(), 200);
+	collider->SetCollision(Vector2::Zero(), _colliderSize);
 	collider->Init();
 	collider->SetCollisionLayer(CollisionLayerType::CLT_BEHICLE);
 	collider->ResetCollisionFlag();
 	collider->AddCollisionFlagLayer(CollisionLayerType::CLT_ENEMY); // 충돌할 레이어
 
+	this->SetActiveBehicle();
 	this->AddComponent(collider);
 
 	{
 		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
 		_bulletActorController = dev2Scene->GetBulletActorController();
 	}
+	Super::Init();
 }
 void BehicleActor::Render(HDC hdc)
 {
@@ -45,7 +38,10 @@ void BehicleActor::Update()
 	switch (_state)
 	{
 	case BehicleState::Attack:
+	{
+		LookAtTarget();
 		UpdateAttack();
+	}
 		break;
 	case BehicleState::Idle:
 		UpdateIdle();
@@ -59,14 +55,27 @@ void BehicleActor::Release()
 {
 	Super::Release();
 }
-
+void BehicleActor::SetActiveBehicle()
+{
+//		wcout << GetBehicleType() << endl;
+	
+	wstring direction[eDirection::END]
+		= { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
+	for (int i = 0; i < eDirection::END; i++)
+	{
+		_idleFlipbook[i] = Resource->GetFlipbook(GetBehicleType() + direction[i]);
+	}
+	collider->SetCollision(Vector2::Zero(), _colliderSize);
+	this->ChangeDirection(eDirection::DOWN);
+	_time = _attackTime;
+}
 void BehicleActor::SetState(BehicleState state)
 {
 	//FSM 유한상태머신
 
 	_state = state;
 
-	this->SetFlipbook(_idleFlipbook[_dir]);
+	//this->SetFlipbook(_idleFlipbook[_dir]);
 }
 
 void BehicleActor::ChangeDirection(eDirection dir)
@@ -103,19 +112,18 @@ void BehicleActor::UpdateIdle()
 
 void BehicleActor::UpdateAttack()
 {
-	LookAtTarget();
-	static float lastTick = ::GetTickCount64();
-	float currentTick = ::GetTickCount64();
-	if (_time < currentTick - lastTick) // 1초에 한번씩 공격할말을 결정
+	_time -= Time->GetDeltaTime();
+	//static float lastTick = ::GetTickCount64(); //모든 호출에서 공유
+	//float currentTick = ::GetTickCount64();
+	if (_time <= 0) // 1초에 한번씩 공격할말을 결정
 	{
 		LoadBullet();
-		lastTick = currentTick;
+		_time = _attackTime;
 	}
 }
 
 void BehicleActor::LookAtTarget() // target을 바라보기
 {
-	// target은 가장 가까운 거리에 있는 애 바라보는 걸로
 	Vector2 dirVec = _targetBoat->GetPos() - this->GetPos();
 	dirVec = dirVec.Normalize();
 	
@@ -131,37 +139,44 @@ void BehicleActor::LookAtTarget() // target을 바라보기
 	float maxDotValue = upDotValue;
 	eDirection direction = eDirection::UP;
 
-	if (maxDotValue < rightDotValue) {
+	if (maxDotValue < rightDotValue) 
+	{
 		maxDotValue = rightDotValue;
 		direction = eDirection::RIGHT;
 	}
 
-	if (maxDotValue < downDotValue) {
+	if (maxDotValue < downDotValue) 
+	{
 		maxDotValue = downDotValue;
 		direction = eDirection::DOWN;
 	}
 
-	if (maxDotValue < leftDotValue) {
+	if (maxDotValue < leftDotValue) 
+	{
 		maxDotValue = leftDotValue;
 		direction = eDirection::LEFT;
 	}
 
-	if (maxDotValue < upRightDotValue) {
+	if (maxDotValue < upRightDotValue) 
+	{
 		maxDotValue = upRightDotValue;
 		direction = eDirection::UP_RIGHT;
 	}
 
-	if (maxDotValue < upLeftDotValue) {
+	if (maxDotValue < upLeftDotValue) 
+	{
 		maxDotValue = upLeftDotValue;
 		direction = eDirection::UP_LEFT;
 	}
 
-	if (maxDotValue < downRightDotValue) {
+	if (maxDotValue < downRightDotValue) 
+	{
 		maxDotValue = downRightDotValue;
 		direction = eDirection::DOWN_RIGHT;
 	}
 
-	if (maxDotValue < downLeftDotValue) {
+	if (maxDotValue < downLeftDotValue) 
+	{
 		maxDotValue = downLeftDotValue;
 		direction = eDirection::DOWN_LEFT;
 	}

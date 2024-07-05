@@ -22,6 +22,7 @@
 #include "InstallBehicle.h"
 #include "BulletActorController.h"
 #include "GameWave.h"
+#include "InstallPanel.h"
 void Dev2Scene::Init()
 {
 	LoadResource();
@@ -97,7 +98,7 @@ void Dev2Scene::Init()
 		_bulletActorController = new BulletActorController();
 	}
 
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		BoatController* boatController = new BoatController();
 		_boatControllers.push_back(boatController);
@@ -121,7 +122,7 @@ void Dev2Scene::Init()
 		{
 			BehicleActor* behicle = new BehicleActor();
 			behicle->SetLayer(LayerType::Character);
-			behicle->SetBehicleType(L"FB_Submarine_");
+			behicle->SetBehicleType(L"FB_Tank2_");
 			behicle->Init();
 			_behicleControllers[i]->SetLink(behicle);
 			this->SpawnActor(behicle);
@@ -153,8 +154,16 @@ void Dev2Scene::Init()
 		actor->SetPos({ 5 * 31, 4 * 30 });
 	}
 
-	_gameWave = new GameWave();
-	_gameWave->SetLink(_boats);
+	{
+		_gameWave = new GameWave();
+		_gameWave->SetLink(_boats);
+	}
+
+	{
+		_installPanel = new InstallPanel();
+		_installPanel->Init();
+		_installPanel->Hide();
+	}
 
 	// behicle을 여러개 생성해두고? 마우스 좌표로 비히클 위치를 지정해주는 클래스를 새로 만들어야할 듯.
 	// 마우스를 가져다 대면 빨간색의 작은 타일이 생기고 그곳을 누르면 설치.. (panel이 마우스를 따라다니며 어떤 걸 설치할 지 메뉴)
@@ -170,7 +179,7 @@ void Dev2Scene::Render(HDC hdc)
 
 	wstring str = L"Beach";
 	::TextOut(hdc, 0, 45, str.c_str(), str.length());
-
+	_installPanel->Render(hdc);
 }
 void Dev2Scene::Update()
 {
@@ -188,14 +197,20 @@ void Dev2Scene::Update()
 	_redBlockController->Update();
 
 	_gameWave->Update();
-	if (Input->GetKeyDown(KeyCode::W))
+	if (Input->GetKeyDown(KeyCode::Up))
 	{
 		_gameWave->SetGameWaveState(GameWaveState::Wave1);
 	}
+	if (Input->GetKeyDown(KeyCode::W))
+	{
+		_gameWave->SetGameWaveState(GameWaveState::Wave2);
+	}
+	_installPanel->Update();
 }
 void Dev2Scene::Release()
 {
 	Super::Release();
+	_installPanel->Release();
 }
 
 void Dev2Scene::LoadResource()

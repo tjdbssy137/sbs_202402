@@ -17,7 +17,7 @@ public:
 public:
 	void CanInstallBehicle();
 	void DoInstallBehicle();
-
+	Vector2Int GetInstallBehiclePos() { return _pos; }
 private:
 	MouseState _mouseState = MouseState::Nothing;
 	Vector2Int _pos = {};

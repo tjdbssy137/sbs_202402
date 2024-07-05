@@ -5,7 +5,7 @@
 #include "Tilemap.h"
 #include "TilemapActor.h"
 #include "Dev2Scene.h"
-#include "InstallBehicle.h"
+#include "InstallPanel.h"
 
 void RedBlockController::SetLink(RedBlockActor* block)
 {
@@ -44,8 +44,8 @@ void RedBlockController::Update()
 void RedBlockController::DoInstallBehicle()
 {
 	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
-	InstallBehicle* installBehicle = dev2Scene->GetInstallBehicle();
-	installBehicle->InstallBehicleFunc(_pos);
+	InstallPanel* installBehicle = dev2Scene->GetInstallPanel();
+	installBehicle->Show();
 	_mouseState = MouseState::Nothing;
 }
 void RedBlockController::CanInstallBehicle()

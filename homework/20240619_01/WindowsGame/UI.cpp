@@ -24,7 +24,7 @@ void UI::Show()
 }
 void UI::Hide()
 {
-
+	_isShow = false;
 }
 void UI::SetRect(CenterRect rect)
 {

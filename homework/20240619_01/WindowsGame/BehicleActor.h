@@ -30,7 +30,6 @@ public:
 	BehicleState GetState() { return _state; }
 
 	void ChangeDirection(eDirection dir);
-
 public:
 	void SetBulletSpeed(float behicleSpeed) { _behicleBulletSpeed = behicleSpeed; }
 	float GetBulletSpeed() { return _behicleBulletSpeed; }
@@ -44,6 +43,10 @@ public:
 	void SetBehicleDamage(float deal) { _damage = deal; }
 	float GetBehicleDamage() { return _damage; }
 
+	void SetAttackTime(float time) { _attackTime = time; }
+
+	void SetColliderSize(int size) { _colliderSize = size; }
+
 public:
 	void UpdateAttack();
 	void UpdateIdle();
@@ -51,7 +54,7 @@ public:
 public:
 	void LookAtTarget();
 	void LoadBullet();
-
+	void SetActiveBehicle();
 private:
 	BehicleState _state = BehicleState::Idle;
 	eDirection _dir = eDirection::DOWN;
@@ -68,7 +71,9 @@ private:
 
 private:
 	CircleCollider* collider = nullptr;
-	float _time = 1000.0f;
+	int _colliderSize = 150;
+	float _attackTime = 1.0f;
+	float _time = 1.0f;
 	float _damage = 10;
 	BoatActor* _targetBoat = nullptr;
 	BulletActorController* _bulletActorController = nullptr;

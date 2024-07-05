@@ -1,6 +1,5 @@
 #pragma once
 #include "Actor.h"
-
 // 얘는 컨트롤러역이어야하나?
 class InstallBehicle : public Actor
 {
@@ -14,9 +13,14 @@ public:
 
 public:
 	void InstallBehicleFunc(Vector2Int pos);
+public:
+	void SetBehicleTypeState(int type) { _type = type; }
 
 private:
 	int _index = 0;
+
+private:
+	int _type = 0;
 
 };
 

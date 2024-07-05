@@ -262,6 +262,9 @@
     <ClInclude Include="GameWave.h">
       <Filter>03.Objects\TowerDefense</Filter>
     </ClInclude>
+    <ClInclude Include="InstallPanel.h">
+      <Filter>06.UI\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -519,6 +522,9 @@
     </ClCompile>
     <ClCompile Include="GameWave.cpp">
       <Filter>03.Objects\TowerDefense</Filter>
+    </ClCompile>
+    <ClCompile Include="InstallPanel.cpp">
+      <Filter>06.UI\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

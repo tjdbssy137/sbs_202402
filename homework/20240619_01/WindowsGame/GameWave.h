@@ -15,11 +15,14 @@ public:
 public:
 	void SetWave();
 	void SetWave2();
+	void SetTime(float time) { _time = time; }
 public:
 	void SetGameWaveState(GameWaveState waveState) { _waveState = waveState; }
 private:
 	vector<BoatActor*> _boats = {};
 	int _numberOfIntrusions = 0;
 	GameWaveState _waveState = GameWaveState::Done;
+	float _time = 1;
+	int _Index = 0;
 };
 
