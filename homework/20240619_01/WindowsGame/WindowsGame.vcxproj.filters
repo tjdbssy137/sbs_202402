@@ -265,6 +265,10 @@
     <ClInclude Include="InstallPanel.h">
       <Filter>06.UI\Game</Filter>
     </ClInclude>
+    <ClInclude Include="SubmarineActor.h" />
+    <ClInclude Include="InstallSubmarinePanel.h">
+      <Filter>06.UI\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -524,6 +528,10 @@
       <Filter>03.Objects\TowerDefense</Filter>
     </ClCompile>
     <ClCompile Include="InstallPanel.cpp">
+      <Filter>06.UI\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SubmarineActor.cpp" />
+    <ClCompile Include="InstallSubmarinePanel.cpp">
       <Filter>06.UI\Game</Filter>
     </ClCompile>
   </ItemGroup>

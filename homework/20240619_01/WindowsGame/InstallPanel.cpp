@@ -48,7 +48,7 @@ void InstallPanel::Init()
 		}
 		{
 			Button* tankButton = new Button();
-			tankButton->SetRect(Shape::MakeCenterRect(0, 4, 32, 32));
+			tankButton->SetRect(Shape::MakeCenterRect(40, 4, 32, 32));
 			tankButton->SetSprite(ButtonState::Default, Resource->GetSprite(L"S_Tank1_Default"));
 			tankButton->SetSprite(ButtonState::Hover, Resource->GetSprite(L"S_Tank1_Hover"));
 			tankButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_Tank1_Pressed"));
@@ -56,17 +56,6 @@ void InstallPanel::Init()
 			tankButton->AddOnClickDelegate(this, &InstallPanel::OnClick_GoToInstallTank);
 			tankButton->Init();
 			iconListPanel->AddChild(tankButton);
-		}
-		{
-			Button* submarineButton = new Button();
-			submarineButton->SetRect(Shape::MakeCenterRect(40, 4, 32, 32));
-			submarineButton->SetSprite(ButtonState::Default, Resource->GetSprite(L"S_Submarine_Default"));
-			submarineButton->SetSprite(ButtonState::Hover, Resource->GetSprite(L"S_Submarine_Hover"));
-			submarineButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_Submarine_Pressed"));
-			submarineButton->SetSprite(ButtonState::Disabled, Resource->GetSprite(L"S_Submarine_Disabled"));
-			submarineButton->AddOnClickDelegate(this, &InstallPanel::OnClick_GoToInstallSubmarine);
-			submarineButton->Init();
-			iconListPanel->AddChild(submarineButton);
 		}
 	}
 }
@@ -109,33 +98,17 @@ void InstallPanel::OnClick_GoToInstallTank()
 
 	this->Hide();
 }
-void InstallPanel::OnClick_GoToInstallSubmarine()
-{
-	Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
-	InstallBehicle* installBehicle = scene->GetInstallBehicle();
-	RedBlockController* redBlockController = scene->GetRedBlockController();
-
-	installBehicle->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Submarine));
-	installBehicle->InstallBehicleFunc(redBlockController->GetInstallBehiclePos());
-	this->Hide();
-}
 void InstallPanel::LoadResource()
 {
 	auto a = Resource->GetTexture(L"T_DrillTank1");
-	Resource->CreateSprite(L"S_DrillTank1_Default", Resource->GetTexture(L"T_DrillTank1"), 0, 0, 32, 32);
-	Resource->CreateSprite(L"S_DrillTank1_Hover", Resource->GetTexture(L"T_DrillTank1"), 0, 32, 32, 32);
-	Resource->CreateSprite(L"S_DrillTank1_Pressed", Resource->GetTexture(L"T_DrillTank1"), 0, 64, 32, 32);
-	Resource->CreateSprite(L"S_DrillTank1_Disabled", Resource->GetTexture(L"T_DrillTank1"), 0, 96, 32, 32);
+	Resource->CreateSprite(L"S_DrillTank1_Default", a, 0, 0, 32, 32);
+	Resource->CreateSprite(L"S_DrillTank1_Hover", a, 0, 32, 32, 32);
+	Resource->CreateSprite(L"S_DrillTank1_Pressed", a, 0, 64, 32, 32);
+	Resource->CreateSprite(L"S_DrillTank1_Disabled", a, 0, 96, 32, 32);
 
 	auto b = Resource->GetTexture(L"T_Tank1");
-	Resource->CreateSprite(L"S_Tank1_Default", Resource->GetTexture(L"T_Tank1"), 0, 0, 32, 32);
-	Resource->CreateSprite(L"S_Tank1_Hover", Resource->GetTexture(L"T_Tank1"), 0, 32, 32, 32);
-	Resource->CreateSprite(L"S_Tank1_Pressed", Resource->GetTexture(L"T_Tank1"), 0, 64, 32, 32);
-	Resource->CreateSprite(L"S_Tank1_Disabled", Resource->GetTexture(L"T_Tank1"), 0, 96, 32, 32);
-
-	auto c = Resource->GetTexture(L"T_Submarine");
-	Resource->CreateSprite(L"S_Submarine_Default", Resource->GetTexture(L"T_Submarine"), 0, 0, 32, 32);
-	Resource->CreateSprite(L"S_Submarine_Hover", Resource->GetTexture(L"T_Submarine"), 0, 32, 32, 32);
-	Resource->CreateSprite(L"S_Submarine_Pressed", Resource->GetTexture(L"T_Submarine"), 0, 64, 32, 32);
-	Resource->CreateSprite(L"S_Submarine_Disabled", Resource->GetTexture(L"T_Submarine"), 0, 96, 32, 32);
+	Resource->CreateSprite(L"S_Tank1_Default", b, 0, 0, 32, 32);
+	Resource->CreateSprite(L"S_Tank1_Hover", b, 0, 32, 32, 32);
+	Resource->CreateSprite(L"S_Tank1_Pressed", b, 0, 64, 32, 32);
+	Resource->CreateSprite(L"S_Tank1_Disabled", b, 0, 96, 32, 32);
 }

@@ -6,7 +6,7 @@
 #include "TilemapActor.h"
 #include "Dev2Scene.h"
 #include "InstallPanel.h"
-
+#include "InstallSubmarinePanel.h"
 void RedBlockController::SetLink(RedBlockActor* block)
 {
 	assert(block != nullptr);
@@ -31,8 +31,11 @@ void RedBlockController::Update()
 	case MouseState::Move:
 		CanInstallBehicle();
 		break;
-	case MouseState::Click:
-		DoInstallBehicle();
+	case MouseState::ClickGround:
+		DoInstallGround();
+		break;
+	case MouseState::ClickOcean:
+		DoInstallOcean();
 		break;
 	case MouseState::Nothing:
 		_block->SetSprite(nullptr);
@@ -41,11 +44,18 @@ void RedBlockController::Update()
 		break;
 	}
 }
-void RedBlockController::DoInstallBehicle()
+void RedBlockController::DoInstallGround()
 {
 	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
-	InstallPanel* installBehicle = dev2Scene->GetInstallPanel();
-	installBehicle->Show();
+	InstallPanel* installPanel = dev2Scene->GetInstallPanel();
+	installPanel->Show();
+	_mouseState = MouseState::Nothing;
+}
+void RedBlockController::DoInstallOcean()
+{
+	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
+	InstallSubmarinePanel* installSubmarinePanel = dev2Scene->GetInstallSubmarinePanel();
+	installSubmarinePanel->Show();
 	_mouseState = MouseState::Nothing;
 }
 void RedBlockController::CanInstallBehicle()
@@ -79,7 +89,14 @@ void RedBlockController::CanInstallBehicle()
 		{
 			cout << "°Ç¼³ µÊ" << endl;
 			_pos = pos;
-			_mouseState = MouseState::Click;
+			_mouseState = MouseState::ClickGround;
+		}
+		else if (46 <= tile->value && tile->value < 62) // 51ÀÌ ¹°
+		{
+			// ONLY submrine 
+			cout << "°Ç¼³ µÊ" << endl;
+			_pos = pos;
+			_mouseState = MouseState::ClickOcean;
 		}
 		else
 		{

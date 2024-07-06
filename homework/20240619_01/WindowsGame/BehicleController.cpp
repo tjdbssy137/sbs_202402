@@ -22,7 +22,7 @@ void BehicleController::Update()
 	{
 		_behicle->SetBehicleType(L"FB_Tank1_");
 		_behicle->SetColliderSize(120);
-		_behicle->ChangeDirection(eDirection::DOWN_RIGHT);
+		_behicle->ChangeDirection(eDirection::DOWN_RIGHT);//이 코드가 없으면 actor가 안 보임
 		_behicle->SetActiveBehicle();
 		_behicle->SetBehicleDamage(10);
 		_behicle->SetAttackTime(1);

@@ -14,6 +14,8 @@ class BoatActor;
 class BulletActorController;
 class GameWave;
 class InstallPanel;
+class InstallSubmarinePanel;
+
 class Dev2Scene : public TilemapScene
 {
 	using Super = Scene;
@@ -37,8 +39,10 @@ public:
 	InstallBehicle* GetInstallBehicle() { return _installBehicle; }
 	vector<BoatActor*> GetBoatActor() { return _boats; }
 	BulletActorController* GetBulletActorController() { return _bulletActorController; }
-	InstallPanel* GetInstallPanel() { return _installPanel; }
 	vector<BehicleController*> GetBehicleController() { return _behicleControllers; }
+
+	InstallPanel* GetInstallPanel() { return _installPanel; }
+	InstallSubmarinePanel* GetInstallSubmarinePanel() { return _installSubmarinePanel; }
 private:
 	//Panel* panel = nullptr;
 	TilemapActor* _tilemapActor = nullptr;
@@ -53,7 +57,5 @@ private:
 	BulletActorController* _bulletActorController = nullptr;
 	GameWave* _gameWave = nullptr;
 	InstallPanel* _installPanel = nullptr;
-private:
-	int _max = 4;
-
+	InstallSubmarinePanel* _installSubmarinePanel = nullptr;
 };

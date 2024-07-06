@@ -42,6 +42,9 @@ void BehicleActor::Update()
 		LookAtTarget();
 		UpdateAttack();
 	}
+	break;
+	case BehicleState::Submarine:
+		LookAtTarget();
 		break;
 	case BehicleState::Idle:
 		UpdateIdle();
@@ -65,9 +68,17 @@ void BehicleActor::SetActiveBehicle()
 	{
 		_idleFlipbook[i] = Resource->GetFlipbook(GetBehicleType() + direction[i]);
 	}
-	collider->SetCollision(Vector2::Zero(), _colliderSize);
 	this->ChangeDirection(eDirection::DOWN);
-	_time = _attackTime;
+
+	if (this->GetBehicleType() == L"FB_Submarine_")
+	{
+		collider->SetEnable(false);
+	}
+	else
+	{
+		collider->SetCollision(Vector2::Zero(), _colliderSize);
+		_time = _attackTime;
+	}
 }
 void BehicleActor::SetState(BehicleState state)
 {
@@ -101,7 +112,14 @@ void BehicleActor::UpdateIdle()
 		{
 			// 왜 한 영역에 들어가면 걔 판정만 받는지? 여러 개의 공격을 받아야하는데
 			_targetBoat = boat;
-			_state = BehicleState::Attack;
+			if (this->GetBehicleType() == L"FB_Submarine_")
+			{
+				_state = BehicleState::Submarine;
+			}
+			else
+			{
+				_state = BehicleState::Attack;
+			}
 		}
 	};
 
@@ -127,6 +145,11 @@ void BehicleActor::LookAtTarget() // target을 바라보기
 	Vector2 dirVec = _targetBoat->GetPos() - this->GetPos();
 	dirVec = dirVec.Normalize();
 	
+	if (200 < dirVec.LengthSqrt()) // 일정 거리 이상 넘어가면 포기
+	{
+		_state = BehicleState::Idle;
+	}
+
 	float upDotValue = dirVec.Dot(Vector2::Up());
 	float rightDotValue = dirVec.Dot(Vector2::Right());
 	float downDotValue = dirVec.Dot(Vector2::Down());

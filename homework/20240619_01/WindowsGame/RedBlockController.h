@@ -3,7 +3,8 @@
 enum class MouseState
 {
 	Move,
-	Click,
+	ClickGround,
+	ClickOcean,
 	Nothing
 };
 
@@ -16,7 +17,8 @@ public:
 	void Update();
 public:
 	void CanInstallBehicle();
-	void DoInstallBehicle();
+	void DoInstallGround();
+	void DoInstallOcean();
 	Vector2Int GetInstallBehiclePos() { return _pos; }
 private:
 	MouseState _mouseState = MouseState::Nothing;

@@ -6,6 +6,7 @@
 #include "Flipbook.h"
 #include "BoatActor.h"
 #include "BehicleActor.h"
+#include "SubmarineActor.h"
 #include "CameraComponent.h"
 #include "Texture.h"
 #include "Sprite.h"
@@ -23,6 +24,7 @@
 #include "BulletActorController.h"
 #include "GameWave.h"
 #include "InstallPanel.h"
+#include "InstallSubmarinePanel.h"
 void Dev2Scene::Init()
 {
 	LoadResource();
@@ -115,7 +117,7 @@ void Dev2Scene::Init()
 		}
 	}
 
-	for (int i = 0; i < _max; i++)
+	for (int i = 0; i < 15; i++)
 	{
 		BehicleController* behicleController = new BehicleController();
 		_behicleControllers.push_back(behicleController);
@@ -165,6 +167,12 @@ void Dev2Scene::Init()
 		_installPanel->Hide();
 	}
 
+	{
+		_installSubmarinePanel = new InstallSubmarinePanel();
+		_installSubmarinePanel->Init();
+		_installSubmarinePanel->Hide();
+	}
+
 	// behicle을 여러개 생성해두고? 마우스 좌표로 비히클 위치를 지정해주는 클래스를 새로 만들어야할 듯.
 	// 마우스를 가져다 대면 빨간색의 작은 타일이 생기고 그곳을 누르면 설치.. (panel이 마우스를 따라다니며 어떤 걸 설치할 지 메뉴)
 
@@ -180,6 +188,7 @@ void Dev2Scene::Render(HDC hdc)
 	wstring str = L"Beach";
 	::TextOut(hdc, 0, 45, str.c_str(), str.length());
 	_installPanel->Render(hdc);
+	_installSubmarinePanel->Render(hdc);
 }
 void Dev2Scene::Update()
 {
@@ -206,11 +215,13 @@ void Dev2Scene::Update()
 		_gameWave->SetGameWaveState(GameWaveState::Wave2);
 	}
 	_installPanel->Update();
+	_installSubmarinePanel->Update();
 }
 void Dev2Scene::Release()
 {
 	Super::Release();
 	_installPanel->Release();
+	_installSubmarinePanel->Release();
 }
 
 void Dev2Scene::LoadResource()
@@ -589,6 +600,16 @@ bool Dev2Scene::CanGo(Actor* actor, Vector2Int cellPos)
 	// 위에는 전부 유효성 검사 
 	if (46 <= tile->value && tile->value < 62) // 51이 물
 	{
+		for (BehicleActor* behicle : _behicles)
+		{
+			if (behicle->GetBehicleType() == L"FB_Submarine_")
+			{
+				if (behicle->GetCellPos() == cellPos)
+				{
+					return false;
+				}
+			}
+		}
 		return true;
 	}
 	return false;

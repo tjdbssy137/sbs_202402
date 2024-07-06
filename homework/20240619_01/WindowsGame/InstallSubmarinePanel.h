@@ -1,10 +1,11 @@
 #pragma once
 #include "Panel.h"
 
-class InstallPanel : public Panel
+
+class InstallSubmarinePanel : public Panel
 {
 public:
-	DECLARE_CHILD(InstallPanel, Panel)
+	DECLARE_CHILD(InstallSubmarinePanel, Panel)
 public:
 	virtual void Init();
 	virtual void Render(HDC hdc);
@@ -12,9 +13,6 @@ public:
 	virtual void Release();
 public:
 	void LoadResource();
-public:
-	void OnClick_GoToUpGrade();
-	void OnClick_GoToInstallDrill();
-	void OnClick_GoToInstallTank();
 	void OnClick_GoToInstallSubmarine();
 };
+

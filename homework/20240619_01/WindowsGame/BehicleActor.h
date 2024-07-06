@@ -8,6 +8,7 @@ class BulletActorController;
 enum class BehicleState
 {
 	Attack,
+	Submarine,
 	Idle
 };
 
