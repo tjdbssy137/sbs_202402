@@ -11,6 +11,7 @@ namespace Collision
 
 	bool CircleInCircle(Vector2 pos1, float radius1, Vector2 pos2, float radius2);
 	bool RectInCircle(CenterRect rect, Vector2 CirclePos, float radius);
+	bool PtInCirlce(POINT pt, Vector2 pos, float radius);
 }
 
 namespace Shape

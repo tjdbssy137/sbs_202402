@@ -16,5 +16,4 @@ public:
 	void OnClick_GoToUpGrade();
 	void OnClick_GoToInstallDrill();
 	void OnClick_GoToInstallTank();
-	void OnClick_GoToInstallSubmarine();
 };

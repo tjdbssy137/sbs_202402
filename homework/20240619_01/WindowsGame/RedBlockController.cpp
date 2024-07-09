@@ -7,6 +7,9 @@
 #include "Dev2Scene.h"
 #include "InstallPanel.h"
 #include "InstallSubmarinePanel.h"
+#include "ActionButtonsPanel.h"
+#include "BehicleActor.h"
+#include "CircleCollider.h"
 void RedBlockController::SetLink(RedBlockActor* block)
 {
 	assert(block != nullptr);
@@ -24,6 +27,11 @@ void RedBlockController::Update()
 	if (Input->GetKeyDown(KeyCode::D))
 	{
 		_mouseState = MouseState::Nothing;
+		Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
+		InstallSubmarinePanel* installSubmarinePanel = dev2Scene->GetInstallSubmarinePanel();
+		installSubmarinePanel->Hide();
+		InstallPanel* installPanel = dev2Scene->GetInstallPanel();
+		installPanel->Hide();
 	}
 
 	switch (_mouseState)
@@ -36,6 +44,9 @@ void RedBlockController::Update()
 		break;
 	case MouseState::ClickOcean:
 		DoInstallOcean();
+		break;
+	case MouseState::UpgradeDelete:
+		DoUpgradeDeleteBehicle();
 		break;
 	case MouseState::Nothing:
 		_block->SetSprite(nullptr);
@@ -85,22 +96,63 @@ void RedBlockController::CanInstallBehicle()
 		assert(tilemap != nullptr);
 		
 		Tile* tile = tilemap->GetTileAt(pos);
-		if (tile->value == 4 || (14 <= tile->value && tile->value <= 45))
-		{
-			cout << "건설 됨" << endl;
-			_pos = pos;
-			_mouseState = MouseState::ClickGround;
-		}
-		else if (46 <= tile->value && tile->value < 62) // 51이 물
-		{
-			// ONLY submrine 
-			cout << "건설 됨" << endl;
-			_pos = pos;
-			_mouseState = MouseState::ClickOcean;
-		}
-		else
-		{
-			cout << "건설 안 됨" << endl;
+
+		{//이미 설치가 되어있으면, 걔를 조회하고
+			auto findIt = find(_alreadyInstallBehicle.begin(), _alreadyInstallBehicle.end(), pos);
+			if (findIt != _alreadyInstallBehicle.end())
+			{
+				cout << "Upgrade or Delete" << endl;
+				_pos = pos;
+				_mouseState = MouseState::UpgradeDelete; // 업그레이드 & 삭제 판넬을 띄운다.
+			}
+			else
+			{
+				if (tile->value == 4 || (14 <= tile->value && tile->value <= 45))
+				{
+					_alreadyInstallBehicle.push_back(pos);
+
+					cout << "건설 됨" << endl;
+					_pos = pos;
+					_mouseState = MouseState::ClickGround;
+				}
+				else if (46 <= tile->value && tile->value < 62) // 51이 물
+				{
+					// ONLY submrine 
+					_alreadyInstallBehicle.push_back(pos);
+
+					cout << "건설 됨" << endl;
+					_pos = pos;
+					_mouseState = MouseState::ClickOcean;
+				}
+				else
+				{
+					cout << "건설 안 됨" << endl;
+				}
+			}
 		}
 	}
+}
+
+void RedBlockController::DoUpgradeDeleteBehicle()
+{
+	// 타일을 누른다.
+	// 이미 설치가 되어있으면, 걔를 조회하고
+	// 업그레이드 & 삭제 판넬을 띄운다.
+	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
+	ActionButtonsPanel* actionPanel = dev2Scene->GetActionButtonsPanel();
+	vector<BehicleActor*> _behicles = dev2Scene->GetBehicleActor();
+	
+	_Index = 0;
+
+	for (BehicleActor* behicle : _behicles)
+	{
+		if (behicle->GetCellPos() == _pos)
+		{
+			break;
+		}
+		_Index++;
+	}
+	actionPanel->Show();
+	_mouseState = MouseState::Nothing;
+
 }

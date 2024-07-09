@@ -17,27 +17,18 @@ void InstallPanel::Init()
 			iconListPanel->SetRect(Shape::MakeCenterRect(WIN_SIZE_X/2, WIN_SIZE_Y / 2, 100, 40));
 			this->AddChild(iconListPanel);
 		}
-		/*
+		
 		{
 			Image* image1 = new Image();
-			image1->SetRect(Shape::MakeCenterRect(0, 0, 0, 0));//panel기준으로 해야하기 때문에 좌표가 같아야 함.
-			image1->SetSprite(Resource->GetSprite(L"S_Victory"));
+			image1->SetRect(Shape::MakeCenterRect(0, 0, 0, 0));
+			image1->SetSprite(Resource->GetSprite(L"S_Button_L"));
 			image1->Init();
 			iconListPanel->AddChild(image1);
 		}
-
-		{
-			Image* image1 = new Image();
-			image1->SetRect(Shape::MakeCenterRect(0, 60, 0, 0));//panel기준으로 해야하기 때문에 좌표가 같아야 함.
-			image1->SetSprite(Resource->GetSprite(L"S_Mole_Idle"));
-			image1->Init();
-			iconListPanel->AddChild(image1);
-		}
-		*/
 
 		{
 			Button* drillButton = new Button();
-			drillButton->SetRect(Shape::MakeCenterRect(-40, 4, 32, 32));
+			drillButton->SetRect(Shape::MakeCenterRect(-25, -2, 32, 32));
 			drillButton->SetSprite(ButtonState::Default, Resource->GetSprite(L"S_DrillTank1_Default"));
 			drillButton->SetSprite(ButtonState::Hover, Resource->GetSprite(L"S_DrillTank1_Hover"));
 			drillButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_DrillTank1_Pressed"));
@@ -48,7 +39,7 @@ void InstallPanel::Init()
 		}
 		{
 			Button* tankButton = new Button();
-			tankButton->SetRect(Shape::MakeCenterRect(40, 4, 32, 32));
+			tankButton->SetRect(Shape::MakeCenterRect(25, -2, 32, 32));
 			tankButton->SetSprite(ButtonState::Default, Resource->GetSprite(L"S_Tank1_Default"));
 			tankButton->SetSprite(ButtonState::Hover, Resource->GetSprite(L"S_Tank1_Hover"));
 			tankButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_Tank1_Pressed"));

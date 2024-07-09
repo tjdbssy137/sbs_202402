@@ -10,7 +10,8 @@ enum class BehicleTypeState
 	DrillTank2,
 	DrillTank3,
 	Submarine,
-	None
+	None,
+	Delete
 };
 class BehicleController
 {

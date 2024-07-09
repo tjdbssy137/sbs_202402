@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ActionButtonsPanel.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="BehicleActor.h" />
     <ClInclude Include="BehicleController.h" />
@@ -215,7 +216,6 @@
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteActor.h" />
-    <ClInclude Include="SubmarineActor.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestPanel.h" />
     <ClInclude Include="Texture.h" />
@@ -231,6 +231,7 @@
     <ClInclude Include="WindowsGame.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ActionButtonsPanel.cpp" />
     <ClCompile Include="BehicleActor.cpp" />
     <ClCompile Include="BehicleController.cpp" />
     <ClCompile Include="BoatActor.cpp" />
@@ -367,7 +368,6 @@
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteActor.cpp" />
-    <ClCompile Include="SubmarineActor.cpp" />
     <ClCompile Include="TestPanel.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tilemap.cpp" />

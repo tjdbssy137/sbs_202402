@@ -9,7 +9,8 @@ enum class BehicleState
 {
 	Attack,
 	Submarine,
-	Idle
+	Idle,
+	None
 };
 
 class BehicleActor : public FlipbookActor, public ITilemapActor
@@ -32,19 +33,18 @@ public:
 
 	void ChangeDirection(eDirection dir);
 public:
-	void SetBulletSpeed(float behicleSpeed) { _behicleBulletSpeed = behicleSpeed; }
-	float GetBulletSpeed() { return _behicleBulletSpeed; }
-
-	void SetBulletDamage(float behicleBulletDamage) { _behicleBulletDamage = behicleBulletDamage; }
-	float GetBulletDamage() { return _behicleBulletDamage; }
-
 	void SetBehicleType(wstring behicleType) { _behicleType = behicleType; }
 	wstring GetBehicleType() { return _behicleType; }
 
-	void SetBehicleDamage(float deal) { _damage = deal; }
-	float GetBehicleDamage() { return _damage; }
+	void SetBulletDamage(float deal) { _behicleBulletDamage = deal; }
+	float GetBulletDamage() { return _behicleBulletDamage; }
+	
+	void SetBulletSpeed(float speed) { _behicleBulletSpeed = speed; }
+	float GetBulletSpeed() { return _behicleBulletSpeed; }
 
 	void SetAttackTime(float time) { _attackTime = time; }
+	
+	CircleCollider* GetBehicleCollider() { return collider; }
 
 	void SetColliderSize(int size) { _colliderSize = size; }
 
@@ -75,8 +75,6 @@ private:
 	int _colliderSize = 150;
 	float _attackTime = 1.0f;
 	float _time = 1.0f;
-	float _damage = 10;
 	BoatActor* _targetBoat = nullptr;
 	BulletActorController* _bulletActorController = nullptr;
-
 };

@@ -23,14 +23,31 @@ void InstallBehicle::Release()
 void InstallBehicle::InstallBehicleFunc(Vector2Int pos)
 {
 	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
-	vector<BehicleActor*> behicles = dev2Scene->GetBehicleActor();
-	vector<BehicleController*> behicleController = dev2Scene->GetBehicleController();
-	if (behicles.size() == _index) // vector 범위 벗어나는 것 방지
-	{
-		_index = 0;
-	}
 
-	behicles[_index]->SetCellPos(pos, true);
-	behicleController[_index]->SetBehicleTypeState(_type);
-	_index++;
+	vector<BehicleController*> _behicleControllers = dev2Scene->GetBehicleController();
+
+	BehicleController* behicleController = new BehicleController();
+	{
+		BehicleActor* behicle = new BehicleActor();
+		behicle->SetLayer(LayerType::Character);
+		behicleController->SetLink(behicle);
+		behicleController->SetBehicleTypeState(_type);
+		behicle->Init();
+		dev2Scene->SpawnActor(behicle);
+		behicle->SetCellPos(pos, true);
+		dev2Scene->SetBehicleActor(behicle);
+	}
+	dev2Scene->SetBehicleController(behicleController);
+}
+
+void InstallBehicle::UpgradeBehicleFunc(BehicleController* behicleController)
+{
+	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
+	behicleController->SetBehicleTypeState(_type);
+}
+
+void InstallBehicle::DeleteBehicleFunc(BehicleController* behicleController)
+{
+	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
+	
 }

@@ -51,6 +51,7 @@ public:
 	wstring GetBoatType() { return _boatType; }
 
 	void SetBoatHP(float HP) { _HP = HP; }
+	void SetBoatStaticHP(float HP) { _staticHP = HP; }
 
 	CircleCollider* GetBoatCollider() { return collider; }
 
@@ -84,6 +85,7 @@ private:// Astar ฐüทร
 
 private:
 	float _HP = 100.0f;
+	float _staticHP = 100.0f;
 	Sprite* _hpBackground = nullptr;
 	Sprite* _bpBar = nullptr;
 private:

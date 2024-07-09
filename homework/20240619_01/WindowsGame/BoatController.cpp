@@ -23,10 +23,8 @@ void BoatController::Update()
 		this->Depart();
 		break;
 	case BoatState::Move:
-	{
 		this->Arrive();
-	}
-	break;
+		break;
 	default:
 		break;
 	}
@@ -61,7 +59,6 @@ void BoatController::Arrive()
 		cout << "도착" << endl;
 		_boat->SetState(BoatState::Goal);
 		// 목적지에 도착하면 이 액터의 위치를 다시 시작 지점으로 재설정.
-		// 벡터에서 뺏던걸 다시 벡터 맨 뒤로 넣기. : 재사용을 위해
 	}
 }
 

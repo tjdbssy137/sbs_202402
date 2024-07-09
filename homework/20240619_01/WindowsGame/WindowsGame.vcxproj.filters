@@ -265,8 +265,10 @@
     <ClInclude Include="InstallPanel.h">
       <Filter>06.UI\Game</Filter>
     </ClInclude>
-    <ClInclude Include="SubmarineActor.h" />
     <ClInclude Include="InstallSubmarinePanel.h">
+      <Filter>06.UI\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionButtonsPanel.h">
       <Filter>06.UI\Game</Filter>
     </ClInclude>
   </ItemGroup>
@@ -530,8 +532,10 @@
     <ClCompile Include="InstallPanel.cpp">
       <Filter>06.UI\Game</Filter>
     </ClCompile>
-    <ClCompile Include="SubmarineActor.cpp" />
     <ClCompile Include="InstallSubmarinePanel.cpp">
+      <Filter>06.UI\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionButtonsPanel.cpp">
       <Filter>06.UI\Game</Filter>
     </ClCompile>
   </ItemGroup>

@@ -22,6 +22,18 @@ namespace Collision
 		}
 		return false;
 	}
+	bool PtInCirlce(POINT pt, Vector2 pos, float radius)
+	{
+		Vector2 lengthVector = pos - pt;
+		float length = lengthVector.LengthSqrt();
+
+		if (length <= radius * radius)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	bool RectInRect(RECT rect1, RECT rect2)
 	{
 		{

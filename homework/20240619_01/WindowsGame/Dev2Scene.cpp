@@ -6,7 +6,6 @@
 #include "Flipbook.h"
 #include "BoatActor.h"
 #include "BehicleActor.h"
-#include "SubmarineActor.h"
 #include "CameraComponent.h"
 #include "Texture.h"
 #include "Sprite.h"
@@ -25,6 +24,8 @@
 #include "GameWave.h"
 #include "InstallPanel.h"
 #include "InstallSubmarinePanel.h"
+#include "ActionButtonsPanel.h"
+
 void Dev2Scene::Init()
 {
 	LoadResource();
@@ -117,22 +118,6 @@ void Dev2Scene::Init()
 		}
 	}
 
-	for (int i = 0; i < 15; i++)
-	{
-		BehicleController* behicleController = new BehicleController();
-		_behicleControllers.push_back(behicleController);
-		{
-			BehicleActor* behicle = new BehicleActor();
-			behicle->SetLayer(LayerType::Character);
-			behicle->SetBehicleType(L"FB_Tank2_");
-			behicle->Init();
-			_behicleControllers[i]->SetLink(behicle);
-			this->SpawnActor(behicle);
-			behicle->SetPos({2000, 2000});
-			_behicles.push_back(behicle);
-		}
-	}
-
 	{
 		_installBehicle = new InstallBehicle();
 		_installBehicle->Init();
@@ -173,6 +158,12 @@ void Dev2Scene::Init()
 		_installSubmarinePanel->Hide();
 	}
 
+	{
+		_actionButtonsPanel = new ActionButtonsPanel();
+		_actionButtonsPanel->Init();
+		_actionButtonsPanel->Hide();
+	}
+
 	// behicle을 여러개 생성해두고? 마우스 좌표로 비히클 위치를 지정해주는 클래스를 새로 만들어야할 듯.
 	// 마우스를 가져다 대면 빨간색의 작은 타일이 생기고 그곳을 누르면 설치.. (panel이 마우스를 따라다니며 어떤 걸 설치할 지 메뉴)
 
@@ -189,6 +180,7 @@ void Dev2Scene::Render(HDC hdc)
 	::TextOut(hdc, 0, 45, str.c_str(), str.length());
 	_installPanel->Render(hdc);
 	_installSubmarinePanel->Render(hdc);
+	_actionButtonsPanel->Render(hdc);
 }
 void Dev2Scene::Update()
 {
@@ -208,7 +200,8 @@ void Dev2Scene::Update()
 	_gameWave->Update();
 	if (Input->GetKeyDown(KeyCode::Up))
 	{
-		_gameWave->SetGameWaveState(GameWaveState::Wave1);
+		cout << _behicles.size() << endl;
+		//_gameWave->SetGameWaveState(GameWaveState::Wave1);
 	}
 	if (Input->GetKeyDown(KeyCode::W))
 	{
@@ -216,12 +209,14 @@ void Dev2Scene::Update()
 	}
 	_installPanel->Update();
 	_installSubmarinePanel->Update();
+	_actionButtonsPanel->Update();
 }
 void Dev2Scene::Release()
 {
 	Super::Release();
 	_installPanel->Release();
 	_installSubmarinePanel->Release();
+	_actionButtonsPanel->Release();
 }
 
 void Dev2Scene::LoadResource()
@@ -545,7 +540,11 @@ void Dev2Scene::LoadResource()
 	//----------------------------------
 	//  ## UI
 	//----------------------------------
-
+	Texture* Buttons = Resource->LoadTexture(L"T_Buttons", L"UIStudy/Buttons.bmp");
+	Resource->CreateSprite(L"S_Button_L", Buttons, 0, 0, 100, 40);
+	Resource->CreateSprite(L"S_Button_S", Buttons, 0, 40, 40, 40);
+	Resource->CreateSprite(L"S_Button_Upgrade", Buttons, 40, 40, 40, 40);
+	Resource->CreateSprite(L"S_Button_Delete", Buttons, 80, 40, 40, 40);
 }
 
 Vector2 Dev2Scene::GetTilemapPos(Vector2Int cellPos)
@@ -574,6 +573,17 @@ Vector2 Dev2Scene::GetTilemapPos(Vector2Int cellPos)
 
 bool Dev2Scene::CanGo(Actor* actor, Vector2Int cellPos)
 {
+	for (BehicleActor* behicle : _behicles)
+	{
+		if (behicle->GetBehicleType() == L"FB_Submarine_")
+		{
+			if (behicle->GetCellPos() == cellPos) // 잠수함을 설치해도 바로 적용 안 됨.
+			{
+				return false;
+			}
+		}
+	}
+
 	assert(actor != nullptr);
 	if (actor == nullptr)
 	{
@@ -600,16 +610,6 @@ bool Dev2Scene::CanGo(Actor* actor, Vector2Int cellPos)
 	// 위에는 전부 유효성 검사 
 	if (46 <= tile->value && tile->value < 62) // 51이 물
 	{
-		for (BehicleActor* behicle : _behicles)
-		{
-			if (behicle->GetBehicleType() == L"FB_Submarine_")
-			{
-				if (behicle->GetCellPos() == cellPos)
-				{
-					return false;
-				}
-			}
-		}
 		return true;
 	}
 	return false;

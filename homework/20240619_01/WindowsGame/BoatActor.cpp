@@ -11,7 +11,7 @@ void BoatActor::Init()
 {
 	//wprintf(GetBoatType().c_str());
 	
-	SetActiveBoat();
+	//SetActiveBoat();
 	this->SetState(_state);
 	this->SetName("Enemy");
 	collider = new CircleCollider();
@@ -76,7 +76,7 @@ void BoatActor::Render(HDC hdc)
 		::TransparentBlt(hdc,
 			renderPos.x,
 			renderPos.y,
-			size.x * (_HP / 100.0f),
+			size.x * (_HP / _staticHP),// 안되면 여기 문제
 			size.y,
 			_bpBar->GetDC(),
 			_bpBar->GetPos().x,
@@ -117,16 +117,7 @@ void BoatActor::Release()
 {
 	Super::Release();
 }
-/*
-void BoatActor::SetState(BoatState state)
-{
-	//FSM 유한상태머신
 
-	_state = state;
-
-	this->SetFlipbook(_moveFlipbook[_dir]);
-}
-*/
 void BoatActor::SetActiveBoat()
 {
 	wstring direction[eDirection::END]
@@ -244,6 +235,7 @@ void BoatActor::OnTriggerEnter(Collider* collider, Collider* other)
 	{
 		BulletActor* behicleBullet = dynamic_cast<BulletActor*>(other->GetOwner());
 		float getDamage = behicleBullet->GetBulletDamage();
+		cout << getDamage << endl;
 		UpdateHPImage(getDamage);
 		behicleBullet->SetBulletState(BulletState::Done);
 		_bulletActorController->PushBullet(behicleBullet);

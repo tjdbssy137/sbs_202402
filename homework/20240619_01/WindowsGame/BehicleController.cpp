@@ -24,7 +24,7 @@ void BehicleController::Update()
 		_behicle->SetColliderSize(120);
 		_behicle->ChangeDirection(eDirection::DOWN_RIGHT);//이 코드가 없으면 actor가 안 보임
 		_behicle->SetActiveBehicle();
-		_behicle->SetBehicleDamage(10);
+		_behicle->SetBulletDamage(10);
 		_behicle->SetAttackTime(1);
 		_behicle->SetBulletSpeed(210);
 		_type = BehicleTypeState::None;
@@ -36,7 +36,7 @@ void BehicleController::Update()
 		_behicle->SetColliderSize(150);
 		_behicle->ChangeDirection(eDirection::DOWN_RIGHT);
 		_behicle->SetActiveBehicle();
-		_behicle->SetBehicleDamage(15);
+		_behicle->SetBulletDamage(15);
 		_behicle->SetAttackTime(0.8f);
 		_behicle->SetBulletSpeed(240);
 		_type = BehicleTypeState::None;
@@ -49,11 +49,10 @@ void BehicleController::Update()
 		_behicle->SetColliderSize(200);
 		_behicle->ChangeDirection(eDirection::DOWN_RIGHT);
 		_behicle->SetActiveBehicle();
-		_behicle->SetBehicleDamage(20);
+		_behicle->SetBulletDamage(20);
 		_behicle->SetAttackTime(0.7f);
 		_behicle->SetBulletSpeed(270);
 		_type = BehicleTypeState::None;
-
 	}
 		break;
 	case BehicleTypeState::DrillTank1:
@@ -62,7 +61,7 @@ void BehicleController::Update()
 		_behicle->SetColliderSize(90);
 		_behicle->ChangeDirection(eDirection::DOWN_RIGHT);
 		_behicle->SetActiveBehicle();
-		_behicle->SetBehicleDamage(15);
+		_behicle->SetBulletDamage(15);
 		_behicle->SetAttackTime(0.8f);
 		_behicle->SetBulletSpeed(200);
 		_type = BehicleTypeState::None;
@@ -75,7 +74,7 @@ void BehicleController::Update()
 		_behicle->SetColliderSize(120);
 		_behicle->ChangeDirection(eDirection::DOWN_RIGHT);
 		_behicle->SetActiveBehicle();
-		_behicle->SetBehicleDamage(18);
+		_behicle->SetBulletDamage(18);
 		_behicle->SetAttackTime(0.7f); 
 		_behicle->SetBulletSpeed(220);
 		_type = BehicleTypeState::None;
@@ -88,7 +87,7 @@ void BehicleController::Update()
 		_behicle->SetColliderSize(150);
 		_behicle->ChangeDirection(eDirection::DOWN_RIGHT);
 		_behicle->SetActiveBehicle();
-		_behicle->SetBehicleDamage(21);
+		_behicle->SetBulletDamage(21);
 		_behicle->SetAttackTime(0.6f);
 		_behicle->SetBulletSpeed(240);
 		_type = BehicleTypeState::None;
@@ -103,8 +102,13 @@ void BehicleController::Update()
 		_type = BehicleTypeState::None;
 	}
 		break;
-	case BehicleTypeState::None:
-
+	case BehicleTypeState::Delete:
+	{
+		_behicle->SetBehicleType(L"FB_Submarine_");
+		_behicle->SetState(BehicleState::None);
+		_behicle->SetPos({ 2000,2000 });
+		_type = BehicleTypeState::None;
+	}
 		break;
 	default:
 		break;

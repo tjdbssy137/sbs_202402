@@ -15,6 +15,7 @@ class BulletActorController;
 class GameWave;
 class InstallPanel;
 class InstallSubmarinePanel;
+class ActionButtonsPanel;
 
 class Dev2Scene : public TilemapScene
 {
@@ -35,27 +36,35 @@ public:
 public:
 	MapToolController* GetMapToolController() { return _mapToolController;	}
 	RedBlockController* GetRedBlockController() { return _redBlockController; }
-	vector<BehicleActor*> GetBehicleActor(){ return _behicles; }
+	
 	InstallBehicle* GetInstallBehicle() { return _installBehicle; }
 	vector<BoatActor*> GetBoatActor() { return _boats; }
 	BulletActorController* GetBulletActorController() { return _bulletActorController; }
+	
 	vector<BehicleController*> GetBehicleController() { return _behicleControllers; }
+	void SetBehicleController(BehicleController* behicleController) { _behicleControllers.push_back(behicleController); }
+	vector<BehicleActor*> GetBehicleActor() { return _behicles; }
+	void SetBehicleActor(BehicleActor* behicles) { _behicles.push_back(behicles); }
 
 	InstallPanel* GetInstallPanel() { return _installPanel; }
 	InstallSubmarinePanel* GetInstallSubmarinePanel() { return _installSubmarinePanel; }
+	ActionButtonsPanel* GetActionButtonsPanel() { return _actionButtonsPanel; }
 private:
-	//Panel* panel = nullptr;
 	TilemapActor* _tilemapActor = nullptr;
-	MapToolController* _mapToolController = nullptr;
 	vector<BoatActor*> _boats = {};
-	vector<BoatController*> _boatControllers = {};
 	vector<BehicleActor*> _behicles = {};
-	vector<BehicleController*> _behicleControllers = {};
 
+	//Controller
+	MapToolController* _mapToolController = nullptr;
+	vector<BoatController*> _boatControllers = {};
+	vector<BehicleController*> _behicleControllers = {};
 	RedBlockController* _redBlockController = nullptr;
 	InstallBehicle* _installBehicle = nullptr;
 	BulletActorController* _bulletActorController = nullptr;
 	GameWave* _gameWave = nullptr;
+
+	//Panel
 	InstallPanel* _installPanel = nullptr;
 	InstallSubmarinePanel* _installSubmarinePanel = nullptr;
+	ActionButtonsPanel* _actionButtonsPanel = nullptr;
 };

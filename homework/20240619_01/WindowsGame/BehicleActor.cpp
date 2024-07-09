@@ -5,7 +5,7 @@
 #include "BoatActor.h"
 #include "BulletActor.h"
 #include "BulletActorController.h"
-
+#include "BehicleController.h"
 void BehicleActor::Init()
 {
 	this->SetState(_state);
@@ -17,7 +17,7 @@ void BehicleActor::Init()
 	collider->ResetCollisionFlag();
 	collider->AddCollisionFlagLayer(CollisionLayerType::CLT_ENEMY); // 충돌할 레이어
 
-	this->SetActiveBehicle();
+	//this->SetActiveBehicle();
 	this->AddComponent(collider);
 
 	{
@@ -49,6 +49,8 @@ void BehicleActor::Update()
 	case BehicleState::Idle:
 		UpdateIdle();
 		break;
+	case BehicleState::None:
+		break;
 	default:
 		break;
 	}
@@ -61,7 +63,6 @@ void BehicleActor::Release()
 void BehicleActor::SetActiveBehicle()
 {
 //		wcout << GetBehicleType() << endl;
-	
 	wstring direction[eDirection::END]
 		= { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
 	for (int i = 0; i < eDirection::END; i++)
@@ -72,13 +73,14 @@ void BehicleActor::SetActiveBehicle()
 
 	if (this->GetBehicleType() == L"FB_Submarine_")
 	{
-		collider->SetEnable(false);
+		collider->SetCollision(Vector2::Zero(), 0);
 	}
 	else
 	{
 		collider->SetCollision(Vector2::Zero(), _colliderSize);
 		_time = _attackTime;
 	}
+
 }
 void BehicleActor::SetState(BehicleState state)
 {
@@ -110,7 +112,6 @@ void BehicleActor::UpdateIdle()
 		if (Collision::CircleInCircle(this->GetPos(), collider->GetRadius(),
 			boat->GetPos(), boat->GetBoatCollider()->GetRadius()))
 		{
-			// 왜 한 영역에 들어가면 걔 판정만 받는지? 여러 개의 공격을 받아야하는데
 			_targetBoat = boat;
 			if (this->GetBehicleType() == L"FB_Submarine_")
 			{
