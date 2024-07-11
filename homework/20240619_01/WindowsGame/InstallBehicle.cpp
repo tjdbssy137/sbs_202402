@@ -28,6 +28,7 @@ void InstallBehicle::InstallBehicleFunc(Vector2Int pos)
 
 	BehicleController* behicleController = new BehicleController();
 	{
+		cout << "Create Behicle" << endl;
 		BehicleActor* behicle = new BehicleActor();
 		behicle->SetLayer(LayerType::Character);
 		behicleController->SetLink(behicle);

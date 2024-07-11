@@ -95,24 +95,27 @@ void InstallPanel::Release()
 
 void InstallPanel::OnClick_GoToInstallDrill()
 {
+	//cout << "DrillTank" << endl;
  	Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
 	InstallBehicle* installBehicle = scene->GetInstallBehicle();
 	RedBlockController* redBlockController = scene->GetRedBlockController();
 
 	installBehicle->SetBehicleTypeState(static_cast<int>(BehicleTypeState::DrillTank1));
 	installBehicle->InstallBehicleFunc(redBlockController->GetInstallBehiclePos());
+	_state = InstallButtonManagState::Hide;
 	this->Hide();
 }
 void InstallPanel::OnClick_GoToInstallTank()
 {
-	cout << "Tank" << endl;
+	//cout << "Tank" << endl;
 	Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
 	InstallBehicle* installBehicle = scene->GetInstallBehicle();
 	RedBlockController* redBlockController = scene->GetRedBlockController();
 
 	installBehicle->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Tank1));
 	installBehicle->InstallBehicleFunc(redBlockController->GetInstallBehiclePos());
-
+	
+	_state = InstallButtonManagState::Hide;
 	this->Hide();
 }
 void InstallPanel::LoadResource()

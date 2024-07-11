@@ -28,10 +28,18 @@ void RedBlockController::Update()
 	{
 		_mouseState = MouseState::Nothing;
 		Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
-		InstallSubmarinePanel* installSubmarinePanel = dev2Scene->GetInstallSubmarinePanel();
-		installSubmarinePanel->Hide();
+		
 		InstallPanel* installPanel = dev2Scene->GetInstallPanel();
+		installPanel->SetState(InstallButtonManagState::Hide);
 		installPanel->Hide();
+		
+		InstallSubmarinePanel* installSubmarinePanel = dev2Scene->GetInstallSubmarinePanel();
+		installSubmarinePanel->SetState(InstallSubmarineButtonManagState::Hide);
+		installSubmarinePanel->Hide();
+
+		ActionButtonsPanel* actionPanel = dev2Scene->GetActionButtonsPanel();
+		actionPanel->SetState(ActionButtonsButtonManagState::Hide);
+		actionPanel->Hide();
 	}
 
 	switch (_mouseState)
@@ -131,8 +139,8 @@ void RedBlockController::DoInstallOcean()
 {
 	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
 	InstallSubmarinePanel* installSubmarinePanel = dev2Scene->GetInstallSubmarinePanel();
-	installSubmarinePanel->Show();
 	installSubmarinePanel->SetState(InstallSubmarineButtonManagState::Show);
+	installSubmarinePanel->Show();
 	_mouseState = MouseState::Nothing;
 }
 void RedBlockController::DoUpgradeDeleteBehicle()
@@ -145,7 +153,6 @@ void RedBlockController::DoUpgradeDeleteBehicle()
 	vector<BehicleActor*> _behicles = dev2Scene->GetBehicleActor();
 	
 	_Index = 0;
-
 	for (BehicleActor* behicle : _behicles)
 	{
 		if (behicle->GetCellPos() == _pos)
@@ -154,8 +161,8 @@ void RedBlockController::DoUpgradeDeleteBehicle()
 		}
 		_Index++;
 	}
-	actionPanel->Show();
 	actionPanel->SetState(ActionButtonsButtonManagState::Show);
+	actionPanel->Show();
 	_mouseState = MouseState::Nothing;
 
 }

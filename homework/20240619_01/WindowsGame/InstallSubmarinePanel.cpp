@@ -81,13 +81,14 @@ void InstallSubmarinePanel::Release()
 
 void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 {
-	cout << "OnClick_GoToInstallSubmarine" << endl;
+	//cout << "OnClick_GoToInstallSubmarine" << endl;
 	Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
 	InstallBehicle* installBehicle = scene->GetInstallBehicle();
 	RedBlockController* redBlockController = scene->GetRedBlockController();
 
 	installBehicle->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Submarine));
 	installBehicle->InstallBehicleFunc(redBlockController->GetInstallBehiclePos());
+	_state = InstallSubmarineButtonManagState::Hide;
 	this->Hide();
 }
 void InstallSubmarinePanel::LoadResource()

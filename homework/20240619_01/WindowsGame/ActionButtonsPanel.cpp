@@ -97,7 +97,9 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 
 	vector<BehicleController*> behicleController = scene->GetBehicleController();
 	int index = redBlockController->GetBehicleControllerIndex();
-
+	
+	//cout <<" static_cast<int>(behicleController[index]->GetBehicleTypeState()) : "
+	//  << static_cast<int>(behicleController[index]->GetBehicleTypeState()) << endl;
 	switch (behicleController[index]->GetBehicleTypeState()) // 안들어옴
 	{
 	case BehicleTypeState::Tank1:
@@ -107,8 +109,10 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 	}
 		break;
 	case BehicleTypeState::Tank2:
+	{
 		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Tank3));
-		break;
+		cout << "ActionButtons::Tank2" << endl;
+	}	break;
 	case BehicleTypeState::DrillTank1:
 	{
 		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::DrillTank2));
@@ -116,12 +120,15 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 	}		
 	break;
 	case BehicleTypeState::DrillTank2:
+	{
 		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::DrillTank3));
+		cout << "ActionButtons::DrillTank2" << endl;
+	}
 		break;
 	default:
 		break;
 	}
-	// behicleController[index]->SetBehicleTypeState(static_cast<int>(behicleController[index]->GetBehicleTypeState()) + 1);
+	_state = ActionButtonsButtonManagState::Hide;
 	this->Hide();
 }
 void ActionButtonsPanel::OnClick_GoToDelete()
@@ -130,15 +137,18 @@ void ActionButtonsPanel::OnClick_GoToDelete()
 	RedBlockController* redBlockController = scene->GetRedBlockController();
 	vector<Vector2Int> alreadyInstallBehicle = redBlockController->GetAlreadyInstallBehicle();
 	vector<BehicleController*> behicleController = scene->GetBehicleController();
+	
 	int index = redBlockController->GetBehicleControllerIndex();
 	Vector2Int pos = redBlockController->GetBehiclePos();
 
 	auto findIt = find(alreadyInstallBehicle.begin(), alreadyInstallBehicle.end(), pos);
 	if (findIt != alreadyInstallBehicle.end())
 	{
-		alreadyInstallBehicle.erase(findIt); // 걍 적폐같다..
-		redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle);
+		cout << "index : " << index << endl; // 같은 장소에 있는 건 인덱스가 왜인지 안달라지네..?? -> SetPos가 아니라 SetCellPos였음
+		alreadyInstallBehicle.erase(findIt);
+		redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle); // 이거 없으면 제대로 작동 안됨.. vector인데 왜지..
 		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Delete));
 	}
+	_state = ActionButtonsButtonManagState::Hide;
 	this->Hide();
 }

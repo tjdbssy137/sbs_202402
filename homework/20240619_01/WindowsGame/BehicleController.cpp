@@ -27,7 +27,6 @@ void BehicleController::Update()
 		_behicle->SetBulletDamage(10);
 		_behicle->SetAttackTime(1);
 		_behicle->SetBulletSpeed(210);
-		_type = BehicleTypeState::None;
 	}
 		break;
 	case BehicleTypeState::Tank2:
@@ -39,8 +38,6 @@ void BehicleController::Update()
 		_behicle->SetBulletDamage(15);
 		_behicle->SetAttackTime(0.8f);
 		_behicle->SetBulletSpeed(240);
-		_type = BehicleTypeState::None;
-
 	}
 	break;
 	case BehicleTypeState::Tank3:
@@ -52,7 +49,6 @@ void BehicleController::Update()
 		_behicle->SetBulletDamage(20);
 		_behicle->SetAttackTime(0.7f);
 		_behicle->SetBulletSpeed(270);
-		_type = BehicleTypeState::None;
 	}
 		break;
 	case BehicleTypeState::DrillTank1:
@@ -64,8 +60,6 @@ void BehicleController::Update()
 		_behicle->SetBulletDamage(15);
 		_behicle->SetAttackTime(0.8f);
 		_behicle->SetBulletSpeed(200);
-		_type = BehicleTypeState::None;
-
 	}
 		break;
 	case BehicleTypeState::DrillTank2:
@@ -77,8 +71,6 @@ void BehicleController::Update()
 		_behicle->SetBulletDamage(18);
 		_behicle->SetAttackTime(0.7f); 
 		_behicle->SetBulletSpeed(220);
-		_type = BehicleTypeState::None;
-
 	}
 		break;
 	case BehicleTypeState::DrillTank3:
@@ -90,8 +82,6 @@ void BehicleController::Update()
 		_behicle->SetBulletDamage(21);
 		_behicle->SetAttackTime(0.6f);
 		_behicle->SetBulletSpeed(240);
-		_type = BehicleTypeState::None;
-
 	}
 		break;
 	case BehicleTypeState::Submarine:
@@ -99,14 +89,16 @@ void BehicleController::Update()
 		_behicle->SetBehicleType(L"FB_Submarine_");
 		_behicle->ChangeDirection(eDirection::DOWN_RIGHT);
 		_behicle->SetActiveBehicle();
-		_type = BehicleTypeState::None;
+		//_type = BehicleTypeState::None; 
+		//		이거 때문에 behicleController[index]->GetBehicleTypeState()에서 계속 None = 7이 떠서 업데이트가 안 됨
+		//		근데 이거 막으니까 공격이랑 LookAtBoat가 안 됨 ㅋㅋ
 	}
 		break;
 	case BehicleTypeState::Delete:
 	{
 		_behicle->SetBehicleType(L"FB_Submarine_");
 		_behicle->SetState(BehicleState::None);
-		_behicle->SetPos({ 2000,2000 });
+		_behicle->SetCellPos({ 54, 1 }, true);
 		_type = BehicleTypeState::None;
 	}
 		break;
