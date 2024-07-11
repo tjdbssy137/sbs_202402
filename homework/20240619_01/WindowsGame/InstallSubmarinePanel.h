@@ -1,7 +1,14 @@
 #pragma once
 #include "Panel.h"
 
+class Button;
 
+enum class InstallSubmarineButtonManagState
+{
+	Show,
+	Hide,
+	None
+};
 class InstallSubmarinePanel : public Panel
 {
 public:
@@ -14,5 +21,10 @@ public:
 public:
 	void LoadResource();
 	void OnClick_GoToInstallSubmarine();
+	void SetState(InstallSubmarineButtonManagState state) { _state = state; }
+
+private:
+	vector<Button*> _buttons = {};
+	InstallSubmarineButtonManagState _state = InstallSubmarineButtonManagState::Hide;
 };
 

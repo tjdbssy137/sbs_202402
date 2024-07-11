@@ -49,7 +49,6 @@ void Button::Render(HDC hdc)
 void Button::Update()
 {
 	Super::Update();
-
 	if (_state == ButtonState::Disabled) return;
 	POINT mousePos = Input->GetMousePos();
 	if (this->IsInMouse())
@@ -66,7 +65,7 @@ void Button::Update()
 				//웹페이지 이동 등등
 				cout << "CLICK!!" << endl;
 				// 새로운 문법 : 함수 포인터
-				
+
 				if (_onClick != nullptr)
 				{
 					_onClick();
@@ -92,4 +91,39 @@ void Button::SetState(ButtonState state)
 {
 	_state = state;
 	_currentSprite = _sprites[(int)_state];
+}
+
+void Button::ButtonMove()
+{
+	if (_state == ButtonState::Disabled) return;
+	POINT mousePos = Input->GetMousePos();
+	if (this->IsInMouse())
+	{
+		if (Input->GetKey(KeyCode::LeftMouse))
+		{
+			this->SetState(ButtonState::Pressed);
+		}
+		else
+		{
+			if (_state == ButtonState::Pressed)
+			{
+				//딱 지금 클릭 했을 때 동작
+				//웹페이지 이동 등등
+				cout << "CLICK!!" << endl;
+				// 새로운 문법 : 함수 포인터
+
+				if (_onClick != nullptr)
+				{
+					_onClick();
+					//Dev1Scene으로 넘어가도록 수정
+					cout << "OnClick" << endl;
+				}
+			}
+			this->SetState(ButtonState::Hover);
+		}
+	}
+	else
+	{
+		this->SetState(ButtonState::Default);
+	}
 }

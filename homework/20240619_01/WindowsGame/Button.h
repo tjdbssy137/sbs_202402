@@ -18,7 +18,8 @@ public:
 	virtual void Render(HDC hdc);
 	virtual void Update();
 	virtual void Release();
-
+public:
+	void ButtonMove();
 public:
 	void SetSprite(ButtonState state, Sprite* sprite) 
 	{

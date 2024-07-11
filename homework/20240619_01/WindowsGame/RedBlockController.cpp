@@ -55,20 +55,7 @@ void RedBlockController::Update()
 		break;
 	}
 }
-void RedBlockController::DoInstallGround()
-{
-	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
-	InstallPanel* installPanel = dev2Scene->GetInstallPanel();
-	installPanel->Show();
-	_mouseState = MouseState::Nothing;
-}
-void RedBlockController::DoInstallOcean()
-{
-	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
-	InstallSubmarinePanel* installSubmarinePanel = dev2Scene->GetInstallSubmarinePanel();
-	installSubmarinePanel->Show();
-	_mouseState = MouseState::Nothing;
-}
+
 void RedBlockController::CanInstallBehicle()
 {
 	TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
@@ -132,7 +119,22 @@ void RedBlockController::CanInstallBehicle()
 		}
 	}
 }
-
+void RedBlockController::DoInstallGround()
+{
+	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
+	InstallPanel* installPanel = dev2Scene->GetInstallPanel();
+	installPanel->SetState(InstallButtonManagState::Show);
+	installPanel->Show();
+	_mouseState = MouseState::Nothing;
+}
+void RedBlockController::DoInstallOcean()
+{
+	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
+	InstallSubmarinePanel* installSubmarinePanel = dev2Scene->GetInstallSubmarinePanel();
+	installSubmarinePanel->Show();
+	installSubmarinePanel->SetState(InstallSubmarineButtonManagState::Show);
+	_mouseState = MouseState::Nothing;
+}
 void RedBlockController::DoUpgradeDeleteBehicle()
 {
 	// 타일을 누른다.
@@ -153,6 +155,7 @@ void RedBlockController::DoUpgradeDeleteBehicle()
 		_Index++;
 	}
 	actionPanel->Show();
+	actionPanel->SetState(ActionButtonsButtonManagState::Show);
 	_mouseState = MouseState::Nothing;
 
 }

@@ -36,6 +36,8 @@ void InstallPanel::Init()
 			drillButton->AddOnClickDelegate(this, &InstallPanel::OnClick_GoToInstallDrill);
 			drillButton->Init();
 			iconListPanel->AddChild(drillButton);
+			_buttons.push_back(drillButton);
+
 		}
 		{
 			Button* tankButton = new Button();
@@ -47,6 +49,8 @@ void InstallPanel::Init()
 			tankButton->AddOnClickDelegate(this, &InstallPanel::OnClick_GoToInstallTank);
 			tankButton->Init();
 			iconListPanel->AddChild(tankButton);
+			_buttons.push_back(tankButton);
+
 		}
 	}
 }
@@ -58,19 +62,40 @@ void InstallPanel::Render(HDC hdc)
 void InstallPanel::Update()
 {
 	Super::Update();
+	switch (_state)
+	{
+	case InstallButtonManagState::Show:
+	{
+		for (Button* button : _buttons)
+		{
+			button->SetState(ButtonState::Default);
+		}
+		_state = InstallButtonManagState::None;
+	}
+	break;
+	case InstallButtonManagState::Hide:
+	{
+		for (Button* button : _buttons)
+		{
+			button->SetState(ButtonState::Disabled);
+		}
+		_state = InstallButtonManagState::None;
+	}
+	break;
+	case InstallButtonManagState::None:
+		break;
+	default:
+		break;
+	}
 }
 void InstallPanel::Release()
 {
 	Super::Release();
 }
 
-void InstallPanel::OnClick_GoToUpGrade()
-{
-
-}
 void InstallPanel::OnClick_GoToInstallDrill()
 {
-	Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
+ 	Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
 	InstallBehicle* installBehicle = scene->GetInstallBehicle();
 	RedBlockController* redBlockController = scene->GetRedBlockController();
 
@@ -80,6 +105,7 @@ void InstallPanel::OnClick_GoToInstallDrill()
 }
 void InstallPanel::OnClick_GoToInstallTank()
 {
+	cout << "Tank" << endl;
 	Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
 	InstallBehicle* installBehicle = scene->GetInstallBehicle();
 	RedBlockController* redBlockController = scene->GetRedBlockController();

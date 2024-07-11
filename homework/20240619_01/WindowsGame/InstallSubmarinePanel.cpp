@@ -36,6 +36,7 @@ void InstallSubmarinePanel::Init()
 			submarineButton->AddOnClickDelegate(this, &InstallSubmarinePanel::OnClick_GoToInstallSubmarine);
 			submarineButton->Init();
 			iconListPanel->AddChild(submarineButton);
+			_buttons.push_back(submarineButton);
 		}
 	}
 }
@@ -47,6 +48,31 @@ void InstallSubmarinePanel::Render(HDC hdc)
 void InstallSubmarinePanel::Update()
 {
 	Super::Update();
+	switch (_state)
+	{
+	case InstallSubmarineButtonManagState::Show:
+	{
+		for (Button* button : _buttons)
+		{
+			button->SetState(ButtonState::Default);
+		}
+		_state = InstallSubmarineButtonManagState::None;
+	}
+	break;
+	case InstallSubmarineButtonManagState::Hide:
+	{
+		for (Button* button : _buttons)
+		{
+			button->SetState(ButtonState::Disabled);
+		}
+		_state = InstallSubmarineButtonManagState::None;
+	}
+	break;
+	case InstallSubmarineButtonManagState::None:
+		break;
+	default:
+		break;
+	}
 }
 void InstallSubmarinePanel::Release()
 {
@@ -55,6 +81,7 @@ void InstallSubmarinePanel::Release()
 
 void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 {
+	cout << "OnClick_GoToInstallSubmarine" << endl;
 	Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
 	InstallBehicle* installBehicle = scene->GetInstallBehicle();
 	RedBlockController* redBlockController = scene->GetRedBlockController();

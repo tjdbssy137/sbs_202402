@@ -28,8 +28,10 @@ void ActionButtonsPanel::Init()
 			UpgradeButton->SetSprite(ButtonState::Pressed, a);
 			UpgradeButton->SetSprite(ButtonState::Disabled, a);
 			UpgradeButton->AddOnClickDelegate(this, &ActionButtonsPanel::OnClick_GoToUpgrade);
+			UpgradeButton->SetState(ButtonState::Disabled);
 			UpgradeButton->Init();
 			iconListPanel->AddChild(UpgradeButton);
+			_buttons.push_back(UpgradeButton);
 		}
 
 		{
@@ -42,8 +44,10 @@ void ActionButtonsPanel::Init()
 			DeleteButton->SetSprite(ButtonState::Pressed, a);
 			DeleteButton->SetSprite(ButtonState::Disabled, a);
 			DeleteButton->AddOnClickDelegate(this, &ActionButtonsPanel::OnClick_GoToDelete);
+			DeleteButton->SetState(ButtonState::Disabled);
 			DeleteButton->Init();
 			iconListPanel->AddChild(DeleteButton);
+			_buttons.push_back(DeleteButton);
 		}
 	}
 }
@@ -55,12 +59,37 @@ void ActionButtonsPanel::Render(HDC hdc)
 void ActionButtonsPanel::Update()
 {
 	Super::Update();
+	switch (_state)
+	{
+	case ActionButtonsButtonManagState::Show:
+	{
+		for (Button* button : _buttons)
+		{
+			button->SetState(ButtonState::Default);
+		}		
+		_state = ActionButtonsButtonManagState::None;
+	}
+		break;
+	case ActionButtonsButtonManagState::Hide:
+	{
+		for (Button* button : _buttons)
+		{
+			button->SetState(ButtonState::Disabled);
+		}
+		_state = ActionButtonsButtonManagState::None;
+	}
+		break;
+	case ActionButtonsButtonManagState::None:
+		break;
+	default:
+		break;
+	}
+	
 }
 void ActionButtonsPanel::Release()
 {
 	Super::Release();
 }
-
 void ActionButtonsPanel::OnClick_GoToUpgrade()
 {
 	Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
@@ -74,7 +103,7 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 	case BehicleTypeState::Tank1:
 	{
 		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Tank2));
-		cout << "Tank2" << endl;
+		cout << "ActionButtons::Tank1" << endl;
 	}
 		break;
 	case BehicleTypeState::Tank2:
@@ -83,7 +112,7 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 	case BehicleTypeState::DrillTank1:
 	{
 		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::DrillTank2));
-		cout << "DrillTank2" << endl;
+		cout << "ActionButtons::DrillTank1" << endl;
 	}		
 	break;
 	case BehicleTypeState::DrillTank2:
@@ -108,8 +137,8 @@ void ActionButtonsPanel::OnClick_GoToDelete()
 	if (findIt != alreadyInstallBehicle.end())
 	{
 		alreadyInstallBehicle.erase(findIt); // °Á ÀûÆó°°´Ù..
+		redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle);
+		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Delete));
 	}
-	redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle);
-	behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Delete));
 	this->Hide();
 }
