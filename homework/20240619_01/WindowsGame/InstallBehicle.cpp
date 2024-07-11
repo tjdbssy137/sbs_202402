@@ -32,6 +32,7 @@ void InstallBehicle::InstallBehicleFunc(Vector2Int pos)
 		BehicleActor* behicle = new BehicleActor();
 		behicle->SetLayer(LayerType::Character);
 		behicleController->SetLink(behicle);
+		behicleController->IsSetting(true);
 		behicleController->SetBehicleTypeState(_type);
 		behicle->Init();
 		dev2Scene->SpawnActor(behicle);
@@ -43,12 +44,10 @@ void InstallBehicle::InstallBehicleFunc(Vector2Int pos)
 
 void InstallBehicle::UpgradeBehicleFunc(BehicleController* behicleController)
 {
-	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
-	behicleController->SetBehicleTypeState(_type);
+
 }
 
 void InstallBehicle::DeleteBehicleFunc(BehicleController* behicleController)
 {
-	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
 	
 }

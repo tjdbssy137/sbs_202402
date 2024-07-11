@@ -100,29 +100,29 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 	
 	//cout <<" static_cast<int>(behicleController[index]->GetBehicleTypeState()) : "
 	//  << static_cast<int>(behicleController[index]->GetBehicleTypeState()) << endl;
-	switch (behicleController[index]->GetBehicleTypeState()) // 안들어옴
+	switch (behicleController[index]->GetBehicleTypeState())
 	{
 	case BehicleTypeState::Tank1:
 	{
+		behicleController[index]->IsSetting(true);
 		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Tank2));
-		cout << "ActionButtons::Tank1" << endl;
 	}
 		break;
 	case BehicleTypeState::Tank2:
 	{
+		behicleController[index]->IsSetting(true);
 		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Tank3));
-		cout << "ActionButtons::Tank2" << endl;
 	}	break;
 	case BehicleTypeState::DrillTank1:
 	{
+		behicleController[index]->IsSetting(true);
 		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::DrillTank2));
-		cout << "ActionButtons::DrillTank1" << endl;
-	}		
+	}
 	break;
 	case BehicleTypeState::DrillTank2:
 	{
+		behicleController[index]->IsSetting(true);
 		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::DrillTank3));
-		cout << "ActionButtons::DrillTank2" << endl;
 	}
 		break;
 	default:
@@ -144,9 +144,10 @@ void ActionButtonsPanel::OnClick_GoToDelete()
 	auto findIt = find(alreadyInstallBehicle.begin(), alreadyInstallBehicle.end(), pos);
 	if (findIt != alreadyInstallBehicle.end())
 	{
-		cout << "index : " << index << endl; // 같은 장소에 있는 건 인덱스가 왜인지 안달라지네..?? -> SetPos가 아니라 SetCellPos였음
+		//cout << "index : " << index << endl; // 같은 장소에 있는 건 인덱스가 왜인지 안달라지네..?? -> SetPos가 아니라 SetCellPos였음
 		alreadyInstallBehicle.erase(findIt);
 		redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle); // 이거 없으면 제대로 작동 안됨.. vector인데 왜지..
+		behicleController[index]->IsSetting(true);
 		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Delete));
 	}
 	_state = ActionButtonsButtonManagState::Hide;
