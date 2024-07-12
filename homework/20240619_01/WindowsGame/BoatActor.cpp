@@ -90,7 +90,6 @@ void BoatActor::Render(HDC hdc)
 void BoatActor::Update()
 {
 	Super::Update();
-
 	UpdateHpImage(_nextHp);
 
 	// XXX : <- ÀÌ½´ À§Çè

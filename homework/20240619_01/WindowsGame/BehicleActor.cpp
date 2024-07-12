@@ -136,7 +136,7 @@ void BehicleActor::UpdateAttack()
 	//float currentTick = ::GetTickCount64();
 	if (_time <= 0) // 1초에 한번씩 공격할말을 결정
 	{
-		LoadBullet();
+		UseBullet();
 		_time = _attackTime;
 	}
 }
@@ -207,7 +207,7 @@ void BehicleActor::LookAtTarget() // target을 바라보기
 
 	this->ChangeDirection(direction);
 }
-void BehicleActor::LoadBullet() // 함수명 바꾸고
+void BehicleActor::UseBullet() // 함수명 바꾸고
 {
 	if (_bulletActorController->BulletCount() < 1) // 씬에서 생성하고 꺼내 쓰기
 	{
