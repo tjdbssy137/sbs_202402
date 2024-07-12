@@ -231,12 +231,13 @@ void BoatActor::UpdateMove()
 void BoatActor::OnTriggerEnter(Collider* collider, Collider* other)
 {
 	Super::OnTriggerEnter(collider, other);
+
 	if (other->GetOwner()->GetName() == "bullet")//bullet
 	{
 		BulletActor* behicleBullet = dynamic_cast<BulletActor*>(other->GetOwner());
 		float getDamage = behicleBullet->GetBulletDamage();
 		cout << getDamage << endl;
-		UpdateHPImage(getDamage);
+		UpdateHPImage(getDamage); // 이거 업데이트로 옮기기
 		behicleBullet->SetBulletState(BulletState::Done);
 		_bulletActorController->PushBullet(behicleBullet);
 		//_state = BoatState::Attacked;
@@ -275,7 +276,7 @@ Vector2Int BoatActor::GetCellPos()
 bool BoatActor::HasRechedDest()
 {
 	//_destPos와 내 위치의 길이 < 10px보다 작다.
-	return (_destPos - this->GetPos()).Length() < 10.0f;
+	return (_destPos - this->GetPos()).Length() < 2.0f;
 }
 
 bool BoatActor::CanMove()

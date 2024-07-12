@@ -29,4 +29,3 @@ private:
 	BehicleTypeState _type = BehicleTypeState::Tank1;
 	bool _isSetting = false;
 };
-

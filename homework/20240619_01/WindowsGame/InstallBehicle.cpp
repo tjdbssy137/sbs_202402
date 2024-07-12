@@ -26,7 +26,7 @@ void InstallBehicle::InstallBehicleFunc(Vector2Int pos)
 
 	vector<BehicleController*> _behicleControllers = dev2Scene->GetBehicleController();
 
-	BehicleController* behicleController = new BehicleController();
+	BehicleController* behicleController = new BehicleController(); // 패널로 옮기기
 	{
 		cout << "Create Behicle" << endl;
 		BehicleActor* behicle = new BehicleActor();

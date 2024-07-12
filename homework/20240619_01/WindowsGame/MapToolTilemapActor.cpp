@@ -32,7 +32,7 @@ void MapToolTilemapActor::Save()
 	printf("Save");
 }
 
-void MapToolTilemapActor::Load()
+void MapToolTilemapActor::Load() // 로드해놓고 시작
 {
 	Tilemap* tileMap = this->GetTileMap();
 	if (tileMap == nullptr)

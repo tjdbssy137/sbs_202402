@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "name": "Tower1",
+    "hp": 1000,
+    "damage" :  10,
+    "moveSpeed": 300,
+    "skillId": 200001,
+    "upgradeTowerId" : 2
+  },
+  {
+    "id": 2,
+    "name": "Tower2",
+    "hp": 1000,
+    "damage": 10,
+    "moveSpeed": 300,
+    "skillId": 200001,
+    "upgradeTowerId": 3,
+    "upgradeGold" :  100
+  },
+  {
+    "id": 100003,
+    "name": "Monster3",
+    "hp": 300,
+    "moveSpeed": 500,
+    "skillId": 200003
+  }
+]

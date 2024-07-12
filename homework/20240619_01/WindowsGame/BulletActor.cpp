@@ -22,7 +22,6 @@ void BulletActor::Init()
 		_bulletActorController = dev2Scene->GetBulletActorController();
 	}
 	Super::Init();
-
 }
 void BulletActor::Render(HDC hdc)
 {
@@ -51,7 +50,7 @@ void BulletActor::Release()
 }
 void BulletActor::Update_Move()
 {
-	if (_targetBoat->GetState() == BoatState::Move || _targetBoat->GetState() == BoatState::Idle)
+	if (_targetBoat->GetState() == BoatState::Move || _targetBoat->GetState() == BoatState::Idle) // Á×¾úÀ» ¶§ 
 	{
 		Vector2 dir = _targetBoat->GetPos() - this->GetPos();
 		dir = dir.Normalize();

@@ -20,4 +20,3 @@ private:
 	Vector2 _destPos = {};
 	Vector2Int _cellPos = {};
 };
-

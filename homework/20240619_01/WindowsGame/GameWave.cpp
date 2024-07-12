@@ -22,7 +22,7 @@ void GameWave::Update()
 		break;
 	}
 }
-void GameWave::SetWave()
+void GameWave::SetWave() //제이슨으로 변경
 {
 	//FB_EnemyBoat2_
 	//FB_EnemyShip3_

@@ -207,9 +207,9 @@ void BehicleActor::LookAtTarget() // target을 바라보기
 
 	this->ChangeDirection(direction);
 }
-void BehicleActor::LoadBullet()
+void BehicleActor::LoadBullet() // 함수명 바꾸고
 {
-	if (_bulletActorController->BulletCount() < 30)
+	if (_bulletActorController->BulletCount() < 30) // 씬에서 생성하고 꺼내 쓰기
 	{
 		BulletActor* bullet = new BulletActor();
 		bullet->SetLayer(LayerType::Object);
@@ -231,7 +231,7 @@ void BehicleActor::LoadBullet()
 		bullet->SetATarget(_targetBoat);
 	}
 	_state = BehicleState::Idle;
-
+	
 }
 void BehicleActor::SetCellPos(Vector2Int cellPos, bool teleport)
 {

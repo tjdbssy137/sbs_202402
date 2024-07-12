@@ -549,5 +549,6 @@
     <None Include="MonsterData.json">
       <Filter>998. Json</Filter>
     </None>
+    <None Include="test.json" />
   </ItemGroup>
 </Project>
