@@ -50,16 +50,17 @@ void BulletActor::Release()
 }
 void BulletActor::Update_Move()
 {
-	if (_targetBoat->GetState() == BoatState::Move || _targetBoat->GetState() == BoatState::Idle) // Á×¾úÀ» ¶§ 
+	if(_targetBoat->GetCellPos() == Vector2Int{ 54, 25 }) // _targetBoat->GetState() == Goal or Die
+	//if (_targetBoat->GetState() == BoatState::Move || _targetBoat->GetState() == BoatState::Idle) // Á×¾úÀ» ¶§ 
+	{
+		_state = BulletState::Done;
+		_bulletActorController->PushBullet(this);
+	}
+	else
 	{
 		Vector2 dir = _targetBoat->GetPos() - this->GetPos();
 		dir = dir.Normalize();
 		_body.pos += dir * Time->GetDeltaTime() * _speed;
-	}
-	else
-	{
-		_state = BulletState::Done;
-		_bulletActorController->PushBullet(this);
 	}
 }
 void BulletActor::SetATarget(BoatActor* targetBoat)

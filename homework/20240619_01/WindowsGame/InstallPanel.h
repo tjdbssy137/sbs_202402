@@ -20,6 +20,7 @@ public:
 	virtual void Release();
 public:
 	void LoadResource();
+	void InstallingBehicle(int type);
 public:
 	void OnClick_GoToInstallDrill();
 	void OnClick_GoToInstallTank();

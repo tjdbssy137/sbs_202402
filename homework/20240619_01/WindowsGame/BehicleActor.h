@@ -54,7 +54,7 @@ public:
 
 public:
 	void LookAtTarget();
-	void LoadBullet();
+	void UseBullet();
 	void SetActiveBehicle();
 private:
 	BehicleState _state = BehicleState::Idle;

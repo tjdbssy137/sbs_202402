@@ -2,10 +2,10 @@
 #include "InstallSubmarinePanel.h"
 #include "Image.h"
 #include "Button.h"
-#include "InstallBehicle.h"
 #include "Dev2Scene.h"
 #include "RedBlockController.h"
 #include "BehicleController.h"
+#include "BehicleActor.h"
 void InstallSubmarinePanel::Init()
 {
 	Super::Init();
@@ -81,13 +81,24 @@ void InstallSubmarinePanel::Release()
 
 void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 {
-	//cout << "OnClick_GoToInstallSubmarine" << endl;
-	Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
-	InstallBehicle* installBehicle = scene->GetInstallBehicle();
-	RedBlockController* redBlockController = scene->GetRedBlockController();
+	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
+	RedBlockController* redBlockController = dev2Scene->GetRedBlockController();
+	Vector2Int pos = redBlockController->GetInstallBehiclePos();
+	BehicleController* behicleController = new BehicleController();
+	{
+		cout << "Create Behicle" << endl;
+		BehicleActor* behicle = new BehicleActor();
+		behicle->SetLayer(LayerType::Character);
+		behicleController->SetLink(behicle);
+		behicleController->IsSetting(true);
+		behicleController->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Submarine));
+		behicle->Init();
+		dev2Scene->SpawnActor(behicle);
+		behicle->SetCellPos(pos, true);
+		dev2Scene->SetBehicleActor(behicle);
+	}
+	dev2Scene->SetBehicleController(behicleController); //_behicleControllers.push_back
 
-	installBehicle->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Submarine));
-	installBehicle->InstallBehicleFunc(redBlockController->GetInstallBehiclePos());
 	_state = InstallSubmarineButtonManagState::Hide;
 	this->Hide();
 }

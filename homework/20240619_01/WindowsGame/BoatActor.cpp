@@ -76,7 +76,7 @@ void BoatActor::Render(HDC hdc)
 		::TransparentBlt(hdc,
 			renderPos.x,
 			renderPos.y,
-			size.x * (_HP / _staticHP),// 안되면 여기 문제
+			size.x * (_hp / _staticHp),
 			size.y,
 			_bpBar->GetDC(),
 			_bpBar->GetPos().x,
@@ -90,6 +90,8 @@ void BoatActor::Render(HDC hdc)
 void BoatActor::Update()
 {
 	Super::Update();
+
+	UpdateHpImage(_nextHp);
 
 	// XXX : <- 이슈 위험
 	switch (_state)
@@ -137,13 +139,18 @@ void BoatActor::ChangeDirection(eDirection dir)
 	this->SetFlipbook(_moveFlipbook[_dir]);
 }
 
-void BoatActor::UpdateHPImage(float deal)
+void BoatActor::UpdateHpImage(float nextHp)
 {
-	//_HP -= deal;
 	// 피해량 비율을 계산하기
-	float tempHP = _HP - deal;
-	_HP = _HP + (tempHP - _HP) * 1; //0.65f
-	if (_HP <= 0)
+	if (nextHp <= _hp) // hp 와 tempHp가 완전히 같을 순 없음
+	{
+		_hp = _hp + (nextHp - _hp) * 0.2f; //0.65f
+		if (0 <= _hp - nextHp && _hp - nextHp < 1) // 오차의 범위가 이정도면 _hp = tempHp한다.
+		{
+			_hp = nextHp;
+		}
+	}
+	if (_hp <= 0)
 	{
 		_state = BoatState::Die;
 	}
@@ -236,8 +243,8 @@ void BoatActor::OnTriggerEnter(Collider* collider, Collider* other)
 	{
 		BulletActor* behicleBullet = dynamic_cast<BulletActor*>(other->GetOwner());
 		float getDamage = behicleBullet->GetBulletDamage();
-		cout << getDamage << endl;
-		UpdateHPImage(getDamage); // 이거 업데이트로 옮기기
+		_nextHp = _hp - getDamage;
+		//UpdateHpImage(getDamage); // 이거 업데이트로 옮기기
 		behicleBullet->SetBulletState(BulletState::Done);
 		_bulletActorController->PushBullet(behicleBullet);
 		//_state = BoatState::Attacked;
@@ -278,7 +285,6 @@ bool BoatActor::HasRechedDest()
 	//_destPos와 내 위치의 길이 < 10px보다 작다.
 	return (_destPos - this->GetPos()).Length() < 2.0f;
 }
-
 bool BoatActor::CanMove()
 {
 	if (this->_state == BoatState::Move)
@@ -288,7 +294,6 @@ bool BoatActor::CanMove()
 
 	return true;
 }
-
 void BoatActor::SetPath(vector<Vector2Int> path)
 {
 	_path = path;

@@ -35,8 +35,8 @@ void GameWave::SetWave() //제이슨으로 변경
 		{
 			_boats[_Index]->SetBoatType(L"FB_EnemyBoat1_");
 			_boats[_Index]->SetActiveBoat();
-			_boats[_Index]->SetBoatHP(60);
-			_boats[_Index]->SetBoatStaticHP(60);
+			_boats[_Index]->SetBoatHp(60);
+			_boats[_Index]->SetBoatStaticHp(60);
 			_boats[_Index]->SetBoatSpeed(50);
 			_boats[_Index]->SetState(BoatState::Start);
 			lastTick = currentTick;
@@ -59,8 +59,8 @@ void GameWave::SetWave2()
 		{
 			_boats[_Index]->SetBoatType(L"FB_EnemyBoat1_");
 			_boats[_Index]->SetActiveBoat();
-			_boats[_Index]->SetBoatHP(60);
-			_boats[_Index]->SetBoatStaticHP(60); 
+			_boats[_Index]->SetBoatHp(60);
+			_boats[_Index]->SetBoatStaticHp(60); 
 			_boats[_Index]->SetBoatSpeed(50);
 			_boats[_Index]->SetState(BoatState::Start);
 			lastTick = currentTick;
@@ -74,8 +74,8 @@ void GameWave::SetWave2()
 		{
 			_boats[_Index]->SetBoatType(L"FB_EnemyBoat2_");
 			_boats[_Index]->SetActiveBoat();
-			_boats[_Index]->SetBoatHP(80);
-			_boats[_Index]->SetBoatStaticHP(80); 
+			_boats[_Index]->SetBoatHp(80);
+			_boats[_Index]->SetBoatStaticHp(80); 
 			_boats[_Index]->SetBoatSpeed(100);
 			_boats[_Index]->SetState(BoatState::Start);
 			lastTick = currentTick;

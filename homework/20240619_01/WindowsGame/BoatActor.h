@@ -50,8 +50,8 @@ public:
 	void SetBoatType(wstring boatType) { _boatType = boatType; }
 	wstring GetBoatType() { return _boatType; }
 
-	void SetBoatHP(float HP) { _HP = HP; }
-	void SetBoatStaticHP(float HP) { _staticHP = HP; }
+	void SetBoatHp(float hp) { _hp = hp; }
+	void SetBoatStaticHp(float hp) { _staticHp = hp; _nextHp = hp;  }
 
 	CircleCollider* GetBoatCollider() { return collider; }
 
@@ -63,7 +63,7 @@ public:
 	void UpdateIdle();
 	void SetActiveBoat();
 public:
-	void UpdateHPImage(float deal);
+	void UpdateHpImage(float _tempHP);
 
 private:
 	BoatState _state = BoatState::Idle;
@@ -84,8 +84,9 @@ private:// Astar ฐüทร
 	int _pathIndex = 0;
 
 private:
-	float _HP = 100.0f;
-	float _staticHP = 100.0f;
+	float _hp = 100.0f;
+	float _staticHp = 100.0f;
+	float _nextHp = 100.0f;
 	Sprite* _hpBackground = nullptr;
 	Sprite* _bpBar = nullptr;
 private:

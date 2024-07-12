@@ -209,7 +209,7 @@ void BehicleActor::LookAtTarget() // target을 바라보기
 }
 void BehicleActor::LoadBullet() // 함수명 바꾸고
 {
-	if (_bulletActorController->BulletCount() < 30) // 씬에서 생성하고 꺼내 쓰기
+	if (_bulletActorController->BulletCount() < 1) // 씬에서 생성하고 꺼내 쓰기
 	{
 		BulletActor* bullet = new BulletActor();
 		bullet->SetLayer(LayerType::Object);

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8NjTGUBCQZzQU6OJDdW0XhLgjygtjqB717bAtIdXyl4Y7qj/JgJrHufUOBR6/2i6vqQGQfW2MPftNWe57yhaUw==",
+  "dgSpecHash": "Wbc6ta4mmpqXvTFJgVDFKRl4RLlgEMBVazhQbSqfxD4QaUCvqeZJfRbim/rNx7efOfFMC5DprlW+eyiU5tE1Uw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\NewITest\\Documents\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\ConsoleClient\\ConsoleClient.csproj",
+  "projectFilePath": "D:\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\ConsoleClient\\ConsoleClient.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

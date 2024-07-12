@@ -2,10 +2,11 @@
 #include "InstallPanel.h"
 #include "Image.h"
 #include "Button.h"
-#include "InstallBehicle.h"
 #include "Dev2Scene.h"
 #include "RedBlockController.h"
 #include "BehicleController.h"
+#include "BehicleActor.h"
+
 void InstallPanel::Init()
 {
 	Super::Init();
@@ -96,28 +97,46 @@ void InstallPanel::Release()
 void InstallPanel::OnClick_GoToInstallDrill()
 {
 	//cout << "DrillTank" << endl;
- 	Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
+ 	/*Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
 	InstallBehicle* installBehicle = scene->GetInstallBehicle();
 	RedBlockController* redBlockController = scene->GetRedBlockController();
 
 	installBehicle->SetBehicleTypeState(static_cast<int>(BehicleTypeState::DrillTank1));
 	installBehicle->InstallBehicleFunc(redBlockController->GetInstallBehiclePos());
 	_state = InstallButtonManagState::Hide;
+	this->Hide();*/
+	this->InstallingBehicle(static_cast<int>(BehicleTypeState::DrillTank1));
 	this->Hide();
 }
 void InstallPanel::OnClick_GoToInstallTank()
 {
-	//cout << "Tank" << endl;
-	Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
-	InstallBehicle* installBehicle = scene->GetInstallBehicle();
-	RedBlockController* redBlockController = scene->GetRedBlockController();
-
-	installBehicle->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Tank1));
-	installBehicle->InstallBehicleFunc(redBlockController->GetInstallBehiclePos());
-	
-	_state = InstallButtonManagState::Hide;
+	this->InstallingBehicle(static_cast<int>(BehicleTypeState::Tank1));
 	this->Hide();
 }
+void InstallPanel::InstallingBehicle(int type)
+{
+	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
+
+	RedBlockController* redBlockController = dev2Scene->GetRedBlockController();
+
+	Vector2Int pos = redBlockController->GetInstallBehiclePos();
+	BehicleController* behicleController = new BehicleController();
+	{
+		cout << "Create Behicle" << endl;
+		BehicleActor* behicle = new BehicleActor();
+		behicle->SetLayer(LayerType::Character);
+		behicleController->SetLink(behicle);
+		behicleController->IsSetting(true);
+		behicleController->SetBehicleTypeState(type);
+		behicle->Init();
+		dev2Scene->SpawnActor(behicle);
+		behicle->SetCellPos(pos, true);
+		dev2Scene->SetBehicleActor(behicle);
+	}
+	dev2Scene->SetBehicleController(behicleController);//_behicleControllers.push_back();
+	_state = InstallButtonManagState::Hide;
+}
+
 void InstallPanel::LoadResource()
 {
 	auto a = Resource->GetTexture(L"T_DrillTank1");

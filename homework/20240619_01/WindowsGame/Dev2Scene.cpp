@@ -14,12 +14,11 @@
 #include "TilemapActor.h"
 #include "Tilemap.h"
 #include "MapToolTilemapActor.h"
-#include "MapToolController.h"
 #include "BoatController.h"
 #include "BehicleController.h"
 #include "RedBlockActor.h"
 #include "RedBlockController.h"
-#include "InstallBehicle.h"
+#include "BulletActor.h"
 #include "BulletActorController.h"
 #include "GameWave.h"
 #include "InstallPanel.h"
@@ -72,7 +71,6 @@ void Dev2Scene::Init()
 		Resource->CreateTileMap(L"TM_Test", mapSize, 32, tiles);
 	}
 
-	_mapToolController = new MapToolController();
 	{
 		MapToolTilemapActor* actor = new MapToolTilemapActor();
 		actor->SetTileMap(Resource->GetTileMap(L"TM_Test"));
@@ -89,16 +87,23 @@ void Dev2Scene::Init()
 		}
 		actor->SetLayer(LayerType::Background);
 		actor->Init();
-
-		//이 액터를 조종하겠습니다.
-		_mapToolController->SetLink(actor);
+		actor->Load();
 
 		this->SpawnActor(actor);
 		_tilemapActor = actor;
 	}
 
 	{
-		_bulletActorController = new BulletActorController();
+		_bulletController = new BulletActorController();
+		for (int i = 0; i < 30; i++) // ObjectPooling
+		{
+			BulletActor* bullet = new BulletActor();
+			bullet->SetLayer(LayerType::Object);
+			bullet->SetPos({ 2000, 2000 });
+			bullet->Init();
+			this->SpawnActor(bullet);
+			_bulletController->PushBullet(bullet);
+		}
 	}
 
 	for (int i = 0; i < 10; i++)
@@ -116,12 +121,6 @@ void Dev2Scene::Init()
 			boat->SetCellPos({ 54, 25 }, true); //boat->SetCellPos({ 25 + i, 13 }, true);
 			_boats.push_back(boat);
 		}
-	}
-
-	{
-		_installBehicle = new InstallBehicle();
-		_installBehicle->Init();
-		this->SpawnActor(_installBehicle);
 	}
 
 	_redBlockController = new RedBlockController();
@@ -186,7 +185,6 @@ void Dev2Scene::Update()
 {
 	Super::Update();
 
-	_mapToolController->Update();
 	for (BoatController* boatController : _boatControllers)
 	{
 		boatController->Update();

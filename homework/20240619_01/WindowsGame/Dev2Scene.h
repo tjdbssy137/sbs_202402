@@ -1,14 +1,13 @@
 #pragma once
 #include "TilemapScene.h" // 얘가 이미 Scene을 상속 받고 있음
 
-class MapToolController;
+
 class BoatController;
 class Panel;
 class TilemapActor;
 class Tilemap;
 class BehicleController;
 class RedBlockController;
-class InstallBehicle;
 class BehicleActor;
 class BoatActor;
 class BulletActorController;
@@ -16,6 +15,7 @@ class GameWave;
 class InstallPanel;
 class InstallSubmarinePanel;
 class ActionButtonsPanel;
+class BulletActorController;
 
 class Dev2Scene : public TilemapScene
 {
@@ -34,33 +34,33 @@ public:
 	virtual TilemapActor* GetTilemapActor() override;
 	virtual bool CanGo(Actor* actor, Vector2Int cellPos) override;
 public:
-	MapToolController* GetMapToolController() { return _mapToolController;	}
 	RedBlockController* GetRedBlockController() { return _redBlockController; }
 	
-	InstallBehicle* GetInstallBehicle() { return _installBehicle; }
 	vector<BoatActor*> GetBoatActor() { return _boats; }
-	BulletActorController* GetBulletActorController() { return _bulletActorController; }
+
+	BulletActorController* GetBulletActorController() { return _bulletController; }
 	
 	vector<BehicleController*> GetBehicleController() { return _behicleControllers; }
 	void SetBehicleController(BehicleController* behicleController) { _behicleControllers.push_back(behicleController); }
 	vector<BehicleActor*> GetBehicleActor() { return _behicles; }
 	void SetBehicleActor(BehicleActor* behicles) { _behicles.push_back(behicles); }
 
+
+	//Panel
 	InstallPanel* GetInstallPanel() { return _installPanel; }
 	InstallSubmarinePanel* GetInstallSubmarinePanel() { return _installSubmarinePanel; }
 	ActionButtonsPanel* GetActionButtonsPanel() { return _actionButtonsPanel; }
 private:
+	//Actors
 	TilemapActor* _tilemapActor = nullptr;
 	vector<BoatActor*> _boats = {};
 	vector<BehicleActor*> _behicles = {};
 
 	//Controller
-	MapToolController* _mapToolController = nullptr;
 	vector<BoatController*> _boatControllers = {};
 	vector<BehicleController*> _behicleControllers = {};
 	RedBlockController* _redBlockController = nullptr;
-	InstallBehicle* _installBehicle = nullptr;
-	BulletActorController* _bulletActorController = nullptr;
+	BulletActorController* _bulletController = nullptr;
 	GameWave* _gameWave = nullptr;
 
 	//Panel

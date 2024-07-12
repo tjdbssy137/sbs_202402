@@ -10,4 +10,3 @@ public:
 private:
 	vector<BulletActor*> _bullets;
 };
-
