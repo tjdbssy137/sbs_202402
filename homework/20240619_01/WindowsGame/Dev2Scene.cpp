@@ -113,8 +113,6 @@ void Dev2Scene::Init()
 		{
 			BoatActor* boat = new BoatActor();
 			boat->SetLayer(LayerType::Character);
-			boat->SetBoatSpeed(50);
-			boat->SetBoatType(L"FB_EnemyShip3_");
 			boat->Init();
 			_boatControllers[i]->SetLink(boat);
 			this->SpawnActor(boat);
@@ -196,14 +194,9 @@ void Dev2Scene::Update()
 	_redBlockController->Update();
 
 	_gameWave->Update();
-	if (Input->GetKeyDown(KeyCode::Up))
-	{
-		cout << _behicles.size() << endl;
-		//_gameWave->SetGameWaveState(GameWaveState::Wave1);
-	}
 	if (Input->GetKeyDown(KeyCode::W))
 	{
-		_gameWave->SetGameWaveState(GameWaveState::Wave1);
+		_gameWave->SetGameWaveState(GameWaveState::Wave);
 	}
 	_installPanel->Update();
 	_installSubmarinePanel->Update();

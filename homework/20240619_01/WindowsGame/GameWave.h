@@ -1,11 +1,11 @@
 #pragma once
 class BoatActor;
-
+#define SPAWN_TIME 1000
 enum class GameWaveState
 {
-	Wave1,
-	Wave2,
-	Done,
+	Wave,
+	Break,
+	Done
 };
 class GameWave
 {
@@ -14,24 +14,18 @@ public:
 	void Update();
 public:
 	void SetWave();
-	void SetWave2();
 public:
 	void SpawnBoat(int id);
 public:
 	void SetGameWaveState(GameWaveState waveState) { _waveState = waveState; }
-
 public:
-	void PushBoatActor(BoatActor* boat) { return _boats.push_back(boat); }
+	void PushBoatActor(BoatActor* boat) { _boats.push_back(boat); }
 
 private:
 	vector<BoatActor*> _boats = {};
-	int _numberOfIntrusions = 0;
 	GameWaveState _waveState = GameWaveState::Done;
-	float _time = 1;
-	int _Index = 1;
-
-private:
-	int _row = 0;
-	int _column = 0;
+	int _wave = 1; // 1~6
+	int _boatType = 0;
+	int _boatCount = 0;
 };
 

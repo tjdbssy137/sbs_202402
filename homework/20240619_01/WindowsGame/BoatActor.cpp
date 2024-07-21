@@ -102,21 +102,11 @@ void BoatActor::Update()
 	case BoatState::Idle:
 		UpdateIdle();
 		break;
-	case BoatState::Attacked:
-		break;
 	case BoatState::Goal:
-	{
-		this->SetCellPos({ 54, 25 }, true);
-		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
-		dev2Scene->GetGameWave()->PushBoatActor(this);
-	}
+		FinishedBoatState();
 		break;
 	case BoatState::Die:
-	{
-		this->SetCellPos({ 54, 25 }, true);
-		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
-		dev2Scene->GetGameWave()->PushBoatActor(this);
-	}
+		FinishedBoatState();
 		break;
 	default:
 		break;
@@ -147,6 +137,15 @@ void BoatActor::ChangeDirection(eDirection dir)
 	this->SetFlipbook(_moveFlipbook[_dir]);
 }
 
+void BoatActor::FinishedBoatState()
+{
+	this->SetCellPos({ 54, 25 }, true);
+	Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
+	dev2Scene->GetGameWave()->PushBoatActor(this);
+
+	// state 변경
+	_state = BoatState::None;
+}
 void BoatActor::UpdateHpImage(float nextHp)
 {
 	// 피해량 비율을 계산하기

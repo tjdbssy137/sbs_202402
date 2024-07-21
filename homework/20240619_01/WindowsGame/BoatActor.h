@@ -12,8 +12,8 @@ enum class BoatState
 	Move,
 	Idle,
 	Goal,
-	Attacked,
-	Die
+	Die,
+	None
 };
 
 class BoatActor : public FlipbookActor, public ITilemapActor
@@ -64,6 +64,8 @@ public:
 	void SetActiveBoat();
 public:
 	void UpdateHpImage(float _tempHP);
+
+	void FinishedBoatState();
 
 private:
 	BoatState _state = BoatState::Idle;

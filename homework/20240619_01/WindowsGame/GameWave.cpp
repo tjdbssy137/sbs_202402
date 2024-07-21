@@ -13,17 +13,15 @@ void GameWave::Update()
 
 	switch (_waveState)
 	{
-	case GameWaveState::Wave1:
+	case GameWaveState::Wave:
 		SetWave();
 		break;
-	case GameWaveState::Wave2:
-		SetWave2();
-		break;
-	case GameWaveState::Done:
+	case GameWaveState::Break:
 	{
-		_Index = 0;
-		_row = 0;
-		_column = 0;
+		_wave++;
+		_boatType = 0;
+		_boatCount = 0;
+		_waveState = GameWaveState::Done;
 	}
 		break;
 	default:
@@ -33,73 +31,36 @@ void GameWave::Update()
 void GameWave::SetWave() //제이슨으로 변경
 {
 	static float lastTick = ::GetTickCount64(); //모든 호출에서 공유
-	if (_row < Datas->GetWaveData(1).BoatCount.size())
+	WaveData data = Datas->GetWaveData(_wave);
+
+	if (_boatType < data.BoatCount.size())
 	{
-		if (_column <= Datas->GetWaveData(1).BoatCount[_row])
+		if (_boatCount < data.BoatCount[_boatType])
 		{
 			float currentTick = ::GetTickCount64();
-			if (1000 < currentTick - lastTick)
+			if (SPAWN_TIME < currentTick - lastTick)
 			{
-				SpawnBoat(Datas->GetBoatData(_row + 1).Id);
+				SpawnBoat(Datas->GetBoatData(_boatType + 1).Id);
+				_boatCount++;
 				lastTick = currentTick;
-				_column++;
 			}
 		}
-		if (_column == Datas->GetWaveData(1).BoatCount[_row])
+		if (_boatCount == data.BoatCount[_boatType])
 		{
-			_column = 0;
-			_row++;
+			_boatCount = 0;
+			_boatType++;
 
-			if (Datas->GetWaveData(1).BoatCount[_row] == 0)
+			if (data.BoatCount.size() <= _boatType)
 			{
-				_waveState = GameWaveState::Done;
+				_waveState = GameWaveState::Break;
+			}
+			else if (data.BoatCount[_boatType] == 0)
+			{
+				_waveState = GameWaveState::Break;
 			}
 		}
 	}
 }
-void GameWave::SetWave2()
-{
-	static float lastTick = ::GetTickCount64(); //모든 호출에서 공유
-
-	if (_Index < 5)
-	{
-		float currentTick = ::GetTickCount64();
-		if (1000 < currentTick - lastTick)
-		{
-			SpawnBoat(Datas->GetBoatData(1).Id);
-			/*_boats[_Index]->SetBoatType(L"FB_EnemyBoat1_");
-			_boats[_Index]->SetActiveBoat();
-			_boats[_Index]->SetBoatHp(60);
-			_boats[_Index]->SetBoatStaticHp(60); 
-			_boats[_Index]->SetBoatSpeed(50);
-			_boats[_Index]->SetState(BoatState::Start);*/
-			lastTick = currentTick;
-			_Index++;
-		}
-	}
-	else if (_Index < 8)
-	{
-		float currentTick = ::GetTickCount64();
-		if (1000 < currentTick - lastTick)
-		{
-			SpawnBoat(Datas->GetBoatData(2).Id);
-			
-			/*_boats[_Index]->SetBoatType(L"FB_EnemyBoat2_");
-			_boats[_Index]->SetActiveBoat();
-			_boats[_Index]->SetBoatHp(80);
-			_boats[_Index]->SetBoatStaticHp(80); 
-			_boats[_Index]->SetBoatSpeed(100);
-			_boats[_Index]->SetState(BoatState::Start);*/
-			lastTick = currentTick;
-			_Index++;
-		}
-	}
-	else
-	{
-		_waveState = GameWaveState::Done;
-	}
-}
-
 void GameWave::SpawnBoat(int id)
 {
 	BoatActor* boat = _boats.back();
@@ -112,5 +73,6 @@ void GameWave::SpawnBoat(int id)
 	boat->SetBoatHp(Datas->GetBoatData(id).HP);
 	boat->SetBoatStaticHp(Datas->GetBoatData(id).HP);
 	boat->SetBoatSpeed(Datas->GetBoatData(id).MoveSpeed);
+	boat->ChangeDirection(eDirection::DOWN_RIGHT); // 방향을 한번 전환 해줘야 이미지가 새로 업데이트 됨.
 	boat->SetState(BoatState::Start);
 }
