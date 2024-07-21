@@ -3,12 +3,12 @@ class BehicleActor;
 
 enum class BehicleTypeState
 {
-	Tank1,
-	Tank2,
-	Tank3,
 	DrillTank1,
 	DrillTank2,
 	DrillTank3,
+	Tank1,
+	Tank2,
+	Tank3,
 	Submarine,
 	None,
 	Delete
@@ -20,6 +20,9 @@ private:
 public:
 	void SetLink(BehicleActor* behicle);
 	void Update();
+
+public:
+	void SettingBehicle(BehicleData data);
 public:
 
 	BehicleTypeState GetBehicleTypeState() { return _type; }

@@ -1,0 +1,77 @@
+저번 시간 내용 정리
+
+- SQL 완료
+- 코드에서 DB를 직접 컨트롤 하는 방법(ORM 기법)
+
+- ORM에서도 방법이 2가지 존재
+	- 1) 완성된 DB (테이블 정의)를 코드로 그대로 가져와서, 사용하는 방법
+	- 2) 완성된 코드를 DB로 그대로 만들어서 사용하는 방법 
+			(조금 위험한 게, 이미 테이블이 구성되어 있거나, 조금 다른 테이블이 있으면, 모두 삭제 시키고 다시 생성)
+
+	- Controller에서 유저 요청에 따라, 값을 return을 해주는데
+	- 이 return의 값을 TblChampion을 조회하는 방법
+
+Client - Server - DB
+
+- 1. PsyTblUserItem, PsyTblUserSkill, ChampionKeyNavigation virtual로 이루어진 변수들이 null로 뜨는 이유
+	- ForeinKey를 설정해줬기 때문에 해당 변수들이 자동으로 설정이 됨.
+
+- 2. 조회를 할 때, 어떻게 조회를 할 것인가. (ORM에서의 방식)
+	- ORM에서는 기본적으로 기능을 사용할 때, DB에 SQL문을 날리게 됨.
+```
+	return await _context.PsyTblUser.ToListAsync();
+```
+--> DB에 SqL문을 하나 동작 시킴
+(SELECT p._key, p._championKey, p._level
+	From PSY_TblUser as p)
+	--> 그렇기에 virtual 변수는 나타나지 않는다.
+
+(
+SELECT p._key, p._championKey, p._level
+	From PSY_TblUser as p
+	JOIN PSY_TblChampion AS Champion
+	ON p._championKey = Champion._key
+)
+
+--> _context.PsyTblUsers.Join() 으로 해도 되긴 함
+
+--> Include를 하며 포함이 된다.
+
+JSON이 너무 깊으면 오류가 생김. Depth가 32회를 넘기면 조회 안 됨.
+(보통 이 에러는 데이터 무한 오류)
+
+실습.
+	GetItemListByUserId 만들기
+	parameter로 id를 받아서,
+	어떤 아이템이 있는지 뿌려주는 것.
+
+	GetSkillListByUserId 만들기
+	parameter로 id를 받아서,
+	어떤 스킬이 있는지 뿌려주는 것.
+
+	GetChampionInfoByUserId 만들기
+	parameter로 id를 받아서,
+	유저키, 챔피언 이름이 있는지 뿌려주는 것.
+
+
+DTO란?
+
+Data Transfer Object
+
+클라이언트 <-> 서버
+
+둘다 Sync 되어야 하는 클래스.
+
+네트워크 에러, 인증에러, 라우트에러
+-- 보통 웹기능이 알아서 해줌
+-- 20으로 시작하면 기본적으로 통신은 성공
+
+--> 기본 기능에 문제가 있는 건 웹사이트 에러로 대체.
+
+코드를 타다가 문제가 생긴 건 에러 핸들링을 따로 해줌.
+
+모든 리턴에는
+1. 성공유무
+2. Return 데이터
+3. Message
+4. 

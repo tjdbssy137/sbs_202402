@@ -106,7 +106,7 @@ void Dev2Scene::Init()
 		}
 	}
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 47; i++)
 	{
 		BoatController* boatController = new BoatController();
 		_boatControllers.push_back(boatController);
@@ -168,6 +168,10 @@ void Dev2Scene::Init()
 
 	this->SetCameraPos(Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2));
 
+	Datas->LoadData(L"WaveData", DataType::Wave);
+	Datas->LoadData(L"BehicleData", DataType::Behicle);
+	Datas->LoadData(L"BoatData", DataType::Boat);
+
 	Super::Init();
 
 }
@@ -203,7 +207,7 @@ void Dev2Scene::Update()
 	}
 	if (Input->GetKeyDown(KeyCode::W))
 	{
-		_gameWave->SetGameWaveState(GameWaveState::Wave2);
+		_gameWave->SetGameWaveState(GameWaveState::Wave1);
 	}
 	_installPanel->Update();
 	_installSubmarinePanel->Update();
@@ -638,4 +642,17 @@ TilemapActor* Dev2Scene::GetTilemapActor()
 		return nullptr;
 	}
 	return _tilemapActor;
+}
+
+BoatActor* Dev2Scene::PopBoatActor()
+{ 
+	BoatActor* boat = _boats.back();
+	_boats.pop_back();
+
+	assert(boat != nullptr);
+	if (boat == nullptr)
+	{
+		return nullptr;
+	}
+	return boat;
 }

@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "name": "FB_DrillTank1_",
+    "bulletDamage": 18,
+    "bulletSpeed": 200,
+    "attackTime": 0.8,
+    "colliderSize": 90,
+    "installGold": 110,
+    "upgradeTowerId": 2,
+    "upgradeGold": 50,
+    "refundGold": 34
+  },
+  {
+    "id": 2,
+    "name": "FB_DrillTank2_",
+    "bulletDamage": 22,
+    "bulletSpeed": 220,
+    "attackTime": 0.7,
+    "colliderSize": 120,
+    "installGold": 10000,
+    "upgradeTowerId": 3,
+    "upgradeGold": 80,
+    "refundGold": 53
+  },
+  {
+    "id": 3,
+    "name": "FB_DrillTank3_",
+    "bulletDamage": 30,
+    "bulletSpeed": 240,
+    "attackTime": 0.6,
+    "colliderSize": 150,
+    "installGold": 10000,
+    "upgradeTowerId": 10000,
+    "upgradeGold": 10000,
+    "refundGold": 80
+  },
+  {
+    "id": 4,
+    "name": "FB_Tank1_",
+    "bulletDamage": 10,
+    "bulletSpeed": 210,
+    "attackTime": 1,
+    "colliderSize": 120,
+    "installGold": 70,
+    "upgradeTowerId": 5,
+    "upgradeGold": 45,
+    "refundGold": 23
+  },
+  {
+    "id": 5,
+    "name": "FB_Tank2_",
+    "bulletDamage": 15,
+    "bulletSpeed": 240,
+    "attackTime": 0.8,
+    "colliderSize": 150,
+    "installGold": 10000,
+    "upgradeTowerId": 6,
+    "upgradeGold": 80,
+    "refundGold": 36
+  },
+  {
+    "id": 6,
+    "name": "FB_Tank3_",
+    "bulletDamage": 20,
+    "bulletSpeed": 270,
+    "attackTime": 0.7,
+    "colliderSize": 200,
+    "installGold": 10000,
+    "upgradeTowerId": 10000,
+    "upgradeGold": 10000,
+    "refundGold": 60
+  },
+  {
+    "id": 7,
+    "name": "FB_Submarine_",
+    "bulletDamage": 0,
+    "bulletSpeed": 0,
+    "attackTime": 10000,
+    "colliderSize": 0,
+    "installGold": 50,
+    "upgradeTowerId": 10000,
+    "upgradeGold": 10000,
+    "refundGold": 16
+  }
+]

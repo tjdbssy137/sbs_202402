@@ -15,7 +15,8 @@ public:
 public:
 	void SetWave();
 	void SetWave2();
-	void SetTime(float time) { _time = time; }
+public:
+	void SpawnBoat(int id);
 public:
 	void SetGameWaveState(GameWaveState waveState) { _waveState = waveState; }
 private:
@@ -23,6 +24,10 @@ private:
 	int _numberOfIntrusions = 0;
 	GameWaveState _waveState = GameWaveState::Done;
 	float _time = 1;
-	int _Index = 0;
+	int _Index = 1;
+
+private:
+	int _row = 0;
+	int _column = 0;
 };
 

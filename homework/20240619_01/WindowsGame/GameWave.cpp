@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "GameWave.h"
 #include "BoatActor.h"
+#include "Dev2Scene.h"
+
 void GameWave::SetLink(vector<BoatActor*> boats)
 {
 	_boats = boats;
@@ -16,7 +18,11 @@ void GameWave::Update()
 		SetWave2();
 		break;
 	case GameWaveState::Done:
-		_Index = 0;
+	{
+		_Index = 1;
+		_row = 0;
+		_column = 0;
+	}
 		break;
 	default:
 		break;
@@ -24,28 +30,29 @@ void GameWave::Update()
 }
 void GameWave::SetWave() //제이슨으로 변경
 {
-	//FB_EnemyBoat2_
-	//FB_EnemyShip3_
 	static float lastTick = ::GetTickCount64(); //모든 호출에서 공유
-
-	if (_Index < 3)
+	if (_row < Datas->GetWaveData(1).BoatCount.size())
 	{
-		float currentTick = ::GetTickCount64();
-		if (1000 < currentTick - lastTick)
+		if (_column <= Datas->GetWaveData(1).BoatCount[_row])
 		{
-			_boats[_Index]->SetBoatType(L"FB_EnemyBoat1_");
-			_boats[_Index]->SetActiveBoat();
-			_boats[_Index]->SetBoatHp(60);
-			_boats[_Index]->SetBoatStaticHp(60);
-			_boats[_Index]->SetBoatSpeed(50);
-			_boats[_Index]->SetState(BoatState::Start);
-			lastTick = currentTick;
-			_Index++;
+			float currentTick = ::GetTickCount64();
+			if (1000 < currentTick - lastTick)
+			{
+				SpawnBoat(Datas->GetBoatData(_row + 1).Id);
+				lastTick = currentTick;
+				_column++;
+			}
 		}
-	}
-	else
-	{
-		_waveState = GameWaveState::Done;
+		if (_column == Datas->GetWaveData(1).BoatCount[_row])
+		{
+			_column = 0;
+			_row++;
+
+			if (Datas->GetWaveData(1).BoatCount[_row] == 0)
+			{
+				_waveState = GameWaveState::Done;
+			}
+		}
 	}
 }
 void GameWave::SetWave2()
@@ -86,4 +93,17 @@ void GameWave::SetWave2()
 	{
 		_waveState = GameWaveState::Done;
 	}
+}
+
+void GameWave::SpawnBoat(int id)
+{
+	Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
+	BoatActor* boat = dev2Scene->PopBoatActor();
+	wstring name = wstring().assign(Datas->GetBoatData(id).Name.begin(), Datas->GetBoatData(id).Name.end());
+	boat->SetBoatType(name);
+	boat->SetActiveBoat();
+	boat->SetBoatHp(Datas->GetBoatData(id).HP);
+	boat->SetBoatStaticHp(Datas->GetBoatData(id).HP);
+	boat->SetBoatSpeed(Datas->GetBoatData(id).MoveSpeed);
+	boat->SetState(BoatState::Start);
 }

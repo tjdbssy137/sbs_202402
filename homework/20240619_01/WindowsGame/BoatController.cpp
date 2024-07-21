@@ -56,7 +56,7 @@ void BoatController::Arrive()
 {
 	if (_boat->GetCellPos() == Vector2Int{ 5, 3 })
 	{
-		cout << "도착" << endl;
+		//cout << "도착" << endl;
 		_boat->SetState(BoatState::Goal);
 		// 목적지에 도착하면 이 액터의 위치를 다시 시작 지점으로 재설정.
 	}

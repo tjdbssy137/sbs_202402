@@ -146,7 +146,8 @@ void ActionButtonsPanel::OnClick_GoToDelete()
 	{
 		//cout << "index : " << index << endl; // 같은 장소에 있는 건 인덱스가 왜인지 안달라지네..?? -> SetPos가 아니라 SetCellPos였음
 		alreadyInstallBehicle.erase(findIt);
-		redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle); // 이거 없으면 제대로 작동 안됨.. vector인데 왜지..
+		redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle); 
+		// 이거 없으면 제대로 작동 안됨.. vector인데 왜지.. -> 복사본을 들고 오는 것이기 때문에 그냥 레퍼런스로 들고오면 됨
 		behicleController[index]->IsSetting(true);
 		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Delete));
 	}

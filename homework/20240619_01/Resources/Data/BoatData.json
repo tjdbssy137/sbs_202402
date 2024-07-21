@@ -1,0 +1,32 @@
+{
+  {
+    "id": 1,
+    "name": "enemyBoat1",
+    "hp": 40,
+    "moveSpeed": 60
+  },
+  {
+    "id": 2,
+    "name": "enemyBoat2",
+    "hp": 70,
+    "moveSpeed": 120
+  },
+  {
+    "id": 3,
+    "name": "enemyShip1",
+    "hp": 150,
+    "moveSpeed": 90
+  },
+  {
+    "id": 4,
+    "name": "enemyShip2",
+    "hp": 180,
+    "moveSpeed": 95
+  },
+  {
+    "id": 5,
+    "name": "enemyShip3",
+    "hp": 200,
+    "moveSpeed": 110
+  }
+}

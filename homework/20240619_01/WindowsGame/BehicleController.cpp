@@ -20,72 +20,24 @@ void BehicleController::Update()
 	{
 		switch (_type)
 		{
-		case BehicleTypeState::Tank1:
-		{
-			_behicle->SetBehicleType(L"FB_Tank1_");
-			_behicle->SetColliderSize(120);
-			_behicle->ChangeDirection(eDirection::DOWN_RIGHT);//이 코드가 없으면 actor가 안 보임
-			_behicle->SetActiveBehicle();
-			_behicle->SetBulletDamage(10);
-			_behicle->SetAttackTime(1);
-			_behicle->SetBulletSpeed(210);
-		}
-		break;
-		case BehicleTypeState::Tank2:
-		{
-			_behicle->SetBehicleType(L"FB_Tank2_");
-			_behicle->SetColliderSize(150);
-			_behicle->ChangeDirection(eDirection::DOWN_RIGHT);
-			_behicle->SetActiveBehicle();
-			_behicle->SetBulletDamage(15);
-			_behicle->SetAttackTime(0.8f);
-			_behicle->SetBulletSpeed(240);
-		}
-		break;
-		case BehicleTypeState::Tank3:
-		{
-			_behicle->SetBehicleType(L"FB_Tank3_");
-			_behicle->SetColliderSize(200);
-			_behicle->ChangeDirection(eDirection::DOWN_RIGHT);
-			_behicle->SetActiveBehicle();
-			_behicle->SetBulletDamage(20);
-			_behicle->SetAttackTime(0.7f);
-			_behicle->SetBulletSpeed(270);
-		}
-		break;
 		case BehicleTypeState::DrillTank1:
-		{
-			_behicle->SetBehicleType(L"FB_DrillTank1_");
-			_behicle->SetColliderSize(90);
-			_behicle->ChangeDirection(eDirection::DOWN_RIGHT);
-			_behicle->SetActiveBehicle();
-			_behicle->SetBulletDamage(15);
-			_behicle->SetAttackTime(0.8f);
-			_behicle->SetBulletSpeed(200);
-		}
-		break;
+			SettingBehicle(Datas->GetBehicleData(1));
+			break;
 		case BehicleTypeState::DrillTank2:
-		{
-			_behicle->SetBehicleType(L"FB_DrillTank2_");
-			_behicle->SetColliderSize(120);
-			_behicle->ChangeDirection(eDirection::DOWN_RIGHT);
-			_behicle->SetActiveBehicle();
-			_behicle->SetBulletDamage(18);
-			_behicle->SetAttackTime(0.7f);
-			_behicle->SetBulletSpeed(220);
-		}
-		break;
+			SettingBehicle(Datas->GetBehicleData(2));
+			break;
 		case BehicleTypeState::DrillTank3:
-		{
-			_behicle->SetBehicleType(L"FB_DrillTank3_");
-			_behicle->SetColliderSize(150);
-			_behicle->ChangeDirection(eDirection::DOWN_RIGHT);
-			_behicle->SetActiveBehicle();
-			_behicle->SetBulletDamage(21);
-			_behicle->SetAttackTime(0.6f);
-			_behicle->SetBulletSpeed(240);
-		}
-		break;
+			SettingBehicle(Datas->GetBehicleData(3));
+			break;
+		case BehicleTypeState::Tank1:
+			SettingBehicle(Datas->GetBehicleData(4));
+			break;
+		case BehicleTypeState::Tank2:
+			SettingBehicle(Datas->GetBehicleData(5));
+			break;
+		case BehicleTypeState::Tank3:
+			SettingBehicle(Datas->GetBehicleData(6));
+			break;
 		case BehicleTypeState::Submarine:
 		{
 			_behicle->SetBehicleType(L"FB_Submarine_");
@@ -109,4 +61,17 @@ void BehicleController::Update()
 		}
 		_isSetting = false;
 	}
+}
+
+void BehicleController::SettingBehicle(BehicleData data)
+{
+	wstring name = wstring().assign(data.Name.begin(), data.Name.end());
+
+	_behicle->SetBehicleType(name);
+	_behicle->SetColliderSize(data.ColliderSize);
+	_behicle->ChangeDirection(eDirection::DOWN_RIGHT);//이 코드가 없으면 actor가 안 보임
+	_behicle->SetActiveBehicle();
+	_behicle->SetBulletDamage(data.BulletDamage);
+	_behicle->SetAttackTime(data.AttackTime);
+	_behicle->SetBulletSpeed(data.BulletSpeed);
 }

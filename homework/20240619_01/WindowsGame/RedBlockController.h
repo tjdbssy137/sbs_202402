@@ -29,7 +29,7 @@ public:
 	int GetBehicleControllerIndex() { return _Index; }
 
 	vector<Vector2Int> GetAlreadyInstallBehicle() {return _alreadyInstallBehicle; }
-	void SetAlreadyInstallBehicle(vector<Vector2Int> temp) { _alreadyInstallBehicle = temp; };
+	void SetAlreadyInstallBehicle(vector<Vector2Int> temp) { _alreadyInstallBehicle = temp; }
 	
 	Vector2Int GetBehiclePos() { return _pos; }
 private:

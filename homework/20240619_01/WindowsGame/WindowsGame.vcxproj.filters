@@ -543,12 +543,17 @@
     <None Include="Day16.cpp">
       <Filter>999.Comments</Filter>
     </None>
-    <None Include="example1.json">
+    <None Include="BoatData.json">
       <Filter>998. Json</Filter>
     </None>
     <None Include="MonsterData.json">
       <Filter>998. Json</Filter>
     </None>
-    <None Include="test.json" />
+    <None Include="BehicleData.json">
+      <Filter>998. Json</Filter>
+    </None>
+    <None Include="WaveData.json">
+      <Filter>998. Json</Filter>
+    </None>
   </ItemGroup>
 </Project>

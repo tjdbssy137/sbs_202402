@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "name": "DrillTank1",
+    "bulletDamage": 18,
+    "bulletSpeed": 200,
+    "attackTime": 0.8,
+    "installGold": 110,
+    "upgradeTowerId": 2,
+    "upgradeGold": 50,
+    "refundGold": 34
+  },
+  {
+    "id": 2,
+    "name": "DrillTank2",
+    "bulletDamage": 22,
+    "bulletSpeed": 220,
+    "attackTime": 0.7,
+    "installGold": 10000,
+    "upgradeTowerId": 3,
+    "upgradeGold": 80,
+    "refundGold": 53
+  },
+  {
+    "id": 3,
+    "name": "DrillTank3",
+    "bulletDamage": 30,
+    "bulletSpeed": 240,
+    "attackTime": 0.6,
+    "installGold": 10000,
+    "upgradeTowerId": 10000,
+    "upgradeGold": 10000,
+    "refundGold": 80
+  },
+  {
+    "id": 4,
+    "name": "Tank1",
+    "bulletDamage": 10,
+    "bulletSpeed": 210,
+    "attackTime": 1,
+    "installGold": 70,
+    "upgradeTowerId": 5,
+    "upgradeGold": 45,
+    "refundGold": 23
+  },
+  {
+    "id": 5,
+    "name": "Tank2",
+    "bulletDamage": 15,
+    "bulletSpeed": 240,
+    "attackTime": 0.8,
+    "installGold": 10000,
+    "upgradeTowerId": 6,
+    "upgradeGold": 80,
+    "refundGold": 36
+  },
+  {
+    "id": 6,
+    "name": "Tank3",
+    "bulletDamage": 20,
+    "bulletSpeed": 270,
+    "attackTime": 0.7,
+    "installGold": 10000,
+    "upgradeTowerId": 10000,
+    "upgradeGold": 10000,
+    "refundGold": 60
+  },
+  {
+    "id": 7,
+    "name": "Submarine",
+    "bulletDamage": 0,
+    "bulletSpeed": 0,
+    "attackTime": 10000,
+    "installGold": 50,
+    "upgradeTowerId": 10000,
+    "upgradeGold": 10000,
+    "refundGold": 16
+  }
+]

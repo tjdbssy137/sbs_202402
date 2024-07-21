@@ -104,10 +104,18 @@ void BoatActor::Update()
 	case BoatState::Attacked:
 		break;
 	case BoatState::Goal:
+	{
 		this->SetCellPos({ 54, 25 }, true);
+		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
+		dev2Scene->PushBoatActor(this);
+	}
 		break;
 	case BoatState::Die:
+	{
 		this->SetCellPos({ 54, 25 }, true);
+		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
+		dev2Scene->PushBoatActor(this);
+	}
 		break;
 	default:
 		break;
