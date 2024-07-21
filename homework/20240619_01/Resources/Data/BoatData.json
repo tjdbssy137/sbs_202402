@@ -1,32 +1,32 @@
-{
+[
   {
     "id": 1,
-    "name": "enemyBoat1",
+    "name": "FB_EnemyBoat1_",
     "hp": 40,
     "moveSpeed": 60
   },
   {
     "id": 2,
-    "name": "enemyBoat2",
+    "name": "FB_EnemyBoat2_",
     "hp": 70,
     "moveSpeed": 120
   },
   {
     "id": 3,
-    "name": "enemyShip1",
+    "name": "FB_EnemyShip1_",
     "hp": 150,
     "moveSpeed": 90
   },
   {
     "id": 4,
-    "name": "enemyShip2",
+    "name": "FB_EnemyShip2_",
     "hp": 180,
     "moveSpeed": 95
   },
   {
     "id": 5,
-    "name": "enemyShip3",
+    "name": "FB_EnemyShip3_",
     "hp": 200,
     "moveSpeed": 110
   }
-}
+]

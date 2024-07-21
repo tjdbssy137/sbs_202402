@@ -31,6 +31,9 @@ void DataManager::Init()
 		assert(_monsterDatas.contains(data.Id) == false);
 		_monsterDatas[data.Id] = data;
 	}*/
+	this->LoadData(L"WaveData", DataType::Wave);
+	this->LoadData(L"BehicleData", DataType::Behicle);
+	this->LoadData(L"BoatData", DataType::Boat);
 }
 
 void DataManager::Release()

@@ -19,6 +19,10 @@ public:
 	void SpawnBoat(int id);
 public:
 	void SetGameWaveState(GameWaveState waveState) { _waveState = waveState; }
+
+public:
+	void PushBoatActor(BoatActor* boat) { return _boats.push_back(boat); }
+
 private:
 	vector<BoatActor*> _boats = {};
 	int _numberOfIntrusions = 0;

@@ -168,10 +168,6 @@ void Dev2Scene::Init()
 
 	this->SetCameraPos(Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2));
 
-	Datas->LoadData(L"WaveData", DataType::Wave);
-	Datas->LoadData(L"BehicleData", DataType::Behicle);
-	Datas->LoadData(L"BoatData", DataType::Boat);
-
 	Super::Init();
 
 }
@@ -642,17 +638,4 @@ TilemapActor* Dev2Scene::GetTilemapActor()
 		return nullptr;
 	}
 	return _tilemapActor;
-}
-
-BoatActor* Dev2Scene::PopBoatActor()
-{ 
-	BoatActor* boat = _boats.back();
-	_boats.pop_back();
-
-	assert(boat != nullptr);
-	if (boat == nullptr)
-	{
-		return nullptr;
-	}
-	return boat;
 }

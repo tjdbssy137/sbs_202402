@@ -1,6 +1,6 @@
 [
   {
-    "waveID ": 1,
+    "waveID": 1,
     "boatCount": [
       3,
       0,
@@ -10,7 +10,7 @@
     ]
   },
   {
-    "waveID ": 2,
+    "waveID": 2,
     "boatCount": [
       10,
       2,
@@ -20,7 +20,7 @@
     ]
   },
   {
-    "waveID ": 3,
+    "waveID": 3,
     "boatCount": [
       10,
       2,
@@ -30,7 +30,7 @@
     ]
   },
   {
-    "waveID ": 4,
+    "waveID": 4,
     "boatCount": [
       10,
       5,
@@ -40,7 +40,7 @@
     ]
   },
   {
-    "waveID ": 5,
+    "waveID": 5,
     "boatCount": [
       15,
       2,
@@ -50,7 +50,7 @@
     ]
   },
   {
-    "waveID ": 6,
+    "waveID": 6,
     "boatCount": [
       20,
       10,

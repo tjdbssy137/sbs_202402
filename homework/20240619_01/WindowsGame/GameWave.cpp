@@ -9,6 +9,8 @@ void GameWave::SetLink(vector<BoatActor*> boats)
 }
 void GameWave::Update()
 {
+	//cout << "Datas->GetBoatData(2).Id : " << Datas->GetBoatData(2).Id << endl;
+
 	switch (_waveState)
 	{
 	case GameWaveState::Wave1:
@@ -19,7 +21,7 @@ void GameWave::Update()
 		break;
 	case GameWaveState::Done:
 	{
-		_Index = 1;
+		_Index = 0;
 		_row = 0;
 		_column = 0;
 	}
@@ -64,12 +66,13 @@ void GameWave::SetWave2()
 		float currentTick = ::GetTickCount64();
 		if (1000 < currentTick - lastTick)
 		{
-			_boats[_Index]->SetBoatType(L"FB_EnemyBoat1_");
+			SpawnBoat(Datas->GetBoatData(1).Id);
+			/*_boats[_Index]->SetBoatType(L"FB_EnemyBoat1_");
 			_boats[_Index]->SetActiveBoat();
 			_boats[_Index]->SetBoatHp(60);
 			_boats[_Index]->SetBoatStaticHp(60); 
 			_boats[_Index]->SetBoatSpeed(50);
-			_boats[_Index]->SetState(BoatState::Start);
+			_boats[_Index]->SetState(BoatState::Start);*/
 			lastTick = currentTick;
 			_Index++;
 		}
@@ -79,12 +82,14 @@ void GameWave::SetWave2()
 		float currentTick = ::GetTickCount64();
 		if (1000 < currentTick - lastTick)
 		{
-			_boats[_Index]->SetBoatType(L"FB_EnemyBoat2_");
+			SpawnBoat(Datas->GetBoatData(2).Id);
+			
+			/*_boats[_Index]->SetBoatType(L"FB_EnemyBoat2_");
 			_boats[_Index]->SetActiveBoat();
 			_boats[_Index]->SetBoatHp(80);
 			_boats[_Index]->SetBoatStaticHp(80); 
 			_boats[_Index]->SetBoatSpeed(100);
-			_boats[_Index]->SetState(BoatState::Start);
+			_boats[_Index]->SetState(BoatState::Start);*/
 			lastTick = currentTick;
 			_Index++;
 		}
@@ -97,9 +102,11 @@ void GameWave::SetWave2()
 
 void GameWave::SpawnBoat(int id)
 {
-	Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
-	BoatActor* boat = dev2Scene->PopBoatActor();
-	wstring name = wstring().assign(Datas->GetBoatData(id).Name.begin(), Datas->GetBoatData(id).Name.end());
+	BoatActor* boat = _boats.back();
+	_boats.pop_back();
+	BoatData data = Datas->GetBoatData(id);
+	wstring name = wstring().assign(data.Name.begin(), data.Name.end());
+
 	boat->SetBoatType(name);
 	boat->SetActiveBoat();
 	boat->SetBoatHp(Datas->GetBoatData(id).HP);

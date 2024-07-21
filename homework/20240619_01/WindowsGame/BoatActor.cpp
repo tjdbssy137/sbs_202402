@@ -6,6 +6,7 @@
 #include "Sprite.h"
 #include "BulletActor.h"
 #include "BulletActorController.h"
+#include "GameWave.h"
 
 void BoatActor::Init()
 {
@@ -107,14 +108,14 @@ void BoatActor::Update()
 	{
 		this->SetCellPos({ 54, 25 }, true);
 		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
-		dev2Scene->PushBoatActor(this);
+		dev2Scene->GetGameWave()->PushBoatActor(this);
 	}
 		break;
 	case BoatState::Die:
 	{
 		this->SetCellPos({ 54, 25 }, true);
 		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
-		dev2Scene->PushBoatActor(this);
+		dev2Scene->GetGameWave()->PushBoatActor(this);
 	}
 		break;
 	default:

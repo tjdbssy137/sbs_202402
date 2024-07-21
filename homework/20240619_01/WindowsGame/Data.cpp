@@ -136,7 +136,7 @@ void WaveData::FromJson(string json)
 
 	assert(document.HasParseError() == false); // document의 error가 없어야한다.
 
-	this->Id = document["id"].GetInt64();
+	this->Id = document["waveID"].GetInt64();
 	for (int i = 0; i < document["boatCount"].Size(); i++)
 	{
 		this->BoatCount.push_back(document["boatCount"][i].GetInt());
@@ -149,7 +149,7 @@ string WaveData::ToJson()
 	Writer<StringBuffer> writer(buffer);
 
 	writer.StartObject();
-	writer.Key("id");
+	writer.Key("waveID");
 	writer.Int64(this->Id);
 	
 	writer.Key("boatCount");

@@ -37,8 +37,6 @@ public:
 	RedBlockController* GetRedBlockController() { return _redBlockController; }
 	
 	vector<BoatActor*> GetBoatActor() { return _boats; }
-	BoatActor* PopBoatActor();
-	void PushBoatActor(BoatActor* boat) { return _boats.push_back(boat); }
 
 	BulletActorController* GetBulletActorController() { return _bulletController; }
 	
@@ -47,6 +45,7 @@ public:
 	vector<BehicleActor*> GetBehicleActor() { return _behicles; }
 	void SetBehicleActor(BehicleActor* behicles) { _behicles.push_back(behicles); }
 
+	GameWave* GetGameWave() { return _gameWave; }
 
 	//Panel
 	InstallPanel* GetInstallPanel() { return _installPanel; }
