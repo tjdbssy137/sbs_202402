@@ -504,6 +504,20 @@ void Dev2Scene::LoadResource()
 		}
 	}
 
+	// Die Effect
+	{
+		Resource->LoadTexture(L"T_Bomb", L"FlipbookTest/bomb.bmp", RGB(255, 0, 255));
+		FlipbookInfo info_bomb = {};
+		info_bomb.start = 0;
+		info_bomb.end = 6;
+		info_bomb.line = 0;
+		info_bomb.size = Vector2Int(24, 24);
+		info_bomb.duration = 0.6f;
+		info_bomb.loop = false;
+		info_bomb.texture = Resource->GetTexture(L"T_Bomb");
+		Resource->CreateFlipbook(L"FB_Bomb", info_bomb);
+	}
+
 	//----------------------------------
 	//  ## Sprite
 	//----------------------------------
@@ -522,20 +536,17 @@ void Dev2Scene::LoadResource()
 	Texture* bullet = Resource->LoadTexture(L"T_Bullet", L"UIStudy/Bullet.bmp", RGB(255, 0, 255));
 	Resource->CreateSprite(L"S_Bullet", bullet);
 
-
-	//----------------------------------
-	//  ## Sound
-	//----------------------------------
-	Resource->LoadSound(L"BGM_Dev1Scene", L"Sounds/SoundStudy/BGM.wav");
-
 	//----------------------------------
 	//  ## UI
 	//----------------------------------
 	Texture* Buttons = Resource->LoadTexture(L"T_Buttons", L"UIStudy/Buttons.bmp");
 	Resource->CreateSprite(L"S_Button_L", Buttons, 0, 0, 100, 40);
-	Resource->CreateSprite(L"S_Button_S", Buttons, 0, 40, 40, 40);
-	Resource->CreateSprite(L"S_Button_Upgrade", Buttons, 40, 40, 40, 40);
-	Resource->CreateSprite(L"S_Button_Delete", Buttons, 80, 40, 40, 40);
+	Resource->CreateSprite(L"S_Button_S", Buttons, 100, 0, 40, 40);
+
+	//----------------------------------
+	//  ## Sound
+	//----------------------------------
+	Resource->LoadSound(L"BGM_Dev1Scene", L"Sounds/SoundStudy/BGM.wav");
 }
 
 Vector2 Dev2Scene::GetTilemapPos(Vector2Int cellPos)

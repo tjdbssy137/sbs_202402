@@ -12,6 +12,8 @@ void ActionButtonsPanel::Init()
 {
 	Super::Init();
 	{
+		this->LoadResource();
+
 		Panel* iconListPanel = new Panel();
 		{
 			iconListPanel->SetRect(Shape::MakeCenterRect(WIN_SIZE_X / 2, WIN_SIZE_Y / 2, 100, 40));
@@ -19,14 +21,12 @@ void ActionButtonsPanel::Init()
 
 		}
 		{
-			auto a = Resource->GetSprite(L"S_Button_Upgrade");
-
 			Button* UpgradeButton = new Button();
 			UpgradeButton->SetRect(Shape::MakeCenterRect(-40, 0, 32, 32));
-			UpgradeButton->SetSprite(ButtonState::Default, a);
-			UpgradeButton->SetSprite(ButtonState::Hover, a);
-			UpgradeButton->SetSprite(ButtonState::Pressed, a);
-			UpgradeButton->SetSprite(ButtonState::Disabled, a);
+			UpgradeButton->SetSprite(ButtonState::Default, Resource->GetSprite(L"S_Upgrade_Default"));
+			UpgradeButton->SetSprite(ButtonState::Hover, Resource->GetSprite(L"S_Upgrade_Hover"));
+			UpgradeButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_Upgrade_Pressed"));
+			UpgradeButton->SetSprite(ButtonState::Disabled, Resource->GetSprite(L"S_Upgrade_Disabled"));
 			UpgradeButton->AddOnClickDelegate(this, &ActionButtonsPanel::OnClick_GoToUpgrade);
 			UpgradeButton->SetState(ButtonState::Disabled);
 			UpgradeButton->Init();
@@ -35,14 +35,12 @@ void ActionButtonsPanel::Init()
 		}
 
 		{
-			auto a = Resource->GetSprite(L"S_Button_Delete");
-
 			Button* DeleteButton = new Button();
 			DeleteButton->SetRect(Shape::MakeCenterRect(40, 0, 32, 32));
-			DeleteButton->SetSprite(ButtonState::Default, a);
-			DeleteButton->SetSprite(ButtonState::Hover, a);
-			DeleteButton->SetSprite(ButtonState::Pressed, a);
-			DeleteButton->SetSprite(ButtonState::Disabled, a);
+			DeleteButton->SetSprite(ButtonState::Default, Resource->GetSprite(L"S_Delete_Default"));
+			DeleteButton->SetSprite(ButtonState::Hover, Resource->GetSprite(L"S_Delete_Hover"));
+			DeleteButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_Delete_Pressed"));
+			DeleteButton->SetSprite(ButtonState::Disabled, Resource->GetSprite(L"S_Delete_Disabled"));
 			DeleteButton->AddOnClickDelegate(this, &ActionButtonsPanel::OnClick_GoToDelete);
 			DeleteButton->SetState(ButtonState::Disabled);
 			DeleteButton->Init();
@@ -153,4 +151,19 @@ void ActionButtonsPanel::OnClick_GoToDelete()
 	}
 	_state = ActionButtonsButtonManagState::Hide;
 	this->Hide();
+}
+
+void ActionButtonsPanel::LoadResource()
+{
+	auto a = Resource->GetTexture(L"T_Buttons");
+	Resource->CreateSprite(L"S_Upgrade_Default", a, 0, 40, 40, 40);
+	Resource->CreateSprite(L"S_Upgrade_Hover", a, 40, 40, 40, 40);
+	Resource->CreateSprite(L"S_Upgrade_Pressed", a, 80, 40, 40, 40);
+	Resource->CreateSprite(L"S_Upgrade_Disabled", a, 0, 40, 40, 40);
+
+	auto b = Resource->GetTexture(L"T_Buttons");
+	Resource->CreateSprite(L"S_Delete_Default", b, 0, 80, 40, 40);
+	Resource->CreateSprite(L"S_Delete_Hover", b, 40, 80, 40, 40);
+	Resource->CreateSprite(L"S_Delete_Pressed", b, 80, 80, 40, 40);
+	Resource->CreateSprite(L"S_Delete_Disabled", b, 0, 80, 40, 40);
 }

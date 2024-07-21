@@ -18,6 +18,7 @@ public:
 	virtual void Update();
 	virtual void Release();
 private:
+	void LoadResource();
 	void OnClick_GoToUpgrade();
 	void OnClick_GoToDelete();
 public:

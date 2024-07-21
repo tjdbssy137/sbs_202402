@@ -4,6 +4,8 @@
 #include "Dev2Scene.h"
 #include "SpriteActor.h"
 #include "Sprite.h"
+#include "Flipbook.h"
+#include "Texture.h"
 #include "BulletActor.h"
 #include "BulletActorController.h"
 #include "GameWave.h"
@@ -28,10 +30,14 @@ void BoatActor::Init()
 	_hpBackground = Resource->GetSprite(L"S_HP_Background"); // HP 체력바 배경
 	_bpBar = Resource->GetSprite(L"S_HP_Bar"); // HP 체력바
 
+	// Bomb
+	_bomb = Resource->GetFlipbook(L"FB_Bomb"); // bomb
+
 	{
 		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
 		_bulletActorController = dev2Scene->GetBulletActorController();
 	}
+
 
 	Super::Init();
 }
@@ -87,6 +93,30 @@ void BoatActor::Render(HDC hdc)
 			_bpBar->GetTransparent()//투명색
 		);
 	}
+
+	if(_die == true)
+	{
+		const FlipbookInfo& info = _bomb->GetInfo();
+
+		Vector2Int cameraPos = CurrentScene->GetCameraPos();
+		Vector2Int ScreenSizeHalf = Vector2Int(WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
+		Vector2Int renderPos = Vector2Int(
+			static_cast<int>(_body.pos.x - info.size.x / 2 - cameraPos.x + ScreenSizeHalf.x),
+			static_cast<int>(_body.pos.y - info.size.y / 2 - cameraPos.y + ScreenSizeHalf.y)
+		);
+		::TransparentBlt(hdc,
+			renderPos.x,
+			renderPos.y,
+			info.size.x,
+			info.size.y,
+			info.texture->GetDC(),
+			_index * info.size.x,
+			info.line * info.size.y,
+			info.size.x,
+			info.size.y,
+			info.texture->GetTransparent()
+		);
+	}
 }
 void BoatActor::Update()
 {
@@ -106,7 +136,10 @@ void BoatActor::Update()
 		FinishedBoatState();
 		break;
 	case BoatState::Die:
-		FinishedBoatState();
+		DeathEffect();
+		break;
+	case BoatState::None:
+		_time = 0.6f;
 		break;
 	default:
 		break;
@@ -146,6 +179,21 @@ void BoatActor::FinishedBoatState()
 	// state 변경
 	_state = BoatState::None;
 }
+
+void BoatActor::DeathEffect()
+{
+	_die = true;
+	_time -= Time->GetDeltaTime();
+	if (_time <= 0)
+	{
+		_die = false;
+		this->SetCellPos({ 54, 25 }, true);
+		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
+		dev2Scene->GetGameWave()->PushBoatActor(this);
+		_state = BoatState::None;
+	}
+}
+
 void BoatActor::UpdateHpImage(float nextHp)
 {
 	// 피해량 비율을 계산하기
