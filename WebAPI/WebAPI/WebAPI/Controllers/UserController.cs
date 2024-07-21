@@ -1,162 +1,258 @@
-﻿using IdentityServer4.Extensions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
+using WebApi.Data;
+using WebApi.Models.DB;
+using WebApi.Models.Dto;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace WebAPI.Controllers
+namespace WebApi.Controllers
 {
-
-    // 제대로 된 프레임워크나 
-    // 제대로된 엔진
-    // 블랙박스
-    // -> 우리가 실제로 코드를 본순 없지만
-    // 우리가 못보는 곳에서 무언가를 하는/..
-
-    // builder.Service.AddController();
-    // -> 컨트롤러를 쓰겠다
-
-    // 모든 컨트롤러는 종속성이 생성됨
-    // builder 안에 내가 원하는 서비스를 집어넣으면
-    // 생성자에서 다 받을 수 있음
-    // builder -> 모든 서비스를 알아서 잘 딱 맞게 생성자에 원하는 내용을 넣어줌
-
-    // ILogger<객체> 가장 기본적인 ASP .NET 서버의 logger형태
-
     [ApiController]
     [Route("[controller]")]
-
     public class UserController : ControllerBase
     {
-        private static int newUserId = 1;
+        private static int _newUserId = 1;
         private static List<User> _users = new List<User>();
-        // Get Method
-        // id를 통해서 User 정보 조회
+        private readonly Context _context;
 
-        // Post Method
-        // 유저를 새롭게 추가
-        
-        // Put Method
-        // Id와 Email을 넣으면
-        // 해당 Id의 Email이 변경되도록 수정
+        //Get Method
+        //id를 통해서 User정보 조회
 
-        // Delete Method
-        // Id를 넣으면 해당 유저 삭제
+        //Post Method
+        //유저를 새롭게 추가
+
+        //Put Method
+        //Id와 Email을 넣으면
+        //해당 Id의 Email이 변경되도록 수정
+
+        //Delete Method
+        //Id를 넣으면
+        //해당 유저가 삭제되게 수정
+
         private readonly ILogger<UserController> _logger;
-        public UserController(ILogger<UserController> logger)
-        {
+        public UserController(ILogger<UserController> logger, Context context) 
+        { 
             _logger = logger;
+            _context = context;
         }
 
-        [HttpGet()]
-        public User UserInfo([FromQuery] int id)
+        /*[HttpGet("TestGet")]
+        public async Task<object> GetBsyTblUsers()
         {
-            /*foreach (var user in _users) 
-            {
-                if (user.Id == id)
+            object rv;
+            rv = await _context.BsyTblUsers
+                .Include(user => user.ChampionKeyNavigation)
+                .Select(user => new
                 {
-                    return user;
-                }
-            }*/
-            // linq
-            // users 안에 있는 리스트를
-            // u라는 이름으로 순회하면서
-            // u.Id == id이면 배열이 나오는데
-            var rv = _users.Where(u => u.Id == id).FirstOrDefault();
-            if(rv == null)
+                    UserKey = user.Key,
+                    ChampionName = user.ChampionKeyNavigation.Name,
+                    UserLevel = user.Level
+                })
+                .ToListAsync();
+
+            return rv;
+        }*/
+
+        [HttpGet("GetChampionInfoByUserKey")]
+        public async Task<CommonResult<ResponseDtoGetChampionInfoByUserKey>> 
+            GetChampionInfoByUserKey([FromQuery] RequestDtoGetChampionInfoByUserKey requestDto)
+        {
+            CommonResult<ResponseDtoGetChampionInfoByUserKey> rv = new ();
+            try
             {
-                throw new Exception("bad request");
+                _context.BsyTblUsers.Include(user => user.ChampionKeyNavigation);
+
+                var query = await (
+                    from user in _context.BsyTblUsers
+                    where user.Key == requestDto.UserKey
+                    select new ResponseDtoGetChampionInfoByUserKey
+                    {
+                        UserKey = user.Key,
+                        ChampionName = user.ChampionKeyNavigation.Name,
+                        ChampionLevel = user.Level ?? 0
+                    }).ToListAsync();
+
+                if (query.Count < 1)
+                {
+                    throw new CommonExeption(EStatusCode.NotFoundEntity, 
+                        "해당 키를 가진 유저가 없습니다."); // try문 밖으로 던짐
+                }
+                var selectUser = query.First();
+
+                rv.StatusCode = EStatusCode.OK;
+                rv.Message = "";
+                rv.IsSuccess = true;
+                rv.Data = selectUser;
+                /*SELECT `b`.`_key` AS `UserKey`, `b`.`_level` AS `ChampionLevel`, `b0`.`_name` AS `ChampionName`
+                FROM `BSY_TblUser` AS `b`
+                LEFT JOIN `BSY_TblChampion` AS `b0` ON `b`.`_championKey` = `b0`.`_key`
+                WHERE `b`.`_key` = @__userKey_0*/
+            }
+            catch(CommonExeption ex)
+            {
+                rv.StatusCode = (EStatusCode)ex.StatusCode;
+                rv.Message = ex.ToString();
+                rv.IsSuccess = false;
+                rv.Data = null; // selectUser
+
+                return rv;
+            }
+
+            catch (Exception ex)
+            {
+                rv.StatusCode = EStatusCode.ServerException;
+                rv.Message = ex.ToString();
+                rv.IsSuccess = false;
+                rv.Data = ex.Data as ResponseDtoGetChampionInfoByUserKey;
+
+                return rv;
             }
             return rv;
         }
 
+        [HttpGet("GetItemListByUserKey")]
+        public async Task<ResponseDtoGetItemListByUserKey> // List 반환 형식
+            GetItemListByUserId([FromQuery] RequestDtoGetItemListByUserKey requestDto)
+        {
+            ResponseDtoGetItemListByUserKey rv = new ();
+
+            rv.List = await (
+                from userItem in _context.BsyTblUserItems
+                where userItem.UserKey == requestDto.UserKey
+                select new ResponseDtoGetItemListByUserKeyElement
+                {
+                    ItemKey = userItem.Key,
+                    ItemName = userItem.ItemKeyNavigation.Name
+                }).ToListAsync();
+         
+            return rv;
+        }
+
+        /*[HttpGet("GetItemListByUserId")]
+        public async Task<object> GetItemListByUserId([FromQuery] int userKey)
+        {
+            object rv;
+
+            var query = await (
+                from userItem in _context.BsyTblUserItems
+                where userItem.UserKey == userKey
+                select new
+                {
+                    ItemKey = userItem.Key,
+                    ItemName = userItem.ItemKeyNavigation.Name
+                }).ToListAsync();
+              *//*SELECT `b`.`_key` AS `ItemKey`, `b0`.`_name` AS `ItemName`
+              FROM `BSY_TblUserItem` AS `b`
+              LEFT JOIN `BSY_TblItem` AS `b0` ON `b`.`_itemKey` = `b0`.`_key`
+              WHERE `b`.`_userKey` = @__userKey_0*//*
+            return query;
+        }*/
+
+
+        [HttpGet("GetSkillListByUserKey")]
+        public async Task<ResponseDtoGetSkillListByUserKey> // 애초에 List로 만듦
+            GetSkillListByUserId([FromQuery] RequestDtoGetSkillListByUserKey requestDto) // List 반환 형식
+        {
+            ResponseDtoGetSkillListByUserKey rv = new ();
+
+            rv.List = await (
+                from userSkill in _context.BsyTblUserSkills
+                where userSkill.UserKey == requestDto.UserKey
+                select new ResponseDtoGetSkillListByUserKeyElement
+                {
+                    SkillKey = userSkill.Key,
+                    SkillName = userSkill.SkillKeyNavigation.Name
+                }).ToListAsync();
+
+            //1. List<Dto> 형태로 리턴한다.
+            //  서버, 클라이언트 둘다하는 사람이 많이 적습니다.
+            //  서버입장에서는 List<Dto>로 리턴하는게 상당히 많이 편합니다.
+            //  클라이언트 입장에서는 저렇게 Return해줬을때 코드로 파싱하는 경우에서 많이 까다로울떄가 많아요.
+
+            //2. Dto에 리스트를 포함한다.
+
+            return rv;
+        }
+
+
+        [HttpGet()]
+        public User Get([FromQuery]int id)
+        {
+            //foreach(var user in _users)
+            //{
+            //    if(user.Id == id)
+            //    {
+            //        return user;
+            //    }
+            //}
+
+            //linq
+
+            //users 안에 있는 리스트를
+            //u라는 이름으로 순회하면서
+            //u.Id == id 이면
+            //배열이 나오는데,
+            //그중에서 첫번째 요소를 가져오겠다.
+            //첫번째요소 조차없으면 Default 값으로 가져오겠다.
+            var rv = _users.Where(u => u.Id == id).FirstOrDefault();
+
+            if (rv == null)
+            {
+                throw new Exception("Bad Request");
+            }
+
+            return rv;
+        }
+
         [HttpPost()]
-        public bool AddUser([FromQuery] string name, string email, string password)
+        public bool Create([FromQuery] string name, string email, string password)
         {
             User newUser = new User()
-            { 
-                Id = newUserId,
-                Name = name,
+            {
+                Id = _newUserId,
                 Email = email,
-                Password = password
+                Password = password,
+                Name = name
             };
+
             _users.Add(newUser);
-            newUserId++;
+
+            _newUserId++;
+
             return true;
         }
 
         [HttpPut()]
-        public bool EditUserInfo([FromQuery] int id, string email)
+        public bool Update([FromQuery] int id, string email)
         {
             var user = _users.Where(u => u.Id == id).FirstOrDefault();
-            if(user == null)
+
+            if (user == null)
             {
                 return false;
-            }    
+            }
+
             user.Email = email;
 
-            // User => Class(heap)
-            // List<User> => Class(heap)
-            // List<User> 들고 있는 데이터 값은
-            // 주소값
-            // user를 찾은 시점에서 주소값에 변경
             return true;
         }
 
         [HttpDelete()]
-        public bool DeleteUser([FromQuery] int id)
+        public bool Delete([FromQuery]int id)
         {
             User deleteUser = _users.Where(u => u.Id == id).FirstOrDefault();
+
             if (deleteUser == null)
             {
                 return false;
             }
+
             _users.Remove(deleteUser);
             return true;
+
         }
 
-        // HTTP 통신 특징
-        // Method를 같이 보내게 되어있음
-        // URL + Method를 통해서 어떤 Controller의 어떤 함수로 접근할 건지
-        // Method중에 하나가 GET
-        // GET, POST
-        // PUT, DELETE
-
-        // 함수명을 GetItem으로 짓고 실제 동작이 다를 수 있다. 예를 들어 게임 종류가 된다든가..
-        /* [HttpDelete("Test")]
-         public List<int> Test()
-         {
-             return new List<int>() { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-         }*/
-
-        // 좋은 코드는 함수명만 봐도 대충 뭐하는 앤지 알아야한다
-        // GetUserData
-        // UpdateUserData
-        // 특정 데이터를 진짜진짜 극도로 아껴야하는 프로젝트에서는
-        // 함수명의 글자수마저 데이터가 아깝다
-
-        // Method에 의미를 담자
-
-        // Method GET에 User Controller 함수를 호출하면
-        // User 정보를 출력해주는 함수
-
-        // Method POST에 User Controller 함수를 호출하면
-        // User을 Create 해주는
-
-        // Method PUT에 User Controller 함수를 호출하면
-        // User을 Update 해주는
-
-        // Method DELETE에 User Controller 함수를 호출하면
-        // User을 Delete 해주는
-
-        // API로 만들자 (REST Api 규약)
-
-        // ---------------------------------
-        //      축약 버전
-        // ---------------------------------
-
-        // Method GET에 User Controller 함수를 호출하면
-        // User 정보를 출력해주는 함수
-
-        // Method POST에 User Controller 함수를 호출하면
-        // User을 정보가 변경되게 해주는
 
     }
 }

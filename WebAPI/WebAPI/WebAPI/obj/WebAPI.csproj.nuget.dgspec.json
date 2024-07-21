@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\WebAPI\\WebAPI.csproj": {}
+    "C:\\Users\\USER\\Downloads\\WebApi\\WebApi\\WebApi.csproj": {}
   },
   "projects": {
-    "D:\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\WebAPI\\WebAPI.csproj": {
+    "C:\\Users\\USER\\Downloads\\WebApi\\WebApi\\WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\WebAPI\\WebAPI.csproj",
-        "projectName": "WebAPI",
-        "projectPath": "D:\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\WebAPI\\WebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\Downloads\\WebApi\\WebApi\\WebApi.csproj",
+        "projectName": "WebApi",
+        "projectPath": "C:\\Users\\USER\\Downloads\\WebApi\\WebApi\\WebApi.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\WebAPI\\obj\\",
+        "outputPath": "C:\\Users\\USER\\Downloads\\WebApi\\WebApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,13 +44,23 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "IdentityServer4": {
-              "target": "Package",
-              "version": "[4.1.2, )"
-            },
             "Microsoft.AspNet.WebApi.Core": {
               "target": "Package",
               "version": "[5.3.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

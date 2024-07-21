@@ -1,0 +1,66 @@
+    //제대로된 프레임워크나
+    //제대로된 엔진
+    //블랙박스
+    // => 우리가 실제로 코드를 볼순없지만, 
+    //  우리가 못보는곳에서 무언가를 하는...
+
+    //builder.Services.AddControllers();
+    // => 컨트롤러를 쓰겠다.
+
+    // 모든 컨트롤러는 종속성이 생성됩니다.+
+    // builder안에 내가 원하는 서비스를 집어넣으면
+    // 생성자에서 다 받을 수 있습니다.
+    // builder => 모든 서비스를 알아서 잘 딱 맞게 
+    //   생성자에 원하는 내용을 넣어줍니다.
+
+    // ILogger<객체> 가장 기본적인 ASP .NET 서버의 logger 형태에요.
+
+
+
+
+        //HTTP 통신 특징
+        // Method를 같이 보내게 되어있습니다.
+        // URL + Method를 통해서 어떤 Controller의 어떤 함수로 접근할건지
+        // Method 중에 하나가 GET
+        // GET, POST
+        // PUT, DELETE
+
+        // 함수명을 
+        // GetItem
+        // 이라고 지어놓고
+        // 사실은 이함수에서 해주는역할이
+        // 게임을 시작하는 함수
+
+
+        // 좋은코드는 함수명만봐도 대충 뭐하는앤지 알아야한다.
+        // GetUserData
+        // UpdateUserData
+        // 특정 데이터를 진짜진짜 극도로 아껴야하는 프로젝트에서는 
+        // 저글자수마저 데이터가 아깝다.
+
+        // Method에 의미를 담자
+
+        // Method GET 에 User Controller 함수를 호출하면
+        //  User를 Get 해주는
+
+        // Method POST 에 User Controller 함수를 호출하면
+        //  User를 Create 해주는
+
+        // Method PUT 에 User Controller 함수를 호출하면
+        //  User를 Update 해주는
+
+        // Method DELETE 에 User Controller 함수를 호출하면
+        //  User를 Delete 해주는
+
+        // API로 만들자 (REST Api 규약)
+
+        //------------------------------------
+        //      축약버전
+        //------------------------------------
+
+        // Method GET 에 User Controller 함수를 호출하면
+        //  User를 Get 해주는
+
+        // Method POST 에 User Controller 함수를 호출하면
+        //  User의 정보가 변하게 해주는
+

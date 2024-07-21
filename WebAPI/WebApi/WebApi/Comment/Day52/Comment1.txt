@@ -1,0 +1,52 @@
+1. EntityFramework 를 사용하기 위한 절차.
+2. C#에는 라이브러리를 설치하기위한 툴이 존재합니다.
+3. Nuget Package에서 아래내용 설치
+ - Nuget Package
+   - 사용법 : 도구 - Nuget 패키지 관리자 - 솔루션용 Nuget package 관리
+   - 1. Microsoft.EntityFrameworkCore
+   - 2. Microsoft.EntityFrameworkCore.Design
+   - 3. Pomelo.EntityFrameworkCore.MySql
+        (MySQL 드라이버)
+4. Shift + 우클릭으로 PowerShell 창열기
+5.  dotnet tool install --global dotnet-ef  입력
+
+6. dotnet ef dbcontext scaffold "server=121.190.138.117;port=3306;database=SBS_Study_20240701;user=PAStudy;password=PAtmxjel22.." Pomelo.EntityFrameworkCore.MySql --context Context --context-dir Datas --context-namespace WebApi.Data --output-dir Models\DB --verbose
+
+
+dotnet ef 기능을 사용하겠다.
+dbcontext scaffold 라는 기능을 사용할거다.
+ => DB를 기반으로 코드를 정의해주는 기능
+ CODE FIRST (DB 우선)
+
+DB 접근방법에대한 내용을 적어줘야해요.
+"" 사이에 db의 connection string을 적어줌.
+"server=IP;port=값;database=값;user=값;pssword=값"
+
+
+Pomelo.EntityFrameworkCore.MySql => 어떤 드라이버냐 내가 연결한 DB가
+
+--context 이름적기
+--context-dir 디렉토리적기
+--context-namespace 네임스페이스 정하기
+--output-dir 어디에 놓을건지
+--verbose 실행내용 자세히 보기 
+```
+DB생성한건 분명히 MariaDB였는데, 왜 계속 문법설명할때나 드라이버를
+MySQL로하는건지 모르겠다.
+
+ ==> [MariaDB의 유래]
+ MySQL 다니는 직원이 이 회사 뭔가 운영이 좀 이상한데? 하고 소스코드 들고 나와서 만든 회사가 MariaDB입니다.
+ 그래서 둘이 드라이버가 100% 동일해요.
+```
+
+
+
+
+EntityFrameworkCore 설명
+ - Context에 관하여 
+
+    OnConfiguring : 
+     - DB 연결정보
+
+    OnModelCreating :
+     - DB의 정보를 구성하는 곳

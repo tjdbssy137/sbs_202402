@@ -1,0 +1,32 @@
+서버
+ - Client 요청을 받아서, 응답을 해주는 역할을 함.
+
+
+ [서버]
+  - PC 말할때도 있고
+  - Program을 말할때도 있고
+  - 추상적인 의미로 말할때도 있습니다.
+
+
+
+
+[Web Server의 동작방식] (코드적인 부분)
+  - Program.cs => 실행점 / 초기화코드
+  - Controllers/WeatherForecastController.cs
+   => Web의 아키텍처에는 Model - View - Controller 
+    => Model (화면에 보이는 데이터)
+    => View (화면 구성) (View에는 Model를 가져다 씁니다.)
+    => Controller (기능) (어떤데이터를 어떤 View에 넘길지)
+
+
+   - 기본적으로 Controller는 ControllerBase를 상속받고있음.
+   - Controller 네이밍규칙은
+    [WeatherForecast][Controller]
+    도메인+Controller
+
+    도메인 => 아까 인프라에서의 도메인 = IP 
+    도메인 => 핵심 데이터 (User, Auth, Item, Hero, Character)
+
+
+    Web 통신은 기본적으로
+     json형식으로 통신을 하게됩니다.

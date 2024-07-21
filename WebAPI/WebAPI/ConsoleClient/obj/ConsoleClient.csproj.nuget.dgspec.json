@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\ConsoleClient\\ConsoleClient.csproj": {}
+    "C:\\Users\\USER\\Downloads\\WebApi\\ConsoleClient\\ConsoleClient.csproj": {}
   },
   "projects": {
-    "D:\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\ConsoleClient\\ConsoleClient.csproj": {
+    "C:\\Users\\USER\\Downloads\\WebApi\\ConsoleClient\\ConsoleClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\ConsoleClient\\ConsoleClient.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\Downloads\\WebApi\\ConsoleClient\\ConsoleClient.csproj",
         "projectName": "ConsoleClient",
-        "projectPath": "D:\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\ConsoleClient\\ConsoleClient.csproj",
+        "projectPath": "C:\\Users\\USER\\Downloads\\WebApi\\ConsoleClient\\ConsoleClient.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub\\sbs_202402\\WebAPI\\WebAPI\\ConsoleClient\\obj\\",
+        "outputPath": "C:\\Users\\USER\\Downloads\\WebApi\\ConsoleClient\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
