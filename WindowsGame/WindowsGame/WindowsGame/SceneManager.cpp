@@ -5,6 +5,7 @@
 #include "Dev2Scene.h"
 #include "InGameScene.h"
 #include "MoleGameScene.h"
+#include "TowerGameScene.h"
 void SceneManager::Init()
 {
 
@@ -47,6 +48,8 @@ void SceneManager::Update()
 		break;
 	case SceneType::InGameScene:
 		newScene = new InGameScene();
+	case SceneType::TowerGameScene:
+		newScene = new TowerGameScene();
 	default:
 		break;
 	}

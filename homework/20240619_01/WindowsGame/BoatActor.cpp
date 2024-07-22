@@ -138,8 +138,8 @@ void BoatActor::Update()
 	case BoatState::Die:
 		DeathEffect();
 		break;
-	case BoatState::None:
-		_time = 0.6f;
+	case BoatState::Start:
+		_time = 0.6f; // BoatState::None:에 설정하니까 재사용이 안됐음 
 		break;
 	default:
 		break;
@@ -207,6 +207,7 @@ void BoatActor::UpdateHpImage(float nextHp)
 	}
 	if (_hp <= 0)
 	{
+		// 재사용시에도들어와짐
 		_state = BoatState::Die;
 	}
 }

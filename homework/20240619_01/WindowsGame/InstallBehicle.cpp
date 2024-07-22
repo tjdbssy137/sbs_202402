@@ -22,6 +22,7 @@ void InstallBehicle::Release()
 
 void InstallBehicle::InstallBehicleFunc(Vector2Int pos)
 {
+	/*
 	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
 
 	vector<BehicleController*> _behicleControllers = dev2Scene->GetBehicleController();
@@ -40,14 +41,5 @@ void InstallBehicle::InstallBehicleFunc(Vector2Int pos)
 		dev2Scene->SetBehicleActor(behicle);
 	}
 	dev2Scene->SetBehicleController(behicleController);
-}
-
-void InstallBehicle::UpgradeBehicleFunc(BehicleController* behicleController)
-{
-
-}
-
-void InstallBehicle::DeleteBehicleFunc(BehicleController* behicleController)
-{
-	
+	*/
 }

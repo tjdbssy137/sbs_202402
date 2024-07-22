@@ -77,6 +77,9 @@
     <Filter Include="09.Events\Game">
       <UniqueIdentifier>{69f27c28-6772-435e-a884-5a4c60159a85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Scene\TowerGame">
+      <UniqueIdentifier>{27429b94-9327-48f1-9d13-636ead33781d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -282,6 +285,9 @@
     </ClInclude>
     <ClInclude Include="GameEvent_CreatureChangeDir.h">
       <Filter>09.Events\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TowerGameScene.h">
+      <Filter>02.Scene\TowerGame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -555,6 +561,12 @@
     </ClCompile>
     <ClCompile Include="GameEvent_CreatureChangeDir.cpp">
       <Filter>09.Events\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Day54.cpp">
+      <Filter>999.Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="TowerGameScene.cpp">
+      <Filter>02.Scene\TowerGame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

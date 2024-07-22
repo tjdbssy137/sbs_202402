@@ -219,6 +219,7 @@
     <ClInclude Include="TilemapActor.h" />
     <ClInclude Include="TilemapScene.h" />
     <ClInclude Include="TimeManager.h" />
+    <ClInclude Include="TowerGameScene.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UISpriteNumber.h" />
@@ -325,6 +326,7 @@
     <ClCompile Include="Day50.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Day54.cpp" />
     <ClCompile Include="Dev1Scene.cpp" />
     <ClCompile Include="Dev2Scene.cpp" />
     <ClInclude Include="Enums.h" />
@@ -370,6 +372,7 @@
     <ClCompile Include="TilemapActor.cpp" />
     <ClCompile Include="TilemapScene.cpp" />
     <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="TowerGameScene.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UISpriteNumber.cpp" />
     <ClCompile Include="UserCharacterController.cpp" />

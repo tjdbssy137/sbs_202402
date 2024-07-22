@@ -28,7 +28,8 @@
 void Dev2Scene::Init()
 {
 	LoadResource();
-	{
+	{// Day54에서 쓴 코드랑 비교해서 수정
+		// TilemapActor 에서 LoadTimemap(wstring filename); 추가
 		for (int i = 6; i <= 67; i++)
 		{
 			{

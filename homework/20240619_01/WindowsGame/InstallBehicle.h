@@ -3,6 +3,7 @@
 
 class BehicleController;
 // 얘는 컨트롤러역이어야하나?
+// 이 파일 필요 없음
 class InstallBehicle : public Actor
 {
 public:
@@ -15,8 +16,7 @@ public:
 
 public:
 	void InstallBehicleFunc(Vector2Int pos);
-	void UpgradeBehicleFunc(BehicleController* behicleController);
-	void DeleteBehicleFunc(BehicleController* behicleController);
+
 public:
 	void SetBehicleTypeState(int type) { _type = type; }
 

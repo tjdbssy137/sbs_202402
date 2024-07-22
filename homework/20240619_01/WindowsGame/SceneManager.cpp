@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Dev1Scene.h"
 #include "Dev2Scene.h"
+//#include "TowerDefenseScene.h"
 void SceneManager::Init()
 {
 
@@ -42,6 +43,9 @@ void SceneManager::Update()
 		break;
 	case SceneType::Dev2Scene:
 		newScene = new Dev2Scene();
+		break;
+	case SceneType::TowerDefenseScene:
+		
 		break;
 	default:
 		break;

@@ -7,6 +7,7 @@ enum class SceneType // 18일차 강의 초반에 enum 설명 있음
 	Dev2Scene,
 
 	InGameScene,
+	TowerDefenseScene,
 };
 
 //뒤에 둘수록 마지막에 그린다

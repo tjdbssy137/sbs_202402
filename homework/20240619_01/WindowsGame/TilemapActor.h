@@ -20,6 +20,7 @@ public:
 
 	Vector2Int GetTileIndexByPos(Vector2 checkPos);
 
+	void LoadTimemap(wstring filename);
 protected:
 	Tilemap* _tilemap = nullptr;
 	vector<Sprite*> _sprites;

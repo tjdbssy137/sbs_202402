@@ -77,4 +77,6 @@ private:
 	float _time = 1.0f;
 	BoatActor* _targetBoat = nullptr;
 	BulletActorController* _bulletActorController = nullptr;
+
+	BehicleData _data; // data를 처음부터 갖고 시작.
 };
