@@ -12,11 +12,12 @@
     { 
         OK,
         NotFoundEntity,
-        ServerException
+        ServerException,
+        ChangedRowsIsZero // 변경된 DB 줄 수 0
     }
 
 
-    public class CommonExeption : Exception
+    public class CommonException : Exception
     {
         protected EStatusCode _statusCode = EStatusCode.OK;
         public int StatusCode => (int)_statusCode;
@@ -24,7 +25,7 @@
         protected object _data;
         public object Data => _data;
 
-        public CommonExeption(EStatusCode statusCode, string message, object data = null) : base(message) 
+        public CommonException(EStatusCode statusCode, string message, object data = null) : base(message) 
         {
             _statusCode = statusCode;
             _data = data;

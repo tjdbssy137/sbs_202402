@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.InteropServices;
 using WebApi.Data;
+using WebApi.Models;
 using WebApi.Models.DB;
 using WebApi.Models.Dto;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -75,7 +76,7 @@ namespace WebApi.Controllers
 
                 if (query.Count < 1)
                 {
-                    throw new CommonExeption(EStatusCode.NotFoundEntity, 
+                    throw new CommonException(EStatusCode.NotFoundEntity, 
                         "해당 키를 가진 유저가 없습니다."); // try문 밖으로 던짐
                 }
                 var selectUser = query.First();
@@ -89,7 +90,7 @@ namespace WebApi.Controllers
                 LEFT JOIN `BSY_TblChampion` AS `b0` ON `b`.`_championKey` = `b0`.`_key`
                 WHERE `b`.`_key` = @__userKey_0*/
             }
-            catch(CommonExeption ex)
+            catch(CommonException ex)
             {
                 rv.StatusCode = (EStatusCode)ex.StatusCode;
                 rv.Message = ex.ToString();
@@ -112,20 +113,36 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("GetItemListByUserKey")]
-        public async Task<ResponseDtoGetItemListByUserKey> // List 반환 형식
+        public async Task<CommonResult<ResponseDtoGetItemListByUserKey>> // List 반환 형식
             GetItemListByUserId([FromQuery] RequestDtoGetItemListByUserKey requestDto)
         {
-            ResponseDtoGetItemListByUserKey rv = new ();
+            CommonResult < ResponseDtoGetItemListByUserKey > rv = new ();
 
-            rv.List = await (
-                from userItem in _context.BsyTblUserItems
-                where userItem.UserKey == requestDto.UserKey
-                select new ResponseDtoGetItemListByUserKeyElement
-                {
-                    ItemKey = userItem.Key,
-                    ItemName = userItem.ItemKeyNavigation.Name
-                }).ToListAsync();
-         
+            try
+            {
+                rv.Data = new ();
+                rv.Data.List = await (
+                            from userItem in _context.BsyTblUserItems
+                            where userItem.UserKey == requestDto.UserKey
+                            select new ResponseDtoGetItemListByUserKeyElement
+                            {
+                                ItemKey = userItem.Key,
+                                ItemName = userItem.ItemKeyNavigation.Name
+                            }).ToListAsync();
+
+            }
+            catch (CommonException ex)
+            {
+                rv.StatusCode = (EStatusCode)ex.StatusCode;
+                rv.Message = ex.Message;
+                rv.IsSuccess = false;
+            }
+            catch (Exception ex) 
+            {
+                rv.StatusCode = EStatusCode.ServerException;
+                rv.Message = ex.ToString();
+                rv.IsSuccess = false;
+            }
             return rv;
         }
 
@@ -171,6 +188,311 @@ namespace WebApi.Controllers
             //  클라이언트 입장에서는 저렇게 Return해줬을때 코드로 파싱하는 경우에서 많이 까다로울떄가 많아요.
 
             //2. Dto에 리스트를 포함한다.
+
+            return rv;
+        }
+
+        // SKILL
+        [HttpPost("InsertUserSkill")]
+        public async Task<CommonResult<ResponseDtoInsertUserSkill>> InsertUserSkill([FromBody] RequestDtoInsertUserSkill requestDto)
+        {
+            CommonResult<ResponseDtoInsertUserSkill> rv = new();
+
+            try
+            {
+                _context.BsyTblUserSkills.Add(new BsyTblUserSkill()
+                {
+                    SkillKey = requestDto.SkillKey,
+                    UserKey = requestDto.UserKey
+                });
+
+                /*
+                    INSERT INTO `BSY_TblUserSkill` (`_skillKey`, `_userKey`)
+                    VALUES (@p0, @p1);
+                 */
+
+                var IsSuccess = await _context.SaveChangesAsync();
+
+                if (IsSuccess == 0)
+                {
+                    throw new CommonException(EStatusCode.ChangedRowsIsZero, $"SkillKey : {requestDto.SkillKey},  UserKey: {requestDto.UserKey}");
+                }
+                else
+                {
+                    rv.IsSuccess = true;
+                    rv.StatusCode = EStatusCode.OK;
+                    rv.Data = null;
+                }
+            }
+            catch (CommonException ex)
+            {
+                rv.IsSuccess = false;
+                rv.StatusCode = (EStatusCode)ex.StatusCode;
+                rv.Message = ex.Message;
+                rv.Data = null;
+            }
+            catch (Exception ex)
+            {
+                rv.IsSuccess = false;
+                rv.StatusCode = EStatusCode.ServerException;
+                rv.Message = ex.Message;
+                rv.Data = null;
+            }
+
+            return rv;
+        }
+
+
+
+        [HttpPost("UpdateUserSkill")]
+        public async Task<CommonResult<ResponseDtoUpdateUserSkill>> UpdateUserSkill([FromBody] RequestDtoUpdateUserSkill requestDto)
+        {
+            CommonResult<ResponseDtoUpdateUserSkill> rv = new();
+
+            try
+            {
+                var entity = _context.BsyTblUserSkills.Where(userSkill => userSkill.Key == requestDto.Key).FirstOrDefault();
+
+                if (entity == null)
+                {
+                    throw new CommonException(EStatusCode.NotFoundEntity, $"Key : {requestDto.Key}");
+                }
+
+                entity.SkillKey = requestDto.SkillKey;
+                entity.UserKey = requestDto.UserKey;
+                _context.BsyTblUserSkills.Update(entity);
+                /*
+                    SET AUTOCOMMIT = 1;
+                    UPDATE `BSY_TblUserSkill` SET `_skillKey` = @p0, `_userKey` = @p1
+                    WHERE `_key` = @p2;
+                    SELECT ROW_COUNT();
+                 */
+
+                var IsSuccess = await _context.SaveChangesAsync();
+
+                if (IsSuccess == 0)
+                {
+                    throw new CommonException(EStatusCode.ChangedRowsIsZero, $"SkillKey : {requestDto.SkillKey},  UserKey: {requestDto.UserKey}");
+                }
+                else
+                {
+                    rv.IsSuccess = true;
+                    rv.StatusCode = EStatusCode.OK;
+                    rv.Data = null;
+                }
+            }
+            catch (CommonException ex)
+            {
+                rv.IsSuccess = false;
+                rv.StatusCode = (EStatusCode)ex.StatusCode;
+                rv.Message = ex.Message;
+                rv.Data = null;
+            }
+            catch (Exception ex)
+            {
+                rv.IsSuccess = false;
+                rv.StatusCode = EStatusCode.ServerException;
+                rv.Message = ex.Message;
+                rv.Data = null;
+            }
+
+            return rv;
+        }
+
+
+        [HttpPost("DeleteUserSkill")]
+        public async Task<CommonResult<ResponseDtoDeleteUserSkill>> DeleteUserSkill([FromBody] RequestDtoDeleteUserSkill requestDto)
+        {
+            CommonResult<ResponseDtoDeleteUserSkill> rv = new();
+
+            try
+            {
+                var entity = _context.BsyTblUserSkills.Where(userSkill => userSkill.Key == requestDto.Key).FirstOrDefault();
+
+                if (entity == null)
+                {
+                    throw new CommonException(EStatusCode.NotFoundEntity, $"Key : {requestDto.Key}");
+                }
+
+                _context.BsyTblUserSkills.Remove(entity);
+                /*
+                    SET AUTOCOMMIT = 1;
+                    UPDATE `BSY_TblUserSkill` SET `_skillKey` = @p0, `_userKey` = @p1
+                    WHERE `_key` = @p2;
+                    SELECT ROW_COUNT();
+                 */
+
+                var IsSuccess = await _context.SaveChangesAsync();
+
+                if (IsSuccess == 0)
+                {
+                    throw new CommonException(EStatusCode.ChangedRowsIsZero, $"Key : {requestDto.Key}");
+                }
+                else
+                {
+                    rv.IsSuccess = true;
+                    rv.StatusCode = EStatusCode.OK;
+                    rv.Data = null;
+                }
+            }
+            catch (CommonException ex)
+            {
+                rv.IsSuccess = false;
+                rv.StatusCode = (EStatusCode)ex.StatusCode;
+                rv.Message = ex.Message;
+                rv.Data = null;
+            }
+            catch (Exception ex)
+            {
+                rv.IsSuccess = false;
+                rv.StatusCode = EStatusCode.ServerException;
+                rv.Message = ex.Message;
+                rv.Data = null;
+            }
+
+            return rv;
+        }
+
+        // ITEM
+        [HttpPost("InsertUserItem")]
+        public async Task<CommonResult<ResponseDtoInsertUserItem>> InsertUserItem([FromBody] RequestDtoInsertUserItem requestDto)
+        {
+            CommonResult<ResponseDtoInsertUserItem> rv = new();
+
+            try
+            {
+                _context.BsyTblUserItems.Add(new BsyTblUserItem()
+                {
+                    ItemKey = requestDto.ItemKey,
+                    UserKey = requestDto.UserKey
+                });
+
+                var IsSuccess = await _context.SaveChangesAsync();
+
+                if (IsSuccess == 0)
+                {
+                    throw new CommonException(EStatusCode.ChangedRowsIsZero, $"ItemKey : {requestDto.ItemKey},  UserKey: {requestDto.UserKey}");
+                }
+                else
+                {
+                    rv.IsSuccess = true;
+                    rv.StatusCode = EStatusCode.OK;
+                    rv.Data = null;
+                }
+            }
+            catch (CommonException ex)
+            {
+                rv.IsSuccess = false;
+                rv.StatusCode = (EStatusCode)ex.StatusCode;
+                rv.Message = ex.Message;
+                rv.Data = null;
+            }
+            catch (Exception ex)
+            {
+                rv.IsSuccess = false;
+                rv.StatusCode = EStatusCode.ServerException;
+                rv.Message = ex.Message;
+                rv.Data = null;
+            }
+
+            return rv;
+        }
+
+
+
+        [HttpPost("UpdateUserItem")]
+        public async Task<CommonResult<ResponseDtoUpdateUserItem>> UpdateUserItem([FromBody] RequestDtoUpdateUserItem requestDto)
+        {
+            CommonResult<ResponseDtoUpdateUserItem> rv = new();
+
+            try
+            {
+                var entity = _context.BsyTblUserItems.Where(userItem => userItem.Key == requestDto.Key).FirstOrDefault();
+
+                if (entity == null)
+                {
+                    throw new CommonException(EStatusCode.NotFoundEntity, $"Key : {requestDto.Key}");
+                }
+
+                entity.ItemKey = requestDto.ItemKey;
+                entity.UserKey = requestDto.UserKey;
+                _context.BsyTblUserItems.Update(entity);
+            
+                var IsSuccess = await _context.SaveChangesAsync();
+
+                if (IsSuccess == 0)
+                {
+                    throw new CommonException(EStatusCode.ChangedRowsIsZero, $"ItemKey : {requestDto.ItemKey},  UserKey: {requestDto.UserKey}");
+                }
+                else
+                {
+                    rv.IsSuccess = true;
+                    rv.StatusCode = EStatusCode.OK;
+                    rv.Data = null;
+                }
+            }
+            catch (CommonException ex)
+            {
+                rv.IsSuccess = false;
+                rv.StatusCode = (EStatusCode)ex.StatusCode;
+                rv.Message = ex.Message;
+                rv.Data = null;
+            }
+            catch (Exception ex)
+            {
+                rv.IsSuccess = false;
+                rv.StatusCode = EStatusCode.ServerException;
+                rv.Message = ex.Message;
+                rv.Data = null;
+            }
+
+            return rv;
+        }
+
+
+        [HttpPost("DeleteUserItem")]
+        public async Task<CommonResult<ResponseDtoDeleteUserItem>> DeleteUserItem([FromBody] RequestDtoDeleteUserItem requestDto)
+        {
+            CommonResult<ResponseDtoDeleteUserItem> rv = new();
+
+            try
+            {
+                var entity = _context.BsyTblUserItems.Where(ItemKey => ItemKey.Key == requestDto.Key).FirstOrDefault();
+
+                if (entity == null)
+                {
+                    throw new CommonException(EStatusCode.NotFoundEntity, $"Key : {requestDto.Key}");
+                }
+
+                _context.BsyTblUserItems.Remove(entity);
+            
+                var IsSuccess = await _context.SaveChangesAsync();
+
+                if (IsSuccess == 0)
+                {
+                    throw new CommonException(EStatusCode.ChangedRowsIsZero, $"Key : {requestDto.Key}");
+                }
+                else
+                {
+                    rv.IsSuccess = true;
+                    rv.StatusCode = EStatusCode.OK;
+                    rv.Data = null;
+                }
+            }
+            catch (CommonException ex)
+            {
+                rv.IsSuccess = false;
+                rv.StatusCode = (EStatusCode)ex.StatusCode;
+                rv.Message = ex.Message;
+                rv.Data = null;
+            }
+            catch (Exception ex)
+            {
+                rv.IsSuccess = false;
+                rv.StatusCode = EStatusCode.ServerException;
+                rv.Message = ex.Message;
+                rv.Data = null;
+            }
 
             return rv;
         }

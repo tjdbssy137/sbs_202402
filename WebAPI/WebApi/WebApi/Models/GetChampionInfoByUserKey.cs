@@ -46,4 +46,37 @@
     }
 
     // 리스트용 클래스가 하나 더 필요
+
+
+    // SKILL
+
+    public class RequestDtoInsertUserSkill
+    {
+        public int UserKey { get; set; }
+        public int SkillKey { get; set; }
+    }
+
+    public class ResponseDtoInsertUserSkill
+    {
+    }
+
+    public class RequestDtoUpdateUserSkill
+    {
+        public int Key { get; set; }
+        public int UserKey { get; set; }
+        public int SkillKey { get; set; }
+    }
+
+    public class ResponseDtoUpdateUserSkill
+    {
+    }
+
+    public class RequestDtoDeleteUserSkill
+    {
+        public int Key { get; set; }
+    }
+
+    public class ResponseDtoDeleteUserSkill
+    {
+    }
 }
