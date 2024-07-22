@@ -578,7 +578,7 @@ bool Dev2Scene::CanGo(Actor* actor, Vector2Int cellPos)
 {
 	for (BehicleActor* behicle : _behicles)
 	{
-		if (behicle->GetBehicleType() == L"FB_Submarine_")
+		if (behicle->GetBehicleData().Id == 7) // 7은 Submarine
 		{
 			if (behicle->GetCellPos() == cellPos) // 잠수함을 설치해도 바로 적용 안 됨.
 			{

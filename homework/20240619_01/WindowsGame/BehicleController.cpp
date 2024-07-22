@@ -40,17 +40,17 @@ void BehicleController::Update()
 			break;
 		case BehicleTypeState::Submarine:
 		{
-			_behicle->SetBehicleType(L"FB_Submarine_");
+			_behicle->SetBehicleData(Datas->GetBehicleData(7));
 			_behicle->ChangeDirection(eDirection::DOWN_RIGHT);
 			_behicle->SetActiveBehicle();
 			//_type = BehicleTypeState::None; 
-			//		이거 때문에 behicleController[index]->GetBehicleTypeState()에서 계속 None = 7이 떠서 업데이트가 안 됨
-			//		근데 이거 막으니까 공격이랑 LookAtBoat가 안 됨 ㅋㅋ
+			//	이거 때문에 behicleController[index]->GetBehicleTypeState()에서 계속 None = 7이 떠서 업데이트가 안 됨
+			//	근데 이거 막으니까 공격이랑 LookAtBoat가 안 됨 ㅋㅋ
 		}
 		break;
 		case BehicleTypeState::Delete:
 		{
-			_behicle->SetBehicleType(L"FB_Submarine_");
+			_behicle->SetBehicleData(Datas->GetBehicleData(7));
 			_behicle->SetState(BehicleState::None);
 			_behicle->SetCellPos({ 54, 1 }, true);
 			_type = BehicleTypeState::None;
@@ -65,13 +65,8 @@ void BehicleController::Update()
 
 void BehicleController::SettingBehicle(BehicleData data)
 {
-	wstring name = wstring().assign(data.Name.begin(), data.Name.end());
-
-	_behicle->SetBehicleType(name);
-	_behicle->SetColliderSize(data.ColliderSize);
+	_data = data;
+	_behicle->SetBehicleData(_data);
 	_behicle->ChangeDirection(eDirection::DOWN_RIGHT);//이 코드가 없으면 actor가 안 보임
 	_behicle->SetActiveBehicle();
-	_behicle->SetBulletDamage(data.BulletDamage);
-	_behicle->SetAttackTime(data.AttackTime);
-	_behicle->SetBulletSpeed(data.BulletSpeed);
 }

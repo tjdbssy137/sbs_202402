@@ -14,17 +14,16 @@ void BoatActor::Init()
 {
 	//wprintf(GetBoatType().c_str());
 	
-	//SetActiveBoat();
 	this->SetState(_state);
 	this->SetName("Enemy");
-	collider = new CircleCollider();
-	collider->SetCollision(Vector2::Zero(), 10);
-	collider->Init(); 
-	collider->SetCollisionLayer(CollisionLayerType::CLT_ENEMY); // 다시 공부
-	collider->ResetCollisionFlag();
-	collider->AddCollisionFlagLayer(CollisionLayerType::CLT_BEHICLE);
-	collider->AddCollisionFlagLayer(CollisionLayerType::CLT_ITEM);
-	this->AddComponent(collider);
+	_collider = new CircleCollider();
+	_collider->SetCollision(Vector2::Zero(), 10);
+	_collider->Init(); 
+	_collider->SetCollisionLayer(CollisionLayerType::CLT_ENEMY); // 다시 공부
+	_collider->ResetCollisionFlag();
+	_collider->AddCollisionFlagLayer(CollisionLayerType::CLT_BEHICLE);
+	_collider->AddCollisionFlagLayer(CollisionLayerType::CLT_ITEM);
+	this->AddComponent(_collider);
 
 	// HP
 	_hpBackground = Resource->GetSprite(L"S_HP_Background"); // HP 체력바 배경
@@ -37,7 +36,6 @@ void BoatActor::Init()
 		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
 		_bulletActorController = dev2Scene->GetBulletActorController();
 	}
-
 
 	Super::Init();
 }
@@ -83,7 +81,7 @@ void BoatActor::Render(HDC hdc)
 		::TransparentBlt(hdc,
 			renderPos.x,
 			renderPos.y,
-			size.x * (_hp / _staticHp),
+			size.x * (_hp / _data.HP),
 			size.y,
 			_bpBar->GetDC(),
 			_bpBar->GetPos().x,
@@ -155,10 +153,15 @@ void BoatActor::SetActiveBoat()
 {
 	wstring direction[eDirection::END]
 		= { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
+	cout << _data.Name << endl;
+	wstring name = wstring().assign(_data.Name.begin(), _data.Name.end());
 	for (int i = 0; i < eDirection::END; i++)
 	{
-		_moveFlipbook[i] = Resource->GetFlipbook(GetBoatType() + direction[i]);
+		_moveFlipbook[i] = Resource->GetFlipbook(name + direction[i]);
 	}
+	_hp = _data.HP;
+	_staticHp = _data.HP;
+	_nextHp = _data.HP; // 이거 추가하니까 생성은 되는데 3개만 됨
 }
 void BoatActor::ChangeDirection(eDirection dir)
 {
@@ -247,7 +250,7 @@ void BoatActor::UpdateMove()
 	{
 		Vector2 dirVec = _destPos - this->GetPos();
 		dirVec = dirVec.Normalize();
-		_body.pos += dirVec * _boatSpeed * Time->GetDeltaTime();
+		_body.pos += dirVec * _data.MoveSpeed * Time->GetDeltaTime();
 
 		// 상하좌우에 따라 캐릭터 방향을 돌려줌.
 		Vector2 directions[4] = {
@@ -300,10 +303,8 @@ void BoatActor::OnTriggerEnter(Collider* collider, Collider* other)
 		BulletActor* behicleBullet = dynamic_cast<BulletActor*>(other->GetOwner());
 		float getDamage = behicleBullet->GetBulletDamage();
 		_nextHp = _hp - getDamage;
-		//UpdateHpImage(getDamage); // 이거 업데이트로 옮기기
 		behicleBullet->SetBulletState(BulletState::Done);
 		_bulletActorController->PushBullet(behicleBullet);
-		//_state = BoatState::Attacked;
 	}
 }
 
@@ -338,7 +339,6 @@ Vector2Int BoatActor::GetCellPos()
 }
 bool BoatActor::HasRechedDest()
 {
-	//_destPos와 내 위치의 길이 < 10px보다 작다.
 	return (_destPos - this->GetPos()).Length() < 2.0f;
 }
 bool BoatActor::CanMove()

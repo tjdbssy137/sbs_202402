@@ -18,7 +18,6 @@ void ActionButtonsPanel::Init()
 		{
 			iconListPanel->SetRect(Shape::MakeCenterRect(WIN_SIZE_X / 2, WIN_SIZE_Y / 2, 100, 40));
 			this->AddChild(iconListPanel);
-
 		}
 		{
 			Button* UpgradeButton = new Button();
@@ -96,35 +95,11 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 	vector<BehicleController*> behicleController = scene->GetBehicleController();
 	int index = redBlockController->GetBehicleControllerIndex();
 	
-	//cout <<" static_cast<int>(behicleController[index]->GetBehicleTypeState()) : "
-	//  << static_cast<int>(behicleController[index]->GetBehicleTypeState()) << endl;
-	switch (behicleController[index]->GetBehicleTypeState())
-	{
-	case BehicleTypeState::Tank1:
+	BehicleData data = behicleController[index]->GetBehicleData();
+	if (data.Id < 7)
 	{
 		behicleController[index]->IsSetting(true);
-		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Tank2));
-	}
-		break;
-	case BehicleTypeState::Tank2:
-	{
-		behicleController[index]->IsSetting(true);
-		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Tank3));
-	}	break;
-	case BehicleTypeState::DrillTank1:
-	{
-		behicleController[index]->IsSetting(true);
-		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::DrillTank2));
-	}
-	break;
-	case BehicleTypeState::DrillTank2:
-	{
-		behicleController[index]->IsSetting(true);
-		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::DrillTank3));
-	}
-		break;
-	default:
-		break;
+		behicleController[index]->SetBehicleTypeState(data.UpgradeTowerId);
 	}
 	_state = ActionButtonsButtonManagState::Hide;
 	this->Hide();

@@ -32,21 +32,10 @@ public:
 	BehicleState GetState() { return _state; }
 
 	void ChangeDirection(eDirection dir);
+
 public:
-	void SetBehicleType(wstring behicleType) { _behicleType = behicleType; }
-	wstring GetBehicleType() { return _behicleType; }
-
-	void SetBulletDamage(float deal) { _behicleBulletDamage = deal; }
-	float GetBulletDamage() { return _behicleBulletDamage; }
-	
-	void SetBulletSpeed(float speed) { _behicleBulletSpeed = speed; }
-	float GetBulletSpeed() { return _behicleBulletSpeed; }
-
-	void SetAttackTime(float time) { _attackTime = time; }
-	
-	CircleCollider* GetBehicleCollider() { return collider; }
-
-	void SetColliderSize(int size) { _colliderSize = size; }
+	void SetBehicleData(BehicleData data) { _data = data; }
+	BehicleData GetBehicleData() { return _data; }
 
 public:
 	void UpdateAttack();
@@ -61,19 +50,12 @@ private:
 	eDirection _dir = eDirection::DOWN;
 	Flipbook* _idleFlipbook[8] = {};
 
-private: // scene 에서 정리
-	float _behicleBulletSpeed = 400;
-	float _behicleBulletDamage = 10;
-	wstring _behicleType = L"FB_Tank1_";
-
 private:
 	Vector2 _destPos = {};
 	Vector2Int _cellPos = {};
 
 private:
 	CircleCollider* collider = nullptr;
-	int _colliderSize = 150;
-	float _attackTime = 1.0f;
 	float _time = 1.0f;
 	BoatActor* _targetBoat = nullptr;
 	BulletActorController* _bulletActorController = nullptr;

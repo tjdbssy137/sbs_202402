@@ -3,7 +3,7 @@ class BehicleActor;
 
 enum class BehicleTypeState
 {
-	DrillTank1,
+	DrillTank1 = 1,
 	DrillTank2,
 	DrillTank3,
 	Tank1,
@@ -25,10 +25,14 @@ public:
 	void SettingBehicle(BehicleData data);
 public:
 
+	BehicleData GetBehicleData() { return _data; }
+
 	BehicleTypeState GetBehicleTypeState() { return _type; }
 	void SetBehicleTypeState(int type) { _type = static_cast<BehicleTypeState>(type); }
 	void IsSetting(bool isSetting) { _isSetting = isSetting; }
+
 private:
 	BehicleTypeState _type = BehicleTypeState::Tank1;
+	BehicleData _data;
 	bool _isSetting = false;
 };

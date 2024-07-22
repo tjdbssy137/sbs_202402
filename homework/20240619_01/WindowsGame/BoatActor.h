@@ -44,16 +44,13 @@ public:
 	bool HasRechedDest();
 	bool CanMove();
 public:
-	void SetBoatSpeed(int boatSpeed) { _boatSpeed = boatSpeed; }
-	int GetBoatSpeed() { return _boatSpeed; }
-
-	void SetBoatType(wstring boatType) { _boatType = boatType; }
-	wstring GetBoatType() { return _boatType; }
-
-	void SetBoatHp(float hp) { _hp = hp; }
 	void SetBoatStaticHp(float hp) { _staticHp = hp; _nextHp = hp;  }
 
-	CircleCollider* GetBoatCollider() { return collider; }
+	CircleCollider* GetBoatCollider() { return _collider; }
+
+public:
+	void SetBoatData(BoatData data) { _data = data; }
+	BoatData GetBoatData() { return _data; }
 
 public: // Astar 관련
 	void SetPath(vector<Vector2Int> path);
@@ -72,11 +69,7 @@ private:
 	eDirection _dir = eDirection::DOWN;
 	Flipbook* _moveFlipbook[eDirection::END] = {};
 
-	CircleCollider* collider = nullptr;
-
-private: // scene 에서 정리
-	int _boatSpeed = 100;
-	wstring _boatType = L"FB_EnemyBoat1_";
+	CircleCollider* _collider = nullptr;
 
 private:
 	Vector2 _destPos = {};
@@ -99,4 +92,5 @@ private:
 
 private:
 	BulletActorController* _bulletActorController = nullptr;
+	BoatData _data;
 };

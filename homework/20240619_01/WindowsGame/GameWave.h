@@ -15,7 +15,7 @@ public:
 public:
 	void SetWave();
 public:
-	void SpawnBoat(int id);
+	void SpawnBoat(BoatData data);
 public:
 	void SetGameWaveState(GameWaveState waveState) { _waveState = waveState; }
 public:

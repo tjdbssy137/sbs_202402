@@ -11,7 +11,7 @@ void BehicleActor::Init()
 	this->SetState(_state);
 
 	collider = new CircleCollider();
-	collider->SetCollision(Vector2::Zero(), _colliderSize);
+	collider->SetCollision(Vector2::Zero(), 0);
 	collider->Init();
 	collider->SetCollisionLayer(CollisionLayerType::CLT_BEHICLE);
 	collider->ResetCollisionFlag();
@@ -65,20 +65,23 @@ void BehicleActor::SetActiveBehicle()
 //		wcout << GetBehicleType() << endl;
 	wstring direction[eDirection::END]
 		= { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
+	
+	wstring name = wstring().assign(_data.Name.begin(), _data.Name.end());
+
 	for (int i = 0; i < eDirection::END; i++)
 	{
-		_idleFlipbook[i] = Resource->GetFlipbook(GetBehicleType() + direction[i]);
+		_idleFlipbook[i] = Resource->GetFlipbook(name + direction[i]);
 	}
 	this->ChangeDirection(eDirection::DOWN);
 
-	if (this->GetBehicleType() == L"FB_Submarine_")
+	if (_data.Id == 7)
 	{
 		collider->SetCollision(Vector2::Zero(), 0);
 	}
 	else
 	{
-		collider->SetCollision(Vector2::Zero(), _colliderSize);
-		_time = _attackTime;
+		collider->SetCollision(Vector2::Zero(), _data.ColliderSize);
+		_time = _data.AttackTime;
 	}
 
 }
@@ -113,7 +116,7 @@ void BehicleActor::UpdateIdle()
 			boat->GetPos(), boat->GetBoatCollider()->GetRadius()))
 		{
 			_targetBoat = boat;
-			if (this->GetBehicleType() == L"FB_Submarine_")
+			if (_data.Id == 7)
 			{
 				_state = BehicleState::Submarine;
 			}
@@ -137,7 +140,7 @@ void BehicleActor::UpdateAttack()
 	if (_time <= 0) // 1초에 한번씩 공격할말을 결정
 	{
 		UseBullet();
-		_time = _attackTime;
+		_time = _data.AttackTime;
 	}
 }
 
@@ -217,8 +220,9 @@ void BehicleActor::UseBullet() // 함수명 바꾸고
 		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
 		bullet->Init();
 		dev2Scene->SpawnActor(bullet);
-		bullet->SetBulletDamage(_behicleBulletDamage);
-		bullet->SetBulletSpeed(_behicleBulletSpeed);
+		bullet->SetBulletDamage(_data.BulletDamage);
+		bullet->SetBulletSpeed(_data.BulletSpeed);
+
 		bullet->SetATarget(_targetBoat);
 		_bulletActorController->PushBullet(bullet);
 	}
@@ -226,13 +230,14 @@ void BehicleActor::UseBullet() // 함수명 바꾸고
 	{
 		BulletActor* bullet = _bulletActorController->PopBullet();
 		bullet->SetPos(this->GetPos());
-		bullet->SetBulletDamage(_behicleBulletDamage);
-		bullet->SetBulletSpeed(_behicleBulletSpeed);
+		bullet->SetBulletDamage(_data.BulletDamage);
+		bullet->SetBulletSpeed(_data.BulletSpeed);
 		bullet->SetATarget(_targetBoat);
 	}
 	_state = BehicleState::Idle;
 	
 }
+
 void BehicleActor::SetCellPos(Vector2Int cellPos, bool teleport)
 {
 	_cellPos = cellPos;
