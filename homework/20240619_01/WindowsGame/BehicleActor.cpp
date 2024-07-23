@@ -116,6 +116,11 @@ void BehicleActor::UpdateIdle()
 			boat->GetPos(), boat->GetBoatCollider()->GetRadius()))
 		{
 			_targetBoat = boat;
+			if (_targetBoat->GetBoatHp() <= 0)
+			{
+				continue;
+			}
+			
 			if (_data.Id == 7)
 			{
 				_state = BehicleState::Submarine;
@@ -210,7 +215,7 @@ void BehicleActor::LookAtTarget() // target을 바라보기
 
 	this->ChangeDirection(direction);
 }
-void BehicleActor::UseBullet() // 함수명 바꾸고
+void BehicleActor::UseBullet()
 {
 	if (_bulletActorController->BulletCount() < 1) // 씬에서 생성하고 꺼내 쓰기
 	{

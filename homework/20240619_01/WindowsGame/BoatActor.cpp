@@ -81,7 +81,7 @@ void BoatActor::Render(HDC hdc)
 		::TransparentBlt(hdc,
 			renderPos.x,
 			renderPos.y,
-			size.x * (_hp / _data.HP),
+			size.x * (_hp / _staticHp),
 			size.y,
 			_bpBar->GetDC(),
 			_bpBar->GetPos().x,
@@ -119,7 +119,10 @@ void BoatActor::Render(HDC hdc)
 void BoatActor::Update()
 {
 	Super::Update();
-	UpdateHpImage(_nextHp);
+	if (0 < _hp)
+	{
+		UpdateHpImage(_nextHp);
+	}
 
 	// XXX : <- 이슈 위험
 	switch (_state)
@@ -136,8 +139,8 @@ void BoatActor::Update()
 	case BoatState::Die:
 		DeathEffect();
 		break;
-	case BoatState::Start:
-		_time = 0.6f; // BoatState::None:에 설정하니까 재사용이 안됐음 
+	case BoatState::None:
+		_time = 0.6f;
 		break;
 	default:
 		break;
@@ -153,7 +156,7 @@ void BoatActor::SetActiveBoat()
 {
 	wstring direction[eDirection::END]
 		= { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
-	cout << _data.Name << endl;
+	//cout << _data.Name << endl;
 	wstring name = wstring().assign(_data.Name.begin(), _data.Name.end());
 	for (int i = 0; i < eDirection::END; i++)
 	{
@@ -161,7 +164,7 @@ void BoatActor::SetActiveBoat()
 	}
 	_hp = _data.HP;
 	_staticHp = _data.HP;
-	_nextHp = _data.HP; // 이거 추가하니까 생성은 되는데 3개만 됨
+	_nextHp = _data.HP;
 }
 void BoatActor::ChangeDirection(eDirection dir)
 {
@@ -202,7 +205,7 @@ void BoatActor::UpdateHpImage(float nextHp)
 	// 피해량 비율을 계산하기
 	if (nextHp <= _hp) // hp 와 tempHp가 완전히 같을 순 없음
 	{
-		_hp = _hp + (nextHp - _hp) * 0.2f; //0.65f
+		_hp = _hp + (nextHp - _hp) * 0.2f;
 		if (0 <= _hp - nextHp && _hp - nextHp < 1) // 오차의 범위가 이정도면 _hp = tempHp한다.
 		{
 			_hp = nextHp;
@@ -210,7 +213,6 @@ void BoatActor::UpdateHpImage(float nextHp)
 	}
 	if (_hp <= 0)
 	{
-		// 재사용시에도들어와짐
 		_state = BoatState::Die;
 	}
 }

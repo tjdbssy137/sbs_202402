@@ -44,7 +44,7 @@ public:
 	bool HasRechedDest();
 	bool CanMove();
 public:
-	void SetBoatStaticHp(float hp) { _staticHp = hp; _nextHp = hp;  }
+	float GetBoatHp() { return _hp;  }
 
 	CircleCollider* GetBoatCollider() { return _collider; }
 
