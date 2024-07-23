@@ -41,6 +41,7 @@ void CreatureController::Update()
 	}
 
 }
+/*
 struct AstarNode
 {
 	int Cost;
@@ -57,7 +58,7 @@ struct AstarNode
 		return Cost > other.Cost;
 	}
 };
-
+*/
 
 vector<Vector2Int> CreatureController::Calculator_Astar(Vector2Int startPos, Vector2Int endPos)
 {

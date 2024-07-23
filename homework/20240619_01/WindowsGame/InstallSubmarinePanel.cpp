@@ -6,6 +6,9 @@
 #include "RedBlockController.h"
 #include "BehicleController.h"
 #include "BehicleActor.h"
+#include "Tilemap.h"
+#include <queue>
+
 void InstallSubmarinePanel::Init()
 {
 	Super::Init();
@@ -84,24 +87,135 @@ void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
 	RedBlockController* redBlockController = dev2Scene->GetRedBlockController();
 	Vector2Int pos = redBlockController->GetInstallBehiclePos();
-	BehicleController* behicleController = new BehicleController();
+
+	bool isFind = Check_Astar(STARTPOS, DESTPOS, pos);
+
+	if (isFind == false)
 	{
-		cout << "Create Behicle" << endl;
-		BehicleActor* behicle = new BehicleActor();
-		behicle->SetLayer(LayerType::Character);
-		behicleController->SetLink(behicle);
-		behicleController->IsSetting(true);
-		behicleController->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Submarine));
-		behicle->Init();
-		dev2Scene->SpawnActor(behicle);
-		behicle->SetCellPos(pos, true);
-		dev2Scene->SetBehicleActor(behicle);
+		// 설치 안됐으니까 RedBlockController에 있는 pos에서 다시 삭제해야함.
+		// ActionButtons의 Delete코드 참고
+		cout << "Not Create Behicle" << endl;
+
+		vector<Vector2Int> alreadyInstallBehicle = redBlockController->GetAlreadyInstallBehicle();
+
+		auto findIt = find(alreadyInstallBehicle.begin(), alreadyInstallBehicle.end(), pos);
+		if (findIt != alreadyInstallBehicle.end())
+		{
+			//cout << "index : " << index << endl; // 같은 장소에 있는 건 인덱스가 왜인지 안달라지네..?? -> SetPos가 아니라 SetCellPos였음
+			alreadyInstallBehicle.erase(findIt);
+			redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle);
+		}
 	}
-	dev2Scene->SetBehicleController(behicleController); //_behicleControllers.push_back
+	else
+	{
+		BehicleController* behicleController = new BehicleController();
+		{
+			cout << "Create Behicle" << endl;
+			BehicleActor* behicle = new BehicleActor();
+			behicle->SetLayer(LayerType::Character);
+			behicleController->SetLink(behicle);
+			behicleController->IsSetting(true);
+			behicleController->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Submarine));
+			behicle->Init();
+			dev2Scene->SpawnActor(behicle);
+			behicle->SetCellPos(pos, true);
+			dev2Scene->SetBehicleActor(behicle);
+		}
+		dev2Scene->SetBehicleController(behicleController); //_behicleControllers.push_back
+	}
 
 	_state = InstallSubmarineButtonManagState::Hide;
 	this->Hide();
 }
+
+bool InstallSubmarinePanel::Check_Astar(Vector2Int startPos, Vector2Int endPos, Vector2Int SubmarinePos)
+{
+	vector<Vector2Int> result;
+	TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);
+	assert(scene != nullptr);
+	if (scene == nullptr)
+	{
+		return false;
+	}
+
+	Tilemap* tilemap = scene->GetTilemap();
+	assert(tilemap != nullptr);
+	if (tilemap == nullptr)
+	{
+		return false;
+	}
+
+	priority_queue<PQNode, vector<PQNode>, greater<PQNode>> queue;
+
+	Vector2Int dest = endPos;
+	PQNode node;
+	node.Vertex = startPos;
+	node.G = 0;
+	node.Cost = node.G + (dest - startPos).Length();
+	queue.push(node);
+
+	Vector2Int mapSize = tilemap->GetMapSize();
+	vector<vector<bool>> visited(mapSize.y, vector<bool>(mapSize.x, false));
+	vector<vector<float>> best(mapSize.y, vector<float>(mapSize.x, 999999));
+
+	// parent[y][x] = pos (xy는 pos에 의해 발견된 곳)
+	vector<vector<Vector2Int>> parent(mapSize.y, vector<Vector2Int>(mapSize.x, Vector2Int(-1, -1)));
+
+	parent[startPos.y][startPos.x] = startPos;
+	while (false == queue.empty())
+	{
+		PQNode current = queue.top();
+		queue.pop();
+		//방문했다 체크
+
+		visited[current.Vertex.y][current.Vertex.x] = true;
+
+		if (current.Vertex == endPos)
+		{
+			//갈수있다/없다.
+			return true;
+		}
+
+		Vector2Int dir[4] =
+		{
+			Vector2Int(0, -1), //Up
+			Vector2Int(1, 0), // Right
+			Vector2Int(0, 1), //Down
+			Vector2Int(-1, 0) //Left
+
+		};
+
+		int moveCost[4] =
+		{
+			1,
+			1,
+			1,
+			1
+		};
+		for (int i = 0; i < 4; i++)
+		{
+			Vector2Int nextPos = current.Vertex + dir[i];
+			// 다음지점이 갈 수 있는 지점이면,
+			if (scene->CanGo(nextPos) && SubmarinePos != nextPos && visited[nextPos.y][nextPos.x] == 0)
+			{
+				// nextPos는 curren로부터 왔습니다.
+				PQNode newNode;
+				newNode.Vertex = nextPos;
+				newNode.G = current.G + moveCost[i];
+				newNode.Cost = newNode.G + (dest - nextPos).Length();
+				
+				if (newNode.Cost < best[nextPos.y][nextPos.x])
+				{
+					parent[nextPos.y][nextPos.x] = current.Vertex; // parent는 경로를 연결함.
+					best[nextPos.y][nextPos.x] = newNode.Cost;
+				}
+				queue.push(newNode);
+			}
+		}
+	}
+	return false;
+}
+
 void InstallSubmarinePanel::LoadResource()
 {
 	auto a = Resource->GetTexture(L"T_Submarine");

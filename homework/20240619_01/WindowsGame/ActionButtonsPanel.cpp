@@ -2,12 +2,13 @@
 #include "ActionButtonsPanel.h"
 #include "Image.h"
 #include "Button.h"
-//#include "InstallBehicle.h"
 #include "Dev2Scene.h"
 #include "RedBlockController.h"
 #include "BehicleActor.h"
 #include "BehicleController.h"
 
+// TO-DO
+// submarine과 tank는 upgrade와 delete가 다르게 뜨도록 조정 
 void ActionButtonsPanel::Init()
 {
 	Super::Init();

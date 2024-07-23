@@ -1,6 +1,8 @@
 #pragma once
 #include "TilemapScene.h" // 얘가 이미 Scene을 상속 받고 있음
 
+#define DESTPOS		Vector2Int{ 5, 3 }
+#define	STARTPOS	Vector2Int{ 54, 25 }
 
 class BoatController;
 class Panel;
@@ -32,7 +34,7 @@ public:
 	virtual Vector2 GetTilemapPos(Vector2Int cellPos) override;
 	virtual Tilemap* GetTilemap() override;
 	virtual TilemapActor* GetTilemapActor() override;
-	virtual bool CanGo(Actor* actor, Vector2Int cellPos) override;
+	virtual bool CanGo(Vector2Int cellPos) override;
 public:
 	RedBlockController* GetRedBlockController() { return _redBlockController; }
 	

@@ -176,17 +176,10 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="CreatureActor.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="CreatureController.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="Data.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="DefineContents.h" />
     <ClInclude Include="Defines.h" />
-    <ClInclude Include="Dev1Scene.h" />
     <ClInclude Include="Dev2Scene.h" />
     <ClInclude Include="Flipbook.h" />
     <ClInclude Include="FlipbookActor.h" />
@@ -194,13 +187,11 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameWave.h" />
     <ClInclude Include="Image.h" />
-    <ClInclude Include="InstallBehicle.h" />
     <ClInclude Include="InstallPanel.h" />
     <ClInclude Include="InstallSubmarinePanel.h" />
     <ClInclude Include="ITilemapActor.h" />
     <ClInclude Include="MapToolController.h" />
     <ClInclude Include="MapToolTilemapActor.h" />
-    <ClInclude Include="MonsterActor.h" />
     <ClInclude Include="Panel.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="pch.h" />
@@ -217,7 +208,6 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteActor.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TestPanel.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="TilemapActor.h" />
@@ -225,7 +215,6 @@
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="UI.h" />
-    <ClInclude Include="UserCharacterController.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector2Int.h" />
     <ClInclude Include="WindowsGame.h" />
@@ -239,9 +228,6 @@
     <ClCompile Include="BulletActor.cpp" />
     <ClCompile Include="BulletActorController.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="CreatureController.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="Day31.cpp">
@@ -256,9 +242,6 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="CommonFunction.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="CreatureActor.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Day17.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -334,7 +317,6 @@
     <ClCompile Include="Day42.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Dev1Scene.cpp" />
     <ClCompile Include="Dev2Scene.cpp" />
     <ClInclude Include="Enums.h" />
     <ClCompile Include="Flipbook.cpp" />
@@ -342,13 +324,11 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameWave.cpp" />
     <ClCompile Include="Image.cpp" />
-    <ClCompile Include="InstallBehicle.cpp" />
     <ClCompile Include="InstallPanel.cpp" />
     <ClCompile Include="InstallSubmarinePanel.cpp" />
     <ClCompile Include="ITilemapActor.cpp" />
     <ClCompile Include="MapToolController.cpp" />
     <ClCompile Include="MapToolTilemapActor.cpp" />
-    <ClCompile Include="MonsterActor.cpp" />
     <ClCompile Include="Panel.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="pch.cpp">
@@ -368,14 +348,12 @@
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteActor.cpp" />
-    <ClCompile Include="TestPanel.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TilemapActor.cpp" />
     <ClCompile Include="TilemapScene.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="UI.cpp" />
-    <ClCompile Include="UserCharacterController.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector2Int.cpp" />
     <ClCompile Include="WindowsGame.cpp" />

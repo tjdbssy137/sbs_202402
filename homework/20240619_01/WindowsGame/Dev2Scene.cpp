@@ -10,10 +10,8 @@
 #include "Texture.h"
 #include "Sprite.h"
 #include "CircleCollider.h"
-#include "TestPanel.h"
 #include "TilemapActor.h"
 #include "Tilemap.h"
-#include "MapToolTilemapActor.h"
 #include "BoatController.h"
 #include "BehicleController.h"
 #include "RedBlockActor.h"
@@ -28,53 +26,11 @@
 void Dev2Scene::Init()
 {
 	LoadResource();
-	{// Day54에서 쓴 코드랑 비교해서 수정
-		// TilemapActor 에서 LoadTimemap(wstring filename); 추가
-		for (int i = 6; i <= 67; i++)
-		{
-			{
-				wchar_t keyName[128];
-				swprintf_s(keyName, L"T_BeachTileset%d", i);
-
-				wchar_t valueName[128];
-				swprintf_s(valueName, L"BeachTileset/BeachTileset_%d.bmp", i);
-
-				Resource->LoadTexture(keyName, valueName);
-			}
-
-			{
-				wchar_t keyName[128];
-				swprintf_s(keyName, L"S_BeachTileset%d", i);
-
-				wchar_t textureKeyName[128];
-				swprintf_s(textureKeyName, L"T_BeachTileset%d", i);
-
-				Resource->CreateSprite(keyName, Resource->GetTexture(textureKeyName));
-			}
-		}
-
-	}
-
+	//타일맵
 	{
-		Vector2Int mapSize = Vector2Int(55, 26);
-		vector<vector<Tile>> tiles;
-		for (int height = 0; height < mapSize.y; height++)
-		{
-			vector<Tile> tilesDummy;
-			for (int width = 0; width < mapSize.x; width++)
-			{
-				Tile tile;
-				tile.value = 0;
-				tilesDummy.push_back(tile);
-			}
-			tiles.push_back(tilesDummy);
-		}
-		Resource->CreateTileMap(L"TM_Test", mapSize, 32, tiles);
-	}
+		_tilemapActor = new TilemapActor();
+		_tilemapActor->SetTileMap(Resource->GetTileMap(L"TM_Background"));
 
-	{
-		MapToolTilemapActor* actor = new MapToolTilemapActor();
-		actor->SetTileMap(Resource->GetTileMap(L"TM_Test"));
 		{
 			vector<Sprite*> sprites;
 			for (int i = 6; i <= 67; i++)
@@ -83,15 +39,13 @@ void Dev2Scene::Init()
 				swprintf_s(keyName, L"S_BeachTileset%d", i);
 				sprites.push_back(Resource->GetSprite(keyName));
 			}
-
-			actor->SetTileSprites(sprites);
+			_tilemapActor->SetTileSprites(sprites);
 		}
-		actor->SetLayer(LayerType::Background);
-		actor->Init();
-		actor->Load();
 
-		this->SpawnActor(actor);
-		_tilemapActor = actor;
+		_tilemapActor->Init();
+		_tilemapActor->LoadTilemap(L"../Resources/Data/MapData.txt");
+
+		this->SpawnActor(_tilemapActor);
 	}
 
 	{
@@ -117,7 +71,7 @@ void Dev2Scene::Init()
 			boat->Init();
 			_boatControllers[i]->SetLink(boat);
 			this->SpawnActor(boat);
-			boat->SetCellPos({ 54, 25 }, true); //boat->SetCellPos({ 25 + i, 13 }, true);
+			boat->SetCellPos(STARTPOS, true); //boat->SetCellPos({ 25 + i, 13 }, true);
 			_boats.push_back(boat);
 		}
 	}
@@ -219,7 +173,7 @@ void Dev2Scene::LoadResource()
 	// 
 	// ------------------------------------- 
 	//direction
-	wstring direction[8] = {L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight"};
+	wstring direction[8] = { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
 	//EnemyBoat1
 	{
 		Resource->LoadTexture(L"T_EnemyBoat1", L"FlipbookTest/enemyBoat1.bmp", RGB(255, 0, 255));
@@ -239,7 +193,7 @@ void Dev2Scene::LoadResource()
 			Resource->CreateFlipbook(fullName, info_enemyBoat1);
 		}
 	}
-	
+
 	//EnemyBoat2
 	{
 		Resource->LoadTexture(L"T_EnemyBoat2", L"FlipbookTest/enemyBoat2.bmp", RGB(255, 0, 255));
@@ -533,7 +487,7 @@ void Dev2Scene::LoadResource()
 
 	Texture* hpBar = Resource->LoadTexture(L"T_HP_Bar", L"UIStudy/HP_Bar.bmp", RGB(255, 0, 255));
 	Resource->CreateSprite(L"S_HP_Bar", hpBar);
-	
+
 	Texture* bullet = Resource->LoadTexture(L"T_Bullet", L"UIStudy/Bullet.bmp", RGB(255, 0, 255));
 	Resource->CreateSprite(L"S_Bullet", bullet);
 
@@ -548,7 +502,53 @@ void Dev2Scene::LoadResource()
 	//  ## Sound
 	//----------------------------------
 	Resource->LoadSound(L"BGM_Dev1Scene", L"Sounds/SoundStudy/BGM.wav");
+
+	//----------------------------------
+	//  ## Map
+	//----------------------------------
+	{
+		for (int i = 6; i <= 67; i++)
+		{
+			{
+				wchar_t keyName[128];
+				swprintf_s(keyName, L"T_BeachTileset%d", i);
+
+				wchar_t valueName[128];
+				swprintf_s(valueName, L"BeachTileset/BeachTileset_%d.bmp", i);
+
+				Resource->LoadTexture(keyName, valueName);
+			}
+
+			{
+				wchar_t keyName[128];
+				swprintf_s(keyName, L"S_BeachTileset%d", i);
+
+				wchar_t textureKeyName[128];
+				swprintf_s(textureKeyName, L"T_BeachTileset%d", i);
+
+				Resource->CreateSprite(keyName, Resource->GetTexture(textureKeyName));
+			}
+		}
+	}
+
+	{
+		Vector2Int mapSize = Vector2Int(55, 26);
+		vector<vector<Tile>> tiles;
+		for (int height = 0; height < mapSize.y; height++)
+		{
+			vector<Tile> tilesDummy;
+			for (int width = 0; width < mapSize.x; width++)
+			{
+				Tile tile;
+				tile.value = 0;
+				tilesDummy.push_back(tile);
+			}
+			tiles.push_back(tilesDummy);
+		}
+		Resource->CreateTileMap(L"TM_Background", mapSize, 32, tiles);
+	}
 }
+
 
 Vector2 Dev2Scene::GetTilemapPos(Vector2Int cellPos)
 {
@@ -574,7 +574,7 @@ Vector2 Dev2Scene::GetTilemapPos(Vector2Int cellPos)
 	return rv;
 }
 
-bool Dev2Scene::CanGo(Actor* actor, Vector2Int cellPos)
+bool Dev2Scene::CanGo(Vector2Int cellPos)
 {
 	for (BehicleActor* behicle : _behicles)
 	{
@@ -587,11 +587,6 @@ bool Dev2Scene::CanGo(Actor* actor, Vector2Int cellPos)
 		}
 	}
 
-	assert(actor != nullptr);
-	if (actor == nullptr)
-	{
-		return false;
-	}
 	assert(_tilemapActor != nullptr);
 	if (_tilemapActor == nullptr)
 	{

@@ -21,3 +21,19 @@ struct Vector2Int
 	bool operator!=(const Vector2Int& other);
 };
 
+struct AstarNode
+{
+	int Cost;
+	Vector2Int Vertex;
+	int G;
+
+	bool operator<(const AstarNode& other)const
+	{
+		return Cost < other.Cost;
+	}
+
+	bool operator>(const AstarNode& other)const
+	{
+		return Cost > other.Cost;
+	}
+};

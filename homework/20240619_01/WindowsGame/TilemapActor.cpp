@@ -101,7 +101,8 @@ Vector2Int TilemapActor::GetTileIndexByPos(Vector2 checkPos)
 	return { x, y };
 }
 
-void TilemapActor::LoadTimemap(wstring filename)
+void TilemapActor::LoadTilemap(wstring filename)
 {
-
+	Tilemap* tilemap = this->GetTileMap();
+	tilemap->LoadFile(filename.c_str());
 }

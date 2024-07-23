@@ -22,9 +22,11 @@ public:
 	void LoadResource();
 	void OnClick_GoToInstallSubmarine();
 	void SetState(InstallSubmarineButtonManagState state) { _state = state; }
+	bool Check_Astar(Vector2Int startPos, Vector2Int endPos, Vector2Int SubmarinePos);
 
 private:
 	vector<Button*> _buttons = {};
 	InstallSubmarineButtonManagState _state = InstallSubmarineButtonManagState::Hide;
+	
 };
 

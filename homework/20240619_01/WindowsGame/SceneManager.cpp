@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "SceneManager.h"
 #include "Scene.h"
-#include "Dev1Scene.h"
 #include "Dev2Scene.h"
 //#include "TowerDefenseScene.h"
 void SceneManager::Init()
@@ -37,9 +36,6 @@ void SceneManager::Update()
 	switch (_nextSceneType)
 	{
 	case SceneType::None:
-		break;
-	case SceneType::Dev1Scene:
-		newScene = new Dev1Scene();
 		break;
 	case SceneType::Dev2Scene:
 		newScene = new Dev2Scene();

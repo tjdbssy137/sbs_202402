@@ -9,7 +9,7 @@ public:
 	virtual Vector2 GetTilemapPos(Vector2Int cellPos) = 0;
 	virtual Tilemap* GetTilemap() = 0;
 	virtual TilemapActor* GetTilemapActor() = 0;
-	virtual bool CanGo(Actor* actor, Vector2Int cellPos) = 0;
+	virtual bool CanGo(Vector2Int cellPos) = 0;
 
 };
 

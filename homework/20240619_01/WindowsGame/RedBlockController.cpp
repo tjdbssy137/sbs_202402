@@ -9,7 +9,7 @@
 #include "InstallSubmarinePanel.h"
 #include "ActionButtonsPanel.h"
 #include "BehicleActor.h"
-#include "CircleCollider.h"
+
 void RedBlockController::SetLink(RedBlockActor* block)
 {
 	assert(block != nullptr);

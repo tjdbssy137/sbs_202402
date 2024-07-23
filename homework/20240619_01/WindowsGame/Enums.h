@@ -3,7 +3,6 @@
 enum class SceneType // 18일차 강의 초반에 enum 설명 있음
 {
 	None,
-	Dev1Scene,
 	Dev2Scene,
 
 	InGameScene,

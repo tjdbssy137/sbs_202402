@@ -45,8 +45,7 @@ void BoatController::Depart()
 		return;
 	}
 
-	vector<Vector2Int> path = Calculator_Astar(_boat->GetCellPos(),
-		tilemapActor->GetTileIndexByPos({ 5 * 32, 3 * 32 }));
+	vector<Vector2Int> path = Calculator_Astar(STARTPOS, DESTPOS);
 
 	_boat->SetPath(path);
 	_boat->SetState(BoatState::Move);
@@ -54,31 +53,13 @@ void BoatController::Depart()
 
 void BoatController::Arrive()
 {
-	if (_boat->GetCellPos() == Vector2Int{ 5, 3 })
+	if (_boat->GetCellPos() == DESTPOS)
 	{
 		//cout << "도착" << endl;
 		_boat->SetState(BoatState::Goal);
 		// 목적지에 도착하면 이 액터의 위치를 다시 시작 지점으로 재설정.
 	}
 }
-
-struct AstarNode
-{
-	int Cost;
-	Vector2Int Vertex;
-	int G;
-
-	bool operator<(const AstarNode& other)const
-	{
-		return Cost < other.Cost;
-	}
-
-	bool operator>(const AstarNode& other)const
-	{
-		return Cost > other.Cost;
-	}
-};
-
 
 vector<Vector2Int> BoatController::Calculator_Astar(Vector2Int startPos, Vector2Int endPos)
 {
@@ -148,7 +129,7 @@ vector<Vector2Int> BoatController::Calculator_Astar(Vector2Int startPos, Vector2
 		{
 			Vector2Int nextPos = current.Vertex + dir[i];
 			// 다음지점이 갈 수 있는 지점이면,
-			if (scene->CanGo(_boat, nextPos) && visited[nextPos.y][nextPos.x] == 0)
+			if (scene->CanGo(nextPos) && visited[nextPos.y][nextPos.x] == 0)
 			{
 				// nextPos는 curren로부터 왔습니다.
 				PQNode newNode;

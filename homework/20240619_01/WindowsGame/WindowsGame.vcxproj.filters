@@ -38,9 +38,6 @@
     <Filter Include="05. Resources">
       <UniqueIdentifier>{31bbfff6-65cc-4aa4-8670-221928f3826e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03.Objects\Zelda">
-      <UniqueIdentifier>{d2943c2b-1ded-4b1b-b776-8acaa1adc3ff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="06.UI">
       <UniqueIdentifier>{ba42bd86-cf3e-4475-aa51-0f5c02728c9b}</UniqueIdentifier>
     </Filter>
@@ -103,9 +100,6 @@
     <ClInclude Include="SceneManager.h">
       <Filter>01.Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Dev1Scene.h">
-      <Filter>02.Scene\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Dev2Scene.h">
       <Filter>02.Scene\Game</Filter>
     </ClInclude>
@@ -166,15 +160,6 @@
     <ClInclude Include="FlipbookActor.h">
       <Filter>03.Objects</Filter>
     </ClInclude>
-    <ClInclude Include="CreatureActor.h">
-      <Filter>03.Objects\Zelda</Filter>
-    </ClInclude>
-    <ClInclude Include="UserCharacterController.h">
-      <Filter>03.Objects\Zelda</Filter>
-    </ClInclude>
-    <ClInclude Include="MonsterActor.h">
-      <Filter>03.Objects\Zelda</Filter>
-    </ClInclude>
     <ClInclude Include="CameraComponent.h">
       <Filter>04. Components</Filter>
     </ClInclude>
@@ -199,9 +184,6 @@
     <ClInclude Include="Image.h">
       <Filter>06.UI</Filter>
     </ClInclude>
-    <ClInclude Include="TestPanel.h">
-      <Filter>06.UI\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>06.UI</Filter>
     </ClInclude>
@@ -216,9 +198,6 @@
     </ClInclude>
     <ClInclude Include="MapToolController.h">
       <Filter>03.Objects\TilemapGame</Filter>
-    </ClInclude>
-    <ClInclude Include="CreatureController.h">
-      <Filter>03.Objects\Zelda</Filter>
     </ClInclude>
     <ClInclude Include="ITilemapActor.h">
       <Filter>07.Interfaces</Filter>
@@ -248,9 +227,6 @@
       <Filter>03.Objects\TowerDefense</Filter>
     </ClInclude>
     <ClInclude Include="RedBlockController.h">
-      <Filter>03.Objects\TowerDefense</Filter>
-    </ClInclude>
-    <ClInclude Include="InstallBehicle.h">
       <Filter>03.Objects\TowerDefense</Filter>
     </ClInclude>
     <ClInclude Include="BulletActor.h">
@@ -315,9 +291,6 @@
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>01.Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Dev1Scene.cpp">
-      <Filter>02.Scene\Game</Filter>
     </ClCompile>
     <ClCompile Include="Dev2Scene.cpp">
       <Filter>02.Scene\Game</Filter>
@@ -397,15 +370,6 @@
     <ClCompile Include="Day27.cpp">
       <Filter>999.Comments</Filter>
     </ClCompile>
-    <ClCompile Include="CreatureActor.cpp">
-      <Filter>03.Objects\Zelda</Filter>
-    </ClCompile>
-    <ClCompile Include="UserCharacterController.cpp">
-      <Filter>03.Objects\Zelda</Filter>
-    </ClCompile>
-    <ClCompile Include="MonsterActor.cpp">
-      <Filter>03.Objects\Zelda</Filter>
-    </ClCompile>
     <ClCompile Include="Day28.cpp">
       <Filter>999.Comments</Filter>
     </ClCompile>
@@ -439,9 +403,6 @@
     <ClCompile Include="Image.cpp">
       <Filter>06.UI</Filter>
     </ClCompile>
-    <ClCompile Include="TestPanel.cpp">
-      <Filter>06.UI\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Day32.cpp">
       <Filter>999.Comments</Filter>
     </ClCompile>
@@ -474,9 +435,6 @@
     </ClCompile>
     <ClCompile Include="MapToolController.cpp">
       <Filter>03.Objects\TilemapGame</Filter>
-    </ClCompile>
-    <ClCompile Include="CreatureController.cpp">
-      <Filter>03.Objects\Zelda</Filter>
     </ClCompile>
     <ClCompile Include="Day38.cpp">
       <Filter>999.Comments</Filter>
@@ -515,9 +473,6 @@
       <Filter>03.Objects\TowerDefense</Filter>
     </ClCompile>
     <ClCompile Include="RedBlockController.cpp">
-      <Filter>03.Objects\TowerDefense</Filter>
-    </ClCompile>
-    <ClCompile Include="InstallBehicle.cpp">
       <Filter>03.Objects\TowerDefense</Filter>
     </ClCompile>
     <ClCompile Include="BulletActor.cpp">

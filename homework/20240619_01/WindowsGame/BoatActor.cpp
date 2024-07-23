@@ -230,7 +230,7 @@ void BoatActor::UpdateIdle()
 			return;
 		}
 
-		if (scene->CanGo(this, cellPos))
+		if (scene->CanGo(cellPos))
 		{
 			this->SetCellPos(cellPos);
 			this->SetState(BoatState::Move);
