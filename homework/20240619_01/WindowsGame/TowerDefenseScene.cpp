@@ -202,7 +202,7 @@ void TowerDefenseScene::LoadResource()
 	wstring direction[8] = { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
 	//EnemyBoat1
 	{
-		Resource->LoadTexture(L"T_EnemyBoat1", L"FlipbookTest/enemyBoat1.bmp", RGB(255, 0, 255));
+		Resource->LoadTexture(L"T_EnemyBoat1", L"Flipbook/enemyBoat1.bmp", RGB(255, 0, 255));
 		FlipbookInfo info_enemyBoat1 = {};
 		info_enemyBoat1.start = 0;
 		info_enemyBoat1.end = 2;
@@ -222,7 +222,7 @@ void TowerDefenseScene::LoadResource()
 
 	//EnemyBoat2
 	{
-		Resource->LoadTexture(L"T_EnemyBoat2", L"FlipbookTest/enemyBoat2.bmp", RGB(255, 0, 255));
+		Resource->LoadTexture(L"T_EnemyBoat2", L"Flipbook/enemyBoat2.bmp", RGB(255, 0, 255));
 		FlipbookInfo info_enemyBoat2 = {};
 		info_enemyBoat2.start = 0;
 		info_enemyBoat2.end = 2;
@@ -242,7 +242,7 @@ void TowerDefenseScene::LoadResource()
 
 	//EnemyShip1
 	{
-		Resource->LoadTexture(L"T_EnemyShip1", L"FlipbookTest/enemyShip1.bmp", RGB(255, 0, 255));
+		Resource->LoadTexture(L"T_EnemyShip1", L"Flipbook/enemyShip1.bmp", RGB(255, 0, 255));
 		FlipbookInfo info_enemyship1 = {};
 		info_enemyship1.start = 0;
 		info_enemyship1.end = 2;
@@ -262,7 +262,7 @@ void TowerDefenseScene::LoadResource()
 
 	//EnemyShip2
 	{
-		Resource->LoadTexture(L"T_EnemyShip2", L"FlipbookTest/enemyShip2.bmp", RGB(255, 0, 255));
+		Resource->LoadTexture(L"T_EnemyShip2", L"Flipbook/enemyShip2.bmp", RGB(255, 0, 255));
 		FlipbookInfo info_enemyship2 = {};
 		info_enemyship2.start = 0;
 		info_enemyship2.end = 2;
@@ -282,7 +282,7 @@ void TowerDefenseScene::LoadResource()
 
 	//EnemyShip3
 	{
-		Resource->LoadTexture(L"T_EnemyShip3", L"FlipbookTest/enemyShip3.bmp", RGB(255, 0, 255));
+		Resource->LoadTexture(L"T_EnemyShip3", L"Flipbook/enemyShip3.bmp", RGB(255, 0, 255));
 		FlipbookInfo info_enemyship3 = {};
 		info_enemyship3.start = 0;
 		info_enemyship3.end = 2;
@@ -307,7 +307,7 @@ void TowerDefenseScene::LoadResource()
 	// ------------------------------------- 
 	//DrillTank1
 	{
-		Resource->LoadTexture(L"T_DrillTank1", L"FlipbookTest/drillTank1.bmp", RGB(255, 0, 255));
+		Resource->LoadTexture(L"T_DrillTank1", L"Flipbook/drillTank1.bmp", RGB(255, 0, 255));
 		FlipbookInfo info_drillTank1 = {};
 		info_drillTank1.start = 0;
 		info_drillTank1.end = 2;
@@ -327,7 +327,7 @@ void TowerDefenseScene::LoadResource()
 
 	//DrillTank2
 	{
-		Resource->LoadTexture(L"T_DrillTank2", L"FlipbookTest/drillTank2.bmp", RGB(255, 0, 255));
+		Resource->LoadTexture(L"T_DrillTank2", L"Flipbook/drillTank2.bmp", RGB(255, 0, 255));
 		FlipbookInfo info_drillTank2 = {};
 		info_drillTank2.start = 0;
 		info_drillTank2.end = 2;
@@ -347,7 +347,7 @@ void TowerDefenseScene::LoadResource()
 
 	//DrillTank3
 	{
-		Resource->LoadTexture(L"T_DrillTank3", L"FlipbookTest/drillTank3.bmp", RGB(255, 0, 255));
+		Resource->LoadTexture(L"T_DrillTank3", L"Flipbook/drillTank3.bmp", RGB(255, 0, 255));
 		FlipbookInfo info_drillTank3 = {};
 		info_drillTank3.start = 0;
 		info_drillTank3.end = 2;
@@ -367,7 +367,7 @@ void TowerDefenseScene::LoadResource()
 
 	//Tank1
 	{
-		Resource->LoadTexture(L"T_Tank1", L"FlipbookTest/tank1.bmp", RGB(255, 0, 255));
+		Resource->LoadTexture(L"T_Tank1", L"Flipbook/tank1.bmp", RGB(255, 0, 255));
 		FlipbookInfo info_tank1 = {};
 		info_tank1.start = 0;
 		info_tank1.end = 2;
@@ -387,7 +387,7 @@ void TowerDefenseScene::LoadResource()
 
 	//Tank2
 	{
-		Resource->LoadTexture(L"T_Tank2", L"FlipbookTest/tank2.bmp", RGB(255, 0, 255));
+		Resource->LoadTexture(L"T_Tank2", L"Flipbook/tank2.bmp", RGB(255, 0, 255));
 		FlipbookInfo info_tank2 = {};
 		info_tank2.start = 0;
 		info_tank2.end = 2;
@@ -407,7 +407,7 @@ void TowerDefenseScene::LoadResource()
 
 	//Tank3
 	{
-		Resource->LoadTexture(L"T_Tank3", L"FlipbookTest/tank3.bmp", RGB(255, 0, 255));
+		Resource->LoadTexture(L"T_Tank3", L"Flipbook/tank3.bmp", RGB(255, 0, 255));
 		FlipbookInfo info_tank3 = {};
 		info_tank3.start = 0;
 		info_tank3.end = 2;
@@ -427,7 +427,7 @@ void TowerDefenseScene::LoadResource()
 
 	//Submarine
 	{
-		Resource->LoadTexture(L"T_Submarine", L"FlipbookTest/submarine.bmp", RGB(255, 0, 255));
+		Resource->LoadTexture(L"T_Submarine", L"Flipbook/submarine.bmp", RGB(255, 0, 255));
 		FlipbookInfo info_submarine = {};
 		info_submarine.start = 0;
 		info_submarine.end = 2;
@@ -447,7 +447,7 @@ void TowerDefenseScene::LoadResource()
 
 	// Die Effect
 	{
-		Resource->LoadTexture(L"T_Bomb", L"FlipbookTest/bomb.bmp", RGB(255, 0, 255));
+		Resource->LoadTexture(L"T_Bomb", L"Flipbook/bomb.bmp", RGB(255, 0, 255));
 		FlipbookInfo info_bomb = {};
 		info_bomb.start = 0;
 		info_bomb.end = 6;
