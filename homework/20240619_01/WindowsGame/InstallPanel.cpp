@@ -105,35 +105,49 @@ void InstallPanel::OnClick_GoToInstallDrill()
 	installBehicle->InstallBehicleFunc(redBlockController->GetInstallBehiclePos());
 	_state = InstallButtonManagState::Hide;
 	this->Hide();*/
-	this->InstallingBehicle(static_cast<int>(BehicleTypeState::DrillTank1));
+	this->InstallingBehicle(Datas->GetBehicleData(1).Id); // DrillTank1
 	this->Hide();
 }
 void InstallPanel::OnClick_GoToInstallTank()
 {
-	this->InstallingBehicle(static_cast<int>(BehicleTypeState::Tank1));
+	this->InstallingBehicle(Datas->GetBehicleData(4).Id); // Tank1
 	this->Hide();
 }
 void InstallPanel::InstallingBehicle(int type)
 {
 	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
-
 	RedBlockController* redBlockController = dev2Scene->GetRedBlockController();
-
 	Vector2Int pos = redBlockController->GetInstallBehiclePos();
-	BehicleController* behicleController = new BehicleController();
+
+	if (Datas->GetBehicleData(type).InstallGold <= dev2Scene->GetGold()) // 갖고 있는 돈이 설치하기에 충분하다면
 	{
-		cout << "Create Behicle" << endl;
-		BehicleActor* behicle = new BehicleActor();
-		behicle->SetLayer(LayerType::Character);
-		behicleController->SetLink(behicle);
-		behicleController->IsSetting(true);
-		behicleController->SetBehicleTypeState(type);
-		behicle->Init();
-		dev2Scene->SpawnActor(behicle);
-		behicle->SetCellPos(pos, true);
-		dev2Scene->SetBehicleActor(behicle);
+		BehicleController* behicleController = new BehicleController();
+		{
+			cout << "Create Behicle" << endl;
+			BehicleActor* behicle = new BehicleActor();
+			behicle->SetLayer(LayerType::Character);
+			behicleController->SetLink(behicle);
+			behicleController->IsSetting(true);
+			behicleController->SetBehicleTypeState(type);
+			behicle->Init();
+			dev2Scene->SpawnActor(behicle);
+			behicle->SetCellPos(pos, true);
+			dev2Scene->SetBehicleActor(behicle);
+		}
+		dev2Scene->SetBehicleController(behicleController);//_behicleControllers.push_back();
+		dev2Scene->PayGold(Datas->GetBehicleData(type).InstallGold);
 	}
-	dev2Scene->SetBehicleController(behicleController);//_behicleControllers.push_back();
+	else
+	{
+		vector<Vector2Int> alreadyInstallBehicle = redBlockController->GetAlreadyInstallBehicle();
+
+		auto findIt = find(alreadyInstallBehicle.begin(), alreadyInstallBehicle.end(), pos);
+		if (findIt != alreadyInstallBehicle.end())
+		{
+			alreadyInstallBehicle.erase(findIt);
+			redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle);
+		}
+	}
 	_state = InstallButtonManagState::Hide;
 }
 

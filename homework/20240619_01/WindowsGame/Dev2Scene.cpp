@@ -130,6 +130,10 @@ void Dev2Scene::Render(HDC hdc)
 
 	wstring str = L"Beach";
 	::TextOut(hdc, 0, 45, str.c_str(), str.length());
+
+	wstring strGold = format(L"Gold : {0}", _gold);
+	::TextOut(hdc, 0, 90, strGold.c_str(), strGold.length());
+
 	_installPanel->Render(hdc);
 	_installSubmarinePanel->Render(hdc);
 	_actionButtonsPanel->Render(hdc);

@@ -53,6 +53,12 @@ public:
 	InstallPanel* GetInstallPanel() { return _installPanel; }
 	InstallSubmarinePanel* GetInstallSubmarinePanel() { return _installSubmarinePanel; }
 	ActionButtonsPanel* GetActionButtonsPanel() { return _actionButtonsPanel; }
+
+	// Gold
+	void MakeGold(int gold) { _gold += gold; }
+	void PayGold(int gold) { _gold -= gold; }
+	int GetGold() { return _gold; }
+
 private:
 	//Actors
 	TilemapActor* _tilemapActor = nullptr;
@@ -70,4 +76,7 @@ private:
 	InstallPanel* _installPanel = nullptr;
 	InstallSubmarinePanel* _installSubmarinePanel = nullptr;
 	ActionButtonsPanel* _actionButtonsPanel = nullptr;
+
+	// Gold
+	int _gold = 110; // 기본 금액
 };

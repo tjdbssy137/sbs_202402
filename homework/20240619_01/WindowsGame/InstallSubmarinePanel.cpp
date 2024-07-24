@@ -90,38 +90,52 @@ void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 
 	bool isFind = Check_Astar(STARTPOS, DESTPOS, pos);
 
-	if (isFind == false)
+	if (Datas->GetBehicleData(7).InstallGold <= dev2Scene->GetGold())
 	{
-		// 설치 안됐으니까 RedBlockController에 있는 pos에서 다시 삭제해야함.
-		// ActionButtons의 Delete코드 참고
-		cout << "Not Create Behicle" << endl;
+		if (isFind == false)
+		{
+			// 설치 안됐으니까 RedBlockController에 있는 pos에서 다시 삭제해야함.
+			// ActionButtons의 Delete코드 참고
+			cout << "Not Create Behicle" << endl;
 
+			vector<Vector2Int> alreadyInstallBehicle = redBlockController->GetAlreadyInstallBehicle();
+
+			auto findIt = find(alreadyInstallBehicle.begin(), alreadyInstallBehicle.end(), pos);
+			if (findIt != alreadyInstallBehicle.end())
+			{
+				alreadyInstallBehicle.erase(findIt);
+				redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle);
+			}
+		}
+		else
+		{
+			BehicleController* behicleController = new BehicleController();
+			{
+				cout << "Create Behicle" << endl;
+				BehicleActor* behicle = new BehicleActor();
+				behicle->SetLayer(LayerType::Character);
+				behicleController->SetLink(behicle);
+				behicleController->IsSetting(true);
+				behicleController->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Submarine));
+				behicle->Init();
+				dev2Scene->SpawnActor(behicle);
+				behicle->SetCellPos(pos, true);
+				dev2Scene->SetBehicleActor(behicle);
+			}
+			dev2Scene->SetBehicleController(behicleController); //_behicleControllers.push_back
+			dev2Scene->PayGold(Datas->GetBehicleData(7).InstallGold);
+		}
+	}
+	else
+	{
 		vector<Vector2Int> alreadyInstallBehicle = redBlockController->GetAlreadyInstallBehicle();
 
 		auto findIt = find(alreadyInstallBehicle.begin(), alreadyInstallBehicle.end(), pos);
 		if (findIt != alreadyInstallBehicle.end())
 		{
-			//cout << "index : " << index << endl; // 같은 장소에 있는 건 인덱스가 왜인지 안달라지네..?? -> SetPos가 아니라 SetCellPos였음
 			alreadyInstallBehicle.erase(findIt);
 			redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle);
 		}
-	}
-	else
-	{
-		BehicleController* behicleController = new BehicleController();
-		{
-			cout << "Create Behicle" << endl;
-			BehicleActor* behicle = new BehicleActor();
-			behicle->SetLayer(LayerType::Character);
-			behicleController->SetLink(behicle);
-			behicleController->IsSetting(true);
-			behicleController->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Submarine));
-			behicle->Init();
-			dev2Scene->SpawnActor(behicle);
-			behicle->SetCellPos(pos, true);
-			dev2Scene->SetBehicleActor(behicle);
-		}
-		dev2Scene->SetBehicleController(behicleController); //_behicleControllers.push_back
 	}
 
 	_state = InstallSubmarineButtonManagState::Hide;

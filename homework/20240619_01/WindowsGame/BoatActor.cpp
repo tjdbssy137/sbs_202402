@@ -196,6 +196,7 @@ void BoatActor::DeathEffect()
 		this->SetCellPos({ 54, 25 }, true);
 		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
 		dev2Scene->GetGameWave()->PushBoatActor(this);
+		dev2Scene->MakeGold(_data.Gold);
 		_state = BoatState::None;
 	}
 }

@@ -107,6 +107,7 @@ void BoatData::FromJson(string json)
 	this->Name = document["name"].GetString();
 	this->HP = document["hp"].GetFloat();
 	this->MoveSpeed = document["moveSpeed"].GetFloat();
+	this->Gold = document["gold"].GetInt();
 
 }
 string BoatData::ToJson()
@@ -124,6 +125,8 @@ string BoatData::ToJson()
 	writer.Double(this->HP);
 	writer.Key("moveSpeed");
 	writer.Double(this->MoveSpeed);
+	writer.Key("gold");
+	writer.Int(this->Gold);
 	writer.EndObject();
 
 	return string(buffer.GetString());

@@ -3,30 +3,35 @@
     "id": 1,
     "name": "FB_EnemyBoat1_",
     "hp": 40,
-    "moveSpeed": 60
+    "moveSpeed": 60,
+    "gold" :  25
   },
   {
     "id": 2,
     "name": "FB_EnemyBoat2_",
-    "hp": 70,
-    "moveSpeed": 120
+    "hp": 60,
+    "moveSpeed": 120,
+    "gold": 33
   },
   {
     "id": 3,
     "name": "FB_EnemyShip1_",
     "hp": 150,
-    "moveSpeed": 90
+    "moveSpeed": 90,
+    "gold": 40
   },
   {
     "id": 4,
     "name": "FB_EnemyShip2_",
     "hp": 180,
-    "moveSpeed": 95
+    "moveSpeed": 95,
+    "gold": 50
   },
   {
     "id": 5,
     "name": "FB_EnemyShip3_",
     "hp": 200,
-    "moveSpeed": 110
+    "moveSpeed": 110,
+    "gold": 60
   }
 ]

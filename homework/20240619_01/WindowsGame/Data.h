@@ -30,6 +30,7 @@ struct BoatData : public DataBase
 	string Name;
 	float HP;
 	float MoveSpeed;
+	int Gold;
 public:
 	virtual void FromJson(string json) override;
 	virtual string ToJson() override;
