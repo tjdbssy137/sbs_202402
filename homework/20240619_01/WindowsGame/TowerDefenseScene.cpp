@@ -167,16 +167,13 @@ void TowerDefenseScene::Update()
 	_installSubmarinePanel->Update();
 	_actionButtonsPanel->Update();
 
-	if (7 < GetEnterEnemyCount())
-	{
-		_treasure->SetSprite(Resource->GetSprite(L"S_Treasure_Opened"));
-	}
-
 	_gameWave->Update();
 	if (Input->GetKeyDown(KeyCode::W))
 	{
 		_gameWave->SetGameWaveState(GameWaveState::Wave);
 	}
+
+	this->EnterEnemyCheck();
 }
 void TowerDefenseScene::Release()
 {
@@ -184,6 +181,14 @@ void TowerDefenseScene::Release()
 	_installPanel->Release();
 	_installSubmarinePanel->Release();
 	_actionButtonsPanel->Release();
+}
+void TowerDefenseScene::EnterEnemyCheck()
+{
+	if (GAMEOVER < GetEnterEnemyCount())
+	{
+		_treasure->SetSprite(Resource->GetSprite(L"S_Treasure_Opened"));
+		// °ÔÀÓ ³¡³ª´Â pannelÀ» ¶ç¿ì±â.
+	}
 }
 
 void TowerDefenseScene::LoadResource()
@@ -419,47 +424,7 @@ void TowerDefenseScene::LoadResource()
 			Resource->CreateFlipbook(fullName, info_tank3);
 		}
 	}
-	/*
-	//Balloon1
-	{
-		Resource->LoadTexture(L"T_Balloon1", L"FlipbookTest/balloon1.bmp", RGB(255, 0, 255));
-		FlipbookInfo info_balloon1 = {};
-		info_balloon1.start = 0;
-		info_balloon1.end = 2;
-		info_balloon1.line = 0;
-		info_balloon1.size = Vector2Int(32, 32);
-		info_balloon1.duration = 0.6f;
-		info_balloon1.loop = true;
-		info_balloon1.texture = Resource->GetTexture(L"T_Balloon1");
 
-		for (int i = 0; i < 8; i++)
-		{
-			wstring fullName = L"FB_Balloon1_" + direction[i];
-			info_balloon1.line = i;
-			Resource->CreateFlipbook(fullName, info_balloon1);
-		}
-	}
-
-	//Balloon2
-	{
-		Resource->LoadTexture(L"T_Balloon2", L"FlipbookTest/balloon2.bmp", RGB(255, 0, 255));
-		FlipbookInfo info_balloon2 = {};
-		info_balloon2.start = 0;
-		info_balloon2.end = 2;
-		info_balloon2.line = 0;
-		info_balloon2.size = Vector2Int(32, 32);
-		info_balloon2.duration = 0.6f;
-		info_balloon2.loop = true;
-		info_balloon2.texture = Resource->GetTexture(L"T_Balloon2");
-
-		for (int i = 0; i < 8; i++)
-		{
-			wstring fullName = L"FB_Balloon2_" + direction[i];
-			info_balloon2.line = i;
-			Resource->CreateFlipbook(fullName, info_balloon2);
-		}
-	}
-	*/
 	//Submarine
 	{
 		Resource->LoadTexture(L"T_Submarine", L"FlipbookTest/submarine.bmp", RGB(255, 0, 255));
@@ -504,22 +469,22 @@ void TowerDefenseScene::LoadResource()
 	Resource->CreateSprite(L"S_Treasure_Closed", treasure, 0, 0, 32, 32); 	// ÅÐ¸®±â Àü
 	Resource->CreateSprite(L"S_Treasure_Opened", treasure, 64, 0, 32, 32); 	// ÅÐ¸° ÈÄ
 
-	Texture* redTile = Resource->LoadTexture(L"T_RedTile", L"UIStudy/RedTile.bmp", RGB(255, 0, 255));
+	Texture* redTile = Resource->LoadTexture(L"T_RedTile", L"UIs/RedTile.bmp", RGB(255, 0, 255));
 	Resource->CreateSprite(L"S_RedTile", redTile);
 
-	Texture* hpBackground = Resource->LoadTexture(L"T_HP_Background", L"UIStudy/HP_Background.bmp");
+	Texture* hpBackground = Resource->LoadTexture(L"T_HP_Background", L"UIs/HP_Background.bmp");
 	Resource->CreateSprite(L"S_HP_Background", hpBackground);
 
-	Texture* hpBar = Resource->LoadTexture(L"T_HP_Bar", L"UIStudy/HP_Bar.bmp", RGB(255, 0, 255));
+	Texture* hpBar = Resource->LoadTexture(L"T_HP_Bar", L"UIs/HP_Bar.bmp", RGB(255, 0, 255));
 	Resource->CreateSprite(L"S_HP_Bar", hpBar);
 
-	Texture* bullet = Resource->LoadTexture(L"T_Bullet", L"UIStudy/Bullet.bmp", RGB(255, 0, 255));
+	Texture* bullet = Resource->LoadTexture(L"T_Bullet", L"UIs/Bullet.bmp", RGB(255, 0, 255));
 	Resource->CreateSprite(L"S_Bullet", bullet);
 
 	//----------------------------------
 	//  ## UI
 	//----------------------------------
-	Texture* Buttons = Resource->LoadTexture(L"T_Buttons", L"UIStudy/Buttons.bmp");
+	Texture* Buttons = Resource->LoadTexture(L"T_Buttons", L"UIs/Buttons.bmp");
 	Resource->CreateSprite(L"S_Button_L", Buttons, 0, 0, 100, 40);
 	Resource->CreateSprite(L"S_Button_S", Buttons, 100, 0, 40, 40);
 

@@ -180,7 +180,7 @@
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="DefineContents.h" />
     <ClInclude Include="Defines.h" />
-    <ClInclude Include="TowerDefenseEndScene.h" />
+    <ClInclude Include="TowerDefenseEndPanel.h" />
     <ClInclude Include="TowerDefenseScene.h" />
     <ClInclude Include="Flipbook.h" />
     <ClInclude Include="FlipbookActor.h" />
@@ -214,7 +214,7 @@
     <ClInclude Include="TilemapActor.h" />
     <ClInclude Include="TilemapScene.h" />
     <ClInclude Include="TimeManager.h" />
-    <ClInclude Include="TowerDefenseStartScene.h" />
+    <ClInclude Include="TowerDefenseStartPanel.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Vector2.h" />
@@ -319,7 +319,7 @@
     <ClCompile Include="Day42.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="TowerDefenseEndScene.cpp" />
+    <ClCompile Include="TowerDefenseEndPanel.cpp" />
     <ClCompile Include="TowerDefenseScene.cpp" />
     <ClInclude Include="Enums.h" />
     <ClCompile Include="Flipbook.cpp" />
@@ -356,7 +356,7 @@
     <ClCompile Include="TilemapActor.cpp" />
     <ClCompile Include="TilemapScene.cpp" />
     <ClCompile Include="TimeManager.cpp" />
-    <ClCompile Include="TowerDefenseStartScene.cpp" />
+    <ClCompile Include="TowerDefenseStartPanel.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector2Int.cpp" />
@@ -375,12 +375,6 @@
     </None>
     <None Include="BoatData.json">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </None>
-    <None Include="MonsterData.json">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </None>
     <None Include="BehicleData.json" />
     <None Include="WaveData.json" />

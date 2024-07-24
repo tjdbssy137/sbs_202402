@@ -30,15 +30,15 @@ void RedBlockController::Update()
 		TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
 		
 		InstallPanel* installPanel = towerDefenseScene->GetInstallPanel();
-		installPanel->SetState(InstallButtonManagState::Hide);
+		installPanel->SetState(ePanelState::Hide);
 		installPanel->Hide();
 		
 		InstallSubmarinePanel* installSubmarinePanel = towerDefenseScene->GetInstallSubmarinePanel();
-		installSubmarinePanel->SetState(InstallSubmarineButtonManagState::Hide);
+		installSubmarinePanel->SetState(ePanelState::Hide);
 		installSubmarinePanel->Hide();
 
 		ActionButtonsPanel* actionPanel = towerDefenseScene->GetActionButtonsPanel();
-		actionPanel->SetState(ActionButtonsButtonManagState::Hide);
+		actionPanel->SetState(ePanelState::Hide);
 		actionPanel->Hide();
 	}
 
@@ -131,7 +131,7 @@ void RedBlockController::DoInstallGround()
 {
 	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
 	InstallPanel* installPanel = towerDefenseScene->GetInstallPanel();
-	installPanel->SetState(InstallButtonManagState::Show);
+	installPanel->SetState(ePanelState::Show);
 	installPanel->Show();
 	_mouseState = MouseState::Nothing;
 }
@@ -139,7 +139,7 @@ void RedBlockController::DoInstallOcean()
 {
 	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
 	InstallSubmarinePanel* installSubmarinePanel = towerDefenseScene->GetInstallSubmarinePanel();
-	installSubmarinePanel->SetState(InstallSubmarineButtonManagState::Show);
+	installSubmarinePanel->SetState(ePanelState::Show);
 	installSubmarinePanel->Show();
 	_mouseState = MouseState::Nothing;
 }
@@ -161,7 +161,7 @@ void RedBlockController::DoUpgradeDeleteBehicle()
 		}
 		_Index++;
 	}
-	actionPanel->SetState(ActionButtonsButtonManagState::Show);
+	actionPanel->SetState(ePanelState::Show);
 	actionPanel->Show();
 	_mouseState = MouseState::Nothing;
 

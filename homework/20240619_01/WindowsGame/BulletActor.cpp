@@ -50,7 +50,7 @@ void BulletActor::Release()
 }
 void BulletActor::Update_Move()
 {
-	if(_targetBoat->GetCellPos() == Vector2Int{ 54, 25 }) // _targetBoat->GetState() == Goal or Die
+	if(_targetBoat->GetCellPos() == STARTPOS) // _targetBoat->GetState() == Goal or Die
 	//if (_targetBoat->GetState() == BoatState::Move || _targetBoat->GetState() == BoatState::Idle) // Á×¾úÀ» ¶§ 
 	{
 		_state = BulletState::Done;

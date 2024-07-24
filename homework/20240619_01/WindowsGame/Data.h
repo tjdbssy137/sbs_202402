@@ -44,17 +44,3 @@ public:
 	virtual void FromJson(string json) override;
 	virtual string ToJson() override;
 };
-
-struct MonsterData : public DataBase
-{
-	int64 Id;
-	string Name;
-	float HP;
-	float MoveSpeed;
-	int64 SkillId;
-
-public:
-	virtual void FromJson(string json) override;
-	virtual string ToJson() override;
-};
-

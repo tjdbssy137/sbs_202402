@@ -3,12 +3,6 @@
 
 class Button;
 
-enum class InstallButtonManagState
-{
-	Show,
-	Hide,
-	None
-};
 class InstallPanel : public Panel
 {
 public:
@@ -24,9 +18,9 @@ public:
 public:
 	void OnClick_GoToInstallDrill();
 	void OnClick_GoToInstallTank();
-	void SetState(InstallButtonManagState state) { _state = state; }
+	void SetState(ePanelState state) { _state = state; }
 
 private:
 	vector<Button*> _buttons = {};
-	InstallButtonManagState _state = InstallButtonManagState::Hide;
+	ePanelState _state = ePanelState::Hide;
 };

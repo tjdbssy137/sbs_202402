@@ -65,25 +65,25 @@ void InstallPanel::Update()
 	Super::Update();
 	switch (_state)
 	{
-	case InstallButtonManagState::Show:
+	case ePanelState::Show:
 	{
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Default);
 		}
-		_state = InstallButtonManagState::None;
+		_state = ePanelState::None;
 	}
 	break;
-	case InstallButtonManagState::Hide:
+	case ePanelState::Hide:
 	{
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Disabled);
 		}
-		_state = InstallButtonManagState::None;
+		_state = ePanelState::None;
 	}
 	break;
-	case InstallButtonManagState::None:
+	case ePanelState::None:
 		break;
 	default:
 		break;
@@ -139,7 +139,7 @@ void InstallPanel::InstallingBehicle(int type)
 			redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle);
 		}
 	}
-	_state = InstallButtonManagState::Hide;
+	_state = ePanelState::Hide;
 }
 
 void InstallPanel::LoadResource()

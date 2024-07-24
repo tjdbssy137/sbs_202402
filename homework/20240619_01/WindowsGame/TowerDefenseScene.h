@@ -3,6 +3,7 @@
 
 #define DESTPOS		Vector2Int{ 5, 3 }
 #define	STARTPOS	Vector2Int{ 54, 25 }
+#define GAMEOVER	12
 
 class BoatController;
 class Panel;
@@ -61,6 +62,7 @@ public:
 	// Treasure
 	void AddEnterEnemyCount() { _enterEnemyCount++; }
 	int GetEnterEnemyCount() { return _enterEnemyCount; }
+	void EnterEnemyCheck();
 private:
 	//Actors
 	TilemapActor* _tilemapActor = nullptr;

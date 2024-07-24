@@ -2,12 +2,6 @@
 #include "Panel.h"
 class Button;
 
-enum class ActionButtonsButtonManagState
-{
-	Show,
-	Hide,
-	None
-};
 class ActionButtonsPanel : public Panel
 {
 public:
@@ -22,9 +16,9 @@ private:
 	void OnClick_GoToUpgrade();
 	void OnClick_GoToDelete();
 public:
-	void SetState(ActionButtonsButtonManagState state) { _state = state; }
+	void SetState(ePanelState state) { _state = state; }
 private:
 	vector<Button*> _buttons = {};
-	ActionButtonsButtonManagState _state = ActionButtonsButtonManagState::Hide;
+	ePanelState _state = ePanelState::Hide;
 };
 

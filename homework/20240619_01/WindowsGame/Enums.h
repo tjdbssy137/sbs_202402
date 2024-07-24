@@ -4,10 +4,7 @@ enum class SceneType // 18일차 강의 초반에 enum 설명 있음
 {
 	None,
 
-	InGameScene,
 	TowerDefenseScene,
-	TowerDefenseStartScene,
-	TowerDefenseEndScene,
 };
 
 //뒤에 둘수록 마지막에 그린다
@@ -59,4 +56,11 @@ enum eDirection
 	UP_LEFT,
 	UP_RIGHT,
 	END
+};
+
+enum class ePanelState
+{
+	Show,
+	Hide,
+	None
 };

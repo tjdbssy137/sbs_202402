@@ -53,25 +53,25 @@ void InstallSubmarinePanel::Update()
 	Super::Update();
 	switch (_state)
 	{
-	case InstallSubmarineButtonManagState::Show:
+	case ePanelState::Show:
 	{
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Default);
 		}
-		_state = InstallSubmarineButtonManagState::None;
+		_state = ePanelState::None;
 	}
 	break;
-	case InstallSubmarineButtonManagState::Hide:
+	case ePanelState::Hide:
 	{
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Disabled);
 		}
-		_state = InstallSubmarineButtonManagState::None;
+		_state = ePanelState::None;
 	}
 	break;
-	case InstallSubmarineButtonManagState::None:
+	case ePanelState::None:
 		break;
 	default:
 		break;
@@ -138,7 +138,7 @@ void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 		}
 	}
 
-	_state = InstallSubmarineButtonManagState::Hide;
+	_state = ePanelState::Hide;
 	this->Hide();
 }
 

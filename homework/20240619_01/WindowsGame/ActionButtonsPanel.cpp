@@ -59,25 +59,25 @@ void ActionButtonsPanel::Update()
 	Super::Update();
 	switch (_state)
 	{
-	case ActionButtonsButtonManagState::Show:
+	case ePanelState::Show:
 	{
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Default);
 		}		
-		_state = ActionButtonsButtonManagState::None;
+		_state = ePanelState::None;
 	}
 		break;
-	case ActionButtonsButtonManagState::Hide:
+	case ePanelState::Hide:
 	{
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Disabled);
 		}
-		_state = ActionButtonsButtonManagState::None;
+		_state = ePanelState::None;
 	}
 		break;
-	case ActionButtonsButtonManagState::None:
+	case ePanelState::None:
 		break;
 	default:
 		break;
@@ -119,7 +119,7 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 			redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle);
 		}
 	}
-	_state = ActionButtonsButtonManagState::Hide;
+	_state = ePanelState::Hide;
 	this->Hide();
 }
 void ActionButtonsPanel::OnClick_GoToDelete()
@@ -143,7 +143,7 @@ void ActionButtonsPanel::OnClick_GoToDelete()
 		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Delete));
 		scene->MakeGold(behicleController[index]->GetBehicleData().RefundGold); //refund
 	}
-	_state = ActionButtonsButtonManagState::Hide;
+	_state = ePanelState::Hide;
 	this->Hide();
 }
 

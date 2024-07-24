@@ -2,8 +2,6 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "TowerDefenseScene.h"
-#include "TowerDefenseStartScene.h"
-#include "TowerDefenseEndScene.h"
 void SceneManager::Init()
 {
 
@@ -38,14 +36,8 @@ void SceneManager::Update()
 	{
 	case SceneType::None:
 		break;
-	case SceneType::TowerDefenseStartScene:
-		newScene = new TowerDefenseStartScene();
-		break;
 	case SceneType::TowerDefenseScene:
 		newScene = new TowerDefenseScene();
-		break;
-	case SceneType::TowerDefenseEndScene:
-		newScene = new TowerDefenseEndScene();
 		break;
 	default:
 		break;

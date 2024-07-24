@@ -3,12 +3,6 @@
 
 class Button;
 
-enum class InstallSubmarineButtonManagState
-{
-	Show,
-	Hide,
-	None
-};
 class InstallSubmarinePanel : public Panel
 {
 public:
@@ -21,12 +15,12 @@ public:
 public:
 	void LoadResource();
 	void OnClick_GoToInstallSubmarine();
-	void SetState(InstallSubmarineButtonManagState state) { _state = state; }
+	void SetState(ePanelState state) { _state = state; }
 	bool Check_Astar(Vector2Int startPos, Vector2Int endPos, Vector2Int SubmarinePos);
 
 private:
 	vector<Button*> _buttons = {};
-	InstallSubmarineButtonManagState _state = InstallSubmarineButtonManagState::Hide;
+	ePanelState _state = ePanelState::Hide;
 	
 };
 

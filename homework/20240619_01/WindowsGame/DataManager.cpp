@@ -3,34 +3,6 @@
 
 void DataManager::Init()
 {
-	// 파일 읽어서 로드하기
-	/*ifstream ifs(L"../Resources/Data/MonsterData.json");
-
-	assert(ifs.is_open());
-
-	stringstream buffer;
-	buffer << ifs.rdbuf();
-	string json = buffer.str();
-
-	Document document;
-	document.Parse(json.c_str());
-
-	assert(document.HasParseError() == false);
-
-	assert(document.IsArray());
-	GenericArray<false, Value> array = document.GetArray();
-	for (SizeType i = 0; i < array.Size(); ++i)
-	{
-		StringBuffer buffer;
-		Writer<StringBuffer> writer(buffer);
-		array[i].Accept(writer);
-
-		MonsterData data;
-		data.FromJson(buffer.GetString());
-
-		assert(_monsterDatas.contains(data.Id) == false);
-		_monsterDatas[data.Id] = data;
-	}*/
 	this->LoadData(L"WaveData", DataType::Wave);
 	this->LoadData(L"BehicleData", DataType::Behicle);
 	this->LoadData(L"BoatData", DataType::Boat);
@@ -38,7 +10,6 @@ void DataManager::Init()
 
 void DataManager::Release()
 {
-	_monsterDatas.clear();
 	_behicleDatas.clear();
 	_waveDatas.clear();
 	_boatDatas.clear();
@@ -46,7 +17,6 @@ void DataManager::Release()
 void DataManager::LoadData(wstring loadData, DataType dataType)
 {
 	wstring temp = L"../Resources/Data/" + loadData + L".json";
-	//wprintf(temp.c_str());
 	ifstream ifs(temp);
 
 	assert(ifs.is_open());
@@ -58,7 +28,7 @@ void DataManager::LoadData(wstring loadData, DataType dataType)
 	Document document;
 	document.Parse(json.c_str());
 
-	assert(document.HasParseError() == false); // 여기서 오류
+	assert(document.HasParseError() == false);
 
 	assert(document.IsArray());
 	GenericArray<false, Value> array = document.GetArray();
@@ -76,7 +46,7 @@ void DataManager::LoadData(wstring loadData, DataType dataType)
 			WaveData data;
 			data.FromJson(buffer.GetString());
 
-			assert(_waveDatas.contains(data.Id) == false); // 여기서 오류
+			assert(_waveDatas.contains(data.Id) == false); 
 			_waveDatas[data.Id] = data;
 		}
 	}

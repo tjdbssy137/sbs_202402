@@ -247,11 +247,11 @@
     <ClInclude Include="ActionButtonsPanel.h">
       <Filter>06.UI\Game</Filter>
     </ClInclude>
-    <ClInclude Include="TowerDefenseEndScene.h">
-      <Filter>02.Scene\Game</Filter>
+    <ClInclude Include="TowerDefenseEndPanel.h">
+      <Filter>06.UI\Game</Filter>
     </ClInclude>
-    <ClInclude Include="TowerDefenseStartScene.h">
-      <Filter>02.Scene\Game</Filter>
+    <ClInclude Include="TowerDefenseStartPanel.h">
+      <Filter>06.UI\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -300,9 +300,6 @@
     </ClCompile>
     <ClCompile Include="TowerDefenseScene.cpp">
       <Filter>02.Scene\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>02.Scene</Filter>
     </ClCompile>
     <ClCompile Include="Vector2.cpp">
       <Filter>99.Utils\Types</Filter>
@@ -499,11 +496,14 @@
     <ClCompile Include="ActionButtonsPanel.cpp">
       <Filter>06.UI\Game</Filter>
     </ClCompile>
-    <ClCompile Include="TowerDefenseEndScene.cpp">
-      <Filter>02.Scene\Game</Filter>
+    <ClCompile Include="TowerDefenseEndPanel.cpp">
+      <Filter>06.UI\Game</Filter>
     </ClCompile>
-    <ClCompile Include="TowerDefenseStartScene.cpp">
-      <Filter>02.Scene\Game</Filter>
+    <ClCompile Include="TowerDefenseStartPanel.cpp">
+      <Filter>06.UI\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>02.Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -511,9 +511,6 @@
       <Filter>999.Comments</Filter>
     </None>
     <None Include="BoatData.json">
-      <Filter>998. Json</Filter>
-    </None>
-    <None Include="MonsterData.json">
       <Filter>998. Json</Filter>
     </None>
     <None Include="BehicleData.json">
