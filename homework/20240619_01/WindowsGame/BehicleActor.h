@@ -5,6 +5,7 @@ class Flipbook;
 class CircleCollider;
 class BoatActor;
 class BulletActorController;
+
 enum class BehicleState
 {
 	Attack,

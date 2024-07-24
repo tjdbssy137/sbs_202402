@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "BoatActor.h"
 #include "CircleCollider.h"
-#include "Dev2Scene.h"
+#include "TowerDefenseScene.h"
 #include "SpriteActor.h"
 #include "Sprite.h"
 #include "Flipbook.h"
@@ -33,8 +33,8 @@ void BoatActor::Init()
 	_bomb = Resource->GetFlipbook(L"FB_Bomb"); // bomb
 
 	{
-		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
-		_bulletActorController = dev2Scene->GetBulletActorController();
+		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+		_bulletActorController = towerDefenseScene->GetBulletActorController();
 	}
 
 	Super::Init();
@@ -179,8 +179,9 @@ void BoatActor::ChangeDirection(eDirection dir)
 void BoatActor::FinishedBoatState()
 {
 	this->SetCellPos({ 54, 25 }, true);
-	Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
-	dev2Scene->GetGameWave()->PushBoatActor(this);
+	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+	towerDefenseScene->GetGameWave()->PushBoatActor(this);
+	towerDefenseScene->AddEnterEnemyCount();
 
 	// state º¯°æ
 	_state = BoatState::None;
@@ -194,9 +195,9 @@ void BoatActor::DeathEffect()
 	{
 		_die = false;
 		this->SetCellPos({ 54, 25 }, true);
-		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
-		dev2Scene->GetGameWave()->PushBoatActor(this);
-		dev2Scene->MakeGold(_data.Gold);
+		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+		towerDefenseScene->GetGameWave()->PushBoatActor(this);
+		towerDefenseScene->MakeGold(_data.Gold);
 		_state = BoatState::None;
 	}
 }

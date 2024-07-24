@@ -100,7 +100,7 @@
     <ClInclude Include="SceneManager.h">
       <Filter>01.Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Dev2Scene.h">
+    <ClInclude Include="TowerDefenseScene.h">
       <Filter>02.Scene\Game</Filter>
     </ClInclude>
     <ClInclude Include="Enums.h">
@@ -247,6 +247,12 @@
     <ClInclude Include="ActionButtonsPanel.h">
       <Filter>06.UI\Game</Filter>
     </ClInclude>
+    <ClInclude Include="TowerDefenseEndScene.h">
+      <Filter>02.Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TowerDefenseStartScene.h">
+      <Filter>02.Scene\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -292,7 +298,7 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>01.Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Dev2Scene.cpp">
+    <ClCompile Include="TowerDefenseScene.cpp">
       <Filter>02.Scene\Game</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
@@ -492,6 +498,12 @@
     </ClCompile>
     <ClCompile Include="ActionButtonsPanel.cpp">
       <Filter>06.UI\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TowerDefenseEndScene.cpp">
+      <Filter>02.Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TowerDefenseStartScene.cpp">
+      <Filter>02.Scene\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

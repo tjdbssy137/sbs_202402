@@ -2,7 +2,7 @@
 #include "ActionButtonsPanel.h"
 #include "Image.h"
 #include "Button.h"
-#include "Dev2Scene.h"
+#include "TowerDefenseScene.h"
 #include "RedBlockController.h"
 #include "BehicleActor.h"
 #include "BehicleController.h"
@@ -90,22 +90,22 @@ void ActionButtonsPanel::Release()
 }
 void ActionButtonsPanel::OnClick_GoToUpgrade()
 {
-	Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
-	RedBlockController* redBlockController = scene->GetRedBlockController();	
+	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+	RedBlockController* redBlockController = towerDefenseScene->GetRedBlockController();	
 
-	vector<BehicleController*> behicleController = scene->GetBehicleController();
+	vector<BehicleController*> behicleController = towerDefenseScene->GetBehicleController();
 	int index = redBlockController->GetBehicleControllerIndex();
 	
 	BehicleData data = behicleController[index]->GetBehicleData();
 	
 
-	if (data.UpgradeGold <= scene->GetGold()) // 돈이 있다면 업그레이드
+	if (data.UpgradeGold <= towerDefenseScene->GetGold()) // 돈이 있다면 업그레이드
 	{
 		if (data.Id < 7)
 		{
 			behicleController[index]->IsSetting(true);
 			behicleController[index]->SetBehicleTypeState(data.UpgradeTowerId);
-			scene->PayGold(Datas->GetBehicleData(data.Id).UpgradeGold);
+			towerDefenseScene->PayGold(Datas->GetBehicleData(data.Id).UpgradeGold);
 		}
 	}
 	else // 돈이 없다면 사용한 위치값 반환
@@ -124,7 +124,7 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 }
 void ActionButtonsPanel::OnClick_GoToDelete()
 {
-	Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
+	TowerDefenseScene* scene = static_cast<TowerDefenseScene*>(CurrentScene);
 	RedBlockController* redBlockController = scene->GetRedBlockController();
 	vector<Vector2Int> alreadyInstallBehicle = redBlockController->GetAlreadyInstallBehicle();
 	vector<BehicleController*> behicleController = scene->GetBehicleController();

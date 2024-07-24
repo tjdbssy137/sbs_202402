@@ -19,7 +19,7 @@ public:
 public:
 	void SetGameWaveState(GameWaveState waveState) { _waveState = waveState; }
 public:
-	void PushBoatActor(BoatActor* boat) { _boats.push_back(boat); }
+	void PushBoatActor(BoatActor* boat) { _boats.insert(_boats.begin(), boat); }
 
 private:
 	vector<BoatActor*> _boats = {};

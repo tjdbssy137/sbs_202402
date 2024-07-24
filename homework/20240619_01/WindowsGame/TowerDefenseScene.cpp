@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Dev2Scene.h"
+#include "TowerDefenseScene.h"
 #include "BoxCollider.h"
 #include "SpriteActor.h"
 #include "FlipbookActor.h"
@@ -23,7 +23,7 @@
 #include "InstallSubmarinePanel.h"
 #include "ActionButtonsPanel.h"
 
-void Dev2Scene::Init()
+void TowerDefenseScene::Init()
 {
 	LoadResource();
 	//타일맵
@@ -85,12 +85,20 @@ void Dev2Scene::Init()
 		this->SpawnActor(redBlock);
 		redBlock->SetCellPos({ 1, 1 }, true);
 	}
+
 	{//도착지점
 		SpriteActor* actor = new SpriteActor();
 		actor->SetLayer(LayerType::Object);
 		actor->SetSprite(Resource->GetSprite(L"S_BeachTileset_2"));
 		this->SpawnActor(actor);
 		actor->SetPos({ 5 * 31, 4 * 30 });
+	}
+	{//보물 상자
+		_treasure = new SpriteActor();
+		_treasure->SetLayer(LayerType::Object);
+		_treasure->SetSprite(Resource->GetSprite(L"S_Treasure_Closed"));
+		this->SpawnActor(_treasure);
+		_treasure->SetPos({ 4 * 28, 4 * 28 });
 	}
 
 	{
@@ -124,7 +132,7 @@ void Dev2Scene::Init()
 	Super::Init();
 
 }
-void Dev2Scene::Render(HDC hdc)
+void TowerDefenseScene::Render(HDC hdc)
 {
 	Super::Render(hdc);
 
@@ -134,11 +142,14 @@ void Dev2Scene::Render(HDC hdc)
 	wstring strGold = format(L"Gold : {0}", _gold);
 	::TextOut(hdc, 0, 90, strGold.c_str(), strGold.length());
 
+	wstring enterEnemyCount = format(L"enterEnemyCount : {0}", GetEnterEnemyCount());
+	::TextOut(hdc, 0, 135, enterEnemyCount.c_str(), enterEnemyCount.length());
+
 	_installPanel->Render(hdc);
 	_installSubmarinePanel->Render(hdc);
 	_actionButtonsPanel->Render(hdc);
 }
-void Dev2Scene::Update()
+void TowerDefenseScene::Update()
 {
 	Super::Update();
 
@@ -152,16 +163,22 @@ void Dev2Scene::Update()
 	}
 	_redBlockController->Update();
 
+	_installPanel->Update();
+	_installSubmarinePanel->Update();
+	_actionButtonsPanel->Update();
+
+	if (7 < GetEnterEnemyCount())
+	{
+		_treasure->SetSprite(Resource->GetSprite(L"S_Treasure_Opened"));
+	}
+
 	_gameWave->Update();
 	if (Input->GetKeyDown(KeyCode::W))
 	{
 		_gameWave->SetGameWaveState(GameWaveState::Wave);
 	}
-	_installPanel->Update();
-	_installSubmarinePanel->Update();
-	_actionButtonsPanel->Update();
 }
-void Dev2Scene::Release()
+void TowerDefenseScene::Release()
 {
 	Super::Release();
 	_installPanel->Release();
@@ -169,7 +186,7 @@ void Dev2Scene::Release()
 	_actionButtonsPanel->Release();
 }
 
-void Dev2Scene::LoadResource()
+void TowerDefenseScene::LoadResource()
 {
 	// -------------------------------------
 	// 
@@ -480,11 +497,15 @@ void Dev2Scene::LoadResource()
 	//----------------------------------
 	//  ## Sprite
 	//----------------------------------
-	Texture* redTile = Resource->LoadTexture(L"T_RedTile", L"UIStudy/RedTile.bmp", RGB(255, 0, 255));
-	Resource->CreateSprite(L"S_RedTile", redTile);
-
 	Texture* dock = Resource->LoadTexture(L"T_BeachTileset_2", L"BeachTileset/BeachTileset_2.bmp", RGB(255, 0, 255));
 	Resource->CreateSprite(L"S_BeachTileset_2", dock);
+
+	Texture* treasure = Resource->LoadTexture(L"T_BeachTileset_Treasure", L"BeachTileset/BeachTileset_Treasure.bmp", RGB(255, 0, 255));
+	Resource->CreateSprite(L"S_Treasure_Closed", treasure, 0, 0, 32, 32); 	// 털리기 전
+	Resource->CreateSprite(L"S_Treasure_Opened", treasure, 64, 0, 32, 32); 	// 털린 후
+
+	Texture* redTile = Resource->LoadTexture(L"T_RedTile", L"UIStudy/RedTile.bmp", RGB(255, 0, 255));
+	Resource->CreateSprite(L"S_RedTile", redTile);
 
 	Texture* hpBackground = Resource->LoadTexture(L"T_HP_Background", L"UIStudy/HP_Background.bmp");
 	Resource->CreateSprite(L"S_HP_Background", hpBackground);
@@ -554,7 +575,7 @@ void Dev2Scene::LoadResource()
 }
 
 
-Vector2 Dev2Scene::GetTilemapPos(Vector2Int cellPos)
+Vector2 TowerDefenseScene::GetTilemapPos(Vector2Int cellPos)
 {
 	assert(_tilemapActor != nullptr); // 유효성 검사
 	if (_tilemapActor == nullptr)
@@ -578,7 +599,7 @@ Vector2 Dev2Scene::GetTilemapPos(Vector2Int cellPos)
 	return rv;
 }
 
-bool Dev2Scene::CanGo(Vector2Int cellPos)
+bool TowerDefenseScene::CanGo(Vector2Int cellPos)
 {
 	for (BehicleActor* behicle : _behicles)
 	{
@@ -617,7 +638,7 @@ bool Dev2Scene::CanGo(Vector2Int cellPos)
 	return false;
 }
 
-Tilemap* Dev2Scene::GetTilemap()
+Tilemap* TowerDefenseScene::GetTilemap()
 {
 	assert(_tilemapActor != nullptr);
 	if (_tilemapActor == nullptr)
@@ -634,7 +655,7 @@ Tilemap* Dev2Scene::GetTilemap()
 	return tilemap;
 }
 
-TilemapActor* Dev2Scene::GetTilemapActor()
+TilemapActor* TowerDefenseScene::GetTilemapActor()
 {
 	assert(_tilemapActor != nullptr);
 	if (_tilemapActor == nullptr)

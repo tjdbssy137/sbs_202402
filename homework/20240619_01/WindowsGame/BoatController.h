@@ -1,12 +1,12 @@
 #pragma once
 class BoatActor;
-class Dev2Scene;
+class TowerDefenseScene;
 
 class BoatController
 {
 private:
 	BoatActor* _boat = nullptr;
-	Dev2Scene* _currentScene = nullptr;
+	TowerDefenseScene* _currentScene = nullptr;
 public:
 	void SetLink(BoatActor* boat);
 	void Update();

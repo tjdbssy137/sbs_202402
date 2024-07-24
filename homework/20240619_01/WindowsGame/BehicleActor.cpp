@@ -1,11 +1,12 @@
 #include "pch.h"
 #include "BehicleActor.h"
-#include "Dev2Scene.h"
+#include "TowerDefenseScene.h"
 #include "CircleCollider.h"
 #include "BoatActor.h"
 #include "BulletActor.h"
 #include "BulletActorController.h"
 #include "BehicleController.h"
+
 void BehicleActor::Init()
 {
 	this->SetState(_state);
@@ -21,8 +22,8 @@ void BehicleActor::Init()
 	this->AddComponent(collider);
 
 	{
-		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
-		_bulletActorController = dev2Scene->GetBulletActorController();
+		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+		_bulletActorController = towerDefenseScene->GetBulletActorController();
 	}
 	Super::Init();
 }
@@ -106,8 +107,8 @@ void BehicleActor::ChangeDirection(eDirection dir)
 
 void BehicleActor::UpdateIdle()
 {
-	Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
-	vector<BoatActor*> boats = dev2Scene->GetBoatActor();
+	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+	vector<BoatActor*> boats = towerDefenseScene->GetBoatActor();
 
 	//공격을실행할거다.
 	for (BoatActor* boat : boats)
@@ -222,9 +223,9 @@ void BehicleActor::UseBullet()
 		BulletActor* bullet = new BulletActor();
 		bullet->SetLayer(LayerType::Object);
 		bullet->SetPos(this->GetPos());
-		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
+		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
 		bullet->Init();
-		dev2Scene->SpawnActor(bullet);
+		towerDefenseScene->SpawnActor(bullet);
 		bullet->SetBulletDamage(_data.BulletDamage);
 		bullet->SetBulletSpeed(_data.BulletSpeed);
 

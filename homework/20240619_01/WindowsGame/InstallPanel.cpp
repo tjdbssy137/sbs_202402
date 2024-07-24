@@ -2,7 +2,7 @@
 #include "InstallPanel.h"
 #include "Image.h"
 #include "Button.h"
-#include "Dev2Scene.h"
+#include "TowerDefenseScene.h"
 #include "RedBlockController.h"
 #include "BehicleController.h"
 #include "BehicleActor.h"
@@ -96,15 +96,6 @@ void InstallPanel::Release()
 
 void InstallPanel::OnClick_GoToInstallDrill()
 {
-	//cout << "DrillTank" << endl;
- 	/*Dev2Scene* scene = static_cast<Dev2Scene*>(CurrentScene);
-	InstallBehicle* installBehicle = scene->GetInstallBehicle();
-	RedBlockController* redBlockController = scene->GetRedBlockController();
-
-	installBehicle->SetBehicleTypeState(static_cast<int>(BehicleTypeState::DrillTank1));
-	installBehicle->InstallBehicleFunc(redBlockController->GetInstallBehiclePos());
-	_state = InstallButtonManagState::Hide;
-	this->Hide();*/
 	this->InstallingBehicle(Datas->GetBehicleData(1).Id); // DrillTank1
 	this->Hide();
 }
@@ -115,11 +106,11 @@ void InstallPanel::OnClick_GoToInstallTank()
 }
 void InstallPanel::InstallingBehicle(int type)
 {
-	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
-	RedBlockController* redBlockController = dev2Scene->GetRedBlockController();
+	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
+	RedBlockController* redBlockController = towerDefenseScene->GetRedBlockController();
 	Vector2Int pos = redBlockController->GetInstallBehiclePos();
 
-	if (Datas->GetBehicleData(type).InstallGold <= dev2Scene->GetGold()) // 갖고 있는 돈이 설치하기에 충분하다면
+	if (Datas->GetBehicleData(type).InstallGold <= towerDefenseScene->GetGold()) // 갖고 있는 돈이 설치하기에 충분하다면
 	{
 		BehicleController* behicleController = new BehicleController();
 		{
@@ -130,12 +121,12 @@ void InstallPanel::InstallingBehicle(int type)
 			behicleController->IsSetting(true);
 			behicleController->SetBehicleTypeState(type);
 			behicle->Init();
-			dev2Scene->SpawnActor(behicle);
+			towerDefenseScene->SpawnActor(behicle);
 			behicle->SetCellPos(pos, true);
-			dev2Scene->SetBehicleActor(behicle);
+			towerDefenseScene->SetBehicleActor(behicle);
 		}
-		dev2Scene->SetBehicleController(behicleController);//_behicleControllers.push_back();
-		dev2Scene->PayGold(Datas->GetBehicleData(type).InstallGold);
+		towerDefenseScene->SetBehicleController(behicleController);//_behicleControllers.push_back();
+		towerDefenseScene->PayGold(Datas->GetBehicleData(type).InstallGold);
 	}
 	else
 	{

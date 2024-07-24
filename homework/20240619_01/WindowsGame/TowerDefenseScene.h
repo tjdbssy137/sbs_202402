@@ -18,8 +18,9 @@ class InstallPanel;
 class InstallSubmarinePanel;
 class ActionButtonsPanel;
 class BulletActorController;
+class SpriteActor;
 
-class Dev2Scene : public TilemapScene
+class TowerDefenseScene : public TilemapScene
 {
 	using Super = Scene;
 public:
@@ -37,17 +38,15 @@ public:
 	virtual bool CanGo(Vector2Int cellPos) override;
 public:
 	RedBlockController* GetRedBlockController() { return _redBlockController; }
-	
-	vector<BoatActor*> GetBoatActor() { return _boats; }
-
 	BulletActorController* GetBulletActorController() { return _bulletController; }
-	
 	vector<BehicleController*> GetBehicleController() { return _behicleControllers; }
 	void SetBehicleController(BehicleController* behicleController) { _behicleControllers.push_back(behicleController); }
+	GameWave* GetGameWave() { return _gameWave; }
+
+	// Actor
+	vector<BoatActor*> GetBoatActor() { return _boats; }	
 	vector<BehicleActor*> GetBehicleActor() { return _behicles; }
 	void SetBehicleActor(BehicleActor* behicles) { _behicles.push_back(behicles); }
-
-	GameWave* GetGameWave() { return _gameWave; }
 
 	//Panel
 	InstallPanel* GetInstallPanel() { return _installPanel; }
@@ -59,6 +58,9 @@ public:
 	void PayGold(int gold) { _gold -= gold; }
 	int GetGold() { return _gold; }
 
+	// Treasure
+	void AddEnterEnemyCount() { _enterEnemyCount++; }
+	int GetEnterEnemyCount() { return _enterEnemyCount; }
 private:
 	//Actors
 	TilemapActor* _tilemapActor = nullptr;
@@ -79,4 +81,8 @@ private:
 
 	// Gold
 	int _gold = 110; // 기본 금액
+
+	// Treasure
+	SpriteActor* _treasure = nullptr;
+	int _enterEnemyCount = 0;
 };

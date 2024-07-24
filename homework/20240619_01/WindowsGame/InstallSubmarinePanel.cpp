@@ -2,7 +2,7 @@
 #include "InstallSubmarinePanel.h"
 #include "Image.h"
 #include "Button.h"
-#include "Dev2Scene.h"
+#include "TowerDefenseScene.h"
 #include "RedBlockController.h"
 #include "BehicleController.h"
 #include "BehicleActor.h"
@@ -84,13 +84,13 @@ void InstallSubmarinePanel::Release()
 
 void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 {
-	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
-	RedBlockController* redBlockController = dev2Scene->GetRedBlockController();
+	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
+	RedBlockController* redBlockController = towerDefenseScene->GetRedBlockController();
 	Vector2Int pos = redBlockController->GetInstallBehiclePos();
 
 	bool isFind = Check_Astar(STARTPOS, DESTPOS, pos);
 
-	if (Datas->GetBehicleData(7).InstallGold <= dev2Scene->GetGold())
+	if (Datas->GetBehicleData(7).InstallGold <= towerDefenseScene->GetGold())
 	{
 		if (isFind == false)
 		{
@@ -118,12 +118,12 @@ void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 				behicleController->IsSetting(true);
 				behicleController->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Submarine));
 				behicle->Init();
-				dev2Scene->SpawnActor(behicle);
+				towerDefenseScene->SpawnActor(behicle);
 				behicle->SetCellPos(pos, true);
-				dev2Scene->SetBehicleActor(behicle);
+				towerDefenseScene->SetBehicleActor(behicle);
 			}
-			dev2Scene->SetBehicleController(behicleController); //_behicleControllers.push_back
-			dev2Scene->PayGold(Datas->GetBehicleData(7).InstallGold);
+			towerDefenseScene->SetBehicleController(behicleController); //_behicleControllers.push_back
+			towerDefenseScene->PayGold(Datas->GetBehicleData(7).InstallGold);
 		}
 	}
 	else

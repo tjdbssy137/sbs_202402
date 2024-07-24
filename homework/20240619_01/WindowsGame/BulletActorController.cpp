@@ -2,7 +2,7 @@
 #include "BulletActorController.h"
 #include "BulletActor.h"
 #include "BulletActor.h"
-#include "Dev2Scene.h"
+#include "TowerDefenseScene.h"
 
 void BulletActorController::PushBullet(BulletActor* bullet)
 {
@@ -14,9 +14,9 @@ BulletActor* BulletActorController::PopBullet()
 	{
 		BulletActor* bullet = new BulletActor();
 		bullet->SetLayer(LayerType::Object);
-		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
+		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
 		bullet->Init();
-		dev2Scene->SpawnActor(bullet);
+		towerDefenseScene->SpawnActor(bullet);
 		return bullet;
 	}
 	BulletActor* bullet = new BulletActor();

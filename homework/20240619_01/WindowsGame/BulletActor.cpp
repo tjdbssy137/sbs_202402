@@ -3,7 +3,7 @@
 #include "CircleCollider.h"
 #include "BoatActor.h"
 #include "BulletActorController.h"
-#include "Dev2Scene.h"
+#include "TowerDefenseScene.h"
 
 void BulletActor::Init()
 {
@@ -18,8 +18,8 @@ void BulletActor::Init()
 	this->AddComponent(collider);
 	
 	{
-		Dev2Scene* dev2Scene = static_cast<Dev2Scene*>(CurrentScene);
-		_bulletActorController = dev2Scene->GetBulletActorController();
+		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+		_bulletActorController = towerDefenseScene->GetBulletActorController();
 	}
 	Super::Init();
 }

@@ -4,7 +4,7 @@
 #include "TilemapScene.h"
 #include "Tilemap.h"
 #include "TilemapActor.h"
-#include "Dev2Scene.h"
+#include "TowerDefenseScene.h"
 #include "InstallPanel.h"
 #include "InstallSubmarinePanel.h"
 #include "ActionButtonsPanel.h"
@@ -27,17 +27,17 @@ void RedBlockController::Update()
 	if (Input->GetKeyDown(KeyCode::D))
 	{
 		_mouseState = MouseState::Nothing;
-		Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
+		TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
 		
-		InstallPanel* installPanel = dev2Scene->GetInstallPanel();
+		InstallPanel* installPanel = towerDefenseScene->GetInstallPanel();
 		installPanel->SetState(InstallButtonManagState::Hide);
 		installPanel->Hide();
 		
-		InstallSubmarinePanel* installSubmarinePanel = dev2Scene->GetInstallSubmarinePanel();
+		InstallSubmarinePanel* installSubmarinePanel = towerDefenseScene->GetInstallSubmarinePanel();
 		installSubmarinePanel->SetState(InstallSubmarineButtonManagState::Hide);
 		installSubmarinePanel->Hide();
 
-		ActionButtonsPanel* actionPanel = dev2Scene->GetActionButtonsPanel();
+		ActionButtonsPanel* actionPanel = towerDefenseScene->GetActionButtonsPanel();
 		actionPanel->SetState(ActionButtonsButtonManagState::Hide);
 		actionPanel->Hide();
 	}
@@ -129,16 +129,16 @@ void RedBlockController::CanInstallBehicle()
 }
 void RedBlockController::DoInstallGround()
 {
-	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
-	InstallPanel* installPanel = dev2Scene->GetInstallPanel();
+	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
+	InstallPanel* installPanel = towerDefenseScene->GetInstallPanel();
 	installPanel->SetState(InstallButtonManagState::Show);
 	installPanel->Show();
 	_mouseState = MouseState::Nothing;
 }
 void RedBlockController::DoInstallOcean()
 {
-	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
-	InstallSubmarinePanel* installSubmarinePanel = dev2Scene->GetInstallSubmarinePanel();
+	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
+	InstallSubmarinePanel* installSubmarinePanel = towerDefenseScene->GetInstallSubmarinePanel();
 	installSubmarinePanel->SetState(InstallSubmarineButtonManagState::Show);
 	installSubmarinePanel->Show();
 	_mouseState = MouseState::Nothing;
@@ -148,9 +148,9 @@ void RedBlockController::DoUpgradeDeleteBehicle()
 	// 타일을 누른다.
 	// 이미 설치가 되어있으면, 걔를 조회하고
 	// 업그레이드 & 삭제 판넬을 띄운다.
-	Dev2Scene* dev2Scene = dynamic_cast<Dev2Scene*>(CurrentScene);
-	ActionButtonsPanel* actionPanel = dev2Scene->GetActionButtonsPanel();
-	vector<BehicleActor*> _behicles = dev2Scene->GetBehicleActor();
+	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
+	ActionButtonsPanel* actionPanel = towerDefenseScene->GetActionButtonsPanel();
+	vector<BehicleActor*> _behicles = towerDefenseScene->GetBehicleActor();
 	
 	_Index = 0;
 	for (BehicleActor* behicle : _behicles)
