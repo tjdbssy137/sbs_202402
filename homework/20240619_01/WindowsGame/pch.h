@@ -65,6 +65,7 @@ using namespace std;
 //===========================================
 //		## ΩÃ±€≈Ê ##
 //===========================================
+#include "GameEventManager.h"
 #include "TimeManager.h"	// Time
 #include "InputManager.h"	// Input
 #include "SceneManager.h"	// Scene Manager

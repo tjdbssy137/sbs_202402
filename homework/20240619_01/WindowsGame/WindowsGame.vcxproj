@@ -180,6 +180,8 @@
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="DefineContents.h" />
     <ClInclude Include="Defines.h" />
+    <ClInclude Include="GameEvent.h" />
+    <ClInclude Include="GameEventManager.h" />
     <ClInclude Include="TowerDefenseEndPanel.h" />
     <ClInclude Include="TowerDefenseScene.h" />
     <ClInclude Include="Flipbook.h" />
@@ -319,6 +321,8 @@
     <ClCompile Include="Day42.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GameEvent.cpp" />
+    <ClCompile Include="GameEventManager.cpp" />
     <ClCompile Include="TowerDefenseEndPanel.cpp" />
     <ClCompile Include="TowerDefenseScene.cpp" />
     <ClInclude Include="Enums.h" />

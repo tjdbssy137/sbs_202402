@@ -65,6 +65,9 @@
     <Filter Include="03.Objects\TowerDefense">
       <UniqueIdentifier>{2fb9743f-9061-45ab-9133-a13cae578f82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="09.Event">
+      <UniqueIdentifier>{6b2c8161-0767-46fb-9285-53f8e6f29923}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -253,6 +256,10 @@
     <ClInclude Include="TowerDefenseStartPanel.h">
       <Filter>06.UI\Game</Filter>
     </ClInclude>
+    <ClInclude Include="GameEventManager.h">
+      <Filter>01.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -505,6 +512,10 @@
     <ClCompile Include="Scene.cpp">
       <Filter>02.Scene</Filter>
     </ClCompile>
+    <ClCompile Include="GameEventManager.cpp">
+      <Filter>01.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Day16.cpp">

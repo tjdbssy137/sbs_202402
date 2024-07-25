@@ -24,6 +24,7 @@ public:											\
 
 #define GET_SINGLE(ClassName)	ClassName::GetInstance()
 
+#define Events GET_SINGLE(GameEventManager)
 #define Input GET_SINGLE(InputManager)
 #define Time GET_SINGLE(TimeManager)
 #define Resource GET_SINGLE(ResourceManager)

@@ -29,6 +29,7 @@ void Game::Init(HWND hwnd)
 
 
 	//½Ì±ÛÅæ ÃÊ±âÈ­
+	Events->Init();
 	Time->Init();
 	Input->Init(_hwnd);
 	GET_SINGLE(SceneManager)->Init();
@@ -46,6 +47,7 @@ void Game::Init(HWND hwnd)
 void Game::Update()
 {
 	//½Ì±ÛÅæ ¾÷µ¥ÀÌÆ®
+	Events->Update();
 	Time->Update();
 	Input->Update();
 	GET_SINGLE(SceneManager)->Update();
