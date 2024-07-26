@@ -22,6 +22,9 @@
 #include "InstallPanel.h"
 #include "InstallSubmarinePanel.h"
 #include "ActionButtonsPanel.h"
+#include "TowerDefenseStartPanel.h"
+#include "TowerDefenseEndPanel.h"
+#include "InstallButtonPanel.h"
 
 void TowerDefenseScene::Init()
 {
@@ -124,6 +127,16 @@ void TowerDefenseScene::Init()
 		_actionButtonsPanel->Hide();
 	}
 
+	{
+		_towerDefenseStartPanel = new TowerDefenseStartPanel();
+		_towerDefenseStartPanel->Init();
+		//_towerDefenseStartPanel->Hide();
+	}
+
+	{
+		_installButtonPanel = new InstallButtonPanel();
+		_installButtonPanel->Init();
+	}
 	// behicle을 여러개 생성해두고? 마우스 좌표로 비히클 위치를 지정해주는 클래스를 새로 만들어야할 듯.
 	// 마우스를 가져다 대면 빨간색의 작은 타일이 생기고 그곳을 누르면 설치.. (panel이 마우스를 따라다니며 어떤 걸 설치할 지 메뉴)
 
@@ -148,6 +161,8 @@ void TowerDefenseScene::Render(HDC hdc)
 	_installPanel->Render(hdc);
 	_installSubmarinePanel->Render(hdc);
 	_actionButtonsPanel->Render(hdc);
+	_towerDefenseStartPanel->Render(hdc);
+	_installButtonPanel->Render(hdc);
 }
 void TowerDefenseScene::Update()
 {
@@ -166,6 +181,8 @@ void TowerDefenseScene::Update()
 	_installPanel->Update();
 	_installSubmarinePanel->Update();
 	_actionButtonsPanel->Update();
+	_towerDefenseStartPanel->Update();
+	_installButtonPanel->Update();
 
 	_gameWave->Update();
 	if (Input->GetKeyDown(KeyCode::W))
@@ -181,6 +198,8 @@ void TowerDefenseScene::Release()
 	_installPanel->Release();
 	_installSubmarinePanel->Release();
 	_actionButtonsPanel->Release();
+	_towerDefenseStartPanel->Release();
+	_installButtonPanel->Release();
 }
 void TowerDefenseScene::EnterEnemyCheck()
 {
@@ -487,6 +506,14 @@ void TowerDefenseScene::LoadResource()
 	Texture* Buttons = Resource->LoadTexture(L"T_Buttons", L"UIs/Buttons.bmp");
 	Resource->CreateSprite(L"S_Button_L", Buttons, 0, 0, 100, 40);
 	Resource->CreateSprite(L"S_Button_S", Buttons, 100, 0, 40, 40);
+
+	Texture* Buttons2 = Resource->LoadTexture(L"T_Buttons2", L"UIs/Buttons2.bmp");
+
+	// 시작 화면
+	Texture* startPanel = Resource->LoadTexture(L"T_StartPanel", L"UIs/startPanel.bmp", RGB(255, 0, 255));
+	Resource->CreateSprite(L"S_StartPanel", startPanel);
+	Texture* startButton = Resource->LoadTexture(L"T_StartButton", L"UIs/startButtons.bmp", RGB(255, 0, 255));
+
 
 	//----------------------------------
 	//  ## Sound

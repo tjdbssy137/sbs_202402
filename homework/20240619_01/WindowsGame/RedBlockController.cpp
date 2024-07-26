@@ -18,7 +18,7 @@ void RedBlockController::SetLink(RedBlockActor* block)
 
 void RedBlockController::Update()
 {
-	if (Input->GetKeyDown(KeyCode::A))
+	/*if (Input->GetKeyDown(KeyCode::A))
 	{
 		_block->SetSprite(Resource->GetSprite(L"S_RedTile"));
 		_mouseState = MouseState::Move;
@@ -40,7 +40,7 @@ void RedBlockController::Update()
 		ActionButtonsPanel* actionPanel = towerDefenseScene->GetActionButtonsPanel();
 		actionPanel->SetState(ePanelState::Hide);
 		actionPanel->Hide();
-	}
+	}*/
 
 	switch (_mouseState)
 	{
@@ -63,7 +63,28 @@ void RedBlockController::Update()
 		break;
 	}
 }
+void RedBlockController::OnMouse()
+{
+	_block->SetSprite(Resource->GetSprite(L"S_RedTile"));
+	_mouseState = MouseState::Move;
+}
+void RedBlockController::OffMouse()
+{
+	_mouseState = MouseState::Nothing;
+	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
 
+	InstallPanel* installPanel = towerDefenseScene->GetInstallPanel();
+	installPanel->SetState(ePanelState::Hide);
+	installPanel->Hide();
+
+	InstallSubmarinePanel* installSubmarinePanel = towerDefenseScene->GetInstallSubmarinePanel();
+	installSubmarinePanel->SetState(ePanelState::Hide);
+	installSubmarinePanel->Hide();
+
+	ActionButtonsPanel* actionPanel = towerDefenseScene->GetActionButtonsPanel();
+	actionPanel->SetState(ePanelState::Hide);
+	actionPanel->Hide();
+}
 void RedBlockController::CanInstallBehicle()
 {
 	TilemapScene* scene = dynamic_cast<TilemapScene*>(CurrentScene);

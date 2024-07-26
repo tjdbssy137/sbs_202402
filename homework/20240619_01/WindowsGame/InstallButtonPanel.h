@@ -1,10 +1,11 @@
 #pragma once
 #include "Panel.h"
+
 class Button;
-class TowerDefenseStartPanel : public Panel
+class InstallButtonPanel : public Panel
 {
 public:
-	DECLARE_CHILD(TowerDefenseStartPanel, Panel);
+	DECLARE_CHILD(InstallButtonPanel, Panel);
 public:
 	virtual void Init() override;
 	virtual void Render(HDC hdc) override;
@@ -13,11 +14,10 @@ public:
 
 public:
 	void LoadResource();
-	void SetState(ePanelState state) { _state = state; }
-	void OnClick_GoToStart();
+	void OnClick_GoToInstall();
+	void OnClick_GoToCancel();
+	void OnClick_GoToNextWave();
 private:
-	vector<Button*> _buttons = {};
-	ePanelState _state = ePanelState::Show;
 
 };
 

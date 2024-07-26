@@ -51,7 +51,7 @@ void GameEventManager::Invoke(string key, Args... args)
 	if (it != _gameEvents.end())
 	{
 		auto gameEvent = static_cast<GameEvent<Args...>*>(it->second);
-		if (gmaeEvent)
+		if (gameEvent)
 		{
 			(*gameEvent)(args...);
 		}

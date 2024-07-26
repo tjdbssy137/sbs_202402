@@ -32,6 +32,10 @@ public:
 	void SetAlreadyInstallBehicle(vector<Vector2Int> temp) { _alreadyInstallBehicle = temp; }
 	
 	Vector2Int GetBehiclePos() { return _pos; }
+
+public:
+	void OnMouse();
+	void OffMouse();
 private:
 	MouseState _mouseState = MouseState::Nothing;
 	Vector2Int _pos = {};

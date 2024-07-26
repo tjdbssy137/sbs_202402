@@ -58,9 +58,8 @@ void GameEvent<Args...>::Release()
 template<typename... Args>
 void GameEvent<Args...>::Invoke(Args... args)
 {
-	for (function<void < Args...) > onEvent : _onEvents)
+	for (function<void(Args...)> onEvent : _onEvents)
 	{
 		onEvent(std::forward<Args>(args)...);
 	}
-};
-
+}

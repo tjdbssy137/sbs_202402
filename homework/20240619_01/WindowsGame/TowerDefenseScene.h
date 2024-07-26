@@ -15,12 +15,15 @@ class BehicleActor;
 class BoatActor;
 class BulletActorController;
 class GameWave;
+class BulletActorController;
+class SpriteActor;
+//panel
 class InstallPanel;
 class InstallSubmarinePanel;
 class ActionButtonsPanel;
-class BulletActorController;
-class SpriteActor;
-
+class TowerDefenseStartPanel;
+class TowerDefenseEndPanel;
+class InstallButtonPanel;
 class TowerDefenseScene : public TilemapScene
 {
 	using Super = Scene;
@@ -45,7 +48,7 @@ public:
 	GameWave* GetGameWave() { return _gameWave; }
 
 	// Actor
-	vector<BoatActor*> GetBoatActor() { return _boats; }	
+	vector<BoatActor*> GetBoatActor() { return _boats; }
 	vector<BehicleActor*> GetBehicleActor() { return _behicles; }
 	void SetBehicleActor(BehicleActor* behicles) { _behicles.push_back(behicles); }
 
@@ -53,7 +56,9 @@ public:
 	InstallPanel* GetInstallPanel() { return _installPanel; }
 	InstallSubmarinePanel* GetInstallSubmarinePanel() { return _installSubmarinePanel; }
 	ActionButtonsPanel* GetActionButtonsPanel() { return _actionButtonsPanel; }
-
+	TowerDefenseStartPanel* GetTowerDefenseStartPanel() { return _towerDefenseStartPanel; }
+	TowerDefenseEndPanel* GetTowerDefenseEndPanel() { return _towerDefenseEndPanel; }
+	InstallButtonPanel* GetInstallButtonPanel() { return _installButtonPanel; }
 	// Gold
 	void MakeGold(int gold) { _gold += gold; }
 	void PayGold(int gold) { _gold -= gold; }
@@ -80,6 +85,9 @@ private:
 	InstallPanel* _installPanel = nullptr;
 	InstallSubmarinePanel* _installSubmarinePanel = nullptr;
 	ActionButtonsPanel* _actionButtonsPanel = nullptr;
+	TowerDefenseStartPanel* _towerDefenseStartPanel = nullptr;
+	TowerDefenseEndPanel* _towerDefenseEndPanel = nullptr;
+	InstallButtonPanel* _installButtonPanel = nullptr;
 
 	// Gold
 	int _gold = 110; // 기본 금액

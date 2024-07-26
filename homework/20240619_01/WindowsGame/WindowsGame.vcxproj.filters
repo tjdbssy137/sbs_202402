@@ -106,9 +106,6 @@
     <ClInclude Include="TowerDefenseScene.h">
       <Filter>02.Scene\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Enums.h">
-      <Filter>99.Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>02.Scene</Filter>
     </ClInclude>
@@ -259,7 +256,15 @@
     <ClInclude Include="GameEventManager.h">
       <Filter>01.Managers</Filter>
     </ClInclude>
-    <ClInclude Include="GameEvent.h" />
+    <ClInclude Include="Enums.h">
+      <Filter>99.Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEvent.h">
+      <Filter>09.Event</Filter>
+    </ClInclude>
+    <ClInclude Include="InstallButtonPanel.h">
+      <Filter>06.UI\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -515,7 +520,12 @@
     <ClCompile Include="GameEventManager.cpp">
       <Filter>01.Managers</Filter>
     </ClCompile>
-    <ClCompile Include="GameEvent.cpp" />
+    <ClCompile Include="GameEvent.cpp">
+      <Filter>09.Event</Filter>
+    </ClCompile>
+    <ClCompile Include="InstallButtonPanel.cpp">
+      <Filter>06.UI\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Day16.cpp">
