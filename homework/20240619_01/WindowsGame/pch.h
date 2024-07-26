@@ -7,7 +7,6 @@
 //===========================================
 #include "Defines.h"
 #include "Types.h"
-#include "CommonFunction.h"
 #include "Enums.h"
 #include "DefineContents.h"
 
@@ -61,7 +60,7 @@ using namespace std;
 //		## ∞‘¿” µ•¿Ã≈Õ ##
 //===========================================
 #include "Data.h"
-
+#include "CommonFunction.h"
 //===========================================
 //		## ΩÃ±€≈Ê ##
 //===========================================

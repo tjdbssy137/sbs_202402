@@ -20,7 +20,7 @@ public:
 
 private:
 	vector<Button*> _buttons = {};
-	ePanelState _state = ePanelState::Hide;
+	ePanelState _state = ePanelState::HIDE;
 	
 };
 

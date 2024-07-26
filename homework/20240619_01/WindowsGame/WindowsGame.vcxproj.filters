@@ -265,6 +265,9 @@
     <ClInclude Include="InstallButtonPanel.h">
       <Filter>06.UI\Game</Filter>
     </ClInclude>
+    <ClInclude Include="GameStateController.h">
+      <Filter>06.UI\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WindowsGame.rc">
@@ -524,6 +527,9 @@
       <Filter>09.Event</Filter>
     </ClCompile>
     <ClCompile Include="InstallButtonPanel.cpp">
+      <Filter>06.UI\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateController.cpp">
       <Filter>06.UI\Game</Filter>
     </ClCompile>
   </ItemGroup>

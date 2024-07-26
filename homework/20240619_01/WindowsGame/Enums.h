@@ -58,9 +58,16 @@ enum eDirection
 	END
 };
 
-enum class ePanelState
+enum ePanelState
 {
-	Show,
-	Hide,
-	None
+	SHOW,
+	HIDE,
+	NONE
+};
+
+enum class GameWaveState
+{
+	Wave,
+	Break,
+	Done
 };

@@ -2,7 +2,7 @@
 #include "GameWave.h"
 #include "BoatActor.h"
 #include "TowerDefenseScene.h"
-
+#include "GameStateController.h"
 void GameWave::SetLink(vector<BoatActor*> boats)
 {
 	_boats = boats;
@@ -19,7 +19,11 @@ void GameWave::Update()
 		_wave++;
 		_boatType = 0;
 		_boatCount = 0;
+		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+		GameStateController* gameStateController = towerDefenseScene->GetGameStateController();
+		gameStateController->SetGameWaveState(GameWaveState::Done);
 		_waveState = GameWaveState::Done;
+		//건설모드로 돌아가기
 	}
 		break;
 	default:

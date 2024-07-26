@@ -1,12 +1,7 @@
 #pragma once
 class BoatActor;
 #define SPAWN_TIME 1000
-enum class GameWaveState
-{
-	Wave,
-	Break,
-	Done
-};
+
 class GameWave
 {
 public:
@@ -18,6 +13,7 @@ public:
 	void SpawnBoat(BoatData data);
 public:
 	void SetGameWaveState(GameWaveState waveState) { _waveState = waveState; }
+	GameWaveState GetGameWaveState() { return _waveState; }
 public:
 	void PushBoatActor(BoatActor* boat) { _boats.insert(_boats.begin(), boat); }
 

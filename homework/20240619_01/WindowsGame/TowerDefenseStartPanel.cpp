@@ -2,6 +2,7 @@
 #include "TowerDefenseStartPanel.h"
 #include "Image.h"
 #include "Button.h"
+#include "TowerDefenseScene.h"
 
 void TowerDefenseStartPanel::Init()
 {
@@ -48,25 +49,25 @@ void TowerDefenseStartPanel::Update()
 	Super::Update();
 	switch (_state)
 	{
-	case ePanelState::Show:
+	case ePanelState::SHOW:
 	{
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Default);
 		}
-		_state = ePanelState::None;
+		_state = ePanelState::NONE;
 	}
 	break;
-	case ePanelState::Hide:
+	case ePanelState::HIDE:
 	{
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Disabled);
 		}
-		_state = ePanelState::None;
+		_state = ePanelState::NONE;
 	}
 	break;
-	case ePanelState::None:
+	case ePanelState::NONE:
 		break;
 	default:
 		break;
@@ -80,7 +81,9 @@ void TowerDefenseStartPanel::Release()
 
 void TowerDefenseStartPanel::OnClick_GoToStart()
 {
-	_state = ePanelState::Hide;
+	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+	towerDefenseScene->SetGameStart(true);
+	_state = ePanelState::HIDE;
 	this->Hide();
 }
 

@@ -17,7 +17,7 @@ public:
 	void OnClick_GoToStart();
 private:
 	vector<Button*> _buttons = {};
-	ePanelState _state = ePanelState::Show;
+	ePanelState _state = ePanelState::SHOW;
 
 };
 

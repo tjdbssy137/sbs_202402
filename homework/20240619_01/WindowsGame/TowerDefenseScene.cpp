@@ -25,7 +25,7 @@
 #include "TowerDefenseStartPanel.h"
 #include "TowerDefenseEndPanel.h"
 #include "InstallButtonPanel.h"
-
+#include "GameStateController.h"
 void TowerDefenseScene::Init()
 {
 	LoadResource();
@@ -136,6 +136,13 @@ void TowerDefenseScene::Init()
 	{
 		_installButtonPanel = new InstallButtonPanel();
 		_installButtonPanel->Init();
+		_installButtonPanel->Hide();
+	}
+
+	{
+		_gameStateController = new GameStateController();
+		_gameStateController->Init();
+		_gameStateController->Hide();
 	}
 	// behicle을 여러개 생성해두고? 마우스 좌표로 비히클 위치를 지정해주는 클래스를 새로 만들어야할 듯.
 	// 마우스를 가져다 대면 빨간색의 작은 타일이 생기고 그곳을 누르면 설치.. (panel이 마우스를 따라다니며 어떤 걸 설치할 지 메뉴)
@@ -163,6 +170,7 @@ void TowerDefenseScene::Render(HDC hdc)
 	_actionButtonsPanel->Render(hdc);
 	_towerDefenseStartPanel->Render(hdc);
 	_installButtonPanel->Render(hdc);
+	_gameStateController->Render(hdc);
 }
 void TowerDefenseScene::Update()
 {
@@ -182,14 +190,21 @@ void TowerDefenseScene::Update()
 	_installSubmarinePanel->Update();
 	_actionButtonsPanel->Update();
 	_towerDefenseStartPanel->Update();
-	_installButtonPanel->Update();
 
 	_gameWave->Update();
-	if (Input->GetKeyDown(KeyCode::W))
+
+	if (_isGameStart)
+	{
+		_installButtonPanel->Show();
+		_installButtonPanel->Update();
+		_gameStateController->Show();
+		_gameStateController->Update();
+	}
+/*	if (Input->GetKeyDown(KeyCode::W))
 	{
 		_gameWave->SetGameWaveState(GameWaveState::Wave);
 	}
-
+*/
 	this->EnterEnemyCheck();
 }
 void TowerDefenseScene::Release()
@@ -200,7 +215,9 @@ void TowerDefenseScene::Release()
 	_actionButtonsPanel->Release();
 	_towerDefenseStartPanel->Release();
 	_installButtonPanel->Release();
+	_gameStateController->Release();
 }
+
 void TowerDefenseScene::EnterEnemyCheck()
 {
 	if (GAMEOVER < GetEnterEnemyCount())
@@ -513,7 +530,8 @@ void TowerDefenseScene::LoadResource()
 	Texture* startPanel = Resource->LoadTexture(L"T_StartPanel", L"UIs/startPanel.bmp", RGB(255, 0, 255));
 	Resource->CreateSprite(L"S_StartPanel", startPanel);
 	Texture* startButton = Resource->LoadTexture(L"T_StartButton", L"UIs/startButtons.bmp", RGB(255, 0, 255));
-
+	Texture* pauseButton = Resource->LoadTexture(L"T_PauseButton", L"UIs/pauseButton.bmp", RGB(255, 0, 255));
+	Resource->CreateSprite(L"S_PauseButton", pauseButton);
 
 	//----------------------------------
 	//  ## Sound

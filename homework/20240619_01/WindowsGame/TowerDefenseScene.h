@@ -24,6 +24,7 @@ class ActionButtonsPanel;
 class TowerDefenseStartPanel;
 class TowerDefenseEndPanel;
 class InstallButtonPanel;
+class GameStateController;
 class TowerDefenseScene : public TilemapScene
 {
 	using Super = Scene;
@@ -59,6 +60,7 @@ public:
 	TowerDefenseStartPanel* GetTowerDefenseStartPanel() { return _towerDefenseStartPanel; }
 	TowerDefenseEndPanel* GetTowerDefenseEndPanel() { return _towerDefenseEndPanel; }
 	InstallButtonPanel* GetInstallButtonPanel() { return _installButtonPanel; }
+	GameStateController* GetGameStateController() { return _gameStateController; }
 	// Gold
 	void MakeGold(int gold) { _gold += gold; }
 	void PayGold(int gold) { _gold -= gold; }
@@ -68,6 +70,9 @@ public:
 	void AddEnterEnemyCount() { _enterEnemyCount++; }
 	int GetEnterEnemyCount() { return _enterEnemyCount; }
 	void EnterEnemyCheck();
+
+	// Game
+	void SetGameStart(bool isGameStart) { _isGameStart = isGameStart; }
 private:
 	//Actors
 	TilemapActor* _tilemapActor = nullptr;
@@ -88,11 +93,14 @@ private:
 	TowerDefenseStartPanel* _towerDefenseStartPanel = nullptr;
 	TowerDefenseEndPanel* _towerDefenseEndPanel = nullptr;
 	InstallButtonPanel* _installButtonPanel = nullptr;
-
+	GameStateController* _gameStateController = nullptr;
 	// Gold
-	int _gold = 110; // 기본 금액
+	int _gold = 120; // 기본 금액
 
 	// Treasure
 	SpriteActor* _treasure = nullptr;
 	int _enterEnemyCount = 0;
+
+	// Game
+	bool _isGameStart = false;
 };

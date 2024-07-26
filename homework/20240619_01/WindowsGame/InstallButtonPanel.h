@@ -16,7 +16,6 @@ public:
 	void LoadResource();
 	void OnClick_GoToInstall();
 	void OnClick_GoToCancel();
-	void OnClick_GoToNextWave();
 private:
 
 };

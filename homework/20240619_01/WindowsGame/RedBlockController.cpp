@@ -18,29 +18,11 @@ void RedBlockController::SetLink(RedBlockActor* block)
 
 void RedBlockController::Update()
 {
-	/*if (Input->GetKeyDown(KeyCode::A))
+
+	if (Input->GetKeyDown(KeyCode::RightMouse))
 	{
-		_block->SetSprite(Resource->GetSprite(L"S_RedTile"));
-		_mouseState = MouseState::Move;
+		this->OffMouse();
 	}
-
-	if (Input->GetKeyDown(KeyCode::D))
-	{
-		_mouseState = MouseState::Nothing;
-		TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
-		
-		InstallPanel* installPanel = towerDefenseScene->GetInstallPanel();
-		installPanel->SetState(ePanelState::Hide);
-		installPanel->Hide();
-		
-		InstallSubmarinePanel* installSubmarinePanel = towerDefenseScene->GetInstallSubmarinePanel();
-		installSubmarinePanel->SetState(ePanelState::Hide);
-		installSubmarinePanel->Hide();
-
-		ActionButtonsPanel* actionPanel = towerDefenseScene->GetActionButtonsPanel();
-		actionPanel->SetState(ePanelState::Hide);
-		actionPanel->Hide();
-	}*/
 
 	switch (_mouseState)
 	{
@@ -74,15 +56,15 @@ void RedBlockController::OffMouse()
 	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
 
 	InstallPanel* installPanel = towerDefenseScene->GetInstallPanel();
-	installPanel->SetState(ePanelState::Hide);
+	installPanel->SetState(ePanelState::HIDE);
 	installPanel->Hide();
 
 	InstallSubmarinePanel* installSubmarinePanel = towerDefenseScene->GetInstallSubmarinePanel();
-	installSubmarinePanel->SetState(ePanelState::Hide);
+	installSubmarinePanel->SetState(ePanelState::HIDE);
 	installSubmarinePanel->Hide();
 
 	ActionButtonsPanel* actionPanel = towerDefenseScene->GetActionButtonsPanel();
-	actionPanel->SetState(ePanelState::Hide);
+	actionPanel->SetState(ePanelState::HIDE);
 	actionPanel->Hide();
 }
 void RedBlockController::CanInstallBehicle()
@@ -126,8 +108,6 @@ void RedBlockController::CanInstallBehicle()
 				if (tile->value == 4 || (14 <= tile->value && tile->value <= 45))
 				{
 					_alreadyInstallBehicle.push_back(pos);
-
-					cout << "°Ç¼³ µÊ" << endl;
 					_pos = pos;
 					_mouseState = MouseState::ClickGround;
 				}
@@ -135,14 +115,8 @@ void RedBlockController::CanInstallBehicle()
 				{
 					// ONLY submrine 
 					_alreadyInstallBehicle.push_back(pos);
-
-					cout << "°Ç¼³ µÊ" << endl;
 					_pos = pos;
 					_mouseState = MouseState::ClickOcean;
-				}
-				else
-				{
-					cout << "°Ç¼³ ¾È µÊ" << endl;
 				}
 			}
 		}
@@ -152,7 +126,7 @@ void RedBlockController::DoInstallGround()
 {
 	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
 	InstallPanel* installPanel = towerDefenseScene->GetInstallPanel();
-	installPanel->SetState(ePanelState::Show);
+	installPanel->SetState(ePanelState::SHOW);
 	installPanel->Show();
 	_mouseState = MouseState::Nothing;
 }
@@ -160,7 +134,7 @@ void RedBlockController::DoInstallOcean()
 {
 	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
 	InstallSubmarinePanel* installSubmarinePanel = towerDefenseScene->GetInstallSubmarinePanel();
-	installSubmarinePanel->SetState(ePanelState::Show);
+	installSubmarinePanel->SetState(ePanelState::SHOW);
 	installSubmarinePanel->Show();
 	_mouseState = MouseState::Nothing;
 }
@@ -182,7 +156,7 @@ void RedBlockController::DoUpgradeDeleteBehicle()
 		}
 		_Index++;
 	}
-	actionPanel->SetState(ePanelState::Show);
+	actionPanel->SetState(ePanelState::SHOW);
 	actionPanel->Show();
 	_mouseState = MouseState::Nothing;
 

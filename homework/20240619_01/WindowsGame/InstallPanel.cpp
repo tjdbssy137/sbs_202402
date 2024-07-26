@@ -65,25 +65,25 @@ void InstallPanel::Update()
 	Super::Update();
 	switch (_state)
 	{
-	case ePanelState::Show:
+	case ePanelState::SHOW:
 	{
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Default);
 		}
-		_state = ePanelState::None;
+		_state = ePanelState::NONE;
 	}
 	break;
-	case ePanelState::Hide:
+	case ePanelState::HIDE:
 	{
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Disabled);
 		}
-		_state = ePanelState::None;
+		_state = ePanelState::NONE;
 	}
 	break;
-	case ePanelState::None:
+	case ePanelState::NONE:
 		break;
 	default:
 		break;
@@ -114,6 +114,7 @@ void InstallPanel::InstallingBehicle(int type)
 	{
 		BehicleController* behicleController = new BehicleController();
 		{
+			// 여기가 안들어와짐
 			cout << "Create Behicle" << endl;
 			BehicleActor* behicle = new BehicleActor();
 			behicle->SetLayer(LayerType::Character);
@@ -139,7 +140,7 @@ void InstallPanel::InstallingBehicle(int type)
 			redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle);
 		}
 	}
-	_state = ePanelState::Hide;
+	_state = ePanelState::HIDE;
 }
 
 void InstallPanel::LoadResource()

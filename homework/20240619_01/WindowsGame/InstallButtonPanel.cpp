@@ -20,7 +20,7 @@ void InstallButtonPanel::Init()
 
 	{
 		Button* InstallButton = new Button();
-		InstallButton->SetRect(Shape::MakeCenterRect(-500, 300, 0, 0));
+		InstallButton->SetRect(Shape::MakeCenterRect(-500, 300, 60, 60));
 		InstallButton->SetSprite(ButtonState::Default, Resource->GetSprite(L"S_InstallButton_Default"));
 		InstallButton->SetSprite(ButtonState::Hover, Resource->GetSprite(L"S_InstallButton_Hover"));
 		InstallButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_InstallButton_Pressed"));
@@ -33,7 +33,7 @@ void InstallButtonPanel::Init()
 
 	{
 		Button* cancelButton = new Button();
-		cancelButton->SetRect(Shape::MakeCenterRect(-400, 300, 0, 0));
+		cancelButton->SetRect(Shape::MakeCenterRect(-400, 300, 60, 60));
 		cancelButton->SetSprite(ButtonState::Default, Resource->GetSprite(L"S_CancelButton_Default"));
 		cancelButton->SetSprite(ButtonState::Hover, Resource->GetSprite(L"S_CancelButton_Hover"));
 		cancelButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_CancelButton_Pressed"));
@@ -64,7 +64,6 @@ void InstallButtonPanel::OnClick_GoToInstall()
 	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
 	RedBlockController* redBlockController = towerDefenseScene->GetRedBlockController();
 	redBlockController->OnMouse();
-	cout << "hi" << endl; // 안 들어옴
 }
 
 void InstallButtonPanel::OnClick_GoToCancel()
@@ -72,13 +71,6 @@ void InstallButtonPanel::OnClick_GoToCancel()
 	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
 	RedBlockController* redBlockController = towerDefenseScene->GetRedBlockController();
 	redBlockController->OffMouse();
-}
-
-void InstallButtonPanel::OnClick_GoToNextWave()
-{
-	//-------
-	// Ocean Install 막기
-	//-------
 }
 
 void InstallButtonPanel::LoadResource()
@@ -92,11 +84,5 @@ void InstallButtonPanel::LoadResource()
 	Resource->CreateSprite(L"S_CancelButton_Default", cancel, 0, 0, 60, 60);
 	Resource->CreateSprite(L"S_CancelButton_Hover", cancel, 0, 60, 60, 60);
 	Resource->CreateSprite(L"S_CancelButton_Pressed", cancel, 0, 120, 60, 60);
-
-
-	auto nextWave = Resource->GetTexture(L"T_Buttons2");
-	Resource->CreateSprite(L"S_NextWaveButton_Default", nextWave, 120, 0, 60, 60);
-	Resource->CreateSprite(L"S_NextWaveButton_Hover", nextWave, 120, 60, 60, 60);
-	Resource->CreateSprite(L"S_NextWaveButton_Pressed", nextWave, 120, 120, 60, 60);
 
 }
