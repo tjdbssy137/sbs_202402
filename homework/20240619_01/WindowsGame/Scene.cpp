@@ -81,3 +81,21 @@ void Scene::DespawnActor(Actor* actor)
 		actors.erase(findIt);
 	}
 }
+
+void Scene::AddUI(UI* ui)
+{
+	this->_uis.push_back(ui);
+}
+void Scene::RemoveUI(UI* ui)
+{
+	//삭제할 객체찾기
+	auto findIt = find(_uis.begin(), _uis.end(), ui);
+
+	if (findIt != _uis.end())
+	{
+		(*findIt)->Release();
+		UI* deleteUI = (*findIt);
+		SAFE_DELETE(deleteUI);
+		_uis.erase(findIt);
+	}
+}

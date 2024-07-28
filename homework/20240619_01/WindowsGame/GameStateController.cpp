@@ -21,7 +21,7 @@ void GameStateController::Init()
 
 	{
 		_nextWaveButton = new Button();
-		_nextWaveButton->SetRect(Shape::MakeCenterRect(0, -400, 60, 60));
+		_nextWaveButton->SetRect(Shape::MakeCenterRect(30, -370, 60, 60));
 		_nextWaveButton->SetSprite(ButtonState::Default, Resource->GetSprite(L"S_NextWaveButton_Default"));
 		_nextWaveButton->SetSprite(ButtonState::Hover, Resource->GetSprite(L"S_NextWaveButton_Hover"));
 		_nextWaveButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_NextWaveButton_Pressed"));
@@ -63,38 +63,24 @@ void GameStateController::Render(HDC hdc)
 void GameStateController::Update()
 {
 	Super::Update();
+
 	switch (_panelState)
 	{
 	case ePanelState::SHOW:
 	{
-		switch (_state)
-		{
-		case GameWaveState::Wave: // 웨이브가 시작되면
-		{
-			_nextWaveButton->SetState(ButtonState::Disabled);
-			_nextWaveButton->Hide();
-		}
-		break;
-
-		default: //case GameWaveState::Done:
-		{
-			_nextWaveButton->Show();
-			_nextWaveButton->SetState(ButtonState::Default);
-		}
-		break;
-		}
-		_panelState = ePanelState::NONE; // 이게 있어야 클릭이 됨
+		_nextWaveButton->SetState(ButtonState::Default);
+		_state = GameWaveState::Done;
+		_panelState = ePanelState::NONE;
 	}
 	break;
 
 	case ePanelState::HIDE:
 	{
-		_nextWaveButton->SetState(ButtonState::Disabled); 
+		_nextWaveButton->SetState(ButtonState::Disabled);
 		_panelState = ePanelState::NONE;
 	}
 	break;
 	case ePanelState::NONE:
-
 		break;
 	default:
 		break;
@@ -108,10 +94,11 @@ void GameStateController::Release()
 
 void GameStateController::OnClick_GoToNextWave()
 {
+	_state = GameWaveState::Wave;
 	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
 	GameWave* gameWave = towerDefenseScene->GetGameWave();
-	gameWave->SetGameWaveState(GameWaveState::Wave);
-	_state = GameWaveState::Wave;
+	gameWave->SetGameWaveState(_state);
+	_panelState = ePanelState::HIDE;
 }
 
 void GameStateController::LoadResource()

@@ -1,6 +1,7 @@
 #pragma once
 #include "RedBlockActor.h"
 class BehicleActor;
+class TowerDefensePanel;
 enum class MouseState
 {
 	Move,
@@ -25,7 +26,7 @@ public:
 
 	void DoUpgradeDeleteBehicle();
 
-	BehicleActor* GetBehicleActor() { return _returnBehicle; }
+public:
 	int GetBehicleControllerIndex() { return _Index; }
 
 	vector<Vector2Int> GetAlreadyInstallBehicle() {return _alreadyInstallBehicle; }
@@ -41,7 +42,10 @@ private:
 	Vector2Int _pos = {};
 private:
 	vector<Vector2Int> _alreadyInstallBehicle = {};
-	BehicleActor* _returnBehicle = nullptr;
 	int _Index = 0;
+private:
+	TowerDefensePanel* _mainPanel = nullptr;
+	float _textTimer = 2.0f;
+
 };
 

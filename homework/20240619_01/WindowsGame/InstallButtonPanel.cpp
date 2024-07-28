@@ -31,7 +31,7 @@ void InstallButtonPanel::Init()
 		iconListPanel->AddChild(InstallButton);
 	}
 
-	{
+	/*{
 		Button* cancelButton = new Button();
 		cancelButton->SetRect(Shape::MakeCenterRect(-400, 300, 60, 60));
 		cancelButton->SetSprite(ButtonState::Default, Resource->GetSprite(L"S_CancelButton_Default"));
@@ -42,7 +42,7 @@ void InstallButtonPanel::Init()
 		cancelButton->SetState(ButtonState::Disabled);
 		cancelButton->Init();
 		iconListPanel->AddChild(cancelButton);
-	}
+	}*/
 }
 void InstallButtonPanel::Render(HDC hdc)
 {

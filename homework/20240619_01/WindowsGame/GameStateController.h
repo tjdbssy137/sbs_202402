@@ -20,6 +20,8 @@ public:
 	void OnClick_GoToNextWave();
 	void SetState(ePanelState state) { _panelState = state; }
 	void SetGameWaveState(GameWaveState state) { _state = state; }
+	GameWaveState GetGameWaveState() { return _state; }
+
 private:
 	Sprite* _pauseButton = nullptr;
 	Button* _nextWaveButton = nullptr;

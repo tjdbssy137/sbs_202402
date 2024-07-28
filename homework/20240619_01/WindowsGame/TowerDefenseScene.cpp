@@ -23,7 +23,6 @@
 #include "InstallSubmarinePanel.h"
 #include "ActionButtonsPanel.h"
 #include "TowerDefenseStartPanel.h"
-#include "TowerDefenseEndPanel.h"
 #include "InstallButtonPanel.h"
 #include "GameStateController.h"
 void TowerDefenseScene::Init()
@@ -144,9 +143,7 @@ void TowerDefenseScene::Init()
 		_gameStateController->Init();
 		_gameStateController->Hide();
 	}
-	// behicle을 여러개 생성해두고? 마우스 좌표로 비히클 위치를 지정해주는 클래스를 새로 만들어야할 듯.
-	// 마우스를 가져다 대면 빨간색의 작은 타일이 생기고 그곳을 누르면 설치.. (panel이 마우스를 따라다니며 어떤 걸 설치할 지 메뉴)
-
+	
 	this->SetCameraPos(Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2));
 
 	Super::Init();
@@ -162,7 +159,7 @@ void TowerDefenseScene::Render(HDC hdc)
 	wstring strGold = format(L"Gold : {0}", _gold);
 	::TextOut(hdc, 0, 90, strGold.c_str(), strGold.length());
 
-	wstring enterEnemyCount = format(L"enterEnemyCount : {0}", GetEnterEnemyCount());
+	wstring enterEnemyCount = format(L"enterEnemyCount : {0} / {1}", GetEnterEnemyCount(), GAMEOVER);
 	::TextOut(hdc, 0, 135, enterEnemyCount.c_str(), enterEnemyCount.length());
 
 	_installPanel->Render(hdc);
@@ -200,11 +197,7 @@ void TowerDefenseScene::Update()
 		_gameStateController->Show();
 		_gameStateController->Update();
 	}
-/*	if (Input->GetKeyDown(KeyCode::W))
-	{
-		_gameWave->SetGameWaveState(GameWaveState::Wave);
-	}
-*/
+
 	this->EnterEnemyCheck();
 }
 void TowerDefenseScene::Release()

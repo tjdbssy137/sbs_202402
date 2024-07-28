@@ -19,18 +19,22 @@ void GameWave::Update()
 		_wave++;
 		_boatType = 0;
 		_boatCount = 0;
-		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
-		GameStateController* gameStateController = towerDefenseScene->GetGameStateController();
-		gameStateController->SetGameWaveState(GameWaveState::Done);
-		_waveState = GameWaveState::Done;
 		//건설모드로 돌아가기
+		if (_boats.size() == 47)
+		{
+			TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+			GameStateController* gameStateController = towerDefenseScene->GetGameStateController();
+			gameStateController->SetGameWaveState(GameWaveState::Done);
+			gameStateController->SetState(ePanelState::SHOW);
+			_waveState = GameWaveState::Done;
+		}
 	}
 		break;
 	default:
 		break;
 	}
 }
-void GameWave::SetWave() //제이슨으로 변경
+void GameWave::SetWave()
 {
 	static float lastTick = ::GetTickCount64(); //모든 호출에서 공유
 	WaveData data = Datas->GetWaveData(_wave);

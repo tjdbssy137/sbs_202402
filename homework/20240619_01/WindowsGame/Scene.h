@@ -24,6 +24,10 @@ public:
 	void SpawnActor(Actor* actor);
 	void DespawnActor(Actor* actor);
 
+	//UI 추가함수
+	void AddUI(UI* ui);
+	void RemoveUI(UI* ui);
+
 	// Camera 조작 함수
 	void SetCameraPos(Vector2 pos) { _cameraPosition = pos; }
 	Vector2 GetCameraPos() { return _cameraPosition; }

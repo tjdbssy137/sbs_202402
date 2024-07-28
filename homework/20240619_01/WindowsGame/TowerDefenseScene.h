@@ -22,7 +22,6 @@ class InstallPanel;
 class InstallSubmarinePanel;
 class ActionButtonsPanel;
 class TowerDefenseStartPanel;
-class TowerDefenseEndPanel;
 class InstallButtonPanel;
 class GameStateController;
 class TowerDefenseScene : public TilemapScene
@@ -58,8 +57,6 @@ public:
 	InstallSubmarinePanel* GetInstallSubmarinePanel() { return _installSubmarinePanel; }
 	ActionButtonsPanel* GetActionButtonsPanel() { return _actionButtonsPanel; }
 	TowerDefenseStartPanel* GetTowerDefenseStartPanel() { return _towerDefenseStartPanel; }
-	TowerDefenseEndPanel* GetTowerDefenseEndPanel() { return _towerDefenseEndPanel; }
-	InstallButtonPanel* GetInstallButtonPanel() { return _installButtonPanel; }
 	GameStateController* GetGameStateController() { return _gameStateController; }
 	// Gold
 	void MakeGold(int gold) { _gold += gold; }
@@ -91,7 +88,6 @@ private:
 	InstallSubmarinePanel* _installSubmarinePanel = nullptr;
 	ActionButtonsPanel* _actionButtonsPanel = nullptr;
 	TowerDefenseStartPanel* _towerDefenseStartPanel = nullptr;
-	TowerDefenseEndPanel* _towerDefenseEndPanel = nullptr;
 	InstallButtonPanel* _installButtonPanel = nullptr;
 	GameStateController* _gameStateController = nullptr;
 	// Gold

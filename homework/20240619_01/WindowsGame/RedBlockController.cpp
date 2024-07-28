@@ -9,19 +9,32 @@
 #include "InstallSubmarinePanel.h"
 #include "ActionButtonsPanel.h"
 #include "BehicleActor.h"
-
+#include "GameStateController.h"
+#include "TowerDefensePanel.h"
 void RedBlockController::SetLink(RedBlockActor* block)
 {
 	assert(block != nullptr);
 	_block = block;
+
+	_mainPanel = new TowerDefensePanel();
+	_mainPanel->Init();
+
+	CurrentScene->AddUI(_mainPanel);
 }
 
 void RedBlockController::Update()
 {
-
+	// 설치 취소 키
 	if (Input->GetKeyDown(KeyCode::RightMouse))
 	{
 		this->OffMouse();
+	}
+
+	// 문장 초기화
+	_textTimer -= Time->GetDeltaTime();
+	if (_textTimer <= 0)
+	{
+		_mainPanel->SetText(L"");
 	}
 
 	switch (_mouseState)
@@ -99,7 +112,7 @@ void RedBlockController::CanInstallBehicle()
 			auto findIt = find(_alreadyInstallBehicle.begin(), _alreadyInstallBehicle.end(), pos);
 			if (findIt != _alreadyInstallBehicle.end())
 			{
-				cout << "Upgrade or Delete" << endl;
+				//cout << "Upgrade or Delete" << endl;
 				_pos = pos;
 				_mouseState = MouseState::UpgradeDelete; // 업그레이드 & 삭제 판넬을 띄운다.
 			}
@@ -113,10 +126,19 @@ void RedBlockController::CanInstallBehicle()
 				}
 				else if (46 <= tile->value && tile->value < 62) // 51이 물
 				{
-					// ONLY submrine 
-					_alreadyInstallBehicle.push_back(pos);
-					_pos = pos;
-					_mouseState = MouseState::ClickOcean;
+					TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
+					GameStateController* gameStateController = towerDefenseScene->GetGameStateController();
+					if (gameStateController->GetGameWaveState() == GameWaveState::Wave)
+					{
+						_mainPanel->SetText(L"적군이 나타나는 중에는 잠수함 설치가 불가합니다.");
+						_textTimer = 2.0f;
+					}
+					else
+					{
+						_alreadyInstallBehicle.push_back(pos);
+						_pos = pos;
+						_mouseState = MouseState::ClickOcean;
+					}
 				}
 			}
 		}
@@ -144,6 +166,7 @@ void RedBlockController::DoUpgradeDeleteBehicle()
 	// 이미 설치가 되어있으면, 걔를 조회하고
 	// 업그레이드 & 삭제 판넬을 띄운다.
 	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
+
 	ActionButtonsPanel* actionPanel = towerDefenseScene->GetActionButtonsPanel();
 	vector<BehicleActor*> _behicles = towerDefenseScene->GetBehicleActor();
 	

@@ -184,7 +184,8 @@
     <ClInclude Include="GameEventManager.h" />
     <ClInclude Include="GameStateController.h" />
     <ClInclude Include="InstallButtonPanel.h" />
-    <ClInclude Include="TowerDefenseEndPanel.h" />
+    <ClInclude Include="Label.h" />
+    <ClInclude Include="TowerDefensePanel.h" />
     <ClInclude Include="TowerDefenseScene.h" />
     <ClInclude Include="Flipbook.h" />
     <ClInclude Include="FlipbookActor.h" />
@@ -327,7 +328,8 @@
     <ClCompile Include="GameEventManager.cpp" />
     <ClCompile Include="GameStateController.cpp" />
     <ClCompile Include="InstallButtonPanel.cpp" />
-    <ClCompile Include="TowerDefenseEndPanel.cpp" />
+    <ClCompile Include="Label.cpp" />
+    <ClCompile Include="TowerDefensePanel.cpp" />
     <ClCompile Include="TowerDefenseScene.cpp" />
     <ClInclude Include="Enums.h" />
     <ClCompile Include="Flipbook.cpp" />
