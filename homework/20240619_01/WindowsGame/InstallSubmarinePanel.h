@@ -23,4 +23,3 @@ private:
 	ePanelState _state = ePanelState::HIDE;
 	
 };
-

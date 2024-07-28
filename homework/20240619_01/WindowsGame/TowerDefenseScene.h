@@ -22,7 +22,6 @@ class InstallPanel;
 class InstallSubmarinePanel;
 class ActionButtonsPanel;
 class TowerDefenseStartPanel;
-class InstallButtonPanel;
 class GameStateController;
 class TowerDefenseScene : public TilemapScene
 {
@@ -55,9 +54,11 @@ public:
 	//Panel
 	InstallPanel* GetInstallPanel() { return _installPanel; }
 	InstallSubmarinePanel* GetInstallSubmarinePanel() { return _installSubmarinePanel; }
-	ActionButtonsPanel* GetActionButtonsPanel() { return _actionButtonsPanel; }
+	/*ActionButtonsPanel* GetActionButtonsPanel() { return _actionButtonsPanel; }
 	TowerDefenseStartPanel* GetTowerDefenseStartPanel() { return _towerDefenseStartPanel; }
+	*/
 	GameStateController* GetGameStateController() { return _gameStateController; }
+	
 	// Gold
 	void MakeGold(int gold) { _gold += gold; }
 	void PayGold(int gold) { _gold -= gold; }
@@ -88,10 +89,9 @@ private:
 	InstallSubmarinePanel* _installSubmarinePanel = nullptr;
 	ActionButtonsPanel* _actionButtonsPanel = nullptr;
 	TowerDefenseStartPanel* _towerDefenseStartPanel = nullptr;
-	InstallButtonPanel* _installButtonPanel = nullptr;
 	GameStateController* _gameStateController = nullptr;
 	// Gold
-	int _gold = 120; // 기본 금액
+	int _gold = 1000; // 기본 금액 120
 
 	// Treasure
 	SpriteActor* _treasure = nullptr;

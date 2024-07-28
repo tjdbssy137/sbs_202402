@@ -23,7 +23,6 @@
 #include "InstallSubmarinePanel.h"
 #include "ActionButtonsPanel.h"
 #include "TowerDefenseStartPanel.h"
-#include "InstallButtonPanel.h"
 #include "GameStateController.h"
 void TowerDefenseScene::Init()
 {
@@ -133,12 +132,6 @@ void TowerDefenseScene::Init()
 	}
 
 	{
-		_installButtonPanel = new InstallButtonPanel();
-		_installButtonPanel->Init();
-		_installButtonPanel->Hide();
-	}
-
-	{
 		_gameStateController = new GameStateController();
 		_gameStateController->Init();
 		_gameStateController->Hide();
@@ -166,7 +159,6 @@ void TowerDefenseScene::Render(HDC hdc)
 	_installSubmarinePanel->Render(hdc);
 	_actionButtonsPanel->Render(hdc);
 	_towerDefenseStartPanel->Render(hdc);
-	_installButtonPanel->Render(hdc);
 	_gameStateController->Render(hdc);
 }
 void TowerDefenseScene::Update()
@@ -192,8 +184,6 @@ void TowerDefenseScene::Update()
 
 	if (_isGameStart)
 	{
-		_installButtonPanel->Show();
-		_installButtonPanel->Update();
 		_gameStateController->Show();
 		_gameStateController->Update();
 	}
@@ -207,7 +197,6 @@ void TowerDefenseScene::Release()
 	_installSubmarinePanel->Release();
 	_actionButtonsPanel->Release();
 	_towerDefenseStartPanel->Release();
-	_installButtonPanel->Release();
 	_gameStateController->Release();
 }
 

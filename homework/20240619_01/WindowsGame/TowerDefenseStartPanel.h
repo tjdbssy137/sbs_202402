@@ -15,6 +15,7 @@ public:
 	void LoadResource();
 	void SetState(ePanelState state) { _state = state; }
 	void OnClick_GoToStart();
+
 private:
 	vector<Button*> _buttons = {};
 	ePanelState _state = ePanelState::SHOW;

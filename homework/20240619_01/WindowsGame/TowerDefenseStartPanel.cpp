@@ -56,10 +56,13 @@ void TowerDefenseStartPanel::Update()
 			button->SetState(ButtonState::Default);
 		}
 		_state = ePanelState::NONE;
+
 	}
 	break;
 	case ePanelState::HIDE:
 	{
+		this->SetRect(Shape::MakeCenterRect(WIN_SIZE_X / 2, WIN_SIZE_Y / 2, 0, 0));
+
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Disabled);
@@ -86,7 +89,6 @@ void TowerDefenseStartPanel::OnClick_GoToStart()
 	_state = ePanelState::HIDE;
 	this->Hide();
 }
-
 void TowerDefenseStartPanel::LoadResource()
 {
 	auto a = Resource->GetTexture(L"T_StartButton");

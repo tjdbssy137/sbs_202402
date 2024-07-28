@@ -54,6 +54,10 @@ void InstallPanel::Init()
 
 		}
 	}
+	// Add Event
+	Events->AddEvent("SetPanelState_InstallPanel", new GameEvent<ePanelState>());
+	Events->GetEvent<ePanelState>("SetPanelState_InstallPanel")
+		->AddListen(this, &InstallPanel::SetState);
 }
 
 void InstallPanel::Render(HDC hdc)
@@ -67,6 +71,7 @@ void InstallPanel::Update()
 	{
 	case ePanelState::SHOW:
 	{
+		this->Show();
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Default);
@@ -76,6 +81,7 @@ void InstallPanel::Update()
 	break;
 	case ePanelState::HIDE:
 	{
+		this->Hide();
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Disabled);
@@ -131,14 +137,8 @@ void InstallPanel::InstallingBehicle(int type)
 	}
 	else
 	{
-		vector<Vector2Int> alreadyInstallBehicle = redBlockController->GetAlreadyInstallBehicle();
-
-		auto findIt = find(alreadyInstallBehicle.begin(), alreadyInstallBehicle.end(), pos);
-		if (findIt != alreadyInstallBehicle.end())
-		{
-			alreadyInstallBehicle.erase(findIt);
-			redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle);
-		}
+		GameEvent<Vector2Int>* gameEvent = Events->GetEvent<Vector2Int>("RemoveInstallPos");
+		gameEvent->Invoke(pos);
 	}
 	_state = ePanelState::HIDE;
 }

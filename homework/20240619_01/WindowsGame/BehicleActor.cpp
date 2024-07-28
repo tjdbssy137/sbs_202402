@@ -18,12 +18,12 @@ void BehicleActor::Init()
 	collider->ResetCollisionFlag();
 	collider->AddCollisionFlagLayer(CollisionLayerType::CLT_ENEMY); // 충돌할 레이어
 
-	//this->SetActiveBehicle();
 	this->AddComponent(collider);
 
 	{
 		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
 		_bulletActorController = towerDefenseScene->GetBulletActorController();
+		_boats = towerDefenseScene->GetBoatActor();
 	}
 	Super::Init();
 }
@@ -86,14 +86,6 @@ void BehicleActor::SetActiveBehicle()
 	}
 
 }
-void BehicleActor::SetState(BehicleState state)
-{
-	//FSM 유한상태머신
-
-	_state = state;
-
-	//this->SetFlipbook(_idleFlipbook[_dir]);
-}
 
 void BehicleActor::ChangeDirection(eDirection dir)
 {
@@ -107,12 +99,10 @@ void BehicleActor::ChangeDirection(eDirection dir)
 
 void BehicleActor::UpdateIdle()
 {
-	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
-	vector<BoatActor*> boats = towerDefenseScene->GetBoatActor();
-
-	//공격을실행할거다.
-	for (BoatActor* boat : boats)
+	//범위 안에 들어오면 공격을 실행할거다.
+	for (BoatActor* boat : _boats)
 	{
+		// 공격하기로 결정했을 때 내 바운더리 안에 있으면 공격.
 		if (Collision::CircleInCircle(this->GetPos(), collider->GetRadius(),
 			boat->GetPos(), boat->GetBoatCollider()->GetRadius()))
 		{
@@ -132,10 +122,6 @@ void BehicleActor::UpdateIdle()
 			}
 		}
 	};
-
-	// 1초에 한번씩 공격할말을 결정
-	// 공격하기로 결정했을 때 내 바운더리 안에 있으면 공격.
-	// 만약 적이 너무 많이 오면 순서를..
 }
 
 void BehicleActor::UpdateAttack()

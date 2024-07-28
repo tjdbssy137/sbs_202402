@@ -183,7 +183,6 @@
     <ClInclude Include="GameEvent.h" />
     <ClInclude Include="GameEventManager.h" />
     <ClInclude Include="GameStateController.h" />
-    <ClInclude Include="InstallButtonPanel.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="TowerDefensePanel.h" />
     <ClInclude Include="TowerDefenseScene.h" />
@@ -327,7 +326,6 @@
     <ClCompile Include="GameEvent.cpp" />
     <ClCompile Include="GameEventManager.cpp" />
     <ClCompile Include="GameStateController.cpp" />
-    <ClCompile Include="InstallButtonPanel.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="TowerDefensePanel.cpp" />
     <ClCompile Include="TowerDefenseScene.cpp" />

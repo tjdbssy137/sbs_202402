@@ -29,7 +29,7 @@ public: // 상속받은 인터페이스의 함수를 만들지 않으면 오류가 남.
 	virtual Vector2Int GetCellPos() override;
 
 public:
-	void SetState(BehicleState state);
+	void SetState(BehicleState state) { _state = state; }
 	BehicleState GetState() { return _state; }
 
 	void ChangeDirection(eDirection dir);
@@ -58,6 +58,7 @@ private:
 private:
 	CircleCollider* collider = nullptr;
 	float _time = 1.0f;
+	vector<BoatActor*> _boats;
 	BoatActor* _targetBoat = nullptr;
 	BulletActorController* _bulletActorController = nullptr;
 

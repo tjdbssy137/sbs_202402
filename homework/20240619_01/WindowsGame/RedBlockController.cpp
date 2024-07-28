@@ -5,12 +5,10 @@
 #include "Tilemap.h"
 #include "TilemapActor.h"
 #include "TowerDefenseScene.h"
-#include "InstallPanel.h"
-#include "InstallSubmarinePanel.h"
-#include "ActionButtonsPanel.h"
 #include "BehicleActor.h"
 #include "GameStateController.h"
 #include "TowerDefensePanel.h"
+
 void RedBlockController::SetLink(RedBlockActor* block)
 {
 	assert(block != nullptr);
@@ -20,6 +18,16 @@ void RedBlockController::SetLink(RedBlockActor* block)
 	_mainPanel->Init();
 
 	CurrentScene->AddUI(_mainPanel);
+
+	// Add Event
+	Events->AddEvent("RemoveInstallPos", new GameEvent<Vector2Int>());
+	Events->GetEvent<Vector2Int>("RemoveInstallPos")
+		->AddListen(this, &RedBlockController::RemoveAlreadyInstallPos);
+
+	Events->AddEvent("OnMouse", new GameEvent<>());
+	Events->GetEvent<>("OnMouse")
+		->AddListen(this, &RedBlockController::OnMouse);
+
 }
 
 void RedBlockController::Update()
@@ -27,6 +35,25 @@ void RedBlockController::Update()
 	// 설치 취소 키
 	if (Input->GetKeyDown(KeyCode::RightMouse))
 	{
+		// 왼쪽 클릭을 하는 순간 pos가 추가 됨.
+		// 아무것도 안 한 상태에서 오른쪽 클릭을 하면 pos를 삭제해야함.
+		//	behicle이 설치 되어 있으면 pos 삭제 안 해야함.
+
+		TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
+		vector<BehicleActor*> _behicles = towerDefenseScene->GetBehicleActor();
+		bool isThere = false;
+		for (BehicleActor* behicle : _behicles)
+		{
+			if (behicle->GetCellPos() == _pos)
+			{
+				isThere = true;
+				break;
+			}
+		}
+		if (isThere == false)
+		{
+			RemoveAlreadyInstallPos(_pos);
+		}
 		this->OffMouse();
 	}
 
@@ -65,20 +92,16 @@ void RedBlockController::OnMouse()
 }
 void RedBlockController::OffMouse()
 {
+	cout << "OffMouse" << endl;
 	_mouseState = MouseState::Nothing;
-	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
+	GameEvent<ePanelState>* gameEvent = Events->GetEvent<ePanelState>("SetPanelState_ActionButtonsPanel");
+	gameEvent->Invoke(ePanelState::HIDE);
 
-	InstallPanel* installPanel = towerDefenseScene->GetInstallPanel();
-	installPanel->SetState(ePanelState::HIDE);
-	installPanel->Hide();
+	GameEvent<ePanelState>* gameEvent2 = Events->GetEvent<ePanelState>("SetPanelState_InstallSubmarinePanel");
+	gameEvent2->Invoke(ePanelState::HIDE);
 
-	InstallSubmarinePanel* installSubmarinePanel = towerDefenseScene->GetInstallSubmarinePanel();
-	installSubmarinePanel->SetState(ePanelState::HIDE);
-	installSubmarinePanel->Hide();
-
-	ActionButtonsPanel* actionPanel = towerDefenseScene->GetActionButtonsPanel();
-	actionPanel->SetState(ePanelState::HIDE);
-	actionPanel->Hide();
+	GameEvent<ePanelState>* gameEvent3 = Events->GetEvent<ePanelState>("SetPanelState_InstallPanel");
+	gameEvent3->Invoke(ePanelState::HIDE);
 }
 void RedBlockController::CanInstallBehicle()
 {
@@ -146,18 +169,16 @@ void RedBlockController::CanInstallBehicle()
 }
 void RedBlockController::DoInstallGround()
 {
-	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
-	InstallPanel* installPanel = towerDefenseScene->GetInstallPanel();
-	installPanel->SetState(ePanelState::SHOW);
-	installPanel->Show();
+	GameEvent<ePanelState>* gameEvent = Events->GetEvent<ePanelState>("SetPanelState_InstallPanel");
+	gameEvent->Invoke(ePanelState::SHOW);
+
 	_mouseState = MouseState::Nothing;
 }
 void RedBlockController::DoInstallOcean()
 {
-	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
-	InstallSubmarinePanel* installSubmarinePanel = towerDefenseScene->GetInstallSubmarinePanel();
-	installSubmarinePanel->SetState(ePanelState::SHOW);
-	installSubmarinePanel->Show();
+	GameEvent<ePanelState>* gameEvent = Events->GetEvent<ePanelState>("SetPanelState_InstallSubmarinePanel");
+	gameEvent->Invoke(ePanelState::SHOW);
+
 	_mouseState = MouseState::Nothing;
 }
 void RedBlockController::DoUpgradeDeleteBehicle()
@@ -166,8 +187,6 @@ void RedBlockController::DoUpgradeDeleteBehicle()
 	// 이미 설치가 되어있으면, 걔를 조회하고
 	// 업그레이드 & 삭제 판넬을 띄운다.
 	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
-
-	ActionButtonsPanel* actionPanel = towerDefenseScene->GetActionButtonsPanel();
 	vector<BehicleActor*> _behicles = towerDefenseScene->GetBehicleActor();
 	
 	_Index = 0;
@@ -179,8 +198,18 @@ void RedBlockController::DoUpgradeDeleteBehicle()
 		}
 		_Index++;
 	}
-	actionPanel->SetState(ePanelState::SHOW);
-	actionPanel->Show();
+	GameEvent<ePanelState>* gameEvent = Events->GetEvent<ePanelState>("SetPanelState_ActionButtonsPanel");
+	gameEvent->Invoke(ePanelState::SHOW);
+
 	_mouseState = MouseState::Nothing;
 
+}
+
+void RedBlockController::RemoveAlreadyInstallPos(Vector2Int pos)
+{
+	auto findIt = find(_alreadyInstallBehicle.begin(), _alreadyInstallBehicle.end(), pos);
+	if (findIt != _alreadyInstallBehicle.end())
+	{
+		_alreadyInstallBehicle.erase(findIt);
+	}
 }

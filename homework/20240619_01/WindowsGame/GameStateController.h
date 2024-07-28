@@ -18,8 +18,9 @@ public:
 public:
 	void LoadResource();
 	void OnClick_GoToNextWave();
+	void OnClick_GoToInstall();
+
 	void SetState(ePanelState state) { _panelState = state; }
-	void SetGameWaveState(GameWaveState state) { _state = state; }
 	GameWaveState GetGameWaveState() { return _state; }
 
 private:

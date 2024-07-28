@@ -3,8 +3,6 @@
 #include "Image.h"
 #include "Button.h"
 #include "Sprite.h"
-#include "TowerDefenseScene.h"
-#include "GameWave.h"
 
 void GameStateController::Init()
 {
@@ -17,6 +15,19 @@ void GameStateController::Init()
 	{
 		iconListPanel->SetRect(Shape::MakeCenterRect(0, 0, 0, 0));
 		this->AddChild(iconListPanel);
+	}
+	
+	{
+		Button* InstallButton = new Button();
+		InstallButton->SetRect(Shape::MakeCenterRect(-500, 300, 60, 60));
+		InstallButton->SetSprite(ButtonState::Default, Resource->GetSprite(L"S_InstallButton_Default"));
+		InstallButton->SetSprite(ButtonState::Hover, Resource->GetSprite(L"S_InstallButton_Hover"));
+		InstallButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_InstallButton_Pressed"));
+		InstallButton->SetSprite(ButtonState::Disabled, Resource->GetSprite(L"S_InstallButton_Default"));
+		InstallButton->AddOnClickDelegate(this, &GameStateController::OnClick_GoToInstall);
+		InstallButton->SetState(ButtonState::Disabled);
+		InstallButton->Init();
+		iconListPanel->AddChild(InstallButton);
 	}
 
 	{
@@ -31,6 +42,11 @@ void GameStateController::Init()
 		_nextWaveButton->Init();
 		iconListPanel->AddChild(_nextWaveButton);
 	}
+
+	// Add Event
+	Events->AddEvent("SetPanelState_GameStateController", new GameEvent<ePanelState>());
+	Events->GetEvent<ePanelState>("SetPanelState_GameStateController")
+		->AddListen(this, &GameStateController::SetState);
 }
 void GameStateController::Render(HDC hdc)
 {
@@ -68,6 +84,7 @@ void GameStateController::Update()
 	{
 	case ePanelState::SHOW:
 	{
+		this->Show();
 		_nextWaveButton->SetState(ButtonState::Default);
 		_state = GameWaveState::Done;
 		_panelState = ePanelState::NONE;
@@ -76,6 +93,7 @@ void GameStateController::Update()
 
 	case ePanelState::HIDE:
 	{
+		this->Hide();
 		_nextWaveButton->SetState(ButtonState::Disabled);
 		_panelState = ePanelState::NONE;
 	}
@@ -94,11 +112,17 @@ void GameStateController::Release()
 
 void GameStateController::OnClick_GoToNextWave()
 {
-	_state = GameWaveState::Wave;
-	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
-	GameWave* gameWave = towerDefenseScene->GetGameWave();
-	gameWave->SetGameWaveState(_state);
+	_state = GameWaveState::Wave;	
+	GameEvent<GameWaveState>* gameEvent = Events->GetEvent<GameWaveState>("SetGameWaveState");
+	gameEvent->Invoke(_state);
+
 	_panelState = ePanelState::HIDE;
+}
+
+void GameStateController::OnClick_GoToInstall()
+{
+	GameEvent<>* gameEvent = Events->GetEvent<>("OnMouse");
+	gameEvent->Invoke();
 }
 
 void GameStateController::LoadResource()
@@ -108,6 +132,10 @@ void GameStateController::LoadResource()
 	Resource->CreateSprite(L"S_NextWaveButton_Hover", nextWave, 120, 60, 60, 60);
 	Resource->CreateSprite(L"S_NextWaveButton_Pressed", nextWave, 120, 120, 60, 60);
 
-	_pauseButton = Resource->GetSprite(L"S_PauseButton");
+	auto install = Resource->GetTexture(L"T_Buttons2");
+	Resource->CreateSprite(L"S_InstallButton_Default", install, 60, 0, 60, 60);
+	Resource->CreateSprite(L"S_InstallButton_Hover", install, 60, 60, 60, 60);
+	Resource->CreateSprite(L"S_InstallButton_Pressed", install, 60, 120, 60, 60);
 
+	_pauseButton = Resource->GetSprite(L"S_PauseButton");
 }

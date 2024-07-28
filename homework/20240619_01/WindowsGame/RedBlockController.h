@@ -22,19 +22,17 @@ public:
 	void CanInstallBehicle();
 	void DoInstallGround();
 	void DoInstallOcean();
-	Vector2Int GetInstallBehiclePos() { return _pos; }
-
 	void DoUpgradeDeleteBehicle();
 
 public:
 	int GetBehicleControllerIndex() { return _Index; }
+	Vector2Int GetInstallBehiclePos() { return _pos; }
 
-	vector<Vector2Int> GetAlreadyInstallBehicle() {return _alreadyInstallBehicle; }
-	void SetAlreadyInstallBehicle(vector<Vector2Int> temp) { _alreadyInstallBehicle = temp; }
-	
-	Vector2Int GetBehiclePos() { return _pos; }
+	//vector<Vector2Int> GetAlreadyInstallBehicle() {return _alreadyInstallBehicle; }
+	//void SetAlreadyInstallBehicle(vector<Vector2Int> temp) { _alreadyInstallBehicle = temp; }
 
 public:
+	void RemoveAlreadyInstallPos(Vector2Int pos);
 	void OnMouse();
 	void OffMouse();
 private:

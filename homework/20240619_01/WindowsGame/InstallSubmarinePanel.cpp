@@ -42,6 +42,10 @@ void InstallSubmarinePanel::Init()
 			_buttons.push_back(submarineButton);
 		}
 	}
+	// Add Event
+	Events->AddEvent("SetPanelState_InstallSubmarinePanel", new GameEvent<ePanelState>());
+	Events->GetEvent<ePanelState>("SetPanelState_InstallSubmarinePanel")
+		->AddListen(this, &InstallSubmarinePanel::SetState);
 }
 
 void InstallSubmarinePanel::Render(HDC hdc)
@@ -55,6 +59,7 @@ void InstallSubmarinePanel::Update()
 	{
 	case ePanelState::SHOW:
 	{
+		this->Show();
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Default);
@@ -64,6 +69,7 @@ void InstallSubmarinePanel::Update()
 	break;
 	case ePanelState::HIDE:
 	{
+		this->Hide();
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Disabled);
@@ -95,17 +101,10 @@ void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 		if (isFind == false)
 		{
 			// 설치 안됐으니까 RedBlockController에 있는 pos에서 다시 삭제해야함.
-			// ActionButtons의 Delete코드 참고
 			cout << "Not Create Behicle" << endl;
 
-			vector<Vector2Int> alreadyInstallBehicle = redBlockController->GetAlreadyInstallBehicle();
-
-			auto findIt = find(alreadyInstallBehicle.begin(), alreadyInstallBehicle.end(), pos);
-			if (findIt != alreadyInstallBehicle.end())
-			{
-				alreadyInstallBehicle.erase(findIt);
-				redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle);
-			}
+			GameEvent<Vector2Int>* gameEvent = Events->GetEvent<Vector2Int>("RemoveInstallPos");
+			gameEvent->Invoke(pos);
 		}
 		else
 		{
@@ -128,14 +127,8 @@ void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 	}
 	else
 	{
-		vector<Vector2Int> alreadyInstallBehicle = redBlockController->GetAlreadyInstallBehicle();
-
-		auto findIt = find(alreadyInstallBehicle.begin(), alreadyInstallBehicle.end(), pos);
-		if (findIt != alreadyInstallBehicle.end())
-		{
-			alreadyInstallBehicle.erase(findIt);
-			redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle);
-		}
+		GameEvent<Vector2Int>* gameEvent = Events->GetEvent<Vector2Int>("RemoveInstallPos");
+		gameEvent->Invoke(pos);
 	}
 
 	_state = ePanelState::HIDE;

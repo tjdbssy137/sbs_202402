@@ -48,6 +48,9 @@ void ActionButtonsPanel::Init()
 			_buttons.push_back(DeleteButton);
 		}
 	}
+	Events->AddEvent("SetPanelState_ActionButtonsPanel", new GameEvent<ePanelState>());
+	Events->GetEvent<ePanelState>("SetPanelState_ActionButtonsPanel")
+		->AddListen(this, &ActionButtonsPanel::SetState);
 }
 
 void ActionButtonsPanel::Render(HDC hdc)
@@ -61,6 +64,7 @@ void ActionButtonsPanel::Update()
 	{
 	case ePanelState::SHOW:
 	{
+		this->Show();
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Default);
@@ -70,6 +74,7 @@ void ActionButtonsPanel::Update()
 		break;
 	case ePanelState::HIDE:
 	{
+		this->Hide();
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Disabled);
@@ -98,7 +103,6 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 	
 	BehicleData data = behicleController[index]->GetBehicleData();
 	
-
 	if (data.UpgradeGold <= towerDefenseScene->GetGold()) // 돈이 있다면 업그레이드
 	{
 		if (data.Id < 7)
@@ -110,39 +114,28 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 	}
 	else // 돈이 없다면 사용한 위치값 반환
 	{
-		vector<Vector2Int> alreadyInstallBehicle = redBlockController->GetAlreadyInstallBehicle();
 		Vector2Int pos = redBlockController->GetInstallBehiclePos();
-		auto findIt = find(alreadyInstallBehicle.begin(), alreadyInstallBehicle.end(), pos);
-		if (findIt != alreadyInstallBehicle.end())
-		{
-			alreadyInstallBehicle.erase(findIt);
-			redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle);
-		}
+		GameEvent<Vector2Int>* gameEvent = Events->GetEvent<Vector2Int>("RemoveInstallPos");
+		gameEvent->Invoke(pos);
 	}
 	_state = ePanelState::HIDE;
 	this->Hide();
 }
 void ActionButtonsPanel::OnClick_GoToDelete()
 {
-	TowerDefenseScene* scene = static_cast<TowerDefenseScene*>(CurrentScene);
-	RedBlockController* redBlockController = scene->GetRedBlockController();
-	vector<Vector2Int> alreadyInstallBehicle = redBlockController->GetAlreadyInstallBehicle();
-	vector<BehicleController*> behicleController = scene->GetBehicleController();
+	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+	RedBlockController* redBlockController = towerDefenseScene->GetRedBlockController();
+	vector<BehicleController*> behicleController = towerDefenseScene->GetBehicleController();
 	
 	int index = redBlockController->GetBehicleControllerIndex();
-	Vector2Int pos = redBlockController->GetBehiclePos();
+	Vector2Int pos = redBlockController->GetInstallBehiclePos();
 
-	auto findIt = find(alreadyInstallBehicle.begin(), alreadyInstallBehicle.end(), pos);
-	if (findIt != alreadyInstallBehicle.end())
-	{
-		//cout << "index : " << index << endl; // 같은 장소에 있는 건 인덱스가 왜인지 안달라짐..?? -> SetPos가 아니라 SetCellPos였음
-		alreadyInstallBehicle.erase(findIt);
-		redBlockController->SetAlreadyInstallBehicle(alreadyInstallBehicle); 
-		// 이거 없으면 제대로 작동 안됨.. vector인데 왜지.. -> 복사본을 들고 오는 것이기 때문에 그냥 레퍼런스로 들고오면 됨
-		behicleController[index]->IsSetting(true);
-		behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Delete));
-		scene->MakeGold(behicleController[index]->GetBehicleData().RefundGold); //refund
-	}
+	GameEvent<Vector2Int>* gameEvent = Events->GetEvent<Vector2Int>("RemoveInstallPos");
+	gameEvent->Invoke(pos);
+	behicleController[index]->IsSetting(true);
+	behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Delete));
+	towerDefenseScene->MakeGold(behicleController[index]->GetBehicleData().RefundGold);
+
 	_state = ePanelState::HIDE;
 	this->Hide();
 }
