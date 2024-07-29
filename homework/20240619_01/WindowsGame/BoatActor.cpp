@@ -11,9 +11,7 @@
 #include "GameWave.h"
 
 void BoatActor::Init()
-{
-	//wprintf(GetBoatType().c_str());
-	
+{	
 	this->SetState(_state);
 	this->SetName("Enemy");
 	_collider = new CircleCollider();

@@ -22,13 +22,14 @@ public:
 	void Update();
 
 public:
-	void SettingBehicle(BehicleData data);
+	void SettingBehicle(int id);
+	void DeleteBehicle();
 public:
 
 	BehicleData GetBehicleData() { return _data; }
 
-	BehicleTypeState GetBehicleTypeState() { return _type; }
-	void SetBehicleTypeState(int type) { _type = static_cast<BehicleTypeState>(type); }
+	//BehicleTypeState GetBehicleTypeState() { return _type; }
+	//void SetBehicleTypeState(int type) { _type = static_cast<BehicleTypeState>(type); }
 	void IsSetting(bool isSetting) { _isSetting = isSetting; }
 
 private:

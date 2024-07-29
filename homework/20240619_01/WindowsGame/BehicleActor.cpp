@@ -11,14 +11,14 @@ void BehicleActor::Init()
 {
 	this->SetState(_state);
 
-	collider = new CircleCollider();
-	collider->SetCollision(Vector2::Zero(), 0);
-	collider->Init();
-	collider->SetCollisionLayer(CollisionLayerType::CLT_BEHICLE);
-	collider->ResetCollisionFlag();
-	collider->AddCollisionFlagLayer(CollisionLayerType::CLT_ENEMY); // 충돌할 레이어
+	_collider = new CircleCollider();
+	_collider->SetCollision(Vector2::Zero(), 0);
+	_collider->Init();
+	_collider->SetCollisionLayer(CollisionLayerType::CLT_BEHICLE);
+	_collider->ResetCollisionFlag();
+	_collider->AddCollisionFlagLayer(CollisionLayerType::CLT_ENEMY); // 충돌할 레이어
 
-	this->AddComponent(collider);
+	this->AddComponent(_collider);
 
 	{
 		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
@@ -34,18 +34,17 @@ void BehicleActor::Render(HDC hdc)
 void BehicleActor::Update()
 {
 	Super::Update();
+	LookAtTarget();
 
 	// XXX : <- 이슈 위험
 	switch (_state)
 	{
 	case BehicleState::Attack:
 	{
-		LookAtTarget();
 		UpdateAttack();
 	}
 	break;
 	case BehicleState::Submarine:
-		LookAtTarget();
 		break;
 	case BehicleState::Idle:
 		UpdateIdle();
@@ -63,12 +62,10 @@ void BehicleActor::Release()
 }
 void BehicleActor::SetActiveBehicle()
 {
-//		wcout << GetBehicleType() << endl;
 	wstring direction[eDirection::END]
 		= { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
 	
 	wstring name = wstring().assign(_data.Name.begin(), _data.Name.end());
-
 	for (int i = 0; i < eDirection::END; i++)
 	{
 		_idleFlipbook[i] = Resource->GetFlipbook(name + direction[i]);
@@ -77,14 +74,13 @@ void BehicleActor::SetActiveBehicle()
 
 	if (_data.Id == 7)
 	{
-		collider->SetCollision(Vector2::Zero(), 0);
+		_collider->SetCollision(Vector2::Zero(), 0);
 	}
 	else
 	{
-		collider->SetCollision(Vector2::Zero(), _data.ColliderSize);
+		_collider->SetCollision(Vector2::Zero(), _data.ColliderSize); // 여기서 nullptr값이 됨.
 		_time = _data.AttackTime;
 	}
-
 }
 
 void BehicleActor::ChangeDirection(eDirection dir)
@@ -103,7 +99,7 @@ void BehicleActor::UpdateIdle()
 	for (BoatActor* boat : _boats)
 	{
 		// 공격하기로 결정했을 때 내 바운더리 안에 있으면 공격.
-		if (Collision::CircleInCircle(this->GetPos(), collider->GetRadius(),
+		if (Collision::CircleInCircle(this->GetPos(), _collider->GetRadius(),
 			boat->GetPos(), boat->GetBoatCollider()->GetRadius()))
 		{
 			_targetBoat = boat;
@@ -138,6 +134,10 @@ void BehicleActor::UpdateAttack()
 
 void BehicleActor::LookAtTarget() // target을 바라보기
 {
+	if (_targetBoat == nullptr)
+	{
+		return;
+	}
 	Vector2 dirVec = _targetBoat->GetPos() - this->GetPos();
 	dirVec = dirVec.Normalize();
 	
@@ -204,7 +204,7 @@ void BehicleActor::LookAtTarget() // target을 바라보기
 }
 void BehicleActor::UseBullet()
 {
-	if (_bulletActorController->BulletCount() < 1) // 씬에서 생성하고 꺼내 쓰기
+	if (_bulletActorController->BulletCount() < 1) // 씬에서 생성하고 꺼내 쓰기 -> 이미 BulletActorController 여기서 하고 있음
 	{
 		BulletActor* bullet = new BulletActor();
 		bullet->SetLayer(LayerType::Object);

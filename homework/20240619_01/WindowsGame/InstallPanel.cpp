@@ -102,38 +102,36 @@ void InstallPanel::Release()
 
 void InstallPanel::OnClick_GoToInstallDrill()
 {
-	this->InstallingBehicle(Datas->GetBehicleData(1).Id); // DrillTank1
+	this->InstallingBehicle(Datas->GetBehicleData(1)); // DrillTank1
 	this->Hide();
 }
 void InstallPanel::OnClick_GoToInstallTank()
 {
-	this->InstallingBehicle(Datas->GetBehicleData(4).Id); // Tank1
+	this->InstallingBehicle(Datas->GetBehicleData(4)); // Tank1
 	this->Hide();
 }
-void InstallPanel::InstallingBehicle(int type)
+void InstallPanel::InstallingBehicle(BehicleData data)
 {
 	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
 	RedBlockController* redBlockController = towerDefenseScene->GetRedBlockController();
 	Vector2Int pos = redBlockController->GetInstallBehiclePos();
 
-	if (Datas->GetBehicleData(type).InstallGold <= towerDefenseScene->GetGold()) // 갖고 있는 돈이 설치하기에 충분하다면
+	if (data.InstallGold <= towerDefenseScene->GetGold()) // 갖고 있는 돈이 설치하기에 충분하다면
 	{
 		BehicleController* behicleController = new BehicleController();
 		{
-			// 여기가 안들어와짐
 			cout << "Create Behicle" << endl;
 			BehicleActor* behicle = new BehicleActor();
 			behicle->SetLayer(LayerType::Character);
-			behicleController->SetLink(behicle);
-			behicleController->IsSetting(true);
-			behicleController->SetBehicleTypeState(type);
 			behicle->Init();
+			behicleController->SetLink(behicle);
+			behicleController->SettingBehicle(data.Id);
 			towerDefenseScene->SpawnActor(behicle);
 			behicle->SetCellPos(pos, true);
 			towerDefenseScene->SetBehicleActor(behicle);
 		}
 		towerDefenseScene->SetBehicleController(behicleController);//_behicleControllers.push_back();
-		towerDefenseScene->PayGold(Datas->GetBehicleData(type).InstallGold);
+		towerDefenseScene->PayGold(data.InstallGold);
 	}
 	else
 	{

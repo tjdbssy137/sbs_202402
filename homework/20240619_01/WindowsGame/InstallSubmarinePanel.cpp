@@ -113,10 +113,9 @@ void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 				cout << "Create Behicle" << endl;
 				BehicleActor* behicle = new BehicleActor();
 				behicle->SetLayer(LayerType::Character);
-				behicleController->SetLink(behicle);
-				behicleController->IsSetting(true);
-				behicleController->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Submarine));
 				behicle->Init();
+				behicleController->SetLink(behicle);
+				behicleController->SettingBehicle(Datas->GetBehicleData(7).Id);
 				towerDefenseScene->SpawnActor(behicle);
 				behicle->SetCellPos(pos, true);
 				towerDefenseScene->SetBehicleActor(behicle);

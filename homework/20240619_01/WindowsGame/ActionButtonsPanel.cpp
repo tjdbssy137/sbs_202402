@@ -103,14 +103,16 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 	
 	BehicleData data = behicleController[index]->GetBehicleData();
 	
+	if (data.Id == Datas->GetBehicleData(7).Id) // 잠수함일 경우 업그레이드 안 됨.
+	{
+		// 업데이트가 안된다는 문구 삽입
+		return;
+	}
+
 	if (data.UpgradeGold <= towerDefenseScene->GetGold()) // 돈이 있다면 업그레이드
 	{
-		if (data.Id < 7)
-		{
-			behicleController[index]->IsSetting(true);
-			behicleController[index]->SetBehicleTypeState(data.UpgradeTowerId);
-			towerDefenseScene->PayGold(Datas->GetBehicleData(data.Id).UpgradeGold);
-		}
+		behicleController[index]->SettingBehicle(data.UpgradeTowerId);
+		towerDefenseScene->PayGold(Datas->GetBehicleData(data.Id).UpgradeGold);
 	}
 	else // 돈이 없다면 사용한 위치값 반환
 	{
@@ -132,8 +134,8 @@ void ActionButtonsPanel::OnClick_GoToDelete()
 
 	GameEvent<Vector2Int>* gameEvent = Events->GetEvent<Vector2Int>("RemoveInstallPos");
 	gameEvent->Invoke(pos);
-	behicleController[index]->IsSetting(true);
-	behicleController[index]->SetBehicleTypeState(static_cast<int>(BehicleTypeState::Delete));
+
+	behicleController[index]->DeleteBehicle();
 	towerDefenseScene->MakeGold(behicleController[index]->GetBehicleData().RefundGold);
 
 	_state = ePanelState::HIDE;

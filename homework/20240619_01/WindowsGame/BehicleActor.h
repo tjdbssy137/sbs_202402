@@ -46,6 +46,7 @@ public:
 	void LookAtTarget();
 	void UseBullet();
 	void SetActiveBehicle();
+
 private:
 	BehicleState _state = BehicleState::Idle;
 	eDirection _dir = eDirection::DOWN;
@@ -56,7 +57,7 @@ private:
 	Vector2Int _cellPos = {};
 
 private:
-	CircleCollider* collider = nullptr;
+	CircleCollider* _collider = nullptr;
 	float _time = 1.0f;
 	vector<BoatActor*> _boats;
 	BoatActor* _targetBoat = nullptr;

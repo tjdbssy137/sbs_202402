@@ -14,7 +14,7 @@ public:
 	virtual void Release();
 public:
 	void LoadResource();
-	void InstallingBehicle(int type);
+	void InstallingBehicle(BehicleData data);
 public:
 	void OnClick_GoToInstallDrill();
 	void OnClick_GoToInstallTank();
