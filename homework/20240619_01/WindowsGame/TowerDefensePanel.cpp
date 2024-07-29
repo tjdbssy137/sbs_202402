@@ -17,14 +17,14 @@ void TowerDefensePanel::Init()
 	}
 
 	{
-		_roundLabel = new Label();
-		_roundLabel->Init();
-		_roundLabel->SetRect(Shape::MakeCenterRectLTWH(WIN_SIZE_X - 100, WIN_SIZE_Y - 200, 100, 100));
-		_roundLabel->SetFont(L"¿µ´ö¹Ù´ÙÃ¼", 20);
-		_roundLabel->SetAlign(TA_RIGHT);
-		_roundLabel->SetText(L"");
+		_gameInfoLabel = new Label();
+		_gameInfoLabel->Init();
+		_gameInfoLabel->SetRect(Shape::MakeCenterRectLTWH(WIN_SIZE_X - 100, WIN_SIZE_Y - 200, 100, 100));
+		_gameInfoLabel->SetFont(L"¿µ´ö¹Ù´ÙÃ¼", 15);
+		_gameInfoLabel->SetAlign(TA_RIGHT);
+		_gameInfoLabel->SetText(L"");
 
-		this->AddChild(_roundLabel);
+		this->AddChild(_gameInfoLabel);
 	}
 }
 void TowerDefensePanel::Render(HDC hdc)
@@ -45,7 +45,7 @@ void TowerDefensePanel::SetText(wstring text)
 	_waveStatusLabel->SetText(text);
 }
 
-void TowerDefensePanel::SetRoundText(wstring text)
+void TowerDefensePanel::SetGameInfoText(wstring text)
 {
-	_roundLabel->SetText(text);
+	_gameInfoLabel->SetText(text);
 }

@@ -116,7 +116,7 @@ void InstallPanel::InstallingBehicle(BehicleData data)
 	RedBlockController* redBlockController = towerDefenseScene->GetRedBlockController();
 	Vector2Int pos = redBlockController->GetInstallBehiclePos();
 
-	if (data.InstallGold <= towerDefenseScene->GetGold()) // 갖고 있는 돈이 설치하기에 충분하다면
+	if (data.InstallGold <= UserDatas->GetGold()) // 갖고 있는 돈이 설치하기에 충분하다면
 	{
 		BehicleController* behicleController = new BehicleController();
 		{
@@ -131,7 +131,7 @@ void InstallPanel::InstallingBehicle(BehicleData data)
 			towerDefenseScene->SetBehicleActor(behicle);
 		}
 		towerDefenseScene->SetBehicleController(behicleController);//_behicleControllers.push_back();
-		towerDefenseScene->PayGold(data.InstallGold);
+		UserDatas->PayGold(data.InstallGold);
 	}
 	else
 	{

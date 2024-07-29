@@ -13,10 +13,10 @@ public:
 
 public:
 	void SetText(wstring text);
-	void SetRoundText(wstring text);
+	void SetGameInfoText(wstring text);
 
 private:
 	Label* _waveStatusLabel = nullptr;
-	Label* _roundLabel = nullptr;
+	Label* _gameInfoLabel = nullptr;
 };
 

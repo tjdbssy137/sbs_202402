@@ -96,7 +96,7 @@ void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 
 	bool isFind = Check_Astar(STARTPOS, DESTPOS, pos);
 
-	if (Datas->GetBehicleData(7).InstallGold <= towerDefenseScene->GetGold())
+	if (Datas->GetBehicleData(7).InstallGold <= UserDatas->GetGold())
 	{
 		if (isFind == false)
 		{
@@ -121,7 +121,7 @@ void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 				towerDefenseScene->SetBehicleActor(behicle);
 			}
 			towerDefenseScene->SetBehicleController(behicleController); //_behicleControllers.push_back
-			towerDefenseScene->PayGold(Datas->GetBehicleData(7).InstallGold);
+			UserDatas->PayGold(Datas->GetBehicleData(7).InstallGold);
 		}
 	}
 	else

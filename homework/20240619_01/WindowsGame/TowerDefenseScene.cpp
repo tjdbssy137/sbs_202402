@@ -146,15 +146,6 @@ void TowerDefenseScene::Render(HDC hdc)
 {
 	Super::Render(hdc);
 
-	wstring str = L"Beach";
-	::TextOut(hdc, 0, 45, str.c_str(), str.length());
-
-	wstring strGold = format(L"Gold : {0}", _gold);
-	::TextOut(hdc, 0, 90, strGold.c_str(), strGold.length());
-
-	wstring enterEnemyCount = format(L"enterEnemyCount : {0} / {1}", GetEnterEnemyCount(), GAMEOVER);
-	::TextOut(hdc, 0, 135, enterEnemyCount.c_str(), enterEnemyCount.length());
-
 	_installPanel->Render(hdc);
 	_installSubmarinePanel->Render(hdc);
 	_actionButtonsPanel->Render(hdc);
@@ -202,7 +193,7 @@ void TowerDefenseScene::Release()
 
 void TowerDefenseScene::EnterEnemyCheck()
 {
-	if (GAMEOVER < GetEnterEnemyCount())
+	if (GAMEOVER < UserDatas->GetEnterEnemy())
 	{
 		_treasure->SetSprite(Resource->GetSprite(L"S_Treasure_Opened"));
 		// 게임 끝나는 pannel을 띄우기.

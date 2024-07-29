@@ -109,10 +109,10 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 		return;
 	}
 
-	if (data.UpgradeGold <= towerDefenseScene->GetGold()) // 돈이 있다면 업그레이드
+	if (data.UpgradeGold <= UserDatas->GetGold()) // 돈이 있다면 업그레이드
 	{
 		behicleController[index]->SettingBehicle(data.UpgradeTowerId);
-		towerDefenseScene->PayGold(Datas->GetBehicleData(data.Id).UpgradeGold);
+		UserDatas->PayGold(Datas->GetBehicleData(data.Id).UpgradeGold);
 	}
 	else // 돈이 없다면 사용한 위치값 반환
 	{
@@ -136,7 +136,7 @@ void ActionButtonsPanel::OnClick_GoToDelete()
 	gameEvent->Invoke(pos);
 
 	behicleController[index]->DeleteBehicle();
-	towerDefenseScene->MakeGold(behicleController[index]->GetBehicleData().RefundGold);
+	UserDatas->MakeGold(behicleController[index]->GetBehicleData().RefundGold);
 
 	_state = ePanelState::HIDE;
 	this->Hide();

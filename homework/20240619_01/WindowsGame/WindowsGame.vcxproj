@@ -221,6 +221,7 @@
     <ClInclude Include="TowerDefenseStartPanel.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="UserDataManager.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector2Int.h" />
     <ClInclude Include="WindowsGame.h" />
@@ -366,6 +367,7 @@
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TowerDefenseStartPanel.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="UserDataManager.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector2Int.cpp" />
     <ClCompile Include="WindowsGame.cpp" />

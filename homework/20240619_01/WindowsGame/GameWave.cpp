@@ -23,6 +23,7 @@ void GameWave::Update()
 		if (_boats.size() == 47)
 		{
 			_wave++;
+			UserDatas->SetWave(_wave);
 			_boatType = 0;
 			_boatCount = 0;
 

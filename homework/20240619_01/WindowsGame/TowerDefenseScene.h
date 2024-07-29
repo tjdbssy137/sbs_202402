@@ -54,19 +54,10 @@ public:
 	//Panel
 	InstallPanel* GetInstallPanel() { return _installPanel; }
 	InstallSubmarinePanel* GetInstallSubmarinePanel() { return _installSubmarinePanel; }
-	/*ActionButtonsPanel* GetActionButtonsPanel() { return _actionButtonsPanel; }
-	TowerDefenseStartPanel* GetTowerDefenseStartPanel() { return _towerDefenseStartPanel; }
-	*/
+
 	GameStateController* GetGameStateController() { return _gameStateController; }
 	
-	// Gold
-	void MakeGold(int gold) { _gold += gold; }
-	void PayGold(int gold) { _gold -= gold; }
-	int GetGold() { return _gold; }
-
 	// Treasure
-	void AddEnterEnemyCount() { _enterEnemyCount++; }
-	int GetEnterEnemyCount() { return _enterEnemyCount; }
 	void EnterEnemyCheck();
 
 	// Game
@@ -90,13 +81,10 @@ private:
 	ActionButtonsPanel* _actionButtonsPanel = nullptr;
 	TowerDefenseStartPanel* _towerDefenseStartPanel = nullptr;
 	GameStateController* _gameStateController = nullptr;
-	// Gold
-	int _gold = 1000; // 기본 금액 120
-
+	
 	// Treasure
 	SpriteActor* _treasure = nullptr;
-	int _enterEnemyCount = 0;
-
+	
 	// Game
 	bool _isGameStart = false;
 };

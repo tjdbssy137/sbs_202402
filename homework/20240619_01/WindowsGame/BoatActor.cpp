@@ -29,7 +29,7 @@ void BoatActor::Init()
 
 	// Bomb
 	_bomb = Resource->GetFlipbook(L"FB_Bomb"); // bomb
-
+	
 	{
 		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
 		_bulletActorController = towerDefenseScene->GetBulletActorController();
@@ -93,7 +93,6 @@ void BoatActor::Render(HDC hdc)
 	if(_die == true)
 	{
 		const FlipbookInfo& info = _bomb->GetInfo();
-
 		Vector2Int cameraPos = CurrentScene->GetCameraPos();
 		Vector2Int ScreenSizeHalf = Vector2Int(WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
 		Vector2Int renderPos = Vector2Int(
@@ -106,7 +105,7 @@ void BoatActor::Render(HDC hdc)
 			info.size.x,
 			info.size.y,
 			info.texture->GetDC(),
-			_index * info.size.x,
+			_index * info.size.x, // index 값이 1, 2, 0만 작동 함.
 			info.line * info.size.y,
 			info.size.x,
 			info.size.y,
@@ -179,7 +178,7 @@ void BoatActor::FinishedBoatState()
 	this->SetCellPos({ 54, 25 }, true);
 	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
 	towerDefenseScene->GetGameWave()->PushBoatActor(this);
-	towerDefenseScene->AddEnterEnemyCount();
+	UserDatas->AddEnterEnemyCount();
 
 	// state 변경
 	_state = BoatState::None;
@@ -188,14 +187,14 @@ void BoatActor::FinishedBoatState()
 void BoatActor::DeathEffect()
 {
 	_die = true;
-	_time -= Time->GetDeltaTime();
-	if (_time <= 0)
+	//_time -= Time->GetDeltaTime();
+	if (_index == 6)
 	{
 		_die = false;
 		this->SetCellPos({ 54, 25 }, true);
 		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
 		towerDefenseScene->GetGameWave()->PushBoatActor(this);
-		towerDefenseScene->MakeGold(_data.Gold);
+		UserDatas->MakeGold(_data.Gold);
 		_state = BoatState::None;
 	}
 }

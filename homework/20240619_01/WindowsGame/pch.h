@@ -73,6 +73,7 @@ using namespace std;
 #include "RandomManager.h"
 #include "SoundManager.h"
 #include "DataManager.h"
+#include "UserDataManager.h"
 
 //===========================================
 //		## Windows Size ##

@@ -92,5 +92,7 @@ struct Vector2
 		return rv;
 	}
 
+	static float SignedAngle(const Vector2 from, const Vector2 to);
+
 };
 

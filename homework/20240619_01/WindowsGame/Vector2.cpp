@@ -112,3 +112,16 @@ Vector2 Vector2::Reflect(Vector2 originVector, Vector2 normal)
 	// 원점에서 시작해서 originVector 그자체로 방향이 됨.
 	// normal은 부딪히는 대상의 각도인듯.
 }
+
+float Vector2::SignedAngle(const Vector2 from, const Vector2 to)
+{
+	Vector2 fromVec = from;
+	Vector2 toVec = to;
+	fromVec = fromVec.Normalize();
+	toVec = toVec.Normalize();
+
+	float dot = fromVec.Dot(toVec);
+	float det = fromVec.x * toVec.y - toVec.x * fromVec.y;
+	float angle = atan2(det, dot);
+	return Rad2Deg(angle);
+}
