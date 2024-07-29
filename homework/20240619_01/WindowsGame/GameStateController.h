@@ -2,11 +2,11 @@
 #include "Panel.h"
 
 class Button;
-class Sprite;
+class Image;
+class TowerDefensePanel;
+
 class GameStateController : public Panel
 {
-	// 돈
-	// 웨이브 관리
 public:
 	DECLARE_CHILD(GameStateController, Panel);
 public:
@@ -24,10 +24,11 @@ public:
 	GameWaveState GetGameWaveState() { return _state; }
 
 private:
-	Sprite* _pauseButton = nullptr;
+	Image* _pauseButton = nullptr;
 	Button* _nextWaveButton = nullptr;
 	GameWaveState _state = GameWaveState::Done;
 	ePanelState _panelState = ePanelState::SHOW;
-
+private:
+	TowerDefensePanel* _mainPanel = nullptr;
 };
 

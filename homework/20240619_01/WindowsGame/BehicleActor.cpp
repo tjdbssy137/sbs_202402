@@ -40,10 +40,8 @@ void BehicleActor::Update()
 	switch (_state)
 	{
 	case BehicleState::Attack:
-	{
 		UpdateAttack();
-	}
-	break;
+		break;
 	case BehicleState::Submarine:
 		break;
 	case BehicleState::Idle:
@@ -108,13 +106,13 @@ void BehicleActor::UpdateIdle()
 				continue;
 			}
 			
-			if (_data.Id == 7)
+			if (_data.Id != 7)
 			{
-				_state = BehicleState::Submarine;
+				_state = BehicleState::Attack;
 			}
 			else
 			{
-				_state = BehicleState::Attack;
+				_state = BehicleState::Submarine;
 			}
 		}
 	};
@@ -125,7 +123,7 @@ void BehicleActor::UpdateAttack()
 	_time -= Time->GetDeltaTime();
 	//static float lastTick = ::GetTickCount64(); //모든 호출에서 공유
 	//float currentTick = ::GetTickCount64();
-	if (_time <= 0) // 1초에 한번씩 공격할말을 결정
+	if (_time <= 0) // AttackTime마다 한번씩 공격할말을 결정
 	{
 		UseBullet();
 		_time = _data.AttackTime;
@@ -138,66 +136,52 @@ void BehicleActor::LookAtTarget() // target을 바라보기
 	{
 		return;
 	}
-	Vector2 dirVec = _targetBoat->GetPos() - this->GetPos();
-	dirVec = dirVec.Normalize();
 	
-	if (200 < dirVec.LengthSqrt()) // 일정 거리 이상 넘어가면 포기
+	Vector2 dirVec = _targetBoat->GetPos() - this->GetPos();
+
+	if (150 < dirVec.Length()) // 일정 거리 이상 넘어가면 포기
 	{
+		_targetBoat = nullptr;
 		_state = BehicleState::Idle;
+		return;
 	}
+	
+	dirVec = dirVec.Normalize();
 
-	float upDotValue = dirVec.Dot(Vector2::Up());
-	float rightDotValue = dirVec.Dot(Vector2::Right());
-	float downDotValue = dirVec.Dot(Vector2::Down());
-	float leftDotValue = dirVec.Dot(Vector2::Left());
-	float upRightDotValue = dirVec.Dot(Vector2::UpNRight());
-	float upLeftDotValue = dirVec.Dot(Vector2::UpNLeft());
-	float downRightDotValue = dirVec.Dot(Vector2::DownNRight());
-	float downLeftDotValue = dirVec.Dot(Vector2::DownNLeft());
-
-	float maxDotValue = upDotValue;
+	float angle = Vector2::SignedAngle(Vector2::Up(), dirVec);
 	eDirection direction = eDirection::UP;
 
-	if (maxDotValue < rightDotValue) 
+	if (-22.5f <= angle && angle < 22.5f)
 	{
-		maxDotValue = rightDotValue;
-		direction = eDirection::RIGHT;
+		direction = eDirection::UP;
 	}
-
-	if (maxDotValue < downDotValue) 
+	else if (22.5 <= angle && angle < 67.5f)
 	{
-		maxDotValue = downDotValue;
-		direction = eDirection::DOWN;
-	}
-
-	if (maxDotValue < leftDotValue) 
-	{
-		maxDotValue = leftDotValue;
-		direction = eDirection::LEFT;
-	}
-
-	if (maxDotValue < upRightDotValue) 
-	{
-		maxDotValue = upRightDotValue;
 		direction = eDirection::UP_RIGHT;
 	}
-
-	if (maxDotValue < upLeftDotValue) 
+	else if (67.5f <= angle && angle < 112.5f)
 	{
-		maxDotValue = upLeftDotValue;
-		direction = eDirection::UP_LEFT;
+		direction = eDirection::RIGHT;
 	}
-
-	if (maxDotValue < downRightDotValue) 
+	else if (112.5f <= angle && angle < 157.5f)
 	{
-		maxDotValue = downRightDotValue;
 		direction = eDirection::DOWN_RIGHT;
 	}
-
-	if (maxDotValue < downLeftDotValue) 
+	else if (157.5f <= angle || angle < -157.5f)
 	{
-		maxDotValue = downLeftDotValue;
+		direction = eDirection::DOWN;
+	}
+	else if (-157.5f <= angle && angle < -112.5f)
+	{
 		direction = eDirection::DOWN_LEFT;
+	}
+	else if (-112.5f <= angle && angle < -67.5f)
+	{
+		direction = eDirection::LEFT;
+	}
+	else if (-67.5f <= angle && angle < -22.5f)
+	{
+		direction = eDirection::UP_LEFT;
 	}
 
 	this->ChangeDirection(direction);

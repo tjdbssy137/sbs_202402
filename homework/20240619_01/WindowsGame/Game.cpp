@@ -42,9 +42,6 @@ void Game::Init(HWND hwnd)
 	GET_SINGLE(SoundManager)->Init();
 
 	GET_SINGLE(SceneManager)->ChangeScene(SceneType::TowerDefenseScene);
-	//GET_SINGLE(SceneManager)->ChangeScene(SceneType::TowerDefenseScene);
-	//GET_SINGLE(SceneManager)->ChangeScene(SceneType::MoleGameScene);
-	//GET_SINGLE(SceneManager)->ChangeScene(SceneType::InGameScene);
 }
 void Game::Update()
 {
@@ -54,30 +51,11 @@ void Game::Update()
 	Input->Update();
 	GET_SINGLE(SceneManager)->Update();
 	GET_SINGLE(CollisionManager)->Update();
-	UserDatas->Update();
-
 }
 void Game::Render()
 {
 	GET_SINGLE(SceneManager)->Render(_hdcBack);
 
-	/*
-	//FPS 출력
-	{
-		uint32 fps = Time->GetFps();
-		float deltaTime = Time->GetDeltaTime();
-
-		wstring timeStr = format(L"FPS({0}), DT({1} ms)", fps, static_cast<int32>(deltaTime * 1000));
-		::TextOut(_hdcBack, 0, 0, timeStr.c_str(), timeStr.length());
-	}
-
-	//마우스좌표 출력
-	{
-		POINT mousePos = Input->GetMousePos();
-		wstring str = format(L"mouse({0}, {1})", mousePos.x, mousePos.y);
-		::TextOut(_hdcBack, 0, 20, str.c_str(), str.length());
-	}
-	*/
 	//비트블릿 : 고속 복사
 	::BitBlt(_hdc, 0, 0, _rect.right, _rect.bottom, _hdcBack, 0, 0, SRCCOPY);
 	::PatBlt(_hdcBack, 0, 0, _rect.right, _rect.bottom, WHITENESS);

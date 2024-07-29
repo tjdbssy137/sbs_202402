@@ -188,7 +188,7 @@ void BoatActor::DeathEffect()
 {
 	_die = true;
 	//_time -= Time->GetDeltaTime();
-	if (_index == 6)
+	if (_index == 0)
 	{
 		_die = false;
 		this->SetCellPos({ 54, 25 }, true);

@@ -2,7 +2,8 @@
 #include "GameStateController.h"
 #include "Image.h"
 #include "Button.h"
-#include "Sprite.h"
+#include "TowerDefensePanel.h"
+#include "TowerDefenseScene.h"
 
 void GameStateController::Init()
 {
@@ -42,6 +43,20 @@ void GameStateController::Init()
 		_nextWaveButton->Init();
 		iconListPanel->AddChild(_nextWaveButton);
 	}
+	
+	{
+		_pauseButton = new Image();
+		_pauseButton->SetRect(Shape::MakeCenterRect(30, -370, 60, 60));
+		_pauseButton->SetSprite(Resource->GetSprite(L"S_PauseButton"));
+		_pauseButton->Init();
+		iconListPanel->AddChild(_pauseButton);
+	}
+
+	_mainPanel = new TowerDefensePanel();
+	_mainPanel->Init();
+	
+	TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
+	towerDefenseScene->AddUI(_mainPanel);
 
 	// Add Event
 	Events->AddEvent("SetPanelState_GameStateController", new GameEvent<ePanelState>());
@@ -51,29 +66,6 @@ void GameStateController::Init()
 void GameStateController::Render(HDC hdc)
 {
 	Super::Render(hdc);
-	
-	if(_state == GameWaveState::Wave)
-	{ // wave가 진행되는 동안에
-		if (_pauseButton == nullptr) return;
-
-		Vector2Int size = _pauseButton->GetSize();
-		Vector2Int renderPos = Vector2Int(
-			WIN_SIZE_X / 2,
-			WIN_SIZE_Y / 2 - 400
-		);
-		::TransparentBlt(hdc,
-			renderPos.x,
-			renderPos.y,
-			size.x,
-			size.y,
-			_pauseButton->GetDC(),
-			_pauseButton->GetPos().x,
-			_pauseButton->GetPos().y,
-			size.x,
-			size.y,
-			_pauseButton->GetTransparent()//투명색
-		);
-	}
 }
 
 void GameStateController::Update()
@@ -86,6 +78,7 @@ void GameStateController::Update()
 	{
 		this->Show();
 		_nextWaveButton->SetState(ButtonState::Default);
+		_pauseButton->SetSprite(nullptr);
 		_state = GameWaveState::Done;
 		_panelState = ePanelState::NONE;
 	}
@@ -95,6 +88,7 @@ void GameStateController::Update()
 	{
 		this->Hide();
 		_nextWaveButton->SetState(ButtonState::Disabled);
+		_pauseButton->SetSprite(Resource->GetSprite(L"S_PauseButton"));
 		_panelState = ePanelState::NONE;
 	}
 	break;
@@ -103,6 +97,11 @@ void GameStateController::Update()
 	default:
 		break;
 	}
+
+	wchar_t str[50];
+	swprintf_s(str, L"Round %d | Enter Enemy %d | Gold %d",
+		UserDatas->GetWave(), UserDatas->GetEnterEnemy(), UserDatas->GetGold());
+	_mainPanel->SetGameInfoText(wstring(str));
 }
 
 void GameStateController::Release()
@@ -136,6 +135,4 @@ void GameStateController::LoadResource()
 	Resource->CreateSprite(L"S_InstallButton_Default", install, 60, 0, 60, 60);
 	Resource->CreateSprite(L"S_InstallButton_Hover", install, 60, 60, 60, 60);
 	Resource->CreateSprite(L"S_InstallButton_Pressed", install, 60, 120, 60, 60);
-
-	_pauseButton = Resource->GetSprite(L"S_PauseButton");
 }

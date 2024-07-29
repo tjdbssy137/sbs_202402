@@ -9,7 +9,7 @@ void TowerDefensePanel::Init()
 		_waveStatusLabel = new Label();
 		_waveStatusLabel->Init();
 		_waveStatusLabel->SetRect(Shape::MakeCenterRect(WIN_SIZE_X / 2, WIN_SIZE_Y / 2, 300, 50));
-		_waveStatusLabel->SetFont(L"¿µ´ö¹Ù´ÙÃ¼", 20);
+		_waveStatusLabel->SetFont(L"¿µ´ö¹Ù´ÙÃ¼", 18);
 		_waveStatusLabel->SetAlign(TA_CENTER);
 		_waveStatusLabel->SetText(L"");
 
@@ -19,8 +19,8 @@ void TowerDefensePanel::Init()
 	{
 		_gameInfoLabel = new Label();
 		_gameInfoLabel->Init();
-		_gameInfoLabel->SetRect(Shape::MakeCenterRectLTWH(WIN_SIZE_X - 100, WIN_SIZE_Y - 200, 100, 100));
-		_gameInfoLabel->SetFont(L"¿µ´ö¹Ù´ÙÃ¼", 15);
+		_gameInfoLabel->SetRect(Shape::MakeCenterRectLTWH(WIN_SIZE_X / 2 - 100, -160, 200, 100));
+		_gameInfoLabel->SetFont(L"¿µ´ö¹Ù´ÙÃ¼", 20);
 		_gameInfoLabel->SetAlign(TA_RIGHT);
 		_gameInfoLabel->SetText(L"");
 
