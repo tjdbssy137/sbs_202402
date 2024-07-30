@@ -28,9 +28,6 @@ public:
 	int GetBehicleControllerIndex() { return _Index; }
 	Vector2Int GetInstallBehiclePos() { return _pos; }
 
-	//vector<Vector2Int> GetAlreadyInstallBehicle() {return _alreadyInstallBehicle; }
-	//void SetAlreadyInstallBehicle(vector<Vector2Int> temp) { _alreadyInstallBehicle = temp; }
-
 public:
 	void RemoveAlreadyInstallPos(Vector2Int pos);
 	void OnMouse();

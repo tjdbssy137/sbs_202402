@@ -139,7 +139,7 @@ void BehicleActor::LookAtTarget() // target을 바라보기
 	
 	Vector2 dirVec = _targetBoat->GetPos() - this->GetPos();
 
-	if (150 < dirVec.Length()) // 일정 거리 이상 넘어가면 포기
+	if (50 + _data.ColliderSize < dirVec.Length()) // 일정 거리 이상 넘어가면 포기
 	{
 		_targetBoat = nullptr;
 		_state = BehicleState::Idle;

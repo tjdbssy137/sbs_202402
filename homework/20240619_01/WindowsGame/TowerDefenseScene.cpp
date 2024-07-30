@@ -23,7 +23,7 @@
 #include "InstallSubmarinePanel.h"
 #include "ActionButtonsPanel.h"
 #include "TowerDefenseStartPanel.h"
-#include "GameStateController.h"
+#include "GameStatePanel.h"
 void TowerDefenseScene::Init()
 {
 	LoadResource();
@@ -132,9 +132,9 @@ void TowerDefenseScene::Init()
 	}
 
 	{
-		_gameStateController = new GameStateController();
-		_gameStateController->Init();
-		_gameStateController->Hide();
+		_gameStatePanel = new GameStatePanel();
+		_gameStatePanel->Init();
+		_gameStatePanel->Hide();
 	}
 	
 	this->SetCameraPos(Vector2(WIN_SIZE_X / 2, WIN_SIZE_Y / 2));
@@ -150,7 +150,7 @@ void TowerDefenseScene::Render(HDC hdc)
 	_installSubmarinePanel->Render(hdc);
 	_actionButtonsPanel->Render(hdc);
 	_towerDefenseStartPanel->Render(hdc);
-	_gameStateController->Render(hdc);
+	_gameStatePanel->Render(hdc);
 }
 void TowerDefenseScene::Update()
 {
@@ -175,8 +175,8 @@ void TowerDefenseScene::Update()
 
 	if (_isGameStart)
 	{
-		_gameStateController->Show();
-		_gameStateController->Update();
+		_gameStatePanel->Show();
+		_gameStatePanel->Update();
 	}
 
 	this->EnterEnemyCheck();
@@ -188,7 +188,7 @@ void TowerDefenseScene::Release()
 	_installSubmarinePanel->Release();
 	_actionButtonsPanel->Release();
 	_towerDefenseStartPanel->Release();
-	_gameStateController->Release();
+	_gameStatePanel->Release();
 }
 
 void TowerDefenseScene::EnterEnemyCheck()

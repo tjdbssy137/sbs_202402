@@ -2,7 +2,6 @@
 #include "FlipbookActor.h"
 #include "ITilemapActor.h"
 class CircleCollider;
-class Flipbook;
 class Sprite;
 class BulletActorController;
 
@@ -59,11 +58,10 @@ public:
 	void UpdateMove();
 	void UpdateIdle();
 	void SetActiveBoat();
+
 public:
 	void UpdateHpImage(float _tempHP);
 
-	void FinishedBoatState();
-	void DeathEffect();
 private:
 	BoatState _state = BoatState::Idle;
 	eDirection _dir = eDirection::DOWN;
@@ -84,11 +82,6 @@ private:
 	float _nextHp = 100.0f;
 	Sprite* _hpBackground = nullptr;
 	Sprite* _bpBar = nullptr;
-
-private:
-	Flipbook* _bomb = nullptr;
-	bool _die = false;
-	float _time = 0.6f;
 
 private:
 	BulletActorController* _bulletActorController = nullptr;

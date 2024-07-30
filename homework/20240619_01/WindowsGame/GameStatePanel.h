@@ -5,10 +5,10 @@ class Button;
 class Image;
 class TowerDefensePanel;
 
-class GameStateController : public Panel
+class GameStatePanel : public Panel
 {
 public:
-	DECLARE_CHILD(GameStateController, Panel);
+	DECLARE_CHILD(GameStatePanel, Panel);
 public:
 	virtual void Init() override;
 	virtual void Render(HDC hdc) override;

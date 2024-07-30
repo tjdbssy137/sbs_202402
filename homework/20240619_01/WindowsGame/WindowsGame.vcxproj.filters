@@ -259,7 +259,7 @@
     <ClInclude Include="GameEvent.h">
       <Filter>09.Event</Filter>
     </ClInclude>
-    <ClInclude Include="GameStateController.h">
+    <ClInclude Include="GameStatePanel.h">
       <Filter>06.UI\Game</Filter>
     </ClInclude>
     <ClInclude Include="TowerDefensePanel.h">
@@ -270,6 +270,9 @@
     </ClInclude>
     <ClInclude Include="UserDataManager.h">
       <Filter>01.Managers\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectActor.h">
+      <Filter>03.Objects\TowerDefense</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -526,7 +529,7 @@
     <ClCompile Include="GameEvent.cpp">
       <Filter>09.Event</Filter>
     </ClCompile>
-    <ClCompile Include="GameStateController.cpp">
+    <ClCompile Include="GameStatePanel.cpp">
       <Filter>06.UI\Game</Filter>
     </ClCompile>
     <ClCompile Include="TowerDefensePanel.cpp">
@@ -537,6 +540,9 @@
     </ClCompile>
     <ClCompile Include="UserDataManager.cpp">
       <Filter>01.Managers\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectActor.cpp">
+      <Filter>03.Objects\TowerDefense</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

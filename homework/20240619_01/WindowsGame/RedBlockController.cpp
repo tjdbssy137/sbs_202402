@@ -6,7 +6,7 @@
 #include "TilemapActor.h"
 #include "TowerDefenseScene.h"
 #include "BehicleActor.h"
-#include "GameStateController.h"
+#include "GameStatePanel.h"
 #include "TowerDefensePanel.h"
 
 void RedBlockController::SetLink(RedBlockActor* block)
@@ -150,8 +150,8 @@ void RedBlockController::CanInstallBehicle()
 				else if (46 <= tile->value && tile->value < 62) // 51이 물
 				{
 					TowerDefenseScene* towerDefenseScene = dynamic_cast<TowerDefenseScene*>(CurrentScene);
-					GameStateController* gameStateController = towerDefenseScene->GetGameStateController();
-					if (gameStateController->GetGameWaveState() == GameWaveState::Wave)
+					GameStatePanel* gameStatePanel = towerDefenseScene->GetGameStateController();
+					if (gameStatePanel->GetGameWaveState() == GameWaveState::Wave)
 					{
 						_mainPanel->SetText(L"적군이 나타나는 중에는 잠수함 설치가 불가합니다.");
 						_textTimer = 2.0f;

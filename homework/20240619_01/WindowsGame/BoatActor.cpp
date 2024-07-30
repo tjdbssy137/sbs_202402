@@ -4,7 +4,6 @@
 #include "TowerDefenseScene.h"
 #include "SpriteActor.h"
 #include "Sprite.h"
-#include "Flipbook.h"
 #include "Texture.h"
 #include "BulletActor.h"
 #include "BulletActorController.h"
@@ -27,9 +26,6 @@ void BoatActor::Init()
 	_hpBackground = Resource->GetSprite(L"S_HP_Background"); // HP 체력바 배경
 	_bpBar = Resource->GetSprite(L"S_HP_Bar"); // HP 체력바
 
-	// Bomb
-	_bomb = Resource->GetFlipbook(L"FB_Bomb"); // bomb
-	
 	{
 		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
 		_bulletActorController = towerDefenseScene->GetBulletActorController();
@@ -90,28 +86,6 @@ void BoatActor::Render(HDC hdc)
 		);
 	}
 
-	if(_die == true)
-	{
-		const FlipbookInfo& info = _bomb->GetInfo();
-		Vector2Int cameraPos = CurrentScene->GetCameraPos();
-		Vector2Int ScreenSizeHalf = Vector2Int(WIN_SIZE_X / 2, WIN_SIZE_Y / 2);
-		Vector2Int renderPos = Vector2Int(
-			static_cast<int>(_body.pos.x - info.size.x / 2 - cameraPos.x + ScreenSizeHalf.x),
-			static_cast<int>(_body.pos.y - info.size.y / 2 - cameraPos.y + ScreenSizeHalf.y)
-		);
-		::TransparentBlt(hdc,
-			renderPos.x,
-			renderPos.y,
-			info.size.x,
-			info.size.y,
-			info.texture->GetDC(),
-			_index * info.size.x, // index 값이 1, 2, 0만 작동 함.
-			info.line * info.size.y,
-			info.size.x,
-			info.size.y,
-			info.texture->GetTransparent()
-		);
-	}
 }
 void BoatActor::Update()
 {
@@ -129,15 +103,6 @@ void BoatActor::Update()
 		break;
 	case BoatState::Idle:
 		UpdateIdle();
-		break;
-	case BoatState::Goal:
-		FinishedBoatState();
-		break;
-	case BoatState::Die:
-		DeathEffect();
-		break;
-	case BoatState::None:
-		_time = 0.6f;
 		break;
 	default:
 		break;
@@ -171,32 +136,6 @@ void BoatActor::ChangeDirection(eDirection dir)
 
 	_dir = dir;
 	this->SetFlipbook(_moveFlipbook[_dir]);
-}
-
-void BoatActor::FinishedBoatState()
-{
-	this->SetCellPos({ 54, 25 }, true);
-	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
-	towerDefenseScene->GetGameWave()->PushBoatActor(this);
-	UserDatas->AddEnterEnemyCount();
-
-	// state 변경
-	_state = BoatState::None;
-}
-
-void BoatActor::DeathEffect()
-{
-	_die = true;
-	//_time -= Time->GetDeltaTime();
-	if (_index == 0)
-	{
-		_die = false;
-		this->SetCellPos({ 54, 25 }, true);
-		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
-		towerDefenseScene->GetGameWave()->PushBoatActor(this);
-		UserDatas->MakeGold(_data.Gold);
-		_state = BoatState::None;
-	}
 }
 
 void BoatActor::UpdateHpImage(float nextHp)
@@ -249,49 +188,45 @@ void BoatActor::UpdateMove()
 	}
 	else
 	{
-		Vector2 dirVec = _destPos - this->GetPos();
-		dirVec = dirVec.Normalize();
+		Vector2 dirVec = (_destPos - this->GetPos()).Normalize();
+
+		float angle = Vector2::SignedAngle(Vector2::Up(), dirVec);
+		eDirection direction = eDirection::UP;
+
+		if (-22.5f <= angle && angle < 22.5f)
+		{
+			direction = eDirection::UP;
+		}
+		else if (22.5 <= angle && angle < 67.5f)
+		{
+			direction = eDirection::UP_RIGHT;
+		}
+		else if (67.5f <= angle && angle < 112.5f)
+		{
+			direction = eDirection::RIGHT;
+		}
+		else if (112.5f <= angle && angle < 157.5f)
+		{
+			direction = eDirection::DOWN_RIGHT;
+		}
+		else if (157.5f <= angle || angle < -157.5f)
+		{
+			direction = eDirection::DOWN;
+		}
+		else if (-157.5f <= angle && angle < -112.5f)
+		{
+			direction = eDirection::DOWN_LEFT;
+		}
+		else if (-112.5f <= angle && angle < -67.5f)
+		{
+			direction = eDirection::LEFT;
+		}
+		else if (-67.5f <= angle && angle < -22.5f)
+		{
+			direction = eDirection::UP_LEFT;
+		}
+		this->ChangeDirection(direction);
 		_body.pos += dirVec * _data.MoveSpeed * Time->GetDeltaTime();
-
-		// 상하좌우에 따라 캐릭터 방향을 돌려줌.
-		Vector2 directions[4] = {
-			Vector2::Up(),            // UP
-			Vector2::Right(),         // RIGHT
-			Vector2::Down(),          // DOWN
-			Vector2::Left()          // LEFT
-		};
-
-		float dotValues[4];
-		for (int i = 0; i < 4; i++) {
-			dotValues[i] = dirVec.Dot(directions[i]);
-		}
-
-		// 최대 값 찾기
-		int maxIndex = 0;
-		float cos45 = cos(Deg2Rad(45));
-		for (int i = 0; i < 4; i++) {
-			if (cos45 < dotValues[i]) {
-				maxIndex = i;
-			}
-		}
-
-		// 방향 전환
-		switch (maxIndex) {
-		case 0:
-			this->ChangeDirection(eDirection::UP);
-			break;
-		case 1:
-			this->ChangeDirection(eDirection::RIGHT);
-			break;
-		case 2:
-			this->ChangeDirection(eDirection::DOWN);
-			break;
-		case 3:
-			this->ChangeDirection(eDirection::LEFT);
-			break;
-		default:
-			break;
-		}
 	}
 }
 

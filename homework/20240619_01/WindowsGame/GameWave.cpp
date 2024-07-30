@@ -40,7 +40,7 @@ void GameWave::Update()
 }
 void GameWave::SetWave()
 {
-	static float lastTick = ::GetTickCount64(); //모든 호출에서 공유
+	static float lastTick = ::GetTickCount64();
 	WaveData data = Datas->GetWaveData(_wave);
 
 	if (_boatType < data.BoatCount.size())

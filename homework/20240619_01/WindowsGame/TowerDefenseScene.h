@@ -22,7 +22,7 @@ class InstallPanel;
 class InstallSubmarinePanel;
 class ActionButtonsPanel;
 class TowerDefenseStartPanel;
-class GameStateController;
+class GameStatePanel;
 class TowerDefenseScene : public TilemapScene
 {
 	using Super = Scene;
@@ -52,10 +52,7 @@ public:
 	void SetBehicleActor(BehicleActor* behicles) { _behicles.push_back(behicles); }
 
 	//Panel
-	InstallPanel* GetInstallPanel() { return _installPanel; }
-	InstallSubmarinePanel* GetInstallSubmarinePanel() { return _installSubmarinePanel; }
-
-	GameStateController* GetGameStateController() { return _gameStateController; }
+	GameStatePanel* GetGameStateController() { return _gameStatePanel; }
 	
 	// Treasure
 	void EnterEnemyCheck();
@@ -80,7 +77,8 @@ private:
 	InstallSubmarinePanel* _installSubmarinePanel = nullptr;
 	ActionButtonsPanel* _actionButtonsPanel = nullptr;
 	TowerDefenseStartPanel* _towerDefenseStartPanel = nullptr;
-	GameStateController* _gameStateController = nullptr;
+	GameStatePanel* _gameStatePanel
+		= nullptr;
 	
 	// Treasure
 	SpriteActor* _treasure = nullptr;

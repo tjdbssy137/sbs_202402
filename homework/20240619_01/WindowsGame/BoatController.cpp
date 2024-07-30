@@ -1,12 +1,13 @@
 #include "pch.h"
 #include "BoatController.h"
 #include "BoatActor.h"
-#include "TilemapScene.h"
+#include "TowerDefenseScene.h"
 #include "Tilemap.h"
 #include "TilemapActor.h"
 #include "MapToolController.h"
-#include "TowerDefenseScene.h"
 #include <queue>
+#include "GameWave.h"
+#include "EffectActor.h"
 
 void BoatController::SetLink(BoatActor* boat)
 {
@@ -14,6 +15,11 @@ void BoatController::SetLink(BoatActor* boat)
 
 	_boat = boat;
 
+	// Effect
+	_effect = new EffectActor();
+	_effect->Init();
+	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+	towerDefenseScene->SpawnActor(_effect);
 }
 void BoatController::Update()
 {
@@ -24,6 +30,14 @@ void BoatController::Update()
 		break;
 	case BoatState::Move:
 		this->Arrive();
+		break;
+	case BoatState::Goal:
+		FinishedBoatState();
+		break;
+	case BoatState::Die:
+		DeathEffect();
+		break;
+	case BoatState::None:
 		break;
 	default:
 		break;
@@ -59,6 +73,30 @@ void BoatController::Arrive()
 		_boat->SetState(BoatState::Goal);
 		// 목적지에 도착하면 이 액터의 위치를 다시 시작 지점으로 재설정.
 	}
+}
+
+void BoatController::FinishedBoatState()
+{
+	_boat->SetCellPos({ 54, 25 }, true);
+	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+	towerDefenseScene->GetGameWave()->PushBoatActor(_boat);
+	UserDatas->AddEnterEnemyCount();
+
+	// state 변경
+	_boat->SetState(BoatState::None);
+}
+
+void BoatController::DeathEffect()
+{
+	_effect->SetPos(_boat->GetPos());
+	_effect->OnEffect(0.6f);
+
+	_boat->SetCellPos({ 54, 25 }, true);
+	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+	towerDefenseScene->GetGameWave()->PushBoatActor(_boat);
+	UserDatas->MakeGold(_boat->GetBoatData().Gold);
+
+	_boat->SetState(BoatState::None);
 }
 
 vector<Vector2Int> BoatController::Calculator_Astar(Vector2Int startPos, Vector2Int endPos)

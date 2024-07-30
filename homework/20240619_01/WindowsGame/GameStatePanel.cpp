@@ -1,11 +1,11 @@
 #include "pch.h"
-#include "GameStateController.h"
+#include "GameStatePanel.h"
 #include "Image.h"
 #include "Button.h"
 #include "TowerDefensePanel.h"
 #include "TowerDefenseScene.h"
 
-void GameStateController::Init()
+void GameStatePanel::Init()
 {
 	Super::Init();
 	this->LoadResource();
@@ -25,7 +25,7 @@ void GameStateController::Init()
 		InstallButton->SetSprite(ButtonState::Hover, Resource->GetSprite(L"S_InstallButton_Hover"));
 		InstallButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_InstallButton_Pressed"));
 		InstallButton->SetSprite(ButtonState::Disabled, Resource->GetSprite(L"S_InstallButton_Default"));
-		InstallButton->AddOnClickDelegate(this, &GameStateController::OnClick_GoToInstall);
+		InstallButton->AddOnClickDelegate(this, &GameStatePanel::OnClick_GoToInstall);
 		InstallButton->SetState(ButtonState::Disabled);
 		InstallButton->Init();
 		iconListPanel->AddChild(InstallButton);
@@ -38,7 +38,7 @@ void GameStateController::Init()
 		_nextWaveButton->SetSprite(ButtonState::Hover, Resource->GetSprite(L"S_NextWaveButton_Hover"));
 		_nextWaveButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_NextWaveButton_Pressed"));
 		_nextWaveButton->SetSprite(ButtonState::Disabled, Resource->GetSprite(L"S_NextWaveButton_Default"));
-		_nextWaveButton->AddOnClickDelegate(this, &GameStateController::OnClick_GoToNextWave);
+		_nextWaveButton->AddOnClickDelegate(this, &GameStatePanel::OnClick_GoToNextWave);
 		_nextWaveButton->SetState(ButtonState::Disabled);
 		_nextWaveButton->Init();
 		iconListPanel->AddChild(_nextWaveButton);
@@ -61,14 +61,14 @@ void GameStateController::Init()
 	// Add Event
 	Events->AddEvent("SetPanelState_GameStateController", new GameEvent<ePanelState>());
 	Events->GetEvent<ePanelState>("SetPanelState_GameStateController")
-		->AddListen(this, &GameStateController::SetState);
+		->AddListen(this, &GameStatePanel::SetState);
 }
-void GameStateController::Render(HDC hdc)
+void GameStatePanel::Render(HDC hdc)
 {
 	Super::Render(hdc);
 }
 
-void GameStateController::Update()
+void GameStatePanel::Update()
 {
 	Super::Update();
 
@@ -104,12 +104,12 @@ void GameStateController::Update()
 	_mainPanel->SetGameInfoText(wstring(str));
 }
 
-void GameStateController::Release()
+void GameStatePanel::Release()
 {
 	Super::Release();
 }
 
-void GameStateController::OnClick_GoToNextWave()
+void GameStatePanel::OnClick_GoToNextWave()
 {
 	_state = GameWaveState::Wave;	
 	GameEvent<GameWaveState>* gameEvent = Events->GetEvent<GameWaveState>("SetGameWaveState");
@@ -118,13 +118,13 @@ void GameStateController::OnClick_GoToNextWave()
 	_panelState = ePanelState::HIDE;
 }
 
-void GameStateController::OnClick_GoToInstall()
+void GameStatePanel::OnClick_GoToInstall()
 {
 	GameEvent<>* gameEvent = Events->GetEvent<>("OnMouse");
 	gameEvent->Invoke();
 }
 
-void GameStateController::LoadResource()
+void GameStatePanel::LoadResource()
 {
 	auto nextWave = Resource->GetTexture(L"T_Buttons2");
 	Resource->CreateSprite(L"S_NextWaveButton_Default", nextWave, 120, 0, 60, 60);
