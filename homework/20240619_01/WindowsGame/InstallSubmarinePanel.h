@@ -15,6 +15,8 @@ public:
 public:
 	void LoadResource();
 	void OnClick_GoToInstallSubmarine();
+	void OnHover_GoToInstallSubmarine();
+
 	void SetState(ePanelState state) { _state = state; }
 	bool Check_Astar(Vector2Int startPos, Vector2Int endPos, Vector2Int SubmarinePos);
 

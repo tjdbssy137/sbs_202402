@@ -35,6 +35,7 @@ void InstallPanel::Init()
 			drillButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_DrillTank1_Pressed"));
 			drillButton->SetSprite(ButtonState::Disabled, Resource->GetSprite(L"S_DrillTank1_Disabled"));
 			drillButton->AddOnClickDelegate(this, &InstallPanel::OnClick_GoToInstallDrill);
+			drillButton->AddOnHoverDelegate(this, &InstallPanel::OnHover_GoToInstallDrill);
 			drillButton->Init();
 			iconListPanel->AddChild(drillButton);
 			_buttons.push_back(drillButton);
@@ -48,6 +49,7 @@ void InstallPanel::Init()
 			tankButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_Tank1_Pressed"));
 			tankButton->SetSprite(ButtonState::Disabled, Resource->GetSprite(L"S_Tank1_Disabled"));
 			tankButton->AddOnClickDelegate(this, &InstallPanel::OnClick_GoToInstallTank);
+			tankButton->AddOnHoverDelegate(this, &InstallPanel::OnHover_GoToInstallTank);
 			tankButton->Init();
 			iconListPanel->AddChild(tankButton);
 			_buttons.push_back(tankButton);
@@ -109,6 +111,17 @@ void InstallPanel::OnClick_GoToInstallTank()
 {
 	this->InstallingBehicle(Datas->GetBehicleData(4)); // Tank1
 	this->Hide();
+}
+
+void InstallPanel::OnHover_GoToInstallDrill()
+{
+	GameEvent<BehicleData, float>* geInstallInfo = Events->GetEvent<BehicleData, float>("InstallInfo");
+	geInstallInfo->Invoke(Datas->GetBehicleData(1), 0.8f);
+}
+void InstallPanel::OnHover_GoToInstallTank()
+{
+	GameEvent<BehicleData, float>* geInstallInfo = Events->GetEvent<BehicleData, float>("InstallInfo");
+	geInstallInfo->Invoke(Datas->GetBehicleData(4), 0.8f);
 }
 void InstallPanel::InstallingBehicle(BehicleData data)
 {

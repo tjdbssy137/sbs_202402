@@ -18,6 +18,10 @@ public:
 public:
 	void OnClick_GoToInstallDrill();
 	void OnClick_GoToInstallTank();
+
+	void OnHover_GoToInstallDrill();
+	void OnHover_GoToInstallTank();
+
 	void SetState(ePanelState state) { _state = state; }
 
 private:

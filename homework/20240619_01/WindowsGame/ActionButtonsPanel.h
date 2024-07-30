@@ -15,6 +15,8 @@ private:
 	void LoadResource();
 	void OnClick_GoToUpgrade();
 	void OnClick_GoToDelete();
+	void OnHover_GoToUpgrade();
+	void OnHover_GoToDelete();
 public:
 	void SetState(ePanelState state) { _state = state; }
 private:

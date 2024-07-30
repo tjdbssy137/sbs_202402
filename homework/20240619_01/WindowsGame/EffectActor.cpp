@@ -4,6 +4,8 @@
 void EffectActor::Init()
 {
 	Super::Init();
+	this->SetPos({10000, 10000});
+	this->SetFlipbook(Resource->GetFlipbook(_effect));
 }
 void EffectActor::Update()
 {
@@ -38,7 +40,6 @@ void EffectActor::Release()
 }
 void EffectActor::OnEffect(float time)
 {
-	this->SetFlipbook(Resource->GetFlipbook(_effect));
 	this->_index = 0;
 	_time = time;
 	_state = EffectState::Start;

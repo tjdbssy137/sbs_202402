@@ -28,6 +28,7 @@ void ActionButtonsPanel::Init()
 			UpgradeButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_Upgrade_Pressed"));
 			UpgradeButton->SetSprite(ButtonState::Disabled, Resource->GetSprite(L"S_Upgrade_Disabled"));
 			UpgradeButton->AddOnClickDelegate(this, &ActionButtonsPanel::OnClick_GoToUpgrade);
+			UpgradeButton->AddOnHoverDelegate(this, &ActionButtonsPanel::OnHover_GoToUpgrade);
 			UpgradeButton->SetState(ButtonState::Disabled);
 			UpgradeButton->Init();
 			iconListPanel->AddChild(UpgradeButton);
@@ -42,6 +43,7 @@ void ActionButtonsPanel::Init()
 			DeleteButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_Delete_Pressed"));
 			DeleteButton->SetSprite(ButtonState::Disabled, Resource->GetSprite(L"S_Delete_Disabled"));
 			DeleteButton->AddOnClickDelegate(this, &ActionButtonsPanel::OnClick_GoToDelete);
+			DeleteButton->AddOnHoverDelegate(this, &ActionButtonsPanel::OnHover_GoToDelete);
 			DeleteButton->SetState(ButtonState::Disabled);
 			DeleteButton->Init();
 			iconListPanel->AddChild(DeleteButton);
@@ -102,7 +104,7 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 	int index = redBlockController->GetBehicleControllerIndex();
 	
 	BehicleData data = behicleController[index]->GetBehicleData();
-	
+
 	if (data.Id == Datas->GetBehicleData(7).Id) // 잠수함일 경우 업그레이드 안 됨.
 	{
 		// 업데이트가 안된다는 문구 삽입
@@ -130,6 +132,7 @@ void ActionButtonsPanel::OnClick_GoToDelete()
 	vector<BehicleController*> behicleController = towerDefenseScene->GetBehicleController();
 	
 	int index = redBlockController->GetBehicleControllerIndex();
+	
 	Vector2Int pos = redBlockController->GetInstallBehiclePos();
 
 	GameEvent<Vector2Int>* gameEvent = Events->GetEvent<Vector2Int>("RemoveInstallPos");
@@ -141,7 +144,30 @@ void ActionButtonsPanel::OnClick_GoToDelete()
 	_state = ePanelState::HIDE;
 	this->Hide();
 }
+void ActionButtonsPanel::OnHover_GoToUpgrade()
+{
+	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+	RedBlockController* redBlockController = towerDefenseScene->GetRedBlockController();
+	vector<BehicleController*> behicleController = towerDefenseScene->GetBehicleController();
 
+	int index = redBlockController->GetBehicleControllerIndex();
+	BehicleData data = behicleController[index]->GetBehicleData();
+
+	GameEvent<BehicleData, float>* geUpgrade = Events->GetEvent<BehicleData, float>("UpgradeInfo");
+	geUpgrade->Invoke(data, 1);
+}
+void ActionButtonsPanel::OnHover_GoToDelete()
+{
+	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
+	RedBlockController* redBlockController = towerDefenseScene->GetRedBlockController();
+	vector<BehicleController*> behicleController = towerDefenseScene->GetBehicleController();
+
+	int index = redBlockController->GetBehicleControllerIndex();
+	BehicleData data = behicleController[index]->GetBehicleData();
+
+	GameEvent<BehicleData, float>* geDeleteInfo = Events->GetEvent<BehicleData, float>("DeleteInfo");
+	geDeleteInfo->Invoke(data, 1);
+}
 void ActionButtonsPanel::LoadResource()
 {
 	auto a = Resource->GetTexture(L"T_Buttons");

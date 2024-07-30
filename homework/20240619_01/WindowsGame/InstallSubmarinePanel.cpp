@@ -37,6 +37,7 @@ void InstallSubmarinePanel::Init()
 			submarineButton->SetSprite(ButtonState::Pressed, Resource->GetSprite(L"S_Submarine_Pressed"));
 			submarineButton->SetSprite(ButtonState::Disabled, Resource->GetSprite(L"S_Submarine_Disabled"));
 			submarineButton->AddOnClickDelegate(this, &InstallSubmarinePanel::OnClick_GoToInstallSubmarine);
+			submarineButton->AddOnHoverDelegate(this, &InstallSubmarinePanel::OnHover_GoToInstallSubmarine);
 			submarineButton->Init();
 			iconListPanel->AddChild(submarineButton);
 			_buttons.push_back(submarineButton);
@@ -132,6 +133,12 @@ void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 
 	_state = ePanelState::HIDE;
 	this->Hide();
+}
+
+void InstallSubmarinePanel::OnHover_GoToInstallSubmarine()
+{
+	GameEvent<BehicleData, float>* geInstallInfo = Events->GetEvent<BehicleData, float>("InstallInfo");
+	geInstallInfo->Invoke(Datas->GetBehicleData(7), 0.8f);
 }
 
 bool InstallSubmarinePanel::Check_Astar(Vector2Int startPos, Vector2Int endPos, Vector2Int SubmarinePos)

@@ -36,6 +36,12 @@ public:
 		_onClick = bind(func, owner);
 	}
 
+	template<typename T>
+	void AddOnHoverDelegate(T* owner, void (T::* func)())
+	{
+		_onHover = bind(func, owner);
+	}
+
 protected:
 	//버튼을 구성하는 요소
 	Sprite* _sprites[(int)ButtonState::End] = {};

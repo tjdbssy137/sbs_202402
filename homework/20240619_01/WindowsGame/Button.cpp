@@ -63,17 +63,21 @@ void Button::Update()
 			{
 				//딱 지금 클릭 했을 때 동작
 				//웹페이지 이동 등등
-				cout << "CLICK!!" << endl;
+				//cout << "CLICK!!" << endl;
 				// 새로운 문법 : 함수 포인터
 
 				if (_onClick != nullptr)
 				{
 					_onClick();
-					//Dev1Scene으로 넘어가도록 수정
-					cout << "OnClick" << endl;
+					//cout << "OnClick" << endl;
 				}
 			}
 			this->SetState(ButtonState::Hover);
+			if (_onHover != nullptr)
+			{
+				_onHover();
+				//cout << "OnHover" << endl;
+			}
 		}
 	}
 	else
