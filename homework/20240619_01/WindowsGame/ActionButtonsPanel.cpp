@@ -118,6 +118,9 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 	}
 	else // 돈이 없다면 사용한 위치값 반환
 	{
+		GameEvent<wstring, float>* geTimerText = Events->GetEvent<wstring, float>("TimerText");
+		geTimerText->Invoke(L"돈이 충분하지 않습니다.", 0.6f);
+
 		Vector2Int pos = redBlockController->GetInstallBehiclePos();
 		GameEvent<Vector2Int>* gameEvent = Events->GetEvent<Vector2Int>("RemoveInstallPos");
 		gameEvent->Invoke(pos);
@@ -154,7 +157,7 @@ void ActionButtonsPanel::OnHover_GoToUpgrade()
 	BehicleData data = behicleController[index]->GetBehicleData();
 
 	GameEvent<BehicleData, float>* geUpgrade = Events->GetEvent<BehicleData, float>("UpgradeInfo");
-	geUpgrade->Invoke(data, 1);
+	geUpgrade->Invoke(data, 0.6f);
 }
 void ActionButtonsPanel::OnHover_GoToDelete()
 {
@@ -166,7 +169,7 @@ void ActionButtonsPanel::OnHover_GoToDelete()
 	BehicleData data = behicleController[index]->GetBehicleData();
 
 	GameEvent<BehicleData, float>* geDeleteInfo = Events->GetEvent<BehicleData, float>("DeleteInfo");
-	geDeleteInfo->Invoke(data, 1);
+	geDeleteInfo->Invoke(data, 0.6f);
 }
 void ActionButtonsPanel::LoadResource()
 {

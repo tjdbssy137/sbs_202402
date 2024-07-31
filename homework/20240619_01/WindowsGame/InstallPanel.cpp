@@ -116,12 +116,12 @@ void InstallPanel::OnClick_GoToInstallTank()
 void InstallPanel::OnHover_GoToInstallDrill()
 {
 	GameEvent<BehicleData, float>* geInstallInfo = Events->GetEvent<BehicleData, float>("InstallInfo");
-	geInstallInfo->Invoke(Datas->GetBehicleData(1), 0.8f);
+	geInstallInfo->Invoke(Datas->GetBehicleData(1), 0.6f);
 }
 void InstallPanel::OnHover_GoToInstallTank()
 {
 	GameEvent<BehicleData, float>* geInstallInfo = Events->GetEvent<BehicleData, float>("InstallInfo");
-	geInstallInfo->Invoke(Datas->GetBehicleData(4), 0.8f);
+	geInstallInfo->Invoke(Datas->GetBehicleData(4), 0.6f);
 }
 void InstallPanel::InstallingBehicle(BehicleData data)
 {
@@ -148,6 +148,9 @@ void InstallPanel::InstallingBehicle(BehicleData data)
 	}
 	else
 	{
+		GameEvent<wstring, float>* geTimerText = Events->GetEvent<wstring, float>("TimerText");
+		geTimerText->Invoke(L"돈이 충분하지 않습니다.", 0.6f);
+
 		GameEvent<Vector2Int>* gameEvent = Events->GetEvent<Vector2Int>("RemoveInstallPos");
 		gameEvent->Invoke(pos);
 	}

@@ -38,21 +38,33 @@ void TowerDefensePanel::Init()
 		this->AddChild(_infoLabel);
 	}
 
+	{
+		_timerLabel = new Label();
+		_timerLabel->Init();
+		_timerLabel->SetRect(Shape::MakeCenterRect(WIN_SIZE_X / 2, WIN_SIZE_Y / 2, 300, 50));
+		_timerLabel->SetFont(L"영덕바다체", 18);
+		_timerLabel->SetAlign(TA_CENTER);
+		_timerLabel->SetText(L"");
+
+		this->AddChild(_timerLabel);
+	}
+
 	// Add Event
 	Events->AddEvent("InstallInfo", new GameEvent<BehicleData, float>());
 	Events->GetEvent<BehicleData, float>("InstallInfo")
 		->AddListen(this, &TowerDefensePanel::SetInstallInfoText);
 
-	// Add Event
 	Events->AddEvent("UpgradeInfo", new GameEvent<BehicleData, float>());
 	Events->GetEvent<BehicleData, float>("UpgradeInfo")
 		->AddListen(this, &TowerDefensePanel::SetUpgradeInfoText);
 
-	// Add Event
 	Events->AddEvent("DeleteInfo", new GameEvent<BehicleData, float>());
 	Events->GetEvent<BehicleData, float>("DeleteInfo")
 		->AddListen(this, &TowerDefensePanel::SetDeleteInfoText);
 
+	Events->AddEvent("TimerText", new GameEvent<wstring, float>());
+	Events->GetEvent<wstring, float>("TimerText")
+		->AddListen(this, &TowerDefensePanel::SetTimerText);
 }
 void TowerDefensePanel::Render(HDC hdc)
 {
@@ -67,7 +79,17 @@ void TowerDefensePanel::Update()
 		_textTimer -= Time->GetDeltaTime();
 		if (_textTimer <= 0)
 		{
-			_label->SetText(L"");
+			_infoLabel->SetText(L"");
+		}
+	}
+
+	if (0 < _textLabelTimer)
+	{
+		_infoLabel->SetText(L"");
+		_textLabelTimer -= Time->GetDeltaTime();
+		if (_textLabelTimer <= 0)
+		{
+			_timerLabel->SetText(L"");
 		}
 	}
 }
@@ -92,8 +114,8 @@ void TowerDefensePanel::SetInstallInfoText(BehicleData data, float textTimer)
 	if (data.Id != 7)
 	{
 		wchar_t str[50];
-		swprintf_s(str, L"Gold %d | Attack Time %.f | Speed %.f", // \n하고 싶은데 안 됨
-			data.InstallGold, data.AttackTime, data.BulletSpeed);
+		swprintf_s(str, L"Gold %d | Attack Cooldown %.f | Damage %.f", // \n하고 싶은데 안 됨
+			data.InstallGold, data.AttackTime, data.BulletDamage);
 		_infoLabel->SetText(wstring(str));
 	}
 	else
@@ -103,17 +125,16 @@ void TowerDefensePanel::SetInstallInfoText(BehicleData data, float textTimer)
 			data.InstallGold);
 		_infoLabel->SetText(wstring(str));
 		}
-	_label = _infoLabel;
 }
 
 void TowerDefensePanel::SetUpgradeInfoText(BehicleData data, float textTimer)
 {
 	_textTimer = textTimer;
-	if (data.Id != 7)
+	if (data.Id < 7)
 	{
 		wchar_t str[50];
-		swprintf_s(str, L"Gold %d | Attack Time %.f | Speed %.f",
-			data.UpgradeGold, data.AttackTime, data.BulletSpeed);
+		swprintf_s(str, L"Gold %d | Attack Cooldown %.f | Damage %.f",
+			data.UpgradeGold, data.AttackTime, data.BulletDamage);
 		_infoLabel->SetText(wstring(str));
 	}
 	else
@@ -122,16 +143,20 @@ void TowerDefensePanel::SetUpgradeInfoText(BehicleData data, float textTimer)
 		swprintf_s(str, L"업그레이드 불가");
 		_infoLabel->SetText(wstring(str));
 	}
-	_label = _infoLabel;
 }
 
 void TowerDefensePanel::SetDeleteInfoText(BehicleData data, float textTimer)
 {
+	_textTimer = textTimer;
+
 	wchar_t str[20];
 	swprintf_s(str, L"Gold %d",
 		data.RefundGold);
 	_infoLabel->SetText(wstring(str));
+}
 
-	_textTimer = textTimer;
-	_label = _infoLabel;
+void TowerDefensePanel::SetTimerText(wstring text, float textTimer)
+{
+	_textLabelTimer = textTimer;
+	_timerLabel->SetText(text);
 }

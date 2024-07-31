@@ -127,6 +127,9 @@ void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 	}
 	else
 	{
+		GameEvent<wstring, float>* geTimerText = Events->GetEvent<wstring, float>("TimerText");
+		geTimerText->Invoke(L"돈이 충분하지 않습니다.", 0.6f);
+
 		GameEvent<Vector2Int>* gameEvent = Events->GetEvent<Vector2Int>("RemoveInstallPos");
 		gameEvent->Invoke(pos);
 	}
@@ -138,7 +141,7 @@ void InstallSubmarinePanel::OnClick_GoToInstallSubmarine()
 void InstallSubmarinePanel::OnHover_GoToInstallSubmarine()
 {
 	GameEvent<BehicleData, float>* geInstallInfo = Events->GetEvent<BehicleData, float>("InstallInfo");
-	geInstallInfo->Invoke(Datas->GetBehicleData(7), 0.8f);
+	geInstallInfo->Invoke(Datas->GetBehicleData(7), 0.6f);
 }
 
 bool InstallSubmarinePanel::Check_Astar(Vector2Int startPos, Vector2Int endPos, Vector2Int SubmarinePos)

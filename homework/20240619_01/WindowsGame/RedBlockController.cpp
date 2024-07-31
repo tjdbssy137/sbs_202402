@@ -7,17 +7,11 @@
 #include "TowerDefenseScene.h"
 #include "BehicleActor.h"
 #include "GameStatePanel.h"
-#include "TowerDefensePanel.h"
 
 void RedBlockController::SetLink(RedBlockActor* block)
 {
 	assert(block != nullptr);
 	_block = block;
-
-	_mainPanel = new TowerDefensePanel();
-	_mainPanel->Init();
-
-	CurrentScene->AddUI(_mainPanel);
 
 	// Add Event
 	Events->AddEvent("RemoveInstallPos", new GameEvent<Vector2Int>());
@@ -55,13 +49,6 @@ void RedBlockController::Update()
 			RemoveAlreadyInstallPos(_pos);
 		}
 		this->OffMouse();
-	}
-
-	// 문장 초기화
-	_textTimer -= Time->GetDeltaTime();
-	if (_textTimer <= 0)
-	{
-		_mainPanel->SetText(L"");
 	}
 
 	switch (_mouseState)
@@ -153,8 +140,8 @@ void RedBlockController::CanInstallBehicle()
 					GameStatePanel* gameStatePanel = towerDefenseScene->GetGameStateController();
 					if (gameStatePanel->GetGameWaveState() == GameWaveState::Wave)
 					{
-						_mainPanel->SetText(L"적군이 나타나는 중에는 잠수함 설치가 불가합니다.");
-						_textTimer = 2.0f;
+						GameEvent<wstring, float>* geTimerText = Events->GetEvent<wstring, float>("TimerText");
+						geTimerText->Invoke(L"적군이 나타나는 중에는 잠수함 설치가 불가합니다.", 1.5f);
 					}
 					else
 					{

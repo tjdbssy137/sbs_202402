@@ -1,7 +1,6 @@
 #pragma once
 #include "RedBlockActor.h"
 class BehicleActor;
-class TowerDefensePanel;
 enum class MouseState
 {
 	Move,
@@ -38,9 +37,5 @@ private:
 private:
 	vector<Vector2Int> _alreadyInstallBehicle = {};
 	int _Index = 0;
-private:
-	TowerDefensePanel* _mainPanel = nullptr;
-	float _textTimer = 2.0f;
-
 };
 
