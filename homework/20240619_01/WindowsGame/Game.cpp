@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Game.h"
 
-
 Game::Game()
 {
 
@@ -13,7 +12,6 @@ Game::~Game()
 	Datas->Release();
 	UserDatas->Release();
 }
-
 
 void Game::Init(HWND hwnd)
 {
@@ -28,6 +26,7 @@ void Game::Init(HWND hwnd)
 	HBITMAP prev = (HBITMAP)::SelectObject(_hdcBack, _bmpBack);	//_hdcBack¿¡ _bmp ¿¬°á
 	::DeleteObject(prev);
 
+	SetBkMode(_hdcBack, TRANSPARENT); // ±Û¾¾ µÚÀÇ ÇÏ¾á»ö ¹è°æ
 
 	//½Ì±ÛÅæ ÃÊ±âÈ­
 	Events->Init();

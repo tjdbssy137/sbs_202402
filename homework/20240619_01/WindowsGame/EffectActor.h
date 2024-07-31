@@ -1,6 +1,5 @@
 #pragma once
 #include "FlipbookActor.h"
-
 enum class EffectState
 {
 	Start,
@@ -24,6 +23,7 @@ public:
 private:
 	EffectState _state = EffectState::None;
 	wstring _effect = L"FB_Bomb";
+	Flipbook* _flipbook = nullptr;
 	float _time = 0;
 };
 

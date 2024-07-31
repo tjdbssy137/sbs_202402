@@ -58,7 +58,7 @@ private:
 
 private:
 	CircleCollider* _collider = nullptr;
-	float _time = 1.0f;
+	float _time;
 	vector<BoatActor*> _boats;
 	BoatActor* _targetBoat = nullptr;
 	BulletActorController* _bulletActorController = nullptr;

@@ -14,9 +14,8 @@ BulletActor* BulletActorController::PopBullet()
 	{
 		BulletActor* bullet = new BulletActor();
 		bullet->SetLayer(LayerType::Object);
-		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
 		bullet->Init();
-		towerDefenseScene->SpawnActor(bullet);
+		CurrentScene->SpawnActor(bullet);
 		return bullet;
 	}
 	BulletActor* bullet = new BulletActor();

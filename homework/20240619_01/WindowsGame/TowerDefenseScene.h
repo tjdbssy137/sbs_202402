@@ -77,8 +77,7 @@ private:
 	InstallSubmarinePanel* _installSubmarinePanel = nullptr;
 	ActionButtonsPanel* _actionButtonsPanel = nullptr;
 	TowerDefenseStartPanel* _towerDefenseStartPanel = nullptr;
-	GameStatePanel* _gameStatePanel
-		= nullptr;
+	GameStatePanel* _gameStatePanel	= nullptr;
 	
 	// Treasure
 	SpriteActor* _treasure = nullptr;

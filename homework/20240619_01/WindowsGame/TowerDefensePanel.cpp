@@ -20,7 +20,7 @@ void TowerDefensePanel::Init()
 		_gameInfoLabel = new Label();
 		_gameInfoLabel->Init();
 		_gameInfoLabel->SetRect(Shape::MakeCenterRectLTWH(20, WIN_SIZE_X / 2 - 600, 200, 100));
-		_gameInfoLabel->SetFont(L"¿µ´ö¹Ù´ÙÃ¼", 20);
+		_gameInfoLabel->SetFont(L"¿µ´ö¹Ù´ÙÃ¼", 30);
 		_gameInfoLabel->SetAlign(TA_LEFT);
 		_gameInfoLabel->SetText(L"");
 
@@ -31,7 +31,7 @@ void TowerDefensePanel::Init()
 		_infoLabel = new Label();
 		_infoLabel->Init();
 		_infoLabel->SetRect(Shape::MakeCenterRectLTWH(WIN_SIZE_X / 2 + 450, WIN_SIZE_Y / 2, 200, 300));
-		_infoLabel->SetFont(L"¿µ´ö¹Ù´ÙÃ¼", 15);
+		_infoLabel->SetFont(L"¿µ´ö¹Ù´ÙÃ¼", 25);
 		_infoLabel->SetAlign(TA_CENTER);
 		_infoLabel->SetText(L"");
 
@@ -42,7 +42,7 @@ void TowerDefensePanel::Init()
 		_timerLabel = new Label();
 		_timerLabel->Init();
 		_timerLabel->SetRect(Shape::MakeCenterRect(WIN_SIZE_X / 2, WIN_SIZE_Y / 2, 300, 50));
-		_timerLabel->SetFont(L"¿µ´ö¹Ù´ÙÃ¼", 18);
+		_timerLabel->SetFont(L"¿µ´ö¹Ù´ÙÃ¼", 25);
 		_timerLabel->SetAlign(TA_CENTER);
 		_timerLabel->SetText(L"");
 
@@ -114,8 +114,8 @@ void TowerDefensePanel::SetInstallInfoText(BehicleData data, float textTimer)
 	if (data.Id != 7)
 	{
 		wchar_t str[50];
-		swprintf_s(str, L"Gold %d | Attack Cooldown %.f | Damage %.f", // \nÇÏ°í ½ÍÀºµ¥ ¾È µÊ
-			data.InstallGold, data.AttackTime, data.BulletDamage);
+		swprintf_s(str, L"Gold %d | Attack Speed %.f | Damage %.f", // \n°¡ ¾È µÊ
+			data.InstallGold, data.BulletSpeed, data.BulletDamage);
 		_infoLabel->SetText(wstring(str));
 	}
 	else
@@ -133,8 +133,8 @@ void TowerDefensePanel::SetUpgradeInfoText(BehicleData data, float textTimer)
 	if (data.Id < 7)
 	{
 		wchar_t str[50];
-		swprintf_s(str, L"Gold %d | Attack Cooldown %.f | Damage %.f",
-			data.UpgradeGold, data.AttackTime, data.BulletDamage);
+		swprintf_s(str, L"Gold %d | Attack Speed %.f | Damage %.f",
+			data.UpgradeGold, data.BulletSpeed, data.BulletDamage);
 		_infoLabel->SetText(wstring(str));
 	}
 	else

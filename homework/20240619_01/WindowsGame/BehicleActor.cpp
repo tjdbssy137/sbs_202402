@@ -77,7 +77,7 @@ void BehicleActor::SetActiveBehicle()
 	else
 	{
 		_collider->SetCollision(Vector2::Zero(), _data.ColliderSize); // 여기서 nullptr값이 됨.
-		_time = _data.AttackTime;
+		//_time = _data.AttackTime; // 처음엔 딜레이 없이 바로 공격
 	}
 }
 
@@ -112,7 +112,7 @@ void BehicleActor::UpdateIdle()
 			}
 			else
 			{
-				_state = BehicleState::Submarine;
+				_state = BehicleState::Submarine; //return;
 			}
 		}
 	};
@@ -139,7 +139,7 @@ void BehicleActor::LookAtTarget() // target을 바라보기
 	
 	Vector2 dirVec = _targetBoat->GetPos() - this->GetPos();
 
-	if (50 + _data.ColliderSize < dirVec.Length()) // 일정 거리 이상 넘어가면 포기
+	if (50 + (_data.ColliderSize * _data.ColliderSize) < dirVec.LengthSqrt()) // 일정 거리 이상 넘어가면 포기
 	{
 		_targetBoat = nullptr;
 		_state = BehicleState::Idle;
@@ -193,9 +193,8 @@ void BehicleActor::UseBullet()
 		BulletActor* bullet = new BulletActor();
 		bullet->SetLayer(LayerType::Object);
 		bullet->SetPos(this->GetPos());
-		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
 		bullet->Init();
-		towerDefenseScene->SpawnActor(bullet);
+		CurrentScene->SpawnActor(bullet);
 		bullet->SetBulletDamage(_data.BulletDamage);
 		bullet->SetBulletSpeed(_data.BulletSpeed);
 

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EffectActor.h"
+#include "Flipbook.h"
 
 void EffectActor::Init()
 {
@@ -10,6 +11,12 @@ void EffectActor::Init()
 void EffectActor::Update()
 {
 	Super::Update();
+
+	const FlipbookInfo& info = _flipbook->GetInfo();
+	{
+
+	}
+
 	switch (_state)
 	{
 	case EffectState::Start:

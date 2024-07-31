@@ -233,7 +233,7 @@ void BoatActor::UpdateMove()
 void BoatActor::OnTriggerEnter(Collider* collider, Collider* other)
 {
 	Super::OnTriggerEnter(collider, other);
-
+	// triggerEnter 말고 거리로 충돌을 판단하는 것도 ㄱㅊㄱㅊ을 듯.
 	if (other->GetOwner()->GetName() == "bullet")//bullet
 	{
 		BulletActor* behicleBullet = dynamic_cast<BulletActor*>(other->GetOwner());
