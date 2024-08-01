@@ -199,7 +199,8 @@ void BehicleActor::UseBullet()
 		bullet->SetBulletSpeed(_data.BulletSpeed);
 
 		bullet->SetATarget(_targetBoat);
-		_bulletActorController->PushBullet(bullet);
+		GameEvent<BulletActor*>* gePushBullet = Events->GetEvent<BulletActor*>("PushBullet");
+		gePushBullet->Invoke(bullet);
 	}
 	else
 	{
@@ -210,7 +211,6 @@ void BehicleActor::UseBullet()
 		bullet->SetATarget(_targetBoat);
 	}
 	_state = BehicleState::Idle;
-	
 }
 
 void BehicleActor::SetCellPos(Vector2Int cellPos, bool teleport)

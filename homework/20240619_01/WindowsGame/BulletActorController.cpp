@@ -4,9 +4,17 @@
 #include "BulletActor.h"
 #include "TowerDefenseScene.h"
 
+void BulletActorController::Init()
+{
+	// Add Event
+	Events->AddEvent("PushBullet", new GameEvent<BulletActor*>());
+	Events->GetEvent<BulletActor*>("PushBullet")
+		->AddListen(this, &BulletActorController::PushBullet);
+}
 void BulletActorController::PushBullet(BulletActor* bullet)
 {
 	_bullets.push_back(bullet);
+
 }
 BulletActor* BulletActorController::PopBullet()
 {

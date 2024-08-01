@@ -33,7 +33,6 @@ public:
 	BehicleState GetState() { return _state; }
 
 	void ChangeDirection(eDirection dir);
-
 public:
 	void SetBehicleData(BehicleData data) { _data = data; }
 	BehicleData GetBehicleData() { return _data; }

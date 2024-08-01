@@ -53,6 +53,7 @@ void ActionButtonsPanel::Init()
 	Events->AddEvent("SetPanelState_ActionButtonsPanel", new GameEvent<ePanelState>());
 	Events->GetEvent<ePanelState>("SetPanelState_ActionButtonsPanel")
 		->AddListen(this, &ActionButtonsPanel::SetState);
+
 }
 
 void ActionButtonsPanel::Render(HDC hdc)
@@ -140,7 +141,6 @@ void ActionButtonsPanel::OnClick_GoToDelete()
 
 	GameEvent<Vector2Int>* gameEvent = Events->GetEvent<Vector2Int>("RemoveInstallPos");
 	gameEvent->Invoke(pos);
-
 	behicleController[index]->DeleteBehicle();
 	UserDatas->MakeGold(behicleController[index]->GetBehicleData().RefundGold);
 

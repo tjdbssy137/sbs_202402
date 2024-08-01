@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "BehicleController.h"
 #include "BehicleActor.h"
+#include "TowerDefenseScene.h"
 #include <queue>
 
 void BehicleController::SetLink(BehicleActor* behicle)
@@ -11,9 +12,8 @@ void BehicleController::SetLink(BehicleActor* behicle)
 }
 void BehicleController::Update()
 {
-
+	
 }
-
 void BehicleController::SettingBehicle(int id)
 {
 	_data = Datas->GetBehicleData(id);

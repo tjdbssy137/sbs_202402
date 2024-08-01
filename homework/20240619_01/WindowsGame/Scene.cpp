@@ -63,6 +63,7 @@ void Scene::SpawnActor(Actor* actor)
 {
 	if (actor == nullptr) return;
 	//actor->Init();
+
 	_actors[actor->GetLayerInt()].push_back(actor);
 	//actor의 레이어가 object면 object로 들어갈 거고, background면 background로 들어가게 끔
 }

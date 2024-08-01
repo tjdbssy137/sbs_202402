@@ -30,6 +30,7 @@ void Game::Init(HWND hwnd)
 
 	//½Ì±ÛÅæ ÃÊ±âÈ­
 	Events->Init();
+
 	Time->Init();
 	Input->Init(_hwnd);
 	GET_SINGLE(SceneManager)->Init();

@@ -6,13 +6,11 @@
 #include "Sprite.h"
 #include "Texture.h"
 #include "BulletActor.h"
-#include "BulletActorController.h"
 #include "GameWave.h"
 
 void BoatActor::Init()
 {	
 	this->SetState(_state);
-	this->SetName("Enemy");
 	_collider = new CircleCollider();
 	_collider->SetCollision(Vector2::Zero(), 10);
 	_collider->Init(); 
@@ -25,11 +23,6 @@ void BoatActor::Init()
 	// HP
 	_hpBackground = Resource->GetSprite(L"S_HP_Background"); // HP 체력바 배경
 	_bpBar = Resource->GetSprite(L"S_HP_Bar"); // HP 체력바
-
-	{
-		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
-		_bulletActorController = towerDefenseScene->GetBulletActorController();
-	}
 
 	Super::Init();
 }
@@ -227,20 +220,6 @@ void BoatActor::UpdateMove()
 		}
 		this->ChangeDirection(direction);
 		_body.pos += dirVec * _data.MoveSpeed * Time->GetDeltaTime();
-	}
-}
-
-void BoatActor::OnTriggerEnter(Collider* collider, Collider* other)
-{
-	Super::OnTriggerEnter(collider, other);
-	// triggerEnter 말고 거리로 충돌을 판단하는 것도 ㄱㅊㄱㅊ을 듯.
-	if (other->GetOwner()->GetName() == "bullet")//bullet
-	{
-		BulletActor* behicleBullet = dynamic_cast<BulletActor*>(other->GetOwner());
-		float getDamage = behicleBullet->GetBulletDamage();
-		_nextHp = _hp - getDamage;
-		behicleBullet->SetBulletState(BulletState::Done);
-		_bulletActorController->PushBullet(behicleBullet);
 	}
 }
 

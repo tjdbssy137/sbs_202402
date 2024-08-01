@@ -51,6 +51,7 @@ void TowerDefenseScene::Init()
 
 	{
 		_bulletController = new BulletActorController();
+		_bulletController->Init();
 		for (int i = 0; i < 30; i++) // ObjectPooling
 		{
 			BulletActor* bullet = new BulletActor();

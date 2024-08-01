@@ -3,7 +3,6 @@
 #include "ITilemapActor.h"
 class CircleCollider;
 class Sprite;
-class BulletActorController;
 
 enum class BoatState
 {
@@ -28,7 +27,6 @@ public:
 public: // 상속받은 인터페이스의 함수를 만들지 않으면 오류가 남.
 	virtual void SetCellPos(Vector2Int cellPos, bool teleport = false) override;
 	virtual Vector2Int GetCellPos() override;
-	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
 
 public:
 	void SetState(BoatState state) { _state = state; }
@@ -44,7 +42,6 @@ public:
 	bool CanMove();
 public:
 	float GetBoatHp() { return _hp;  }
-
 	CircleCollider* GetBoatCollider() { return _collider; }
 
 public:
@@ -61,6 +58,7 @@ public:
 
 public:
 	void UpdateHpImage(float _tempHP);
+	void OnDamage(float damage) { _nextHp = _hp - damage; }
 
 private:
 	BoatState _state = BoatState::Idle;
@@ -84,6 +82,5 @@ private:
 	Sprite* _bpBar = nullptr;
 
 private:
-	BulletActorController* _bulletActorController = nullptr;
 	BoatData _data;
 };
