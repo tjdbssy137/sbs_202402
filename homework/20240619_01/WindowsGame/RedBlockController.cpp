@@ -18,6 +18,10 @@ void RedBlockController::SetLink(RedBlockActor* block)
 	Events->GetEvent<Vector2Int>("RemoveInstallPos")
 		->AddListen(this, &RedBlockController::RemoveAlreadyInstallPos);
 
+	Events->AddEvent("ResetInstallPos", new GameEvent<>());
+	Events->GetEvent<>("ResetInstallPos")
+		->AddListen(this, &RedBlockController::RemoveAlreadyInstallPos);
+
 	Events->AddEvent("OnMouse", new GameEvent<>());
 	Events->GetEvent<>("OnMouse")
 		->AddListen(this, &RedBlockController::OnMouse);
@@ -199,4 +203,13 @@ void RedBlockController::RemoveAlreadyInstallPos(Vector2Int pos)
 	{
 		_alreadyInstallBehicle.erase(findIt);
 	}
+}
+
+void RedBlockController::RemoveAlreadyInstallPos()
+{
+	for (Vector2Int pos : _alreadyInstallBehicle)
+	{
+		pos = {};
+	}
+	_alreadyInstallBehicle.clear();
 }

@@ -10,6 +10,11 @@ void GameWave::SetLink(vector<BoatActor*> boats)
 	Events->AddEvent("SetGameWaveState", new GameEvent<GameWaveState>());
 	Events->GetEvent<GameWaveState>("SetGameWaveState")
 		->AddListen(this, &GameWave::SetGameWaveState);
+
+	// Add Event
+	Events->AddEvent("PushBoatActor", new GameEvent<BoatActor*>());
+	Events->GetEvent<BoatActor*>("PushBoatActor")
+		->AddListen(this, &GameWave::PushBoatActor);
 }
 void GameWave::Update()
 {
@@ -20,8 +25,10 @@ void GameWave::Update()
 		break;
 	case GameWaveState::Break:
 	{
+		//cout << "_boats.size() : " << _boats.size() << endl;
 		if (_boats.size() == 47)
 		{
+			_wave = UserDatas->GetWave();
 			_wave++;
 			UserDatas->SetWave(_wave);
 			_boatType = 0;
@@ -41,7 +48,7 @@ void GameWave::Update()
 void GameWave::SetWave()
 {
 	static float lastTick = ::GetTickCount64();
-	WaveData data = Datas->GetWaveData(_wave);
+	WaveData data = Datas->GetWaveData(UserDatas->GetWave());
 
 	if (_boatType < data.BoatCount.size())
 	{
@@ -80,4 +87,14 @@ void GameWave::SpawnBoat(BoatData data)
 	boat->SetActiveBoat();
 	boat->ChangeDirection(eDirection::DOWN_RIGHT); // 방향을 한번 전환 해줘야 이미지가 새로 업데이트 됨.
 	boat->SetState(BoatState::Start);
+}
+
+void GameWave::PushBoatActor(BoatActor* boat)
+{
+	auto findIt = find(_boats.begin(), _boats.end(), boat);
+	if (findIt != _boats.end())
+	{
+		return;
+	}
+	_boats.insert(_boats.begin(), boat);
 }

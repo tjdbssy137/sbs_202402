@@ -29,6 +29,8 @@ public:
 
 public:
 	void RemoveAlreadyInstallPos(Vector2Int pos);
+	void RemoveAlreadyInstallPos();
+
 	void OnMouse();
 	void OffMouse();
 private:

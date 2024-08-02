@@ -34,24 +34,6 @@ void BehicleActor::Render(HDC hdc)
 void BehicleActor::Update()
 {
 	Super::Update();
-	LookAtTarget();
-
-	// XXX : <- ÀÌ½´ À§Çè
-	switch (_state)
-	{
-	case BehicleState::Attack:
-		UpdateAttack();
-		break;
-	case BehicleState::Submarine:
-		break;
-	case BehicleState::Idle:
-		UpdateIdle();
-		break;
-	case BehicleState::None:
-		break;
-	default:
-		break;
-	}
 }
 
 void BehicleActor::Release()

@@ -18,8 +18,7 @@ void BoatController::SetLink(BoatActor* boat)
 	// Effect
 	_effect = new EffectActor();
 	_effect->Init();
-	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
-	towerDefenseScene->SpawnActor(_effect);
+	CurrentScene->SpawnActor(_effect);
 }
 void BoatController::Update()
 {
@@ -32,10 +31,10 @@ void BoatController::Update()
 		this->Arrive();
 		break;
 	case BoatState::Goal:
-		FinishedBoatState();
+		this->FinishedBoatState();
 		break;
 	case BoatState::Die:
-		DeathEffect();
+		this->DeathEffect();
 		break;
 	case BoatState::None:
 		break;
@@ -70,6 +69,7 @@ void BoatController::Arrive()
 	if (_boat->GetCellPos() == DESTPOS)
 	{
 		//cout << "도착" << endl;
+		UserDatas->AddEnterEnemyCount();
 		_boat->SetState(BoatState::Goal);
 		// 목적지에 도착하면 이 액터의 위치를 다시 시작 지점으로 재설정.
 	}
@@ -78,9 +78,9 @@ void BoatController::Arrive()
 void BoatController::FinishedBoatState()
 {
 	_boat->SetCellPos({ 54, 25 }, true);
-	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
-	towerDefenseScene->GetGameWave()->PushBoatActor(_boat);
-	UserDatas->AddEnterEnemyCount();
+
+	GameEvent<BoatActor*>* gameEvent = Events->GetEvent<BoatActor*>("PushBoatActor");
+	gameEvent->Invoke(_boat);
 
 	// state 변경
 	_boat->SetState(BoatState::None);
@@ -92,8 +92,9 @@ void BoatController::DeathEffect()
 	_effect->OnEffect(0.6f);
 
 	_boat->SetCellPos({ 54, 25 }, true);
-	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
-	towerDefenseScene->GetGameWave()->PushBoatActor(_boat);
+	GameEvent<BoatActor*>* gameEvent = Events->GetEvent<BoatActor*>("PushBoatActor");
+	gameEvent->Invoke(_boat);
+
 	UserDatas->MakeGold(_boat->GetBoatData().Gold);
 
 	_boat->SetState(BoatState::None);

@@ -51,12 +51,13 @@ void TowerDefenseStartPanel::Update()
 	{
 	case ePanelState::SHOW:
 	{
+		cout << "show" << endl;
 		for (Button* button : _buttons)
 		{
 			button->SetState(ButtonState::Default);
 		}
 		_state = ePanelState::NONE;
-
+		
 	}
 	break;
 	case ePanelState::HIDE:
@@ -84,8 +85,8 @@ void TowerDefenseStartPanel::Release()
 
 void TowerDefenseStartPanel::OnClick_GoToStart()
 {
-	TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
-	towerDefenseScene->SetGameStart(true);
+	GameEvent<> * gameEvent = Events->GetEvent<>("ResetGameData");
+	gameEvent->Invoke();
 	_state = ePanelState::HIDE;
 	this->Hide();
 }

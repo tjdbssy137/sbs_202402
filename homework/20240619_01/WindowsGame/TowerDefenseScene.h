@@ -3,7 +3,7 @@
 
 #define DESTPOS		Vector2Int{ 5, 3 }
 #define	STARTPOS	Vector2Int{ 54, 25 }
-#define GAMEOVER	12
+#define GAMEOVER	3// 12
 
 class BoatController;
 class Panel;
@@ -59,6 +59,7 @@ public:
 
 	// Game
 	void SetGameStart(bool isGameStart) { _isGameStart = isGameStart; }
+	void SetTreasure(wstring image);
 private:
 	//Actors
 	TilemapActor* _tilemapActor = nullptr;

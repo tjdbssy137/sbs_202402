@@ -12,7 +12,24 @@ void BehicleController::SetLink(BehicleActor* behicle)
 }
 void BehicleController::Update()
 {
-	
+	_behicle->LookAtTarget();
+
+	// XXX : <- ÀÌ½´ À§Çè
+	switch (_behicle->GetState())
+	{
+	case BehicleState::Attack:
+		_behicle->UpdateAttack();
+		break;
+	case BehicleState::Submarine:
+		break;
+	case BehicleState::Idle:
+		_behicle->UpdateIdle();
+		break;
+	case BehicleState::None:
+		break;
+	default:
+		break;
+	}
 }
 void BehicleController::SettingBehicle(int id)
 {

@@ -73,7 +73,7 @@ void TowerDefenseScene::Init()
 			boat->Init();
 			_boatControllers[i]->SetLink(boat);
 			this->SpawnActor(boat);
-			boat->SetCellPos(STARTPOS, true); //boat->SetCellPos({ 25 + i, 13 }, true);
+			boat->SetCellPos(STARTPOS, true);
 			_boats.push_back(boat);
 		}
 	}
@@ -142,6 +142,14 @@ void TowerDefenseScene::Init()
 
 	Super::Init();
 
+	// Add Event
+	Events->AddEvent("SetGameStart", new GameEvent<bool>());
+	Events->GetEvent<bool>("SetGameStart")
+		->AddListen(this, &TowerDefenseScene::SetGameStart);
+
+	Events->AddEvent("SetTreasure", new GameEvent<wstring>());
+	Events->GetEvent<wstring>("SetTreasure")
+		->AddListen(this, &TowerDefenseScene::SetTreasure);
 }
 void TowerDefenseScene::Render(HDC hdc)
 {
@@ -194,12 +202,33 @@ void TowerDefenseScene::Release()
 
 void TowerDefenseScene::EnterEnemyCheck()
 {
-	if (GAMEOVER < UserDatas->GetEnterEnemy())
+	if (_isGameStart == false)
 	{
-		_treasure->SetSprite(Resource->GetSprite(L"S_Treasure_Opened"));
-		// 게임 끝나는 pannel을 띄우기.
+		return;
+	}
+	if (GAMEOVER <= UserDatas->GetEnterEnemy()) // 이거 살릴지 말지 고려해봐야겠음.
+	{
+		SetTreasure(L"S_Treasure_Opened");
+		this->SetGameStart(false);
+		_towerDefenseStartPanel->SetState(ePanelState::SHOW);
+		_towerDefenseStartPanel->Show();
+		for (BoatController* boatController : _boatControllers)
+		{
+			boatController->FinishedBoatState();
+			// 47번을 돌아서 이미 vector에 있는 애들도 다시 넣어짐. -> 고침
+		}
+		for (BehicleController* behicleController : _behicleControllers)
+		{
+			behicleController->DeleteBehicle(); // despawn을 하고 싶음.
+		}
 	}
 }
+
+void TowerDefenseScene::SetTreasure(wstring image)
+{ 
+	_treasure->SetSprite(Resource->GetSprite(image)); 
+}
+
 
 void TowerDefenseScene::LoadResource()
 {

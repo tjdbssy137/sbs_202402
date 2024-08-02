@@ -18,7 +18,11 @@ public:
 	void AddEnterEnemyCount() { _enterEnemy++; };
 	int GetEnterEnemy() { return _enterEnemy; };
 
+public:
+	void ResetGameData();
+
 private:
+
 	int _wave = 1;
 	int _gold = 120;
 	int _enterEnemy = 0;
