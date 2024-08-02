@@ -1,5 +1,7 @@
 #pragma once
 class BehicleActor;
+class BoatActor;
+class BulletActorController;
 
 class BehicleController
 {
@@ -10,6 +12,9 @@ public:
 	void Update();
 
 public:
+	void UpdateAttack();
+	void UpdateIdle();
+	void UseBullet();
 	void SettingBehicle(int id);
 	void DeleteBehicle();
 public:
@@ -17,4 +22,10 @@ public:
 
 private:
 	BehicleData _data;
+	vector<BoatActor*> _boats;
+	BoatActor* _targetBoat = nullptr;
+	BulletActorController* _bulletActorController = nullptr;
+	float _attackCoolDown;
+
+
 };

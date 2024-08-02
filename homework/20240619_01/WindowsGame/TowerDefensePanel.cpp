@@ -130,17 +130,11 @@ void TowerDefensePanel::SetInstallInfoText(BehicleData data, float textTimer)
 void TowerDefensePanel::SetUpgradeInfoText(BehicleData data, float textTimer)
 {
 	_textTimer = textTimer;
-	if (data.Id < 7)
+	if (data.UpgradeTowerId != 10000)
 	{
 		wchar_t str[50];
 		swprintf_s(str, L"Gold %d | Attack Speed %.f | Damage %.f",
 			data.UpgradeGold, data.BulletSpeed, data.BulletDamage);
-		_infoLabel->SetText(wstring(str));
-	}
-	else
-	{
-		wchar_t str[20];
-		swprintf_s(str, L"업그레이드 불가");
 		_infoLabel->SetText(wstring(str));
 	}
 }

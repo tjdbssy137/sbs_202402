@@ -3,9 +3,6 @@
 #include "TowerDefenseScene.h"
 #include "CircleCollider.h"
 #include "BoatActor.h"
-#include "BulletActor.h"
-#include "BulletActorController.h"
-#include "BehicleController.h"
 
 void BehicleActor::Init()
 {
@@ -20,11 +17,6 @@ void BehicleActor::Init()
 
 	this->AddComponent(_collider);
 
-	{
-		TowerDefenseScene* towerDefenseScene = static_cast<TowerDefenseScene*>(CurrentScene);
-		_bulletActorController = towerDefenseScene->GetBulletActorController();
-		_boats = towerDefenseScene->GetBoatActor();
-	}
 	Super::Init();
 }
 void BehicleActor::Render(HDC hdc)
@@ -44,7 +36,7 @@ void BehicleActor::SetActiveBehicle()
 {
 	wstring direction[eDirection::END]
 		= { L"Down", L"Left", L"Right", L"Up", L"DownNLeft", L"DownNRight", L"UpNLeft", L"UpNRight" };
-	
+	cout << _data.Name << endl;
 	wstring name = wstring().assign(_data.Name.begin(), _data.Name.end());
 	for (int i = 0; i < eDirection::END; i++)
 	{
@@ -73,52 +65,18 @@ void BehicleActor::ChangeDirection(eDirection dir)
 	this->SetFlipbook(_idleFlipbook[_dir]);
 }
 
-void BehicleActor::UpdateIdle()
-{
-	//범위 안에 들어오면 공격을 실행할거다.
-	for (BoatActor* boat : _boats)
-	{
-		// 공격하기로 결정했을 때 내 바운더리 안에 있으면 공격.
-		if (Collision::CircleInCircle(this->GetPos(), _collider->GetRadius(),
-			boat->GetPos(), boat->GetBoatCollider()->GetRadius()))
-		{
-			_targetBoat = boat;
-			if (_targetBoat->GetBoatHp() <= 0)
-			{
-				continue;
-			}
-			
-			if (_data.Id != 7)
-			{
-				_state = BehicleState::Attack;
-			}
-			else
-			{
-				_state = BehicleState::Submarine; //return;
-			}
-		}
-	};
-}
-
-void BehicleActor::UpdateAttack()
-{
-	_time -= Time->GetDeltaTime();
-	//static float lastTick = ::GetTickCount64(); //모든 호출에서 공유
-	//float currentTick = ::GetTickCount64();
-	if (_time <= 0) // AttackTime마다 한번씩 공격할말을 결정
-	{
-		UseBullet();
-		_time = _data.AttackTime;
-	}
-}
-
 void BehicleActor::LookAtTarget() // target을 바라보기
 {
+	
+	if (this == nullptr)
+	{
+		return;
+	}
 	if (_targetBoat == nullptr)
 	{
 		return;
 	}
-	
+
 	Vector2 dirVec = _targetBoat->GetPos() - this->GetPos();
 
 	if (50 + (_data.ColliderSize * _data.ColliderSize) < dirVec.LengthSqrt()) // 일정 거리 이상 넘어가면 포기
@@ -167,32 +125,6 @@ void BehicleActor::LookAtTarget() // target을 바라보기
 	}
 
 	this->ChangeDirection(direction);
-}
-void BehicleActor::UseBullet()
-{
-	if (_bulletActorController->BulletCount() < 1) // 씬에서 생성하고 꺼내 쓰기 -> 이미 BulletActorController 여기서 하고 있음
-	{
-		BulletActor* bullet = new BulletActor();
-		bullet->SetLayer(LayerType::Object);
-		bullet->SetPos(this->GetPos());
-		bullet->Init();
-		CurrentScene->SpawnActor(bullet);
-		bullet->SetBulletDamage(_data.BulletDamage);
-		bullet->SetBulletSpeed(_data.BulletSpeed);
-
-		bullet->SetATarget(_targetBoat);
-		GameEvent<BulletActor*>* gePushBullet = Events->GetEvent<BulletActor*>("PushBullet");
-		gePushBullet->Invoke(bullet);
-	}
-	else
-	{
-		BulletActor* bullet = _bulletActorController->PopBullet();
-		bullet->SetPos(this->GetPos());
-		bullet->SetBulletDamage(_data.BulletDamage);
-		bullet->SetBulletSpeed(_data.BulletSpeed);
-		bullet->SetATarget(_targetBoat);
-	}
-	_state = BehicleState::Idle;
 }
 
 void BehicleActor::SetCellPos(Vector2Int cellPos, bool teleport)

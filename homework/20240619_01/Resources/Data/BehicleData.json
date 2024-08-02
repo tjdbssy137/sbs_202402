@@ -82,5 +82,17 @@
     "upgradeTowerId": 10000,
     "upgradeGold": 10000,
     "refundGold": 16
+  },
+  {
+    "id": 10000,
+    "name": "",
+    "bulletDamage": 0,
+    "bulletSpeed": 0,
+    "attackTime": 0,
+    "colliderSize": 0,
+    "installGold": 0,
+    "upgradeTowerId": 10000,
+    "upgradeGold": 10000,
+    "refundGold": 0
   }
 ]

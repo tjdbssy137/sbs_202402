@@ -49,7 +49,7 @@ public:
 	// Actor
 	vector<BoatActor*> GetBoatActor() { return _boats; }
 	vector<BehicleActor*> GetBehicleActor() { return _behicles; }
-	void SetBehicleActor(BehicleActor* behicles) { _behicles.push_back(behicles); }
+	void SetBehicleActor(BehicleActor* behicle) { _behicles.push_back(behicle); }
 
 	//Panel
 	GameStatePanel* GetGameStateController() { return _gameStatePanel; }

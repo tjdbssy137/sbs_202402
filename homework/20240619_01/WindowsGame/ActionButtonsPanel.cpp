@@ -106,9 +106,12 @@ void ActionButtonsPanel::OnClick_GoToUpgrade()
 	
 	BehicleData data = behicleController[index]->GetBehicleData();
 
-	if (data.Id == Datas->GetBehicleData(7).Id) // 잠수함일 경우 업그레이드 안 됨.
+	if (data.UpgradeTowerId == 10000) // 잠수함일 경우 업그레이드 안 됨.
 	{
-		// 업데이트가 안된다는 문구 삽입
+		GameEvent<wstring, float>* geTimerText = Events->GetEvent<wstring, float>("TimerText");
+		geTimerText->Invoke(L"더 이상 업그레이드가 되지 않습니다.", 0.6f);
+		_state = ePanelState::HIDE;
+		this->Hide();
 		return;
 	}
 

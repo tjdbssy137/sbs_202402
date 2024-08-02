@@ -4,7 +4,6 @@
 class Flipbook; 
 class CircleCollider;
 class BoatActor;
-class BulletActorController;
 
 enum class BehicleState
 {
@@ -29,21 +28,20 @@ public: // 상속받은 인터페이스의 함수를 만들지 않으면 오류가 남.
 	virtual Vector2Int GetCellPos() override;
 
 public:
+	void ChangeDirection(eDirection dir);
+
+public:
 	void SetState(BehicleState state) { _state = state; }
 	BehicleState GetState() { return _state; }
 
-	void ChangeDirection(eDirection dir);
-public:
 	void SetBehicleData(BehicleData data) { _data = data; }
 	BehicleData GetBehicleData() { return _data; }
 
-public:
-	void UpdateAttack();
-	void UpdateIdle();
+	void SetTargetBoat(BoatActor* targetBoat) { _targetBoat = targetBoat; }
+	CircleCollider* GetCollider() { return _collider; }
 
 public:
 	void LookAtTarget();
-	void UseBullet();
 	void SetActiveBehicle();
 
 private:
@@ -57,10 +55,7 @@ private:
 
 private:
 	CircleCollider* _collider = nullptr;
-	float _time;
-	vector<BoatActor*> _boats;
 	BoatActor* _targetBoat = nullptr;
-	BulletActorController* _bulletActorController = nullptr;
 
 	BehicleData _data; // data를 처음부터 갖고 시작.
 };
