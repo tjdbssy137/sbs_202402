@@ -11,7 +11,7 @@ void main() {
 		cout << "숫자를 입력해보세요 : ";
 		cin >> _input;
 		if (_input > _random) cout << "down" << endl;
-		else if (_input < _random)  coaut << "up" << endl;
+		else if (_input < _random)  cout << "up" << endl;
 		else 
 		{
 			cout << "정답은 " << _random << "이었습니다.";

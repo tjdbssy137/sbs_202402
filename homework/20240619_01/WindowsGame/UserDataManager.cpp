@@ -15,7 +15,7 @@ void UserDataManager::Release()
 void UserDataManager::ResetGameData()
 {
 	_wave = 1;
-	_gold = 120;
+	_gold = 200;
 	_enterEnemy = 0;
 
 	GameEvent<bool>* geSetGameStart = Events->GetEvent<bool>("SetGameStart");
